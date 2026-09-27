@@ -32,7 +32,7 @@ That's it. Claude handles the rest. When it finishes you'll have 19 slash comman
 
 ### **Optional: 6 Hostinger MCP Servers**
 
-A ready-made `.mcp.json` that lets Claude deploy sites, manage domains and DNS, and drive your VPS on Hostinger. See [Optional: Hostinger MCP Servers](#optional-hostinger-mcp-servers).
+Deploy sites, manage domains and DNS, and drive your VPS on Hostinger. Ships as `.mcp.json` in this repo (Quick Install does not copy it) — see [Optional: Hostinger MCP Servers](#optional-hostinger-mcp-servers) for the copy-paste user-scope setup.
 
 ---
 
@@ -199,31 +199,40 @@ Ship what you generate. This repo includes a `.mcp.json` that connects Claude Co
 
 > Tool counts are from `@hostinger/mcp` 1.63.4. All six run locally over stdio via `npx --package=@hostinger/mcp@latest`, so there is nothing to install beyond Node.js 20+.
 
-### **Setup**
+### **Step 1 — Get a Token**
 
-1. **Create an API token** in hPanel: [Profile → Account Information → API](https://hpanel.hostinger.com/profile/api) → **Generate new token**. Copy it — it is shown only once.
-2. **Export it** in the shell you launch Claude Code from (add the line to `~/.zshrc` or `~/.bashrc` to make it permanent):
-   ```bash
-   export HOSTINGER_API_TOKEN=your-token-here
-   ```
-3. **Open Claude Code in this folder** and approve the project MCP servers when prompted.
-4. **Run `/mcp`** — all six `hostinger-*` servers should show as connected.
-
-The token never lives in the repo. `.mcp.json` references it as `${HOSTINGER_API_TOKEN:-}`, which Claude Code expands from your environment at launch. If the variable is unset, the servers fall back to a one-time browser OAuth sign-in on the first Hostinger tool call, and the credentials are shared across all six.
-
-### **Use Them in Every Project**
-
-Register the servers at user scope so they follow you outside this folder:
+Create an API token in hPanel: [Profile → Account Information → API](https://hpanel.hostinger.com/profile/api) → **Generate new token**. Copy it — it is shown only once. Then export it in the shell you launch Claude Code from (add the line to `~/.zshrc` or `~/.bashrc` to make it permanent):
 
 ```bash
-claude mcp add --scope user --env HOSTINGER_API_TOKEN=your-token-here hostinger-hosting -- npx --package=@hostinger/mcp@latest hostinger-hosting-mcp
+export HOSTINGER_API_TOKEN=your-token-here
 ```
 
-Repeat for `domains`, `dns`, `billing`, `reach`, and `vps`, changing both the server name and the binary.
+The token never lives in a config file. Both setups below reference it as `${HOSTINGER_API_TOKEN:-}`, which Claude Code expands from your environment when it starts the servers. If the variable is unset, the servers fall back to a one-time browser OAuth sign-in on the first Hostinger tool call, and the credentials are shared across all six. A `.env` file is **not** picked up here — export the variable instead.
+
+### **Step 2 — Register the Servers**
+
+Pick one:
+
+**Option A — Project scope (inside a clone of this repo).** Claude Code only loads `.mcp.json` from the folder you launch it in, and Quick Install copies just the skill folders. So this option applies when you `git clone` this repo and work inside it, or copy `.mcp.json` into your own project root. Run `claude` there, approve the project MCP servers when prompted, then run `/mcp` — all six `hostinger-*` servers should show as connected.
+
+**Option B — User scope (any project, recommended after Quick Install).** Register the servers once and they follow you everywhere:
+
+```bash
+claude mcp add --scope user hostinger-hosting --env 'HOSTINGER_API_TOKEN=${HOSTINGER_API_TOKEN:-}' --env API_TOKEN= --env APITOKEN= -- npx --package=@hostinger/mcp@latest hostinger-hosting-mcp
+claude mcp add --scope user hostinger-domains --env 'HOSTINGER_API_TOKEN=${HOSTINGER_API_TOKEN:-}' --env API_TOKEN= --env APITOKEN= -- npx --package=@hostinger/mcp@latest hostinger-domains-mcp
+claude mcp add --scope user hostinger-dns --env 'HOSTINGER_API_TOKEN=${HOSTINGER_API_TOKEN:-}' --env API_TOKEN= --env APITOKEN= -- npx --package=@hostinger/mcp@latest hostinger-dns-mcp
+claude mcp add --scope user hostinger-billing --env 'HOSTINGER_API_TOKEN=${HOSTINGER_API_TOKEN:-}' --env API_TOKEN= --env APITOKEN= -- npx --package=@hostinger/mcp@latest hostinger-billing-mcp
+claude mcp add --scope user hostinger-reach --env 'HOSTINGER_API_TOKEN=${HOSTINGER_API_TOKEN:-}' --env API_TOKEN= --env APITOKEN= -- npx --package=@hostinger/mcp@latest hostinger-reach-mcp
+claude mcp add --scope user hostinger-vps --env 'HOSTINGER_API_TOKEN=${HOSTINGER_API_TOKEN:-}' --env API_TOKEN= --env APITOKEN= -- npx --package=@hostinger/mcp@latest hostinger-vps-mcp
+```
+
+Keep the single quotes: Claude Code expands `${HOSTINGER_API_TOKEN:-}` itself at launch, so the token is stored nowhere. Restart Claude Code and run `/mcp` to confirm.
+
+> **Why the blank `API_TOKEN` and `APITOKEN`?** Hostinger's servers also accept those deprecated names, and Claude Code passes your whole shell environment to local MCP servers. Blanking them guarantees that an unrelated `API_TOKEN` exported for some other tool is never sent to Hostinger. `.mcp.json` does the same.
 
 ### **Other MCP Clients**
 
-For Claude Desktop, Cursor, or any client that reads an `mcpServers` block, paste this into its config and replace `your-token-here`:
+For Claude Desktop, Cursor, or any client that reads an `mcpServers` block, paste this into the client's **user-level** config (not a file you commit) and replace `your-token-here`:
 
 ```json
 {
@@ -320,9 +329,9 @@ document.execCommand('delete');
 | Lexical editor won't accept typed text | Use `slowly: true`. The Lexical editor needs keypress events |
 | Image prompt bar missing | Intermittent platform bug. Refresh the page |
 | Not logged in | Log in manually in the Playwright browser window |
-| Hostinger servers show `⏸ Pending approval` or are missing from `/mcp` | Run `claude` from the repo folder and accept the project MCP servers when prompted; `claude mcp list` shows their status |
-| Hostinger tools fail with `401` | The token is wrong, expired, or not exported in the shell that launched Claude Code. Regenerate it in hPanel and `export HOSTINGER_API_TOKEN=...` |
-| A browser opens asking you to sign in to Hostinger | `HOSTINGER_API_TOKEN` is unset, so the server is using OAuth. Sign in once, or export the token to skip it |
+| Hostinger servers show `⏸ Pending approval` or are missing from `/mcp` | Project scope only works inside a clone of this repo: run `claude` there and accept the servers when prompted. If you declined earlier, run `claude mcp reset-project-choices` in that folder and start `claude` again. Otherwise register them at user scope (Option B) |
+| Hostinger tools fail with `401` | The token is wrong or expired. Generate a new one in hPanel and update `HOSTINGER_API_TOKEN` |
+| A browser opens asking you to sign in to Hostinger | `HOSTINGER_API_TOKEN` is unset in the shell that launched Claude Code, so the server is using OAuth. Sign in once, or export the token in that shell to skip it |
 
 ---
 

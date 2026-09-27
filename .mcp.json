@@ -3,32 +3,56 @@
     "hostinger-hosting": {
       "command": "npx",
       "args": ["--package=@hostinger/mcp@latest", "hostinger-hosting-mcp"],
-      "env": { "HOSTINGER_API_TOKEN": "${HOSTINGER_API_TOKEN:-}" }
+      "env": {
+        "HOSTINGER_API_TOKEN": "${HOSTINGER_API_TOKEN:-}",
+        "API_TOKEN": "",
+        "APITOKEN": ""
+      }
     },
     "hostinger-domains": {
       "command": "npx",
       "args": ["--package=@hostinger/mcp@latest", "hostinger-domains-mcp"],
-      "env": { "HOSTINGER_API_TOKEN": "${HOSTINGER_API_TOKEN:-}" }
+      "env": {
+        "HOSTINGER_API_TOKEN": "${HOSTINGER_API_TOKEN:-}",
+        "API_TOKEN": "",
+        "APITOKEN": ""
+      }
     },
     "hostinger-dns": {
       "command": "npx",
       "args": ["--package=@hostinger/mcp@latest", "hostinger-dns-mcp"],
-      "env": { "HOSTINGER_API_TOKEN": "${HOSTINGER_API_TOKEN:-}" }
+      "env": {
+        "HOSTINGER_API_TOKEN": "${HOSTINGER_API_TOKEN:-}",
+        "API_TOKEN": "",
+        "APITOKEN": ""
+      }
     },
     "hostinger-billing": {
       "command": "npx",
       "args": ["--package=@hostinger/mcp@latest", "hostinger-billing-mcp"],
-      "env": { "HOSTINGER_API_TOKEN": "${HOSTINGER_API_TOKEN:-}" }
+      "env": {
+        "HOSTINGER_API_TOKEN": "${HOSTINGER_API_TOKEN:-}",
+        "API_TOKEN": "",
+        "APITOKEN": ""
+      }
     },
     "hostinger-reach": {
       "command": "npx",
       "args": ["--package=@hostinger/mcp@latest", "hostinger-reach-mcp"],
-      "env": { "HOSTINGER_API_TOKEN": "${HOSTINGER_API_TOKEN:-}" }
+      "env": {
+        "HOSTINGER_API_TOKEN": "${HOSTINGER_API_TOKEN:-}",
+        "API_TOKEN": "",
+        "APITOKEN": ""
+      }
     },
     "hostinger-vps": {
       "command": "npx",
       "args": ["--package=@hostinger/mcp@latest", "hostinger-vps-mcp"],
-      "env": { "HOSTINGER_API_TOKEN": "${HOSTINGER_API_TOKEN:-}" }
+      "env": {
+        "HOSTINGER_API_TOKEN": "${HOSTINGER_API_TOKEN:-}",
+        "API_TOKEN": "",
+        "APITOKEN": ""
+      }
     }
   }
 }
