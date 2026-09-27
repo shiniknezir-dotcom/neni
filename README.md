@@ -30,6 +30,10 @@ That's it. Claude handles the rest. When it finishes you'll have 19 slash comman
 | **Commercial** | `/06-motion-design-ad`, `/07-ecommerce-ad`, `/09-product-360`, `/11-social-hook`, `/12-brand-story` | 5 marketing-focused prompt generators |
 | **Industry** | `/10-music-video`, `/13-fashion-lookbook`, `/14-food-beverage`, `/15-real-estate` | 4 vertical-specific prompt generators |
 
+### **Optional: 6 Hostinger MCP Servers**
+
+A ready-made `.mcp.json` that lets Claude deploy sites, manage domains and DNS, and drive your VPS on Hostinger. See [Optional: Hostinger MCP Servers](#optional-hostinger-mcp-servers).
+
 ---
 
 ## **The UGC Pipeline**
@@ -180,6 +184,88 @@ Add a `CLAUDE.md` to your project root for persistent settings across sessions:
 
 ---
 
+## **Optional: Hostinger MCP Servers**
+
+Ship what you generate. This repo includes a `.mcp.json` that connects Claude Code to your Hostinger account through six [official Hostinger MCP servers](https://github.com/hostinger/api-mcp-server), so Claude can deploy landing pages, point domains, edit DNS, and manage the VPS that hosts your finished ads — without leaving the terminal.
+
+| Server | Tools | What It Covers |
+|---|---|---|
+| `hostinger-hosting` | 74 | Websites, static / Node.js / WordPress deploys, files, databases, cron jobs, SSL, redirects, PHP settings |
+| `hostinger-domains` | 41 | Availability checks, name suggestions, purchase, transfers, nameservers, forwarding, WHOIS profiles |
+| `hostinger-dns` | 8 | DNS records, validation, snapshots and restore |
+| `hostinger-billing` | 9 | Catalog, orders, subscriptions, auto-renewal, payment methods |
+| `hostinger-reach` | 52 | Reach email marketing — contacts, segments, tags, campaigns, automations, templates |
+| `hostinger-vps` | 64 | Virtual machines, snapshots, backups, firewall, SSH keys, Docker projects, monitoring |
+
+> Tool counts are from `@hostinger/mcp` 1.63.4. All six run locally over stdio via `npx --package=@hostinger/mcp@latest`, so there is nothing to install beyond Node.js 20+.
+
+### **Setup**
+
+1. **Create an API token** in hPanel: [Profile → Account Information → API](https://hpanel.hostinger.com/profile/api) → **Generate new token**. Copy it — it is shown only once.
+2. **Export it** in the shell you launch Claude Code from (add the line to `~/.zshrc` or `~/.bashrc` to make it permanent):
+   ```bash
+   export HOSTINGER_API_TOKEN=your-token-here
+   ```
+3. **Open Claude Code in this folder** and approve the project MCP servers when prompted.
+4. **Run `/mcp`** — all six `hostinger-*` servers should show as connected.
+
+The token never lives in the repo. `.mcp.json` references it as `${HOSTINGER_API_TOKEN:-}`, which Claude Code expands from your environment at launch. If the variable is unset, the servers fall back to a one-time browser OAuth sign-in on the first Hostinger tool call, and the credentials are shared across all six.
+
+### **Use Them in Every Project**
+
+Register the servers at user scope so they follow you outside this folder:
+
+```bash
+claude mcp add --scope user --env HOSTINGER_API_TOKEN=your-token-here hostinger-hosting -- npx --package=@hostinger/mcp@latest hostinger-hosting-mcp
+```
+
+Repeat for `domains`, `dns`, `billing`, `reach`, and `vps`, changing both the server name and the binary.
+
+### **Other MCP Clients**
+
+For Claude Desktop, Cursor, or any client that reads an `mcpServers` block, paste this into its config and replace `your-token-here`:
+
+```json
+{
+  "mcpServers": {
+    "hostinger-hosting": {
+      "command": "npx",
+      "args": ["--package=@hostinger/mcp@latest", "hostinger-hosting-mcp"],
+      "env": { "HOSTINGER_API_TOKEN": "your-token-here" }
+    },
+    "hostinger-domains": {
+      "command": "npx",
+      "args": ["--package=@hostinger/mcp@latest", "hostinger-domains-mcp"],
+      "env": { "HOSTINGER_API_TOKEN": "your-token-here" }
+    },
+    "hostinger-dns": {
+      "command": "npx",
+      "args": ["--package=@hostinger/mcp@latest", "hostinger-dns-mcp"],
+      "env": { "HOSTINGER_API_TOKEN": "your-token-here" }
+    },
+    "hostinger-billing": {
+      "command": "npx",
+      "args": ["--package=@hostinger/mcp@latest", "hostinger-billing-mcp"],
+      "env": { "HOSTINGER_API_TOKEN": "your-token-here" }
+    },
+    "hostinger-reach": {
+      "command": "npx",
+      "args": ["--package=@hostinger/mcp@latest", "hostinger-reach-mcp"],
+      "env": { "HOSTINGER_API_TOKEN": "your-token-here" }
+    },
+    "hostinger-vps": {
+      "command": "npx",
+      "args": ["--package=@hostinger/mcp@latest", "hostinger-vps-mcp"],
+      "env": { "HOSTINGER_API_TOKEN": "your-token-here" }
+    }
+  }
+}
+```
+
+> **Don't need all six?** `hostinger-api-mcp` from the same package bundles every tool into one server, and Hostinger also runs a hosted remote server: `claude mcp add --transport http hostinger https://mcp.hostinger.com`. More groups — `mail`, `wordpress`, `ecommerce`, `horizons`, `agency-hosting` — follow the same `hostinger-<group>-mcp` pattern.
+
+---
+
 ## **Technical Details**
 
 ### **How Image → Video Works**
@@ -234,6 +320,9 @@ document.execCommand('delete');
 | Lexical editor won't accept typed text | Use `slowly: true`. The Lexical editor needs keypress events |
 | Image prompt bar missing | Intermittent platform bug. Refresh the page |
 | Not logged in | Log in manually in the Playwright browser window |
+| Hostinger servers show `⏸ Pending approval` or are missing from `/mcp` | Run `claude` from the repo folder and accept the project MCP servers when prompted; `claude mcp list` shows their status |
+| Hostinger tools fail with `401` | The token is wrong, expired, or not exported in the shell that launched Claude Code. Regenerate it in hPanel and `export HOSTINGER_API_TOKEN=...` |
+| A browser opens asking you to sign in to Hostinger | `HOSTINGER_API_TOKEN` is unset, so the server is using OAuth. Sign in once, or export the token to skip it |
 
 ---
 
