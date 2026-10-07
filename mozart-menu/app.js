@@ -3,6 +3,8 @@
   'use strict';
   const DATA = window.MOZART_MENU;
   if (!DATA) return;
+  // Language shown first after scanning the QR code. A guest's own choice (toggle) is remembered on their phone.
+  const DEFAULT_LANG = 'en';
 
   const UI = {
     de: { menu: 'Speisekarte', sizes: {}, euro: '€' },
@@ -38,8 +40,7 @@
     const h = (location.hash || '').replace('#', '').toLowerCase();
     if (h === 'en' || h === 'de') return h;
     try { const s = localStorage.getItem('mozart-lang'); if (s === 'en' || s === 'de') return s; } catch (e) { /* storage blocked */ }
-    const nav = (navigator.languages && navigator.languages[0]) || navigator.language || 'de';
-    return /^de/i.test(nav) ? 'de' : 'en';
+    return DEFAULT_LANG;
   }
   function setLang(lang, persist) {
     root.setAttribute('data-lang', lang);

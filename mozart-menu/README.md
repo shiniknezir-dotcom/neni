@@ -58,6 +58,8 @@ Keep a quiet zone (light margin) around the code and never print it smaller than
 
 ## Change prices or dishes
 
+The menu opens in **English** first; guests switch to German with the EN | DE toggle, and their choice is remembered on their phone. To open in German instead, change `DEFAULT_LANG` at the top of `app.js` to `'de'`.
+
 Open `menu-data.js` in any text editor. Each dish looks like this:
 
 ```js
