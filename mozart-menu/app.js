@@ -8,7 +8,7 @@
 
   const UI = {
     de: { menu: 'Speisekarte', sizes: {}, euro: '€' },
-    en: { menu: 'Menu', sizes: { Flasche: 'bottle', Kännchen: 'pot', Glas: 'glass', klein: 'small', groß: 'large', Tasse: 'cup', Stück: 'piece' }, euro: '€' },
+    en: { menu: 'Menu', sizes: { flasche: 'bottle', kännchen: 'small pot', glas: 'glass', klein: 'small', groß: 'large', gross: 'large', tasse: 'cup', stück: 'piece', normal: 'regular', ausschank: 'by the glass' }, euro: '€' },
   };
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const txt = (v, lang) => (v && typeof v === 'object') ? (v[lang] || v.de || '') : (v || '');
@@ -25,12 +25,15 @@
     const s = num.toFixed(2);
     return (lang === 'de' ? s.replace('.', ',') : s) + ' €';
   };
+  // "klein 0,3l" → de: "klein 0,3 l" / en: "small 0.3 l"; every German word in a size label is translated separately
   const fmtSize = (sz, lang) => {
     if (!sz) return '';
-    if (lang === 'de') return sz.replace(/(\d)([a-z])/i, '$1 $2');
-    const m = UI.en.sizes[sz];
-    if (m) return m;
-    return sz.replace(',', '.').replace(/(\d)([a-z])/i, '$1 $2');
+    const volume = (v) => (lang === 'de' ? v : v.replace(',', '.')).replace(/(\d)([a-z]+)$/i, '$1\u00a0$2');
+    return String(sz).trim().split(/\s+/).map((w) => {
+      if (/^\d+([.,]\d+)?[a-z]*$/i.test(w)) return volume(w);
+      if (lang === 'de') return w;
+      return UI.en.sizes[w.toLowerCase()] || w;
+    }).join(' ');
   };
   const codesHTML = (codes) => codes ? `<sup class="codes" role="button" tabindex="0" data-codes="${esc(codes)}" title="Allergene / Allergens">${esc(codes)}</sup>` : '';
 
