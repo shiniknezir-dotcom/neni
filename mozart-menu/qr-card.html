@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mozart – QR-Tischkarte / QR table card</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Nunito:wght@600;700;800&display=swap">
+<style>
+  /* Print sheet: A6 portrait table card (105 × 148 mm) + 60 mm square sticker. Print at 100 %, no scaling. */
+  :root { --plum: #13070b; --cream: #f4ecdc; --gold: #d4ad5f; --wine: #8b2e3f; --sand: #d9c3b0; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: #fff; font-family: "Nunito", system-ui, sans-serif; color: var(--cream); }
+  @page { size: A6 portrait; margin: 0; }
+  .page { width: 105mm; height: 148mm; position: relative; overflow: hidden; background: var(--plum); page-break-after: always; }
+  .card { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 9mm 8mm 8mm; text-align: center; }
+  .arc { position: absolute; right: -40mm; top: -30mm; width: 120mm; height: 120mm; border-radius: 50%; background: var(--wine); opacity: .35; }
+  .arc2 { position: absolute; right: -33mm; top: -36mm; width: 120mm; height: 120mm; border-radius: 50%; background: var(--plum); }
+  .card > * { position: relative; }
+  .logo { width: 62mm; margin-top: 2mm; }
+  h1 { font-family: "Caveat", cursive; font-weight: 700; font-size: 30pt; line-height: 1; margin: 1mm 0 0; color: var(--cream); }
+  h1 small { display: block; font-size: 16pt; color: var(--sand); margin-top: 1mm; }
+  .qr { background: var(--cream); border-radius: 5mm; padding: 3.5mm; box-shadow: 0 3mm 10mm rgba(0,0,0,.45); }
+  .qr img { width: 50mm; height: 50mm; display: block; }
+  .scan { font-size: 10.5pt; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); margin: 3mm 0 0; }
+  .scan span { display: block; font-size: 8.5pt; font-weight: 600; letter-spacing: .08em; color: var(--sand); margin-top: 1mm; }
+  .lang { display: inline-flex; gap: 2mm; margin-top: 2.5mm; }
+  .lang b { font-size: 7.5pt; font-weight: 800; letter-spacing: .1em; border: 1px solid var(--gold); color: var(--cream); border-radius: 99px; padding: 1mm 3mm; }
+  .foot { font-size: 7pt; color: var(--sand); letter-spacing: .04em; }
+  /* sticker */
+  .sticker-page { width: 105mm; height: 148mm; background: #fff; display: flex; align-items: center; justify-content: center; page-break-after: always; }
+  .sticker { width: 60mm; height: 60mm; border-radius: 6mm; background: var(--plum); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2mm; outline: 0.3mm dashed #bbb; outline-offset: 1.5mm; }
+  .sticker img.l { width: 30mm; }
+  .sticker .q { background: var(--cream); border-radius: 2.5mm; padding: 1.6mm; }
+  .sticker .q img { width: 30mm; height: 30mm; display: block; }
+  .sticker .t { font-size: 6.5pt; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); }
+  @media screen { body { background: #777; padding: 10mm; } .page, .sticker-page { margin: 0 auto 10mm; box-shadow: 0 4mm 16mm rgba(0,0,0,.4); } }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="arc"></div><div class="arc2"></div>
+    <div class="card">
+      <img class="logo" src="assets/logo-full.png" alt="Mozart café · bistro · bar">
+      <h1>Speisekarte<small>Menu</small></h1>
+      <div class="qr"><img src="qr/mozart-menu-qr.png" alt="QR code"></div>
+      <div>
+        <p class="scan">Einfach scannen<span>Scan for our menu</span></p>
+        <div class="lang"><b>DEUTSCH</b><b>ENGLISH</b></div>
+      </div>
+      <p class="foot">Theaterstr. 21 · 97070 Würzburg · täglich 9 – 23 Uhr</p>
+    </div>
+  </div>
+  <div class="sticker-page">
+    <div class="sticker">
+      <img class="l" src="assets/logo-wordmark.png" alt="Mozart">
+      <div class="q"><img src="qr/mozart-menu-qr.png" alt="QR code"></div>
+      <div class="t">Speisekarte · Menu</div>
+    </div>
+  </div>
+</body>
+</html>
