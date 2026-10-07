@@ -63,8 +63,11 @@
     }).join('');
     let priceHTML = '';
     if (multi) {
-      priceHTML = '<div class="price">' + prices.map((p) =>
-        `<span>${p.size ? `<span class="sz">${bi({ de: fmtSize(p.size, 'de'), en: fmtSize(p.size, 'en') })}</span>` : ''}<span class="amt">${bi({ de: fmtPrice(p.price, 'de'), en: fmtPrice(p.price, 'en') })}</span></span>`).join('') + '</div>';
+      const anySize = prices.some((p) => p.size);
+      priceHTML = '<div class="price">' + prices.map((p) => {
+        const sz = p.size ? { de: fmtSize(p.size, 'de'), en: fmtSize(p.size, 'en') } : (anySize ? { de: 'normal', en: 'regular' } : null);
+        return `<span>${sz ? `<span class="sz">${bi(sz)}</span>` : ''}<span class="amt">${bi({ de: fmtPrice(p.price, 'de'), en: fmtPrice(p.price, 'en') })}</span></span>`;
+      }).join('') + '</div>';
     } else if (prices.length === 1) {
       priceHTML = `<div class="price">${bi({ de: fmtPrice(prices[0].price, 'de'), en: fmtPrice(prices[0].price, 'en') })}</div>`;
     }

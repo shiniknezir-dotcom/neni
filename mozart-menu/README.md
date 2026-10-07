@@ -63,5 +63,27 @@ Open `menu-data.js` in any text editor. Each dish looks like this:
 
 ## Items to double-check
 
-The menu was transcribed from photos. Items whose line was hidden by a shadow or glare carry
-`"uncertain": true` with a `"remark"` in `menu-data.js` (search for `"uncertain": true`). Please compare those with the printed card.
+The menu was transcribed from 23 photos, read by two independent passes and audited page by page. Everything was legible except the spots below. These carry `"uncertain": true` in `menu-data.js` and `data/menu.json`; please compare them with the printed card and correct the text (the prices are all confirmed except the four extras):
+
+| Abschnitt | Gericht / Getränk | Was zu prüfen ist |
+|---|---|---|
+| Frühstück | extra Hummus | Preis am Fotorand abgeschnitten: nur '2,0' lesbar (vermutlich 2,00). Bitte prüfen. |
+| Frühstück | Joghurt mit Früchten | Preis am Fotorand abgeschnitten: nur '3,5' lesbar (3,50 oder 3,5x). Bitte prüfen. |
+| Frühstück | Französisches Croissant | Preis am Fotorand abgeschnitten: nur '2,' und der Ansatz einer Ziffer lesbar. Bitte prüfen. |
+| Frühstück | Frühstücksei | Preis am Fotorand abgeschnitten: nur die führende '1' lesbar. Bitte prüfen. |
+| Gefüllte überbackene Ofenkartoffel | Mit Lachs & Camembert | Hochgestellte Codes sehr klein: Lachs(4), Camembert(7,4,9,3) – letzte Ziffer könnte auch '8' sein. Preis 10,50 klar. |
+| Flammkuchen | Mit Räucherschinken | Nur 'Mit Räuche…' lesbar (Handschatten). 'Räucherschinken' ist eine Vermutung – bitte prüfen, evtl. '& Zwiebeln' ergänzen. |
+| Flammkuchen | Mit Tomaten, Mozzarella & Basilikum | Nur 'Mit Tomaten, …' lesbar; Rest vermutet (schwach 'Mozz…' erkennbar). Bitte prüfen. |
+| Flammkuchen | Mit Rucola, italienischem Schinken & Parmesan | Lesbar: 'Mit Rucola, italie… & Parmesan'; 'italienischem Schinken' ergänzt. Bitte prüfen. |
+| Flammkuchen | Mit geräuchertem Lachs und Brie | Lesbar: 'Mit geräuchertem L… … Brie'; 'Lachs und' ergänzt. Bitte prüfen. |
+| Flammkuchen | Mit Sudzuk (Rindersalami) | Lesbar: 'Mit Sudzuk (Rinder S…)'; Klammerinhalt vermutet. Bitte prüfen. |
+| Essen im Mozart | Capreseteller | Hochgestellte Codes winzig: '6' könnte auch '8' sein. |
+| Kaffeespezialitäten | Schuss Sirup | Ende des Wortes 'Macadamia' samt Code durch Glanzlicht verdeckt; aus der Legende (8d Macadamia) ergänzt. |
+| Fränkische Flaschen-Qualitätsweine | Juliusspital Würzburger Riesling | Erster Buchstabe von 'Aprikose' durch das Weinglas-Bild verdeckt; Lesung naheliegend. |
+
+Also worth a glance:
+
+- **Phone number** on the back cover was read from embossed foil as `0931 90704686` (the last digits could be `…886`). Check it before printing cards.
+- **Print typos** in the original were corrected on the digital menu: Mozarella → Mozzarella, Tomate-Mozaerlla → Tomate-Mozzarella, Safte → Säfte, Petrsilie → Petersilie, Kardamon → Kardamom, Rooibush → Rooibos, Cachaca → Cachaça, Bombay Saphire → Bombay Sapphire, Hendricks → Hendrick's, Jack Daniels → Jack Daniel's, CocaCola → Coca-Cola, RedBull → Red Bull, "afrikanischer Rotwein" → "südafrikanischer Rotwein" (Skaapred is South African), and in the allergen legend "Lupin Erz" → "Lupinen", "Milchtiere" → "Weichtiere". Revert any of these in `menu-data.js` if the original spelling was intended.
+- **Juliusspital Scheurebe and Würzburger Silvaner** carry the identical tasting note on the printed page; both were kept as printed.
+- **Flammkuchen allergen codes** on the heading were only partly readable ("…,7"); no codes are shown for that section until confirmed.

@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Assemble menu-data.js from the bilingual section files.
 
-Usage: python3 build-data.py <workdir>
+Usage: python3 build-data.py            rebuild menu-data.js from data/menu.json
+       python3 build-data.py <workdir>  assemble from transcription files:
   <workdir>/menu-de.json         canonical German menu (info + legend + section order)
   <workdir>/sections/<id>.json   bilingual section files
 Writes mozart-menu/menu-data.js and prints a summary. Also writes data/menu.json (the same data as plain JSON).
@@ -9,6 +10,20 @@ Writes mozart-menu/menu-data.js and prints a summary. Also writes data/menu.json
 import json, os, sys, re
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+
+def write_js(out):
+    with open(os.path.join(HERE, "menu-data.js"), "w", encoding="utf-8") as f:
+        f.write("/* Mozart café · bistro · bar — menu data (German + English).\n   Edit data/menu.json and run build-data.py, or edit this file directly: every text has a de and an en value. */\n")
+        f.write("window.MOZART_MENU = " + json.dumps(out, ensure_ascii=False, indent=1) + ";\n")
+
+if len(sys.argv) < 2:
+    # no transcription folder given: just regenerate menu-data.js from data/menu.json
+    out = json.load(open(os.path.join(HERE, "data", "menu.json"), encoding="utf-8"))
+    write_js(out)
+    n = sum(len(g["items"]) for s in out["sections"] for g in s["groups"])
+    print(f"menu-data.js rebuilt from data/menu.json: {len(out['sections'])} sections, {n} items")
+    sys.exit(0)
+
 WORK = sys.argv[1]
 de = json.load(open(os.path.join(WORK, "menu-de.json"), encoding="utf-8"))
 
@@ -89,9 +104,7 @@ out = {
 }
 os.makedirs(os.path.join(HERE, "data"), exist_ok=True)
 json.dump(out, open(os.path.join(HERE, "data", "menu.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
-with open(os.path.join(HERE, "menu-data.js"), "w", encoding="utf-8") as f:
-    f.write("/* Mozart café · bistro · bar — menu data (German + English).\n   Edit data/menu.json and run build-data.py, or edit this file directly: every text has a de and an en value. */\n")
-    f.write("window.MOZART_MENU = " + json.dumps(out, ensure_ascii=False, indent=1) + ";\n")
+write_js(out)
 
 n_items = sum(len(g["items"]) for s in sections for g in s["groups"])
 unc = [(s["id"], it["name"]["de"], it["remark"]) for s in sections for g in s["groups"] for it in g["items"] if it["uncertain"]]

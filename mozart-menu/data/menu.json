@@ -1,6 +1,4 @@
-/* Mozart café · bistro · bar — menu data (German + English).
-   Edit data/menu.json and run build-data.py, or edit this file directly: every text has a de and an en value. */
-window.MOZART_MENU = {
+{
  "info": {
   "name": "Mozart café · bistro · bar",
   "address": [
@@ -5133,4 +5131,4 @@ window.MOZART_MENU = {
    ]
   }
  ]
-};
+}
