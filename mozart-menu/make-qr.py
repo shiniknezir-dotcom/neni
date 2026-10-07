@@ -16,7 +16,7 @@ from PIL import Image
 import segno
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-URL = sys.argv[1] if len(sys.argv) > 1 else "https://shiniknezir-dotcom.github.io/neni/mozart-menu/"
+URL = sys.argv[1] if len(sys.argv) > 1 else "https://mozart-wuerzburg.netlify.app/"
 OUT = os.path.join(HERE, "qr")
 os.makedirs(OUT, exist_ok=True)
 

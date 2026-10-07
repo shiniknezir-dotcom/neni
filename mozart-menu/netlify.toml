@@ -1,0 +1,26 @@
+# Netlify settings for the Mozart digital menu (static site, no build step)
+[build]
+  publish = "."
+
+# Guests keep the page open for a while: short cache so price changes show up within minutes
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Cache-Control = "public, max-age=300"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+# Short links that work on printed material: /en opens the English menu, /de the German one
+[[redirects]]
+  from = "/en"
+  to = "/#en"
+  status = 302
+[[redirects]]
+  from = "/de"
+  to = "/#de"
+  status = 302

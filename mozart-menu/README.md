@@ -1,7 +1,7 @@
 # Mozart café · bistro · bar — QR-Speisekarte / QR menu
 
 Digital, bilingual (Deutsch / English) menu for Mozart, Theaterstr. 21, Würzburg, plus the QR code that opens it.
-Static site, no build step, no server: one HTML page, one stylesheet, one script and one data file.
+Static site, no build step, no server: one HTML page, one stylesheet, one script and one data file. Hosted on Netlify at **https://mozart-wuerzburg.netlify.app/** (see below).
 
 ```
 mozart-menu/
@@ -14,24 +14,37 @@ mozart-menu/
 ├── qr/                 QR codes (PNG, SVG, PDF) + printable A6 table card and 60 mm sticker
 ├── qr-card.html        the printable card (open in a browser, print at 100 %)
 ├── make-qr.py          regenerates all QR files for a given URL
-└── build-data.py       rebuilds menu-data.js from transcription files (only needed for re-transcription)
+├── build-data.py       rebuilds menu-data.js from data/menu.json
+├── build-netlify.py    packs the site into mozart-menu-netlify.zip
+├── netlify.toml        Netlify headers and /de /en short links
+└── mozart-menu-netlify.zip   ready to drop on https://app.netlify.com/drop
 ```
 
-## Publish it (once)
+## Publish on Netlify (5 minutes, one link for everything)
 
-The QR codes point to **https://shiniknezir-dotcom.github.io/neni/mozart-menu/**.
-For that address to work, GitHub Pages has to be switched on for this repository:
+The QR codes already point to **https://mozart-wuerzburg.netlify.app/**. To make that address live:
 
-1. Merge this branch into `master`.
-2. GitHub → repository **Settings → Pages → Build and deployment**: Source "Deploy from a branch", branch `master`, folder `/ (root)`, Save.
-3. After a minute the menu is live at the address above. Scan `qr/mozart-menu-qr.png` to test.
+1. Log in at https://app.netlify.com and open **https://app.netlify.com/drop**.
+2. Drag **`mozart-menu-netlify.zip`** (in this folder) onto the page. Netlify unpacks it and gives the site a random name like `sparkly-otter-1234.netlify.app`.
+3. Click the new site → **Site configuration → Site details → Change site name** → enter `mozart-wuerzburg` → Save.
+   The menu is now at https://mozart-wuerzburg.netlify.app/ and every printed QR code works.
 
-Want a nicer address (e.g. `menu.mozart-wuerzburg.de`)? Point a CNAME at `shiniknezir-dotcom.github.io`, add it under Settings → Pages → Custom domain, then regenerate the QR codes:
+If Netlify says the name `mozart-wuerzburg` is already taken, choose another (for example `cafe-mozart-wuerzburg`) and regenerate the QR files for it once:
 
 ```
 pip install qrcode pillow segno
-python3 mozart-menu/make-qr.py https://menu.mozart-wuerzburg.de/
+python3 mozart-menu/make-qr.py https://cafe-mozart-wuerzburg.netlify.app/
 ```
+
+Then print the new files from `qr/`. The card page is also online: https://mozart-wuerzburg.netlify.app/qr-card.html (open it in a browser and print at 100 %).
+
+**Updating later:** change `menu-data.js`, run `python3 build-netlify.py` to rebuild the zip, and drop the new zip on the site's **Deploys** page. Guests see the new prices within a few minutes. Short links: `/de` and `/en` open the menu in that language.
+
+Own domain later (e.g. `menu.mozart-wuerzburg.de`)? Add it under Netlify **Domain management**, then regenerate the QR codes for that address with the command above.
+
+### Alternative: GitHub Pages
+
+The same folder also works on GitHub Pages: merge this branch into `master`, then GitHub **Settings → Pages → Deploy from a branch** (`master`, root). The address is then `https://shiniknezir-dotcom.github.io/neni/mozart-menu/`; regenerate the QR codes for it with `make-qr.py <url>`.
 
 ## Print the QR code
 
