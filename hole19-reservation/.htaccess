@@ -1,0 +1,12 @@
+# Only reserve.php may be requested from the browser. Everything else in this
+# folder (config.php with the mailbox password, templates, vendor/) is included
+# by PHP internally and must not be served directly.
+Options -Indexes
+
+<FilesMatch "\.(php|json|lock|md|dist|xml|example)$">
+    Require all denied
+</FilesMatch>
+
+<Files "reserve.php">
+    Require all granted
+</Files>

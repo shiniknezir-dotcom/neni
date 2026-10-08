@@ -1,0 +1,4 @@
+# Real credentials live only on the server. Copy config.example.php to config.php there.
+config.php
+# Local test output
+*.log

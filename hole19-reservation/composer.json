@@ -1,0 +1,11 @@
+{
+  "name": "hole19/reservation-mailer",
+  "description": "Reservation form endpoint that emails a German confirmation to the guest and a notification to the Hole 19 team.",
+  "type": "project",
+  "license": "MIT",
+  "require": {
+    "php": ">=7.4",
+    "phpmailer/phpmailer": "^6.9"
+  },
+  "config": { "optimize-autoloader": true, "sort-packages": true }
+}
