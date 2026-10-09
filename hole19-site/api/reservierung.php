@@ -26,6 +26,17 @@ if (is_array($userCfg)) $CFG = array_merge($CFG, $userCfg);
 $TO = trim((string)$CFG['to']);
 if (filter_var($TO, FILTER_VALIDATE_EMAIL) === false) $TO = 'info@restauranthole19.de';
 
+/* Our own log: the host keeps PHP error logging switched off, so without
+   this nothing that goes wrong while sending is recorded anywhere. The log
+   is a .php file that exits at once when fetched over HTTP, so the server
+   never serves its contents. No passwords are ever written to it. */
+$LOG = __DIR__ . '/mailer-log.php';
+if (!is_file($LOG)) @file_put_contents($LOG, "<?php exit; ?>\n", LOCK_EX);
+@ini_set('log_errors', '1');
+@ini_set('error_log', $LOG);
+$SMTP_LAST = '';
+function logline(string $msg): void { error_log('[hole19] ' . $msg); }
+
 header('X-Content-Type-Options: nosniff');
 header('Cache-Control: no-store');
 
@@ -128,7 +139,7 @@ function smtp_send(array $c, string $from, string $to, string $subject, string $
   $hostName = (string)$c['smtp_host'];
   $implicit = $port === 465;
   $sock = @stream_socket_client(($implicit ? 'ssl://' : 'tcp://') . $hostName . ':' . $port, $errno, $errstr, 15);
-  if (!$sock) return false;
+  if (!$sock) { $GLOBALS['SMTP_LAST'] = 'connect failed: ' . $errno . ' ' . $errstr; return false; }
   stream_set_timeout($sock, 15);
   $read = static function () use ($sock): string {
     $out = '';
@@ -138,6 +149,7 @@ function smtp_send(array $c, string $from, string $to, string $subject, string $
   $say = static function (string $cmd, string $want) use ($sock, $read): array {
     fwrite($sock, $cmd . "\r\n");
     $r = $read();
+    $GLOBALS['SMTP_LAST'] = trim(strlen($cmd) > 200 ? 'DATA -> ' . $r : $cmd . ' -> ' . $r);
     return [strpos($r, $want) === 0, $r];
   };
   if (strpos($read(), '220') !== 0) return false;
@@ -164,9 +176,10 @@ function smtp_send(array $c, string $from, string $to, string $subject, string $
   return true;
 }
 
+logline('form=' . $form . ' kind=' . $kind . ' ip=' . ($_SERVER['REMOTE_ADDR'] ?? '?') . ' smtp=' . ($useSmtp ? 'yes (' . $smtpUser . ')' : 'no') . ' to=' . $TO . ' guest=' . $email);
 $ok = false;
-if ($useSmtp) $ok = smtp_send($CFG, $from, $TO, $encodedSubject, $headers, $body);
-if (!$ok)     $ok = @mail($TO, $encodedSubject, $body, $headers);
+if ($useSmtp) { $ok = smtp_send($CFG, $from, $TO, $encodedSubject, $headers, $body); logline('restaurant copy via SMTP: ' . ($ok ? 'sent' : 'FAILED (' . $SMTP_LAST . ')')); }
+if (!$ok)     { $ok = mail($TO, $encodedSubject, $body, $headers); logline('restaurant copy via mail(): ' . ($ok ? 'accepted' : 'FAILED')); }
 
 /* ==========================================================================
    The guest's confirmation.
@@ -200,16 +213,17 @@ if ($ok && !$isFeier && $kind === 'Tischreservierung') {
       /* Through the SMTP mailbox when there is one; its server may refuse a
          From it does not own, in which case mail() — which may send from
          any address of the domain — takes over. */
-      if ($useSmtp) $sent = smtp_send($CFG, $TO, $email, $g['subject'], $gHeaders, $g['body']);
-      if (!$sent)   $sent = @mail($email, $g['subject'], $g['body'], $gHeaders, '-f' . $TO);
-      if (!$sent)   $sent = @mail($email, $g['subject'], $g['body'], $gHeaders);
-      if (!$sent)   error_log('[hole19] guest confirmation to ' . $email . ' could not be sent');
+      if ($useSmtp) { $sent = smtp_send($CFG, $TO, $email, $g['subject'], $gHeaders, $g['body']); logline('guest confirmation via SMTP from ' . $TO . ': ' . ($sent ? 'sent' : 'FAILED (' . $SMTP_LAST . ')')); }
+      if (!$sent)   { $sent = mail($email, $g['subject'], $g['body'], $gHeaders, '-f' . $TO); logline('guest confirmation via mail() -f: ' . ($sent ? 'accepted' : 'FAILED')); }
+      if (!$sent)   { $sent = mail($email, $g['subject'], $g['body'], $gHeaders); logline('guest confirmation via mail(): ' . ($sent ? 'accepted' : 'FAILED')); }
     } else {
-      error_log('[hole19] guest confirmation skipped (rate limit) for ' . ($_SERVER['REMOTE_ADDR'] ?? '?'));
+      logline('guest confirmation skipped (rate limit) for ' . ($_SERVER['REMOTE_ADDR'] ?? '?'));
     }
   } catch (\Throwable $e) {
-    error_log('[hole19] guest confirmation failed: ' . $e->getMessage());
+    logline('guest confirmation failed: ' . $e->getMessage());
   }
+} else {
+  logline('no guest confirmation: ' . (!$ok ? 'restaurant copy failed' : ($isFeier ? 'Feiern request' : 'kind is ' . $kind)));
 }
 
 finish((bool)$ok, $ok ? 200 : 500, $ok ? $thanks : $again, $wantsJson);
