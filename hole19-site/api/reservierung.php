@@ -149,7 +149,9 @@ function smtp_send(array $c, string $from, string $to, string $subject, string $
   $say = static function (string $cmd, string $want) use ($sock, $read): array {
     fwrite($sock, $cmd . "\r\n");
     $r = $read();
-    $GLOBALS['SMTP_LAST'] = trim(strlen($cmd) > 200 ? 'DATA -> ' . $r : $cmd . ' -> ' . $r);
+    /* For the log: never the credentials (they travel as bare base64 lines), never the message. */
+    $shown = strlen($cmd) > 200 ? 'DATA' : (preg_match('~^[A-Za-z0-9+/=]+$~', $cmd) ? '<credential>' : $cmd);
+    $GLOBALS['SMTP_LAST'] = trim($shown . ' -> ' . $r);
     return [strpos($r, $want) === 0, $r];
   };
   if (strpos($read(), '220') !== 0) return false;
