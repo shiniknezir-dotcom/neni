@@ -1,14 +1,18 @@
 <!--
   Hole 19 — Reservierungsformular (Beispiel)
-  Copy the <form> block into your page and set data-endpoint to where reserve.php lives.
-  Works without JavaScript (classic post) and with it (inline success message).
+
+  Copy the WHOLE content of this file (the <form>, the <style> and the <script>)
+  into your page and set the form's action to where reserve.php lives.
+  The "Website" field is a spam trap: it must never be visible to guests, and any
+  value in it makes the server discard the request silently (no e-mail is sent).
+  The form also works without JavaScript (classic post with a German result page).
 -->
-<form class="h19-reservation" method="post" action="/reservierung/reserve.php" data-endpoint="/reservierung/reserve.php" novalidate>
+<form class="h19-reservation" method="post" action="/reservierung/reserve.php">
   <h2>Tisch reservieren</h2>
 
   <label>
     Name*
-    <input type="text" name="name" autocomplete="name" required minlength="2" maxlength="100">
+    <input type="text" name="name" autocomplete="name" required minlength="2" maxlength="60">
   </label>
 
   <label>
@@ -28,7 +32,7 @@
     </label>
     <label>
       Uhrzeit
-      <input type="time" name="time" step="900">
+      <input type="time" name="time">
     </label>
     <label>
       Personen
@@ -41,8 +45,9 @@
     <textarea name="message" rows="3" maxlength="1000" placeholder="Anlass, Wünsche, Allergien …"></textarea>
   </label>
 
-  <!-- Honeypot: must stay hidden and empty. Field name matches 'honeypot_field' in config.php. -->
-  <div class="h19-hp" aria-hidden="true">
+  <!-- Spam trap (honeypot). Stays hidden via inline style even if the <style> block is not copied.
+       Field name must match 'honeypot_field' in config.php. -->
+  <div class="h19-hp" aria-hidden="true" style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden">
     <label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
   </div>
 
@@ -67,9 +72,10 @@
 
 <script>
   document.querySelectorAll('form.h19-reservation').forEach(function (form) {
-    var endpoint = form.getAttribute('data-endpoint') || form.getAttribute('action');
     var status = form.querySelector('.h19-status');
     var button = form.querySelector('button[type="submit"]');
+    // With JavaScript we show validation inline; without it the browser validates and posts normally.
+    form.setAttribute('novalidate', '');
 
     form.addEventListener('submit', function (event) {
       event.preventDefault();
@@ -81,7 +87,7 @@
       var data = {};
       new FormData(form).forEach(function (value, key) { data[key] = value; });
 
-      fetch(endpoint, {
+      fetch(form.action, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify(data)
@@ -90,16 +96,16 @@
         .then(function (result) {
           if (result.ok && result.body.ok) {
             form.reset();
-            status.textContent = result.body.message || 'Vielen Dank! Ihre Reservierung wurde bestätigt.';
+            status.textContent = result.body.message || 'Vielen Dank! Die Reservierung wurde bestätigt.';
             status.className = 'h19-status ok';
           } else {
             var errors = result.body.errors ? Object.keys(result.body.errors).map(function (k) { return result.body.errors[k]; }).join(' ') : '';
-            status.textContent = errors || result.body.error || 'Das hat leider nicht geklappt. Bitte versuchen Sie es erneut.';
+            status.textContent = errors || result.body.error || 'Das hat leider nicht geklappt. Bitte später noch einmal versuchen.';
             status.className = 'h19-status err';
           }
         })
         .catch(function () {
-          status.textContent = 'Keine Verbindung. Bitte versuchen Sie es erneut oder rufen Sie uns an.';
+          status.textContent = 'Keine Verbindung. Bitte später noch einmal versuchen oder einfach anrufen.';
           status.className = 'h19-status err';
         })
         .finally(function () { button.disabled = false; });

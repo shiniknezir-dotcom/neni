@@ -3,7 +3,7 @@
         'name' => 'hole19/reservation-mailer',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '66aa7b9a2e8d2af520b3836699b9670e137385f5',
+        'reference' => 'd7dbf00bb0f24798e798233ed364dbb183fbf908',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'hole19/reservation-mailer' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '66aa7b9a2e8d2af520b3836699b9670e137385f5',
+            'reference' => 'd7dbf00bb0f24798e798233ed364dbb183fbf908',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

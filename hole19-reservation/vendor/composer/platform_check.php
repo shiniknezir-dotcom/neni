@@ -8,6 +8,17 @@ if (!(PHP_VERSION_ID >= 70400)) {
     $issues[] = 'Your Composer dependencies require a PHP version ">= 7.4.0". You are running ' . PHP_VERSION . '.';
 }
 
+$missingExtensions = array();
+extension_loaded('ctype') || $missingExtensions[] = 'ctype';
+extension_loaded('filter') || $missingExtensions[] = 'filter';
+extension_loaded('hash') || $missingExtensions[] = 'hash';
+extension_loaded('json') || $missingExtensions[] = 'json';
+extension_loaded('mbstring') || $missingExtensions[] = 'mbstring';
+
+if ($missingExtensions) {
+    $issues[] = 'Your Composer dependencies require the following PHP extensions to be installed: ' . implode(', ', $missingExtensions) . '.';
+}
+
 if ($issues) {
     if (!headers_sent()) {
         header('HTTP/1.1 500 Internal Server Error');

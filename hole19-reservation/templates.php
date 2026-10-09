@@ -27,7 +27,7 @@ function wording(array $cfg): array
             'overview'  => 'Deine Reservierung im Überblick:',
             'closing'   => 'Wir freuen uns auf deinen Besuch!',
             'changes'   => 'Falls sich etwas ändert, antworte einfach auf diese E-Mail.',
-            'thanks'    => 'Vielen Dank,',
+            'thanks'    => 'Vielen Dank',
             'signoff'   => 'Dein ' . $team,
         ];
     }
@@ -39,7 +39,7 @@ function wording(array $cfg): array
         'overview'  => 'Ihre Reservierung im Überblick:',
         'closing'   => 'Wir freuen uns auf Ihren Besuch!',
         'changes'   => 'Falls sich etwas ändert, antworten Sie einfach auf diese E-Mail.',
-        'thanks'    => 'Vielen Dank,',
+        'thanks'    => 'Vielen Dank',
         'signoff'   => 'Ihr ' . $team,
     ];
 }
@@ -122,7 +122,7 @@ function rows_as_html(array $rows): string
 }
 
 /** Shared HTML frame so both e-mails look like they come from the same place. */
-function html_frame(array $cfg, string $headline, string $bodyHtml): string
+function html_frame(array $cfg, string $headline, string $bodyHtml, string $title = ''): string
 {
     $business = h((string) ($cfg['business_name'] ?? 'Hole 19'));
     $footer   = '';
@@ -132,7 +132,7 @@ function html_frame(array $cfg, string $headline, string $bodyHtml): string
         }
     }
     return '<!DOCTYPE html><html lang="de"><head><meta charset="utf-8">'
-        . '<meta name="viewport" content="width=device-width,initial-scale=1"><title>' . h($headline) . '</title></head>'
+        . '<meta name="viewport" content="width=device-width,initial-scale=1"><title>' . h($title !== '' ? $title : $headline) . '</title></head>'
         . '<body style="margin:0;padding:0;background:#f3f5f1;font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',Roboto,Helvetica,Arial,sans-serif;">'
         . '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f3f5f1;padding:24px 12px;"><tr><td align="center">'
         . '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border-radius:12px;overflow:hidden;">'
@@ -178,7 +178,7 @@ function build_guest_confirmation(array $cfg, array $r): array
     return [
         'subject' => $w['subject'],
         'text'    => $text,
-        'html'    => html_frame($cfg, $greeting, $body),
+        'html'    => html_frame($cfg, $greeting, $body, $w['subject']),
     ];
 }
 
@@ -186,15 +186,16 @@ function build_guest_confirmation(array $cfg, array $r): array
 function build_team_notification(array $cfg, array $r): array
 {
     $rows  = team_detail_rows($r);
-    $when  = trim(format_date_de($r['date']) . ' ' . $r['time']);
+    $when  = implode(', ', array_filter([format_date_de($r['date']), format_time_de($r['time'])], static function ($v) { return $v !== ''; }));
     $parts = array_filter([$r['name'], $when, format_guests_de($r['guests'])], static function ($v) { return $v !== ''; });
     $subject = 'Neue Reservierung: ' . implode(' · ', $parts);
 
-    $text = "Neue Reservierung über die Website\n\n"
+    $text = "Neue Reservierung über die Website\n"
+          . "Der Gast hat bereits eine Bestätigung erhalten.\n\n"
           . rows_as_text($rows)
           . "\nAntworten auf diese E-Mail gehen direkt an den Gast.\n";
 
-    $body = '<p style="margin:0 0 4px;">Über das Reservierungsformular ist gerade eine neue Anfrage eingegangen. Der Gast hat bereits eine Bestätigung erhalten.</p>'
+    $body = '<p style="margin:0 0 4px;">Über das Reservierungsformular ist gerade eine neue Reservierung eingegangen. Der Gast hat bereits eine Bestätigung erhalten.</p>'
           . rows_as_html($rows)
           . '<p style="margin:0;color:#5f6b5a;font-size:14px;">Antworten auf diese E-Mail gehen direkt an den Gast.</p>';
 

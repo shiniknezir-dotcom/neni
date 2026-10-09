@@ -5,7 +5,13 @@
   "license": "MIT",
   "require": {
     "php": ">=7.4",
+    "ext-json": "*",
+    "ext-mbstring": "*",
     "phpmailer/phpmailer": "^6.9"
   },
-  "config": { "optimize-autoloader": true, "sort-packages": true }
+  "config": {
+    "optimize-autoloader": true,
+    "sort-packages": true,
+    "platform-check": true
+  }
 }
