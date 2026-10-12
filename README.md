@@ -9,11 +9,11 @@ The new website for BlütenSturm, built in the Noir brand (black and white, one 
 ## What is in this folder
 
 ```
-bluetensturm-website/
+(repository root)
 ├── netlify.toml                 Netlify settings: publish the site/ folder, no build
 ├── README.md                    this file (for people)
 ├── CLAUDE.md                    project memory for Claude Code (rules, structure, how-tos)
-├── PROMPT-FOR-CLAUDE-CODE.md    the prompt to paste into Claude Code to deploy
+├── HIGGSFIELD-SKILLS.md         the Higgsfield skills pack that also lives in this repository
 ├── tools/
 │   ├── check_site.py            pre-deploy check: translations, links, files
 │   └── serve.py                 local preview that behaves like Netlify
@@ -31,11 +31,16 @@ bluetensturm-website/
     ├── robots.txt, sitemap.xml, site.webmanifest, favicons
     └── assets/
         ├── css/style.css        all styles, brand tokens at the top
+        ├── css/motion.css       the motion layer: tilt, word reveals, scroll choreography, video
+        ├── css/storm.css        the hero canvas
         ├── js/boot.js           picks the language before the page paints
         ├── js/i18n.js           DE · FR · ES · IT translations (English is in the HTML)
-        ├── js/main.js           language switch, menu, motion, forms
+        ├── js/main.js           language switch, menu, reveals, forms
+        ├── js/fx.js             the motion layer (3D tilt, word reveals, cursor light, video, motion toggle)
+        ├── js/storm.js          the 3D petal storm in the hero (WebGL2, no library)
         ├── fonts/               Instrument Serif + Montserrat, self-hosted (OFL licences included)
-        ├── img/                 petal photo, crops, logos, brand graphics, social image
+        ├── img/                 petal photo, generated force images, logos, brand graphics, social image
+        ├── video/               the hero loop (storm.webm, storm.mp4)
         └── brands/              the 44 portfolio logos
 ```
 
@@ -53,11 +58,21 @@ The site already runs on Netlify with the domain at STRATO. **Nothing changes in
 
 Pick one way:
 
-1. **With Claude Code (recommended).** Open this folder in Claude Code and paste the prompt from `PROMPT-FOR-CLAUDE-CODE.md`. It checks everything, puts the site into your GitHub repository on a new branch, shows you a preview link, and only publishes after you say so.
-2. **Netlify CLI.** In this folder: `netlify login`, `netlify link` (choose the existing bluetensturm.com site), then `netlify deploy --dir=site` for a preview link and `netlify deploy --prod --dir=site` to publish.
-3. **Drag and drop.** Netlify → your site → Deploys → drag the **`site` folder** (not the whole project folder) onto the page. Headers and redirects come along because they live inside `site/`.
+1. **From this repository (recommended).** In Netlify: Add new project → Import an existing project → GitHub → this repository. Leave the **Base directory** empty, the build command and the publish directory come from `netlify.toml` (publish `site`, no build). Every push to the production branch then publishes the site; every other branch gets a deploy preview with its own link. If the existing bluetensturm.com site is not linked to Git yet, link it under Project configuration → Build & deploy → Continuous deployment, so the domain and the DNS stay exactly as they are.
+2. **Netlify CLI.** At the repository root: `netlify login`, `netlify link` (choose the existing bluetensturm.com site), then `netlify deploy --dir=site` for a preview link and `netlify deploy --prod --dir=site` to publish.
+3. **Drag and drop.** Netlify → your site → Deploys → drag the **`site` folder** (not the whole repository) onto the page. Headers and redirects come along because they live inside `site/`.
 
-If the Netlify site is connected to a Git repository, use 1 or 2 with Git: push this project to the repository and Netlify publishes `site/` automatically thanks to `netlify.toml`.
+Publish to production only after you have looked at a preview. The previous site stays reachable through its old URLs (see "Old addresses").
+
+## Motion and 3D
+
+The hero is a live 3D petal storm: hundreds of curved, side-lit petals rendered in WebGL (`site/assets/js/storm.js`, written by hand, no library, about 30 KB), blown by a wind field with a slow vortex. Moving the mouse pushes the petals away, scrolling makes the storm surge, and exactly one petal is pollen yellow. Behind it plays a short generated loop of drifting petals (`site/assets/video/`), and the petal photo stays in the centre. Further down, cards tilt in 3D under the pointer with a white light sheen, headlines rise word by word, the five-petal flower turns slowly, the portfolio logos float in, and a soft light follows the cursor over the dark sections (`site/assets/js/fx.js`, `site/assets/css/motion.css`).
+
+Everything is optional and polite: it switches off for visitors who have asked their system for reduced motion, there is a **Motion on / Motion off** switch in the hero (in all five languages, not stored anywhere), touch screens get no pointer effects, the video is not even requested on phones, and all animation pauses when it is off screen or the tab is hidden. Without JavaScript the pages are complete, static and English. The Content-Security-Policy stays as strict as before: every script, style, image and video is served from bluetensturm.com itself.
+
+The generated visuals (the hero loop and the three "force" images under Blüte, Sturm and Wurzel) were made with Higgsfield to the brand brief: black ground, one hard side light, white petals, one pollen-yellow petal. They are brand abstractions, not photographs of people or clients. If you would rather keep the original crops, the old files are still in `site/assets/img/` (`crop-head.webp`, `crop-edge.webp`, `crop-fibers.webp`).
+
+To switch the whole motion layer off for good, remove the four lines in `site/index.html` that load `storm.css`, `motion.css`, `storm.js` and `fx.js` (and the `motion.css`/`fx.js` lines on the other pages); the site then looks and behaves exactly like the original build.
 
 ## Preview on your computer
 

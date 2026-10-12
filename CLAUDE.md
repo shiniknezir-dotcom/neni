@@ -28,10 +28,21 @@ Static website of **BlütenSturm**, a marketing, creative and corporate-training
 | `site/assets/js/boot.js` | In `<head>`: adds `.js`, picks the language, holds the page (≤1.8 s) so English never flashes |
 | `site/assets/js/i18n.js` | Translations (`window.BS_I18N`) |
 | `site/assets/js/main.js` | Language switch, nav + mobile sheet, reveal/parallax/counters, service deep links, package prefill, form sending, thank-you hook |
-| `site/assets/img/` | `petal-hero.*` (hero photo), `crop-*.webp` (force images), `wordmark.svg`, `academy.svg`, `live.svg`, `symbol.svg`, `petal.svg` / `petal-pollen.svg`, `bloom-to-storm.svg`, `gust.svg`, `bloom-portrait.svg`, `og-image.jpg` |
+| `site/assets/js/storm.js` + `site/assets/css/storm.css` | The hero's 3D petal storm: raw WebGL2, instanced procedural petal meshes, wind field, pointer gusts, scroll surge. Adds `html.storm-on` while running (hides the CSS `.drift` petals so the hero keeps one yellow element). Off under reduced motion, `html.motion-off`, or without WebGL2 |
+| `site/assets/js/fx.js` + `site/assets/css/motion.css` | The motion layer on top of the canvas: motion toggle (`[data-motion-toggle]`, class `html.motion-off`, event `bs:motion`), hero video backdrop (`[data-hero-video]`, played only ≥ 760 px, no data saver, in view), 3D tilt (`[data-tilt]`), word-by-word headline reveals, scroll choreography, cursor light. Everything off under reduced motion; no new storage keys |
+| `site/assets/img/` | `petal-hero.*` (hero photo), `force-bluete/sturm/wurzel-{800,1400}.webp` (generated force images; the old `crop-*.webp` stay as spares), `petal-side-*.webp` (generated spare), `storm-poster.jpg` (video poster), `wordmark.svg`, `academy.svg`, `live.svg`, `symbol.svg`, `petal.svg` / `petal-pollen.svg`, `bloom-to-storm.svg`, `gust.svg`, `bloom-portrait.svg`, `og-image.jpg` |
+| `site/assets/video/` | `storm.webm` / `storm.mp4`: the 7 s seamless hero loop (1280×720, silent). Generated with Higgsfield to the brand brief; regenerate the same way if it is ever replaced |
 | `site/assets/brands/` | Portfolio logos (PNG, quantised) |
 | `tools/check_site.py` | Pre-deploy check (stdlib only) |
 | `tools/serve.py` | Local server emulating Netlify: pretty URLs, `_redirects`, `_headers` incl. CSP, 404 |
+
+## Motion layer rules
+
+- The motion layer is additive: with `storm.css`, `motion.css`, `storm.js` and `fx.js` removed from the pages, the site must look and behave exactly like the plain build. Keep it that way: no content, copy or layout may depend on the two scripts.
+- Respect first: `prefers-reduced-motion: reduce` switches everything off; the hero toggle (`hero.motion.on` / `hero.motion.off`, translated in all four languages) does the same for one page view and is never persisted (the privacy page lists only `bs-language`). Coarse pointers get no tilt and no cursor light; the video is not requested below 760 px or with data saver on.
+- Pollen rule still holds in motion: the storm's single yellow petal replaces the CSS `.drift--pollen` while `html.storm-on` is set; sheens and the cursor light are white.
+- Budgets: both scripts together ≤ ~60 KB unminified, DPR capped at 1.5, no per-frame allocations, loops stop when nothing is visible. Test with `python3 tools/check_site.py` and in a browser at 1440 and 390 px (console must stay empty, no CSP violations).
+- The CSP is unchanged: no inline styles (set custom properties from JS instead), no inline scripts, no external hosts. Video is covered by `default-src 'self'`.
 
 ## Brand rules (Noir)
 
