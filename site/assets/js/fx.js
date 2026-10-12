@@ -39,10 +39,13 @@
 
   function relabel() {
     if (!toggle) return;
-    var span = toggle.querySelector('[data-i18n]');
+    // The name ("Motion") stays; the state word is aria-hidden, aria-pressed carries the state.
+    var span = toggle.querySelector('[data-motion-state]');
     var key = on ? 'hero.motion.on' : 'hero.motion.off';
-    if (span) span.setAttribute('data-i18n', key);
-    (span || toggle).textContent = t(key, on ? 'Motion on' : 'Motion off');
+    if (span) {
+      span.setAttribute('data-i18n', key);
+      span.textContent = t(key, on ? 'on' : 'off');
+    }
     toggle.setAttribute('aria-pressed', String(on));
   }
 
@@ -78,10 +81,11 @@
         var p = video.play();
         if (p && p.catch) p.catch(function () {});
       }
-    } else if (!video.paused) {
-      video.pause();
+    } else {
+      if (!video.paused) video.pause();
+      // fade out a paused frame (narrow window, data saver, motion off); 'playing' brings it back
+      video.classList.remove('is-playing');
     }
-    if (!on) video.classList.remove('is-playing');
   }
   if (video) {
     video.addEventListener('playing', function () { if (on) video.classList.add('is-playing'); });
@@ -325,6 +329,7 @@
   }
 
   /* ---------- Go ------------------------------------------------------ */
+  cls(d, 'motion-ready', !!toggle);   // motion.css shows the toggle only now
   splitAll();
   watchIn();
   measurePortfolio(0);

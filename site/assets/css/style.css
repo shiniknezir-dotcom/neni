@@ -654,3 +654,28 @@ h1, h2, h3, h4, .statement { overflow-wrap: break-word; }
   /* the 900 px block above would otherwise keep two footer columns and split the e-mail address */
   .fcols { grid-template-columns: minmax(0, 1fr); }
 }
+/* Forces: the three images share one height. The first column has no left padding, so at 4:3 its
+   image would be taller and push its name and list 27 px below the other two. Browsers without
+   container units keep the plain 4:3 images. */
+.forces { container-type: inline-size; }
+.force__img { height: calc((100cqw / 3 - 72px) * .75); }
+@media (max-width: 900px) {
+  .force__img { height: auto; }
+}
+/* Contact art: the spray's top row fades out instead of ending in a straight cut, and between 761 and
+   1240 px the art sits smaller and higher, clear of the headline. */
+.contact__art { -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 16%); mask-image: linear-gradient(180deg, transparent 0%, #000 16%); }
+@media (min-width: 761px) and (max-width: 1240px) {
+  .contact__art { width: 36%; right: -4%; top: -24px; }
+}
+
+/* Motion layer hooks. The hero canvas, the hero video and the motion toggle are in the markup;
+   these rules keep them inert when motion.css, storm.js or fx.js are missing, so the plain build
+   looks and behaves as before. motion.css styles them and shows the toggle once fx.js runs. */
+.hero__storm { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; display: block; }
+.hero__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; opacity: 0; pointer-events: none; }
+.motion-toggle { display: none; }
+html.storm-on .drift { display: none; }
+html.storm-on .hero__title { position: relative; z-index: 2; }
+html.storm-on .hero__meta { z-index: 2; }
+html.motion-off .hero__storm { display: none; }

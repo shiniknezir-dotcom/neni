@@ -9,22 +9,22 @@
 
 /* ---------- 0. Hero storm canvas (storm.js) ----------
    The canvas covers the hero: above the photo (z-index -1) and the three CSS
-   drift petals, below the title and the meta line. While WebGL2 is running
-   (html.storm-on) the CSS drifts are hidden, so the hero keeps exactly one
-   pollen-yellow element: the storm's own petal. Off under reduced motion and
-   html.motion-off; without JavaScript or WebGL2 the canvas stays empty and
-   the CSS drifts remain. */
-.hero__storm { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; display: block; }
-html.storm-on .drift { display: none; }
-html.motion-off .hero__storm { display: none; }
-/* The toggle needs fx.js; without JavaScript it is not shown (boot.js sets html.js before first paint). */
-html:not(.js) .motion-toggle { display: none; }
+   drift petals, below the title and the meta line. Its box, and the rules that
+   hide the CSS drifts while WebGL2 runs (html.storm-on, so the hero keeps one
+   pollen-yellow element: the storm's own petal), are in style.css under
+   "Motion layer hooks": the markup must stay inert without this file. Off under
+   reduced motion and html.motion-off; without JavaScript or WebGL2 the canvas
+   stays empty and the CSS drifts remain. */
 
 /* ---------- Hero stacking: title and meta stay above the storm canvas ---------- */
 .hero__title { position: relative; z-index: 2; }
 .hero__meta { z-index: 2; }
 
-/* ---------- 1. Motion toggle (white label, pollen underline on hover only) ---------- */
+/* ---------- 1. Motion toggle (white label, pollen underline on hover only) ----------
+   Hidden in style.css. With JavaScript its line is reserved from the first paint (no layout shift);
+   it becomes visible once fx.js runs (html.motion-ready), so it is never a dead button. */
+html.js .motion-toggle { display: inline-block; visibility: hidden; }
+html.motion-ready .motion-toggle { visibility: visible; }
 .motion-toggle { appearance: none; -webkit-appearance: none; background: none; border: 0; padding: 0; margin: 0; cursor: pointer; color: var(--weiss);
   text-decoration: underline; text-decoration-thickness: 1px; text-decoration-color: var(--line-strong); text-underline-offset: 6px; white-space: nowrap;
   transition: text-decoration-color .2s ease; }
@@ -47,8 +47,8 @@ html:not(.js) .motion-toggle { display: none; }
 .hero__photo { mix-blend-mode: lighten; }
 /* Mask: the centre (behind the photo) is held dark, full brightness only
    outside the photo's edges, and the viewport edges fade to black. */
-.hero__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; opacity: 0; pointer-events: none;
-  mix-blend-mode: screen; filter: grayscale(1); transition: opacity 1.2s ease;
+/* Box, z-index and opacity 0 are in style.css ("Motion layer hooks"). */
+.hero__video { mix-blend-mode: screen; filter: grayscale(1); transition: opacity 1.2s ease;
   -webkit-mask-image: radial-gradient(ellipse 60% 150% at 50% 50%, rgba(0, 0, 0, .2) 0%, rgba(0, 0, 0, .24) 52%, #000 76%, #000 100%),
     linear-gradient(90deg, transparent 0%, #000 14%, #000 86%, transparent 100%),
     linear-gradient(180deg, transparent 0%, #000 14%, #000 86%, transparent 100%);
@@ -123,10 +123,11 @@ html:not(.js) .motion-toggle { display: none; }
 .motion-off .drift { animation-play-state: paused; }
 .motion-off .hero__photo { transform: translateX(-50%) !important; }
 html.motion-off.reveal-on .reveal { opacity: 1; transform: none; transition: none; }
+html.motion-off [data-rule]::after { transform: none; animation: none; transition: none; }
 
 /* ---------- Reduced motion: everything above is neutral ---------- */
 @media (prefers-reduced-motion: reduce) {
-  .motion-toggle, .hero__storm { display: none; }
+  html.js .motion-toggle, .hero__storm { display: none; }
   .hero__video, .fx-on .hero__video.is-playing { opacity: 0; transition: none; }
   [data-tilt], [data-tilt].is-tilting { transform: none !important; transition: none; will-change: auto; }
   .fx-on [data-tilt]:not(img)::after { display: none; }

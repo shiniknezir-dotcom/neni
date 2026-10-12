@@ -10,10 +10,13 @@
 
    Respect: nothing happens (no drawing, no console output, canvas empty)
    when prefers-reduced-motion matches, html has class motion-off, WebGL2 is
-   missing or a shader fails. The loop pauses while the hero is out of view
-   or the tab is hidden. html.storm-on is set only while the storm is active
-   (motion.css then hides the three CSS drift petals). fx.js's bs:motion
-   event stops and restarts it. Context loss and restore are handled.
+   missing, the browser would render WebGL in software (no usable GPU) or a
+   shader fails. It starts after the page has loaded. The loop pauses while
+   the hero is out of view or the tab is hidden; on slow hardware it halves
+   the petal count, then quarters it, then hands back to the CSS petals.
+   html.storm-on is set only while the storm is active (style.css then hides
+   the three CSS drift petals). fx.js's bs:motion event stops and restarts
+   it. Context loss and restore are handled.
    Budget: ≤ 6 ms of JavaScript per frame for 420 petals, no per-frame
    allocations (typed arrays, one buffer upload per frame). */
 (function () {
@@ -26,6 +29,7 @@
   var hero = canvas.closest('.hero');
   if (!hero) return;
   var title = hero.querySelector('.hero__title');
+  var nav = doc.getElementById('nav'), meta = hero.querySelector('.hero__meta');
   var mqReduce = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
   var mqCoarse = window.matchMedia ? window.matchMedia('(pointer: coarse)') : null;
 
@@ -44,6 +48,9 @@
   var EXCL = 0.7;                      // soft exclusion zone around the title
   var GUST = 1.3, GUST_R = 0.22;       // pointer gust gain, radius as a fraction of the canvas width
   var SURGE_TAU = 0.5, GUST_TAU = 0.15; // decay times (s): scroll surge ~gone after 1.5 s, gust after ~0.4 s
+  var QUALITY = [1, 0.5, 0.25];        // share of the petals drawn; steps down while frames are too slow
+  var SLOW_MS = 45;                    // average frame interval (over 90 frames) that counts as too slow
+  var SOFTWARE_GL = /SwiftShader|llvmpipe|softpipe|Software|Basic Render/i;   // CPU renderers: no storm there
 
   /* ---------- Shaders ---------- */
   var VS = [
@@ -56,6 +63,7 @@
     'layout(location=4) in vec3 iExt;',   // scale, shade (0..1), pollen flag
     'uniform mat4 uProj;',
     'uniform vec4 uTitle;',                // title ellipse in clip space: centre xy, semi-axes zw
+    'uniform vec2 uBand;',                 // clip-space y of the nav's lower edge and of the meta row's upper edge
     'out vec3 vNrm; out vec3 vPos; out vec2 vExt; out float vDim;',
     'vec3 rot(vec4 q, vec3 v) { return v + 2.0 * cross(q.xyz, cross(q.xyz, v) + q.w * v); }',
     'void main() {',
@@ -63,7 +71,10 @@
     '  vNrm = rot(iRot, aNrm); vPos = p; vExt = iExt.yz;',
     '  gl_Position = uProj * vec4(p, 1.0);',
     '  vec2 e = (gl_Position.xy / gl_Position.w - uTitle.xy) / uTitle.zw;',
-    '  vDim = 1.0 - 0.55 * (1.0 - smoothstep(0.3, 1.0, length(e)));',   // petals behind the title fade, so it stays legible
+    '  float sy = gl_Position.y / gl_Position.w;',
+    '  float band = max(smoothstep(uBand.x - 0.08, uBand.x, sy), 1.0 - smoothstep(uBand.y, uBand.y + 0.08, sy));',
+    // petals behind the title fade, and so do those crossing the nav and the meta labels: the type stays legible
+    '  vDim = min(1.0 - 0.55 * (1.0 - smoothstep(0.3, 1.0, length(e))), 1.0 - 0.6 * band);',
     '}'
   ].join('\n');
   var FS = [
@@ -123,7 +134,7 @@
   }
 
   /* ---------- State ---------- */
-  var mesh = null, gl = null, prog = null, uProj = null, uTitle = null, instBuf = null;
+  var mesh = null, gl = null, prog = null, uProj = null, uTitle = null, uBand = null, instBuf = null;
   var proj = new Float32Array(16);
   var pos = new Float32Array(NMAX * 3), vel = new Float32Array(NMAX * 3), quat = new Float32Array(NMAX * 4);
   var axis = new Float32Array(NMAX * 3), spin = new Float32Array(NMAX), scale = new Float32Array(NMAX);
@@ -134,6 +145,7 @@
   var surge = 0, gust = 0, ptrx = 0, ptry = 0, pvx = 0, pvy = 0, pLastT = 0, pLastX = 0, pLastY = 0;
   var lastY = 0, lastT = 0, fade = 1;
   var enabled = false, booted = false, failed = false, lost = false, active = false, running = false;
+  var quality = 0, slowSum = 0, slowN = 0, watchFrom = 0;
   var heroVisible = true, tabVisible = !doc.hidden, rafId = 0, lastFrame = 0, time = 0;
 
   var seed = 0x2F6E2B1;
@@ -151,7 +163,9 @@
     pos[i3] = (rnd() * 2 - 1) * (sx * dz * MARGIN + PAD);
     pos[i3 + 1] = (rnd() * 2 - 1) * (sy * dz * MARGIN + PAD);
     pos[i3 + 2] = z;
-    if (i === 0) { pos[i3] = -0.3 * sx * 5.5; pos[i3 + 1] = 0.45 * sy * 5.5; pos[i3 + 2] = -5.5; }   // the spark starts upper left and drifts across
+    if (i === 0) {   // the spark starts left of the title and drifts across; on portrait screens below it, clear of the nav
+      pos[i3] = (aspect < 1 ? -0.55 : -0.3) * sx * 5.5; pos[i3 + 1] = (aspect < 1 ? -0.3 : 0.45) * sy * 5.5; pos[i3 + 2] = -5.5;
+    }
     vel[i3] = WIND_X; vel[i3 + 1] = WIND_Y; vel[i3 + 2] = 0;
     var u1 = rnd(), u2 = rnd() * 6.2832, u3 = rnd() * 6.2832, a = Math.sqrt(1 - u1), b = Math.sqrt(u1);
     quat[i4] = a * Math.sin(u2); quat[i4 + 1] = a * Math.cos(u2); quat[i4 + 2] = b * Math.sin(u3); quat[i4 + 3] = b * Math.cos(u3);
@@ -171,10 +185,29 @@
     if (!gl.getShaderParameter(s, gl.COMPILE_STATUS) && !gl.isContextLost()) { gl.deleteShader(s); return null; }
     return s;
   }
+  function softwareGL(g) {
+    try {
+      var r = String(g.getParameter(g.RENDERER) || '');
+      // Chrome and Safari report a generic name; their debug extension has the real one. Firefox reports
+      // the real name directly (and marks the extension deprecated), so it is only asked when needed.
+      if (r === 'WebKit WebGL') {
+        var ext = g.getExtension('WEBGL_debug_renderer_info');
+        if (ext) r = String(g.getParameter(ext.UNMASKED_RENDERER_WEBGL) || '');
+      }
+      return SOFTWARE_GL.test(r);
+    } catch (e) { return false; }
+  }
   function setupGL() {
     try {
-      gl = canvas.getContext('webgl2', { alpha: true, premultipliedAlpha: true, antialias: true, depth: true, stencil: false, powerPreference: 'low-power' });
+      // failIfMajorPerformanceCaveat: no storm when WebGL would run in software on the CPU
+      gl = canvas.getContext('webgl2', { alpha: true, premultipliedAlpha: true, antialias: true, depth: true, stencil: false,
+        powerPreference: 'low-power', failIfMajorPerformanceCaveat: true });
     } catch (e) { gl = null; }
+    if (gl && softwareGL(gl)) {   // not every browser honours the caveat flag: check the renderer's name too
+      var lose = gl.getExtension('WEBGL_lose_context');
+      if (lose) lose.loseContext();
+      gl = null;
+    }
     if (!gl) return false;
     var vs = compile(gl.VERTEX_SHADER, VS), fs = compile(gl.FRAGMENT_SHADER, FS);
     if (!vs || !fs) return false;
@@ -186,6 +219,8 @@
     gl.useProgram(prog);
     uProj = gl.getUniformLocation(prog, 'uProj');
     uTitle = gl.getUniformLocation(prog, 'uTitle');
+    uBand = gl.getUniformLocation(prog, 'uBand');
+    gl.uniform2f(uBand, 2, -2);   // no band until measureTitle() has run
     var l = 1 / Math.sqrt(0.62 * 0.62 + 0.62 * 0.62 + 0.48 * 0.48);
     gl.uniform3f(gl.getUniformLocation(prog, 'uLight'), -0.62 * l, 0.62 * l, 0.48 * l);  // upper left, towards the camera
     gl.uniform2f(gl.getUniformLocation(prog, 'uFog'), FOG0, FOG1);
@@ -230,7 +265,10 @@
     tcy = 1 - ((tr.top + tr.height / 2 - hr.top) / hr.height) * 2;
     ta = Math.max(0.05, tr.width / hr.width * 1.05);
     tb = Math.max(0.05, tr.height / hr.height * 1.3);
-    if (gl && prog) gl.uniform4f(uTitle, tcx, tcy, ta, tb);
+    // label bands, measured with the hero at the top of the page: the fixed nav, the meta row
+    var bandTop = nav && nav.offsetHeight ? 1 - 2 * nav.offsetHeight / hr.height : 2;
+    var bandBot = meta && meta.offsetHeight ? 1 - 2 * meta.offsetTop / hr.height : -2;
+    if (gl && prog) { gl.uniform4f(uTitle, tcx, tcy, ta, tb); gl.uniform2f(uBand, bandTop, bandBot); }
   }
   function resize() {
     var w = hero.clientWidth, h = hero.clientHeight;
@@ -238,7 +276,7 @@
     var dpr = Math.min(1.5, window.devicePixelRatio || 1);
     var cw = Math.round(w * dpr), ch = Math.round(h * dpr);
     width = w; height = h; aspect = w / h; sx = sy * aspect;
-    var n = w >= 1080 ? 420 : w >= 760 ? 260 : 150;
+    var n = Math.round((w >= 1080 ? 420 : w >= 760 ? 260 : 150) * QUALITY[quality]);
     if (n !== count) { count = n; for (var i = 0; i < NMAX; i++) order[i] = i; }
     if (canvas.width !== cw || canvas.height !== ch) { canvas.width = cw; canvas.height = ch; }
     if (gl && prog) {
@@ -368,14 +406,24 @@
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
     gl.drawElementsInstanced(gl.TRIANGLES, mesh.n, gl.UNSIGNED_SHORT, 0, count);
   }
+  function watch(iv) {   // frame-rate guard: fewer petals on slow hardware, the CSS petals as a last resort
+    slowSum += Math.min(iv, 250); slowN++;
+    if (slowN < 90) return;
+    var avg = slowSum / slowN;
+    slowSum = 0; slowN = 0;
+    if (avg <= SLOW_MS) return;
+    if (quality < QUALITY.length - 1) { quality++; resize(); } else { failed = true; sync(); }
+  }
   function frame(now) {
     rafId = 0;
     if (!running) return;
     rafId = window.requestAnimationFrame(frame);
-    var dt = lastFrame ? Math.min(0.05, (now - lastFrame) / 1000) : 0.016;
+    var iv = lastFrame ? now - lastFrame : 0;
+    var dt = iv ? Math.min(0.05, iv / 1000) : 0.016;
     lastFrame = now; time += dt;
     step(dt, time);
     draw();
+    if (iv && now > watchFrom) watch(iv);
   }
 
   /* ---------- Lifecycle ---------- */
@@ -409,7 +457,10 @@
       if (a) resize(); else clearCanvas();
     }
     running = active && heroVisible && tabVisible;
-    if (running && !rafId) { lastFrame = 0; rafId = window.requestAnimationFrame(frame); }
+    if (running && !rafId) {
+      lastFrame = 0; slowSum = 0; slowN = 0; watchFrom = performance.now() + 1500;   // a grace period after every (re)start
+      rafId = window.requestAnimationFrame(frame);
+    }
     if (!running && rafId) { window.cancelAnimationFrame(rafId); rafId = 0; }
   }
 
@@ -423,6 +474,7 @@
     else if (mqReduce.addListener) mqReduce.addListener(onReduce);
   }
   function start() { enabled = allowed(); sync(); }
-  if (doc.readyState === 'loading') doc.addEventListener('DOMContentLoaded', start);
-  else start();
+  // after the page has loaded: the CSS petals carry the hero until then, the storm stays out of the loading path
+  if (doc.readyState === 'complete') start();
+  else window.addEventListener('load', function () { window.setTimeout(start, 0); });
 })();
