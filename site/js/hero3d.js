@@ -108,7 +108,10 @@ export function mountHero(stage, { reduced = false } = {}) {
     const pivot = new THREE.Group();
     geos.forEach((g) => {
       g.translate(-B_W / 2, -B_H / 2, -DEPTH / 2);
-      g.scale(1 / B_H, -1 / B_H, 1 / B_H);   // y down → y up; the renderer flips the winding for us
+      g.scale(1 / B_H, 1 / B_H, 1 / B_H);
+      /* y down → y up as a rotation, not a mirror: a negative scale would
+         invert the triangle winding and cull every front face. */
+      g.rotateX(Math.PI);
       const mesh = new THREE.Mesh(g, forestMat);
       pivot.add(mesh);
     });
@@ -147,6 +150,7 @@ export function mountHero(stage, { reduced = false } = {}) {
   /* ---- layout ----------------------------------------------------------- */
   let W = 1, H = 1, narrow = false;
   let letterScale = 1, letterX = 0.9, letterY = 0;
+  const copyEl = (stage.closest('[data-hero]') || document).querySelector('.hero__copy');
   function layout() {
     W = stage.clientWidth || window.innerWidth;
     H = stage.clientHeight || window.innerHeight;
@@ -155,15 +159,26 @@ export function mountHero(stage, { reduced = false } = {}) {
     camera.updateProjectionMatrix();
     const vh = 2 * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * camera.position.z;
     const vw = vh * camera.aspect;
+    const pxToWorld = vh / H;
     narrow = W < 720;
-    if (narrow) {
-      letterScale = vh * 0.6;
-      letterX = vw * 0.2;
-      letterY = -vh * 0.14;
+    if (W / H < 0.9) {
+      /* Portrait (phones, upright tablets): there is no room beside the
+         copy, so the letter grows up from the bottom edge underneath it,
+         cropped by the screen like the phone layout in the brand deck. */
+      let copyBottom = H * 0.6;
+      if (copyEl) {
+        const s = stage.getBoundingClientRect(), c = copyEl.getBoundingClientRect();
+        copyBottom = c.bottom - s.top;
+      }
+      const room = Math.max(H - copyBottom - 28, H * 0.16) * pxToWorld;   // free height below the copy
+      letterScale = Math.min(room * 1.45, vw * 0.78 / 0.733, vh * 0.62);
+      const top = vh / 2 - (copyBottom + 28) * pxToWorld;
+      letterY = top - letterScale / 2;
+      letterX = vw / 2 - (0.733 * letterScale) / 2 - vw * 0.05;
     } else if (W < 1100) {
-      letterScale = vh * 0.9;
-      letterX = vw * 0.28;
-      letterY = -vh * 0.03;
+      letterScale = vh * 0.82;
+      letterX = vw * 0.3;
+      letterY = -vh * 0.06;
     } else {
       /* top edge of the letter sits just under the header, like the deck */
       letterScale = vh * 0.9;
@@ -171,9 +186,9 @@ export function mountHero(stage, { reduced = false } = {}) {
       letterY = -vh * 0.09;
     }
   }
-  layout();
   const ro = new ResizeObserver(layout);
   ro.observe(stage);
+  if (copyEl) ro.observe(copyEl);   // a language switch changes the copy height
 
   /* ---- interaction ------------------------------------------------------ */
   let tx = 0, ty = 0, mx = 0, my = 0;

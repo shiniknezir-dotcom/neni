@@ -14,6 +14,9 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
    -------------------------------------------------------------------------- */
 const dicts = {};
 let lang = 'de';
+let langSeq = 0;              // guards against a slow earlier fetch winning
+const LOCALES = { de: 'de-DE', en: 'en-GB', fr: 'fr-FR', es: 'es-ES', it: 'it-IT' };
+const fmtNum = (n) => n.toLocaleString(LOCALES[lang] || 'de-DE');
 let dict = null;              // the active dictionary
 let deSnapshot = null;        // the German text as it stands in the markup
 
@@ -40,7 +43,7 @@ function snapshotGerman() {
 
 async function loadDict(code) {
   if (dicts[code]) return dicts[code];
-  const res = await fetch(`/i18n/${code}.json`, { cache: 'force-cache' });
+  const res = await fetch(`/i18n/${code}.json`);
   if (!res.ok) throw new Error(`i18n ${code} ${res.status}`);
   dicts[code] = await res.json();
   return dicts[code];
@@ -59,8 +62,16 @@ function applyDict() {
     const v = get(dict, el.dataset.i18nPlaceholder);
     if (typeof v === 'string') el.setAttribute('placeholder', v);
   });
-  const title = get(dict, 'meta.title'); if (title) document.title = title;
-  const desc = get(dict, 'meta.description'); const m = $('meta[name="description"]'); if (desc && m) m.setAttribute('content', desc);
+  /* Each page names its own title/description keys on <body>; pages that
+     name none keep the title in their markup. */
+  const titleKey = document.body.dataset.i18nTitle;
+  const descKey = document.body.dataset.i18nDescription;
+  const title = titleKey ? get(dict, titleKey) : undefined;
+  if (typeof title === 'string') document.title = title;
+  const desc = descKey ? get(dict, descKey) : undefined;
+  const m = $('meta[name="description"]');
+  if (typeof desc === 'string' && m) m.setAttribute('content', desc);
+  $$('[data-count][data-done]').forEach((el) => { el.textContent = fmtNum(parseFloat(el.dataset.count) || 0) + (el.dataset.suffix || ''); });
   document.documentElement.lang = lang;
   $$('[data-lang]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
   renderDisciplines();
@@ -71,13 +82,17 @@ function applyDict() {
 
 async function setLang(code, { persist = true } = {}) {
   if (!LANGS.includes(code)) code = 'de';
+  const seq = ++langSeq;
+  let d;
   try {
-    dict = await loadDict(code);
+    d = await loadDict(code);
   } catch (e) {
     console.warn('[i18n]', e);
     if (code !== 'de') return;
-    dict = null;
+    d = null;
   }
+  if (seq !== langSeq) return;   // the visitor has already chosen again
+  dict = d;
   lang = code;
   if (dict) applyDict();
   if (persist) { try { localStorage.setItem('bs-lang', code); } catch (e) { /* private mode */ } }
@@ -109,11 +124,14 @@ function unitLabel(u) { return t(`panel.unit.${u}`, u); }
 function renderDisciplines() {
   const host = $('[data-disciplines]');
   if (!host) return;
+  /* A language switch re-renders the cards; keep the ones already revealed
+     visible instead of fading the whole grid out and back in. */
+  const seen = $$('.svc', host).map((el) => el.classList.contains('is-in'));
   host.innerHTML = DISCIPLINES.map((d, i) => {
     const s = byId[d.id];
     const n = String(i + 1).padStart(2, '0');
     const tone = d.tone === 'dark' ? ' svc--dark' : d.tone === 'featured' ? ' svc--featured' : '';
-    return `<button class="svc${tone} reveal" type="button" data-service-open="${s.id}" data-delay="${i % 4}">
+    return `<button class="svc${tone} reveal${seen[i] ? ' is-in' : ''}" type="button" data-service-open="${s.id}" data-delay="${i % 4}">
       <span class="svc__top"><span class="svc__icon">${icon(d.icon)}</span><span class="svc__num">${n}</span></span>
       <span class="svc__body"><span class="svc__title h-3">${t(`svc.${s.id}.name`)}</span><span class="svc__text">${t(`svc.${s.id}.short`)}</span></span>
       <span class="svc__foot"><span class="svc__from">${t('panel.from')}<b>${s.normal[0]}</b>${unitLabel(s.normal[1])}</span><span class="svc__open">${t('panel.open')}</span></span>
@@ -137,7 +155,7 @@ async function loadBrands() {
   const host = $('[data-brands]');
   if (!host) return;
   try {
-    const res = await fetch('/media/brands/manifest.json', { cache: 'force-cache' });
+    const res = await fetch('/media/brands/manifest.json');
     brands = res.ok ? await res.json() : [];
   } catch (e) { brands = []; }
   brands = brands.map((b) => ({ ...b, cat: BRAND_CATEGORIES[b.category] || 'other', logo: '/' + String(b.logo || '').replace(/^\/+/, '') }));
@@ -276,7 +294,7 @@ function setDrawer(open) {
 burger?.addEventListener('click', () => setDrawer(!header.classList.contains('is-open')));
 $('[data-nav]')?.addEventListener('click', (e) => { if (e.target.closest('a')) setDrawer(false); });
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && header?.classList.contains('is-open')) { setDrawer(false); burger?.focus(); } });
-window.matchMedia('(min-width: 981px)').addEventListener('change', (e) => { if (e.matches) setDrawer(false); });
+window.matchMedia('(min-width: 1181px)').addEventListener('change', (e) => { if (e.matches) setDrawer(false); });
 $$('[data-lang]').forEach((b) => b.addEventListener('click', () => { setLang(b.dataset.lang); setDrawer(false); }));
 
 /* Which tone is under the header right now decides its scrolled colours. */
@@ -301,7 +319,7 @@ const io = ('IntersectionObserver' in window) ? new IntersectionObserver((entrie
   });
 }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' }) : null;
 function observeReveals(root = document) {
-  $$('.reveal', root).forEach((el) => { if (io && !reduceMotion) io.observe(el); else el.classList.add('is-in'); });
+  $$('.reveal:not(.is-in)', root).forEach((el) => { if (io && !reduceMotion) io.observe(el); else el.classList.add('is-in'); });
 }
 const cio = ('IntersectionObserver' in window) ? new IntersectionObserver((entries) => {
   entries.forEach((en) => {
@@ -309,12 +327,14 @@ const cio = ('IntersectionObserver' in window) ? new IntersectionObserver((entri
     const el = en.target; cio.unobserve(el);
     const target = parseFloat(el.dataset.count) || 0;
     const suffix = el.dataset.suffix || '';
-    if (reduceMotion) { el.textContent = target.toLocaleString('de-DE') + suffix; return; }
+    const finish = () => { el.dataset.done = '1'; el.textContent = fmtNum(target) + suffix; };
+    if (reduceMotion) { finish(); return; }
     const dur = 1600, start = performance.now();
     const tick = (now) => {
       const p = Math.min(1, (now - start) / dur);
-      el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3))).toLocaleString('de-DE') + suffix;
-      if (p < 1) requestAnimationFrame(tick);
+      if (p >= 1) { finish(); return; }
+      el.textContent = fmtNum(Math.round(target * (1 - Math.pow(1 - p, 3)))) + suffix;
+      requestAnimationFrame(tick);
     };
     requestAnimationFrame(tick);
   });
@@ -357,10 +377,22 @@ $$('[data-form]').forEach((form) => {
     status.classList.toggle('is-error', kind === 'error');
     status.classList.toggle('is-ok', kind === 'ok');
   };
+  const btn0 = $('[data-submit]', form);
+  let sending = false;
+  /* Back from /danke/ restores this exact DOM from the back/forward cache:
+     put the button and the status line back the way a fresh page has them. */
+  window.addEventListener('pageshow', (ev) => {
+    if (!ev.persisted) return;
+    sending = false;
+    if (btn0) { btn0.disabled = false; btn0.innerHTML = `<span>${t('form.send')}</span>${dot}`; }
+    if (status) { status.hidden = true; status.textContent = ''; }
+  });
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    if (sending) return;
     if (!form.checkValidity()) { form.reportValidity(); return; }
-    const btn = $('[data-submit]', form);
+    sending = true;
+    const btn = btn0;
     const label = btn ? btn.innerHTML : '';
     if (btn) { btn.disabled = true; btn.textContent = t('form.sending'); }
     show(t('form.sendingMsg'), 'ok');
@@ -377,6 +409,7 @@ $$('[data-form]').forEach((form) => {
     } catch (err) {
       show(t('form.error'), 'error');
     }
+    sending = false;
     if (btn) { btn.disabled = false; btn.innerHTML = label; }
   });
 });
