@@ -28,6 +28,12 @@
 
   var d = document.documentElement;
   var DICT = window.BS_I18N || {};
+  // English copies of the runtime strings, so a failed i18n.js never leaves a button without a label.
+  var EN = {
+    'js.error': "We couldn’t reach the mail service just now. Nothing is lost: send the same message from your own e-mail app instead.",
+    'js.mailto': "Open in my e-mail app",
+    'js.sending': "Sending…"
+  };
   var reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
   var lang = d.getAttribute('data-lang') || 'en';
 
@@ -35,7 +41,8 @@
   function t(key) {
     var own = DICT[lang] || {};
     if (own[key] != null) return own[key];
-    return (DICT.en || {})[key] || '';
+    var en = (DICT.en || {})[key];
+    return en != null ? en : (EN[key] || '');
   }
 
   /* ---------- 1. Language ---------------------------------------------- */
@@ -51,6 +58,7 @@
 
   function applyLang(next, save) {
     if (LANGS.indexOf(next) < 0) next = 'en';
+    if (next !== 'en' && !DICT[next]) next = 'en'; // no dictionary (i18n.js failed): stay honest and show English
     lang = next;
     var dict = next === 'en' ? null : (DICT[next] || {});
 
@@ -122,6 +130,7 @@
     if (!sheet) return;
     sheet.classList.toggle('is-open', open);
     if (open) sheet.removeAttribute('inert'); else sheet.setAttribute('inert', '');
+    each('#nav, #main, footer', function (el) { if (open) el.setAttribute('inert', ''); else el.removeAttribute('inert'); });
     d.classList.toggle('is-locked', open);
     if (openBtn) openBtn.setAttribute('aria-expanded', String(open));
     if (open) {
@@ -148,7 +157,8 @@
       var f = sheet.querySelectorAll('a[href], button:not([disabled])');
       if (!f.length) return;
       var first = f[0], last = f[f.length - 1];
-      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      if (!sheet.contains(document.activeElement)) { e.preventDefault(); (e.shiftKey ? last : first).focus(); }
+      else if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
       else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
     });
     window.addEventListener('resize', function () {
@@ -280,26 +290,40 @@
   }
 
   /* ---------- 5. Forms ------------------------------------------------- */
+  // Long answers are shortened: Windows hands mailto: links to the mail app with a ~2,000-character limit.
   function mailtoFrom(data, subject) {
-    var lines = [];
-    data.forEach(function (v, k) { if (k.charAt(0) !== '_' && typeof v === 'string' && v.trim()) lines.push(k + ': ' + v); });
-    return 'mailto:' + MAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(lines.join('\n'));
+    var lines = [], total = 0;
+    data.forEach(function (v, k) {
+      if (k.charAt(0) === '_' || typeof v !== 'string' || !v.trim()) return;
+      var line = k + ': ' + (v.length > 400 ? v.slice(0, 400) + '…' : v);
+      if (total + line.length > 1500) return;
+      total += line.length + 2;
+      lines.push(line);
+    });
+    return 'mailto:' + MAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(lines.join('\r\n'));
   }
 
   each('form[data-form]', function (f) {
     f.addEventListener('submit', function (e) {
       if (!window.fetch || !window.FormData) return; // let the browser post it
       e.preventDefault();
+      if (f.__sending) return;
       var btn = f.querySelector('button[type="submit"]');
       var status = f.querySelector('[data-status]');
       var label = btn ? btn.textContent : '';
       var data = new FormData(f);
       var subject = (f.querySelector('[name="_subject"]') || {}).value || 'Anfrage über bluetensturm.com';
-      if (btn) { btn.disabled = true; btn.textContent = t('js.sending'); }
+      f.__sending = true;
+      // aria-disabled instead of disabled: the button keeps focus, so a keyboard user is not dropped to <body>.
+      if (btn) { btn.setAttribute('aria-disabled', 'true'); btn.textContent = t('js.sending'); }
       if (status) { status.className = 'form__status'; status.textContent = ''; }
+      f.__reset = function () {
+        f.__sending = false;
+        if (btn) { btn.removeAttribute('aria-disabled'); btn.textContent = label; }
+      };
 
       function fail() {
-        if (btn) { btn.disabled = false; btn.textContent = label; }
+        f.__reset();
         if (!status) { window.location.href = mailtoFrom(data, subject); return; }
         status.textContent = '';
         var p = document.createElement('p');
@@ -311,16 +335,24 @@
         status.appendChild(p);
         status.appendChild(link);
         status.classList.add('is-visible', 'is-error');
+        status.setAttribute('tabindex', '-1');
+        status.focus();
       }
 
       window.fetch(f.action, { method: 'POST', body: data, headers: { Accept: 'application/json' } })
         .then(function (res) {
           if (!res.ok) throw new Error('HTTP ' + res.status);
           try { window.sessionStorage.setItem('bs-sent', f.getAttribute('data-form')); } catch (err) {}
+          f.__reset();
           window.location.href = '/thank-you';
         })
         .catch(fail);
     });
+  });
+
+  // Back from /thank-you (page restored from the back/forward cache): the form is ready to send again.
+  window.addEventListener('pageshow', function (e) {
+    if (e.persisted) each('form[data-form]', function (f) { if (f.__reset) f.__reset(); });
   });
 
   /* ---------- 6. Thank-you page ---------------------------------------- */

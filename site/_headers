@@ -22,6 +22,8 @@
   Cache-Control: public, max-age=604800
 /assets/brands/*
   Cache-Control: public, max-age=604800
+/assets/video/*
+  Cache-Control: public, max-age=604800
 
 # HTML, CSS and JS keep Netlify's default (revalidate on every visit), so a
 # new deploy is visible immediately without renaming files.

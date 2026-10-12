@@ -17,9 +17,11 @@
 <link rel="preload" href="/assets/fonts/instrument-serif-latin-400-italic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/montserrat-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/motion.css">
 <script src="/assets/js/boot.js"></script>
 <script src="/assets/js/i18n.js" defer></script>
 <script src="/assets/js/main.js" defer></script>
+<script src="/assets/js/fx.js" defer></script>
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="BlütenSturm">
 <meta property="og:url" content="https://bluetensturm.com/questionnaire">
@@ -40,7 +42,7 @@
         <button type="button" data-lang="es" lang="es" title="Español" aria-pressed="false">ES</button>
         <button type="button" data-lang="it" lang="it" title="Italiano" aria-pressed="false">IT</button>
       </div>
-      <a class="tlink" href="/" data-i18n="nav.back">← Back to site</a>
+      <a class="tlink" href="/" data-i18n="nav.back">Back to site</a>
     </div>
   </div>
 </header>
@@ -48,7 +50,7 @@
 <main id="main" class="page">
   <div class="wrap">
     <div class="split">
-      <p class="lbl" data-i18n="q.lbl">Project questionnaire</p>
+      <p class="lbl" data-i18n="q.lbl" data-rule>Project questionnaire</p>
       <div class="stack gap-24">
         <h1 class="h-l" data-i18n-html="q.title">Tell us about <em>your business.</em></h1>
         <p class="lead" data-i18n-html="q.lead">Ten questions, about four minutes. Everything you send goes straight to our partners at <a href="mailto:info@bluetensturm.com">info@bluetensturm.com</a> — no chatbot, no call centre.</p>

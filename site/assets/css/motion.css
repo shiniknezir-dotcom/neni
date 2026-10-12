@@ -1,0 +1,126 @@
+/* ==========================================================================
+   BlütenSturm — Noir, motion layer
+   Styles for fx.js: hero video, motion toggle, 3D tilt, word reveal, scroll
+   choreography, cursor light and button press. Every effect is gated on
+   html.fx-on (set by fx.js while motion is on) and switched off again under
+   html.motion-off and prefers-reduced-motion at the end of this file.
+   No rule here changes layout: everything moves with transform and opacity.
+   ========================================================================== */
+
+/* ---------- Hero stacking: title and meta stay above the storm canvas ---------- */
+.hero__title { position: relative; z-index: 2; }
+.hero__meta { z-index: 2; }
+
+/* ---------- 1. Motion toggle (white label, pollen underline on hover only) ---------- */
+.motion-toggle { appearance: none; -webkit-appearance: none; background: none; border: 0; padding: 0; margin: 0; cursor: pointer; color: var(--weiss);
+  text-decoration: underline; text-decoration-thickness: 1px; text-decoration-color: var(--line-strong); text-underline-offset: 6px; white-space: nowrap;
+  transition: text-decoration-color .2s ease; }
+.motion-toggle:hover, .motion-toggle:focus-visible { text-decoration-color: var(--pollen); }
+.hero__meta .wrap > .lbl:nth-child(2) { margin-left: auto; }
+@media (max-width: 760px) {
+  /* the toggle takes its own line under the place and the Scroll link */
+  .hero__meta .wrap { flex-wrap: wrap; }
+  .hero__meta .wrap::before { content: ""; order: 1; flex-basis: 100%; height: 0; }
+  .motion-toggle { order: 2; }
+}
+
+/* ---------- 2. Hero video backdrop ---------- */
+/* The hero is an isolated stacking context, so it gets its own black ground
+   for the blends: the video screens onto it (its black adds nothing, only the
+   petals light up) and the photo lightens over the video, so the video petals
+   pass behind the photo petal instead of being cut off at the photo's edges. */
+.hero { background: var(--nacht); }
+.hero__photo { mix-blend-mode: lighten; }
+/* Mask: the centre (behind the photo) is held dark, full brightness only
+   outside the photo's edges, and the viewport edges fade to black. */
+.hero__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; opacity: 0; pointer-events: none;
+  mix-blend-mode: screen; filter: grayscale(1); transition: opacity 1.2s ease;
+  -webkit-mask-image: radial-gradient(ellipse 60% 150% at 50% 50%, rgba(0, 0, 0, .2) 0%, rgba(0, 0, 0, .24) 52%, #000 76%, #000 100%),
+    linear-gradient(90deg, transparent 0%, #000 14%, #000 86%, transparent 100%),
+    linear-gradient(180deg, transparent 0%, #000 14%, #000 86%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image: radial-gradient(ellipse 60% 150% at 50% 50%, rgba(0, 0, 0, .2) 0%, rgba(0, 0, 0, .24) 52%, #000 76%, #000 100%),
+    linear-gradient(90deg, transparent 0%, #000 14%, #000 86%, transparent 100%),
+    linear-gradient(180deg, transparent 0%, #000 14%, #000 86%, transparent 100%);
+  mask-composite: intersect; }
+.fx-on .hero__video.is-playing { opacity: .55; }
+
+/* ---------- 3. 3D tilt with a light sheen (fx.js sets --mx / --my and the transform) ---------- */
+.fx-on [data-tilt]:not(img) { position: relative; }
+.fx-on [data-tilt]:not(img)::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .45s ease;
+  background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(255, 255, 255, .16), rgba(255, 255, 255, .04) 34%, rgba(255, 255, 255, 0) 64%); }
+.fx-on [data-tilt].is-tilting::after { opacity: 1; }
+[data-tilt].is-tilting { transition: none; will-change: transform; }
+
+/* ---------- 4. Word reveal (fx.js wraps each word as .w > .w__i and sets --i) ---------- */
+.w { display: inline-block; perspective: 600px; clip-path: inset(-.3em -.15em -.35em); }
+.w__i { display: inline-block; }
+.fx-on .w__i { opacity: 0; transform: translateY(110%) rotateX(-70deg); }
+.fx-on .is-in .w__i { opacity: 1; transform: none; transition: transform .9s var(--ease), opacity .5s ease; transition-delay: calc(min(var(--i, 0), 30) * 40ms); }
+
+/* ---------- 5. Section hairlines: draw as the section enters ---------- */
+[data-rule] { position: relative; }
+.split > [data-rule] { align-self: start; }
+.split--end > [data-rule] { align-self: end; }
+[data-rule]::after { content: ""; position: absolute; left: 0; bottom: -12px; width: 100%; max-width: 260px; height: 1px; background: var(--rauch);
+  transform: scaleX(0); transform-origin: 0 50%; }
+.portfolio [data-rule]::after { background: #D9D6D0; }
+.fx-on [data-rule].is-in::after { transform: none; transition: transform .9s var(--ease) .1s; }
+@supports (animation-timeline: view()) {
+  .fx-on [data-rule]::after { transition: none; animation: fx-rule linear both; animation-timeline: view(); animation-range: cover 0% cover 32%; }
+}
+@keyframes fx-rule { from { transform: scaleX(0); } to { transform: none; } }
+
+/* ---------- 6. The flower turns in 3D; faster under the pointer, paused offscreen ---------- */
+.flower { perspective: 1200px; }
+.flower__spin, .flower__spin-in { position: absolute; inset: 0; transform-style: preserve-3d; }
+.fx-on .flower__spin { animation: fx-turn 24s linear infinite paused; }
+.fx-on .flower__spin-in { animation: fx-turn 9s linear infinite paused; }
+.fx-on .flower.is-near .flower__spin { animation-play-state: running; }
+.fx-on .flower.is-near:hover .flower__spin-in { animation-play-state: running; }
+@keyframes fx-turn { to { transform: rotateY(360deg); } }
+
+/* ---------- 7. Portfolio logos float in with a stagger (fx.js sets --i) ---------- */
+.fx-on .logo { opacity: 0; transform: translate3d(0, 16px, 0); }
+.fx-on .logos.is-in .logo { opacity: 1; transform: none;
+  transition: opacity .7s var(--ease) calc(min(var(--i, 0), 24) * 30ms), transform .8s var(--ease) calc(min(var(--i, 0), 24) * 30ms), background-color .3s ease; }
+
+/* ---------- 8. Depth: parallax on images (fx.js sets --py, at most the data-depth value) ---------- */
+.fx-on .force__img { transform: translate3d(0, var(--py, 0px), 0); }
+.fx-on .contact__art { transform: translate3d(0, var(--py, 0px), 0); }
+.fx-on .live__art { transform: translateY(-50%) translate3d(0, var(--py, 0px), 0); }
+@media (max-width: 760px) {
+  .fx-on .live__art { transform: translate3d(0, var(--py, 0px), 0); }
+}
+
+/* ---------- 9. Cursor light (created by fx.js, fine pointers only) ---------- */
+.cursor-light { position: fixed; left: -210px; top: -210px; width: 420px; height: 420px; border-radius: 50%; pointer-events: none; z-index: 40; opacity: 0;
+  mix-blend-mode: screen; will-change: transform, opacity; transition: opacity .5s ease;
+  background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, .35) 30%, rgba(255, 255, 255, 0) 68%); }
+.fx-on .cursor-light.is-on { opacity: .07; }
+
+/* ---------- 10. Buttons: a soft lift on hover, a small press on click ---------- */
+:root:not(.motion-off) .btn:hover { transform: translateY(-1px); }
+:root:not(.motion-off) .btn:active { transform: translateY(1px) scale(.98); transition-duration: .08s; }
+
+/* ---------- Motion toggle off: the page view holds still ---------- */
+/* fx.js effects are already gated on html.fx-on; these mirror the reduced-motion
+   rules in style.css for the hero petals, the photo parallax and the reveals. */
+.motion-off .drift { animation-play-state: paused; }
+.motion-off .hero__photo { transform: translateX(-50%) !important; }
+.motion-off .reveal-on .reveal { opacity: 1; transform: none; transition: none; }
+
+/* ---------- Reduced motion: everything above is neutral ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .motion-toggle { display: none; }
+  .hero__video, .fx-on .hero__video.is-playing { opacity: 0; transition: none; }
+  [data-tilt], [data-tilt].is-tilting { transform: none !important; transition: none; will-change: auto; }
+  .fx-on [data-tilt]:not(img)::after { display: none; }
+  .w__i, .fx-on .w__i, .fx-on .is-in .w__i { opacity: 1; transform: none; transition: none; }
+  [data-rule]::after, .fx-on [data-rule]::after { transform: none; animation: none; transition: none; }
+  .fx-on .flower__spin, .fx-on .flower__spin-in { animation: none; }
+  .fx-on .logo, .fx-on .logos.is-in .logo { opacity: 1; transform: none; transition: background-color .3s ease; }
+  [data-depth] { --py: 0px !important; }
+  .cursor-light { display: none; }
+  :root:not(.motion-off) .btn:hover, :root:not(.motion-off) .btn:active { transform: none; }
+}

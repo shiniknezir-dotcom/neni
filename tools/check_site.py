@@ -6,11 +6,18 @@
 Checks:
   1. Translations: every data-i18n / data-i18n-html / data-i18n-attr key used
      in site/*.html exists in DE, FR, ES and IT in site/assets/js/i18n.js, and
-     every runtime key main.js asks for (t('js.…')) exists in all five
-     languages. Unused dictionary keys are listed as warnings.
-  2. Markup in translations: for data-i18n-html keys, each language has the
-     same HTML tags as the English source.
-  3. Links and files: every local href/src (pages, #anchors, images, CSS, JS,
+     every runtime key the scripts ask for (t('js.…') in main.js, quoted
+     dotted keys in fx.js) exists in the languages that need it. Unused
+     dictionary keys are listed as warnings. The dictionary must be strict
+     JSON without repeated keys; no value may be empty.
+  2. Markup in translations: text and attribute keys (applied with textContent
+     or setAttribute) must not contain tags or entities, and an element with
+     data-i18n must not contain child elements (they would be wiped). For
+     data-i18n-html keys each language must carry exactly the same tag
+     sequence, attributes included, as the English source.
+  3. Forms: every data-interest value matches an <option value> of the
+     "Interested in" select on the home page.
+  4. Links and files: every local href/src (pages, #anchors, images, CSS, JS,
      fonts referenced from CSS) resolves to a real file or element id.
 Exits with status 1 if anything is missing, so it can gate a deploy.
 """
@@ -20,52 +27,114 @@ from html.parser import HTMLParser
 BASE = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 SITE = os.path.join(BASE, 'site')
 LANGS = ['de', 'fr', 'es', 'it']
+VOID = {'br', 'img', 'input', 'meta', 'link', 'source', 'hr', 'area', 'base', 'col', 'embed', 'wbr', 'track', 'param'}
 errors, warnings = [], []
 
 
+def tag_token(tag, attrs):
+    return 'start', tag.lower(), tuple(sorted((k.lower(), v or '') for k, v in attrs))
+
+
 class Page(HTMLParser):
-    def __init__(self):
+    """Collects i18n keys, ids, references and the tag sequence inside html keys."""
+
+    def __init__(self, name):
         super().__init__(convert_charrefs=True)
+        self.name = name
         self.keys, self.ids, self.refs = {}, set(), []
-        self.html_stack = []   # [key, depth, [tags]] for open data-i18n-html elements
+        self.html_stack = []   # [key, depth, [tokens]] for open data-i18n-html elements
+        self.text_stack = []   # [key, depth] for open data-i18n (textContent) elements
+        self.html_tags = {}
+        self.interests, self.options = [], []
+        self.in_interest = False
         self.depth = 0
+
+    def handle_startendtag(self, tag, attrs):
+        self.handle_starttag(tag, attrs)      # <br/> is a start tag only; never pops a record
 
     def handle_starttag(self, tag, attrs):
         a = dict(attrs)
         for st in self.html_stack:
-            st[2].append(tag)
-        if tag not in ('br', 'img', 'input', 'meta', 'link', 'source', 'hr', 'area', 'base', 'col', 'embed', 'wbr'):
-            self.depth += 1
+            st[2].append(tag_token(tag, attrs))
+        for key, _ in self.text_stack:
+            errors.append(f'[i18n] {self.name}: element with data-i18n="{key}" contains a <{tag}> child (textContent would remove it)')
         if a.get('id'):
             self.ids.add(a['id'])
         if 'data-i18n' in a:
             self.keys[a['data-i18n']] = 'text'
         if 'data-i18n-html' in a:
             self.keys[a['data-i18n-html']] = 'html'
-            self.html_stack.append([a['data-i18n-html'], self.depth, []])
         if 'data-i18n-attr' in a:
             for pair in a['data-i18n-attr'].split(';'):
                 if ':' in pair:
                     self.keys[pair.split(':', 1)[1].strip()] = 'attr'
+        if 'data-interest' in a:
+            self.interests.append(a['data-interest'])
+        if tag == 'select' and a.get('name') == 'Interested in':
+            self.in_interest = True
+        if tag == 'option' and self.in_interest and a.get('value') is not None:
+            self.options.append(a['value'])
         for attr in ('href', 'src'):
             if a.get(attr):
                 self.refs.append(a[attr])
         if a.get('srcset'):
             self.refs += [p.strip().split()[0] for p in a['srcset'].split(',') if p.strip()]
+        if tag in VOID:
+            return
+        self.depth += 1
+        if 'data-i18n' in a:
+            self.text_stack.append([a['data-i18n'], self.depth])
+        if 'data-i18n-html' in a:
+            self.html_stack.append([a['data-i18n-html'], self.depth, []])
 
     def handle_endtag(self, tag):
+        if tag in VOID:
+            return
+        if tag == 'select' and self.in_interest:
+            self.in_interest = False
+        if self.text_stack and self.text_stack[-1][1] == self.depth:
+            self.text_stack.pop()
         if self.html_stack and self.html_stack[-1][1] == self.depth:
-            key, _, tags = self.html_stack.pop()
-            self.html_tags = getattr(self, 'html_tags', {})
-            self.html_tags[key] = sorted(tags)
+            key, _, tokens = self.html_stack.pop()
+            self.html_tags[key] = tokens
+        else:
+            for st in self.html_stack:
+                st[2].append(('end', tag.lower()))
         self.depth -= 1
+
+
+class Fragment(HTMLParser):
+    """Tag sequence of a translation string, in the same form as Page records it."""
+
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.tokens = []
+
+    def handle_startendtag(self, tag, attrs):
+        self.handle_starttag(tag, attrs)
+
+    def handle_starttag(self, tag, attrs):
+        self.tokens.append(tag_token(tag, attrs))
+
+    def handle_endtag(self, tag):
+        if tag not in VOID:
+            self.tokens.append(('end', tag.lower()))
+
+
+def no_duplicates(pairs):
+    d = {}
+    for k, v in pairs:
+        if k in d:
+            errors.append(f'[i18n] key "{k}" appears twice in one block of i18n.js')
+        d[k] = v
+    return d
 
 
 def load_dict():
     src = open(os.path.join(SITE, 'assets', 'js', 'i18n.js'), encoding='utf-8').read()
     try:
         start = src.index('{', src.index('window.BS_I18N'))
-        return json.loads(src[start:src.rindex('}') + 1])
+        return json.loads(src[start:src.rindex('}') + 1], object_pairs_hook=no_duplicates)
     except ValueError as e:
         errors.append(f'i18n.js: the object after "window.BS_I18N =" is not valid JSON: {e}')
         return {}
@@ -74,7 +143,7 @@ def load_dict():
 pages = {}
 for name in sorted(os.listdir(SITE)):
     if name.endswith('.html'):
-        p = Page()
+        p = Page(name)
         p.feed(open(os.path.join(SITE, name), encoding='utf-8').read())
         pages[name] = p
 
@@ -94,21 +163,51 @@ for k in sorted(set(re.findall(r"t\('(js\.[a-z0-9.\-]+)'\)", js))):
     for l in ['en'] + LANGS:
         if k not in D.get(l, {}):
             errors.append(f'[i18n] runtime key "{k}" (main.js) is missing in {l.upper()}')
+runtime = set()
+fx_path = os.path.join(SITE, 'assets', 'js', 'fx.js')
+if os.path.exists(fx_path):
+    fx = open(fx_path, encoding='utf-8').read()
+    for k in set(re.findall(r"'([a-z0-9]+(?:\.[a-z0-9\-]+)+)'", fx)):
+        if any(k in D.get(l, {}) for l in LANGS):
+            runtime.add(k)
+            for l in LANGS:
+                if k not in D.get(l, {}):
+                    errors.append(f'[i18n] runtime key "{k}" (fx.js) is missing in {l.upper()}')
 for l in LANGS:
     for k in D.get(l, {}):
-        if k not in used and not k.startswith('js.'):
+        if k not in used and k not in runtime and not k.startswith('js.'):
             warnings.append(f'[i18n] "{k}" in {l.upper()} is not used by any page')
 
-# 2. markup parity for html keys
-tagre = re.compile(r'<\s*([a-zA-Z0-9]+)')
+# 2. values and markup
+entity = re.compile(r'&(#\d+|#x[0-9a-fA-F]+|[a-zA-Z]+);')
+for l in ['en'] + LANGS:
+    for k, v in D.get(l, {}).items():
+        if not isinstance(v, str) or not v.strip():
+            errors.append(f'[i18n] "{k}" in {l.upper()} is empty')
+            continue
+        kind = used.get(k, ('text', None))[0]
+        if kind != 'html' and ('<' in v or entity.search(v)):
+            errors.append(f'[i18n] "{k}" in {l.upper()} contains markup or an entity but is applied as plain text')
 for name, p in pages.items():
-    for k, tags in getattr(p, 'html_tags', {}).items():
+    for k, tokens in p.html_tags.items():
         for l in LANGS:
             v = D.get(l, {}).get(k)
-            if v is not None and sorted(t.lower() for t in tagre.findall(v)) != tags:
+            if v is None:
+                continue
+            f = Fragment()
+            f.feed(v)
+            if f.tokens != tokens:
                 errors.append(f'[i18n] "{k}" in {l.upper()} has different HTML tags than the English source')
 
-# 3. local links and files
+# 3. package buttons point at a real "Interested in" option
+home = pages.get('index.html')
+if home:
+    for name, p in pages.items():
+        for v in p.interests:
+            if v not in home.options:
+                errors.append(f'[form] {name}: data-interest="{v}" is not an option of the "Interested in" select')
+
+# 4. local links and files
 def exists(path):
     path = path.split('#')[0].split('?')[0]
     if path in ('', '/'):
@@ -134,14 +233,18 @@ for name, p in pages.items():
         if frag and target in ('/', '/index.html') and frag not in pages['index.html'].ids:
             errors.append(f'[link] {name}: {ref} — no id "{frag}" on the home page')
 
-css = open(os.path.join(SITE, 'assets', 'css', 'style.css'), encoding='utf-8').read()
-for url in re.findall(r'url\("?(\.\./[^")]+)"?\)', css):
-    if not os.path.exists(os.path.normpath(os.path.join(SITE, 'assets', 'css', url))):
-        errors.append(f'[css] {url} does not exist')
+css_dir = os.path.join(SITE, 'assets', 'css')
+for css_name in sorted(os.listdir(css_dir)):
+    if not css_name.endswith('.css'):
+        continue
+    css = open(os.path.join(css_dir, css_name), encoding='utf-8').read()
+    for url in re.findall(r'url\("?(\.\./[^")]+)"?\)', css):
+        if not os.path.exists(os.path.normpath(os.path.join(css_dir, url))):
+            errors.append(f'[css] {css_name}: {url} does not exist')
 
 for w in warnings:
     print('warning:', w)
-for e in errors:
+for e in sorted(set(errors)):
     print('ERROR:', e)
-print(f'\n{len(pages)} pages, {len(used)} translation keys, {len(errors)} errors, {len(warnings)} warnings')
+print(f'\n{len(pages)} pages, {len(used)} translation keys, {len(set(errors))} errors, {len(warnings)} warnings')
 sys.exit(1 if errors else 0)
