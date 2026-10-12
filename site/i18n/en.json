@@ -6,7 +6,12 @@
   "a11y": {
     "skip": "Skip to content",
     "menu": "Menu",
-    "close": "Close"
+    "close": "Close",
+    "home": "BlütenSturm — Home",
+    "nav": "Main navigation",
+    "lang": "Language",
+    "category": "Category",
+    "legal": "Legal"
   },
   "brand": {
     "tag": "Creative Agency"
@@ -221,7 +226,7 @@
     "q": {
       "eyebrow": "Project questionnaire",
       "title": "Tell us about<br>your <span class=\"pill\">business.</span>",
-      "lead": "Ten questions, about four minutes. Everything goes straight to our partners at info@bluetensturm.com. No chatbot, no call centre.",
+      "lead": "Three short sections, about four minutes. Everything goes straight to our partners at info@bluetensturm.com. No chatbot, no call centre.",
       "g1": "01 — About you",
       "g2": "02 — Your company",
       "g3": "03 — The project",

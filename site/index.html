@@ -2,6 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
+<script type="importmap">{"imports":{"three":"/vendor/three/three.module.min.js","three/addons/":"/vendor/three/addons/"}}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>BlütenSturm · Creative Agency Würzburg — Marken in voller Blüte</title>
 <meta name="description" content="BlütenSturm ist die Creative Agency aus Würzburg: Markenstrategie, Digital Marketing, Content & Social, Events und Corporate Training für den Mittelstand in Deutschland und Europa.">
@@ -26,13 +27,12 @@
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<link rel="preload" href="/fonts/unbounded-700-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/fonts/manrope-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/unbounded-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
 <script>document.documentElement.classList.add('js')</script>
 <link rel="stylesheet" href="/css/fonts.css">
 <link rel="stylesheet" href="/css/site.css">
 <link rel="modulepreload" href="/js/site.js">
-<script type="importmap">{"imports":{"three":"/vendor/three/three.module.min.js","three/addons/":"/vendor/three/addons/"}}</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -59,11 +59,11 @@
      ===================================================================== -->
 <header class="site-header" data-header>
   <div class="wrap">
-    <a class="brand" href="#top" aria-label="BlütenSturm — Startseite">
+    <a class="brand" href="#top" aria-label="BlütenSturm — Startseite" data-i18n-aria="a11y.home">
       <svg class="brand__mark" viewBox="0 0 733.3 1000" aria-hidden="true" focusable="false"><use href="#bs-mono"></use></svg>
       <span><span class="brand__word">Blütensturm</span><span class="brand__tag" data-i18n="brand.tag">Creative Agency</span></span>
     </a>
-    <nav class="nav" aria-label="Hauptnavigation" data-nav>
+    <nav class="nav" id="nav" aria-label="Hauptnavigation" data-i18n-aria="a11y.nav" data-nav>
       <div class="nav__links">
         <a href="#about" data-i18n="nav.about">Über uns</a>
         <a href="#services" data-i18n="nav.services">Leistungen</a>
@@ -72,7 +72,7 @@
         <a href="#academy" data-i18n="nav.academy">Academy</a>
         <a href="#contact" data-i18n="nav.contact">Kontakt</a>
       </div>
-      <div class="lang" role="group" aria-label="Sprache" data-lang-switch>
+      <div class="lang" role="group" aria-label="Sprache" data-i18n-aria="a11y.lang" data-lang-switch>
         <button type="button" data-lang="de" aria-pressed="true" lang="de">DE</button>
         <button type="button" data-lang="en" aria-pressed="false" lang="en">EN</button>
         <button type="button" data-lang="fr" aria-pressed="false" lang="fr">FR</button>
@@ -307,7 +307,7 @@
         <p class="lead" data-i18n="partners.lead">Distributionspartnerschaften auf dem Balkan: Marketingbudget, Kreation, Media und Abverkauf aus einer Hand. 44 Marken, acht Kategorien, ein Logo öffnet die Arbeit dahinter.</p>
       </div>
     </div>
-    <div class="brands-filter" role="group" aria-label="Kategorie" data-brand-filter>
+    <div class="brands-filter" role="group" aria-label="Kategorie" data-i18n-aria="a11y.category" data-brand-filter>
       <button type="button" data-filter="all" aria-pressed="true" data-i18n="brands.cat.all">Alle</button>
     </div>
     <div class="brands" data-brands></div>
@@ -378,7 +378,7 @@
        only when the section comes near, never with reduced motion. -->
   <div class="contact__weather" aria-hidden="true" data-weather>
     <video class="contact__video" muted loop playsinline preload="none" poster="/media/gen/weather-petals-900.jpg"
-           data-src-sd="/media/gen/weather-540.mp4" data-src-hd="/media/gen/weather-720.mp4"></video>
+           data-src-sd="/media/gen/weather-540.mp4" data-src-hd="/media/gen/weather-720.mp4" data-webm-sd="/media/gen/weather-540.webm" data-webm-hd="/media/gen/weather-720.webm"></video>
     <div class="contact__veil"></div>
   </div>
   <svg class="contact__mark" viewBox="0 0 733.3 1000" aria-hidden="true" focusable="false"><use href="#bs-mono"></use></svg>
@@ -470,7 +470,7 @@
       <span><span class="brand__word">Blütensturm</span><span class="brand__tag" data-i18n="brand.tag">Creative Agency</span></span>
     </a>
     <p class="site-footer__meta" data-i18n="footer.meta">Würzburg, Deutschland · Gegründet von Nezir Shinik &amp; Dijan Cika</p>
-    <nav class="site-footer__links" aria-label="Rechtliches">
+    <nav class="site-footer__links" aria-label="Rechtliches" data-i18n-aria="a11y.legal">
       <a href="/impressum/" data-i18n="footer.imprint">Impressum</a>
       <a href="/datenschutz/" data-i18n="footer.privacy">Datenschutz</a>
       <a href="/fragebogen/" data-i18n="footer.questionnaire">Fragebogen</a>

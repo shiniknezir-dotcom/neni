@@ -18,17 +18,17 @@
 <a class="skip" href="#main" data-i18n="a11y.skip">Zum Inhalt springen</a>
 <header class="site-header" data-header>
   <div class="wrap">
-    <a class="brand" href="/" aria-label="BlütenSturm — Startseite">
+    <a class="brand" href="/" aria-label="BlütenSturm — Startseite" data-i18n-aria="a11y.home">
       <svg class="brand__mark" viewBox="0 0 733.3 1000" aria-hidden="true" focusable="false"><use href="#bs-mono"></use></svg>
       <span><span class="brand__word">Blütensturm</span><span class="brand__tag" data-i18n="brand.tag">Creative Agency</span></span>
     </a>
-    <nav class="nav" aria-label="Navigation" data-nav>
+    <nav class="nav" id="nav" aria-label="Hauptnavigation" data-i18n-aria="a11y.nav" data-nav>
       <div class="nav__links">
         <a href="/#services" data-i18n="nav.services">Leistungen</a>
         <a href="/#work" data-i18n="nav.work">Arbeiten</a>
         <a href="/#academy" data-i18n="nav.academy">Academy</a>
       </div>
-      <div class="lang" role="group" aria-label="Sprache" data-lang-switch>
+      <div class="lang" role="group" aria-label="Sprache" data-i18n-aria="a11y.lang" data-lang-switch>
         <button type="button" data-lang="de" aria-pressed="true" lang="de">DE</button>
         <button type="button" data-lang="en" aria-pressed="false" lang="en">EN</button>
         <button type="button" data-lang="fr" aria-pressed="false" lang="fr">FR</button>
@@ -37,7 +37,7 @@
       </div>
       <a class="btn btn--ghost" href="/" data-i18n="form.q.back">← Zurück zur Startseite</a>
     </nav>
-    <button class="burger" type="button" aria-expanded="false" data-burger>
+    <button class="burger" type="button" aria-expanded="false" aria-controls="nav" data-burger>
       <span class="sr-only" data-i18n="a11y.menu">Menü</span>
       <svg class="lines" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
       <svg class="x" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
@@ -52,9 +52,9 @@
     <h1 class="hero__title" style="font-size: clamp(40px, 6.6vw, 96px);" data-i18n-html="thanks.title">Danke. Der Sturm<br>zieht schon <span class="pill">auf.</span></h1>
     <p class="lead" style="max-width: 60ch;" data-i18n="thanks.lead">Ihre Anfrage ist bei unserem Team in Würzburg gelandet. Eine Partnerin oder ein Partner liest jedes Briefing persönlich und antwortet innerhalb von zwei Werktagen, oft schneller.</p>
     <div class="thanks__steps">
-      <div><b>01</b><h3 data-i18n="thanks.1t">Wir lesen das Briefing</h3><p data-i18n="thanks.1p">Ziele, Markt und Timing werden von einem Partner geprüft.</p></div>
-      <div><b>02</b><h3 data-i18n="thanks.2t">Eine Route, schriftlich</h3><p data-i18n="thanks.2p">Sie bekommen einen Ansatz, ein Team und eine ehrliche Zahl.</p></div>
-      <div><b>03</b><h3 data-i18n="thanks.3t">30 Minuten gemeinsam</h3><p data-i18n="thanks.3p">Ein Gespräch, um alles auf Herz und Nieren zu prüfen. Kein Pitch-Theater.</p></div>
+      <div><b>01</b><h2 data-i18n="thanks.1t">Wir lesen das Briefing</h2><p data-i18n="thanks.1p">Ziele, Markt und Timing werden von einem Partner geprüft.</p></div>
+      <div><b>02</b><h2 data-i18n="thanks.2t">Eine Route, schriftlich</h2><p data-i18n="thanks.2p">Sie bekommen einen Ansatz, ein Team und eine ehrliche Zahl.</p></div>
+      <div><b>03</b><h2 data-i18n="thanks.3t">30 Minuten gemeinsam</h2><p data-i18n="thanks.3p">Ein Gespräch, um alles auf Herz und Nieren zu prüfen. Kein Pitch-Theater.</p></div>
     </div>
     <div class="hero__actions" style="justify-content: center;">
       <a class="btn" href="https://www.instagram.com/bluetensturmcreative" target="_blank" rel="noopener noreferrer"><span data-i18n="thanks.follow">Unserer Arbeit folgen</span><i class="dot" aria-hidden="true"></i></a>
@@ -68,7 +68,7 @@
   <div class="wrap">
     <a class="brand" href="/" aria-label="BlütenSturm"><svg class="brand__mark" viewBox="0 0 733.3 1000" aria-hidden="true" focusable="false"><use href="#bs-mono"></use></svg><span><span class="brand__word">Blütensturm</span><span class="brand__tag" data-i18n="brand.tag">Creative Agency</span></span></a>
     <p class="site-footer__meta" data-i18n="footer.meta">Würzburg, Deutschland · Gegründet von Nezir Shinik &amp; Dijan Cika</p>
-    <nav class="site-footer__links" aria-label="Rechtliches">
+    <nav class="site-footer__links" aria-label="Rechtliches" data-i18n-aria="a11y.legal">
       <a href="/impressum/" data-i18n="footer.imprint">Impressum</a>
       <a href="/datenschutz/" data-i18n="footer.privacy">Datenschutz</a>
       <a href="https://www.instagram.com/bluetensturmcreative" target="_blank" rel="noopener noreferrer">Instagram</a>

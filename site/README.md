@@ -20,9 +20,13 @@ After the first deploy:
 
 1. **Domain** — add `bluetensturm.com` under *Domain management* and let
    Netlify issue the certificate.
-2. **Forms** — both forms (`kontakt`, `fragebogen`) are registered as Netlify
-   Forms automatically. Under *Forms → Settings → Form notifications* add an
-   e-mail notification to `info@bluetensturm.com`. Every submission is also
+2. **Forms** — Netlify leaves form detection off on new sites. Under
+   *Site configuration → Forms* click *Enable form detection*, then redeploy
+   (*Deploys → Trigger deploy*, or drop the folder again). Both forms
+   (`kontakt`, `fragebogen`) then appear under *Forms*; under *Forms →
+   Settings → Form notifications* add an e-mail notification to
+   `info@bluetensturm.com`. Until then the Netlify copy of each submission is
+   refused, but JavaScript submissions still arrive by mail. Every submission is also
    sent through Formspree (`https://formspree.io/f/mvkpynzr`), the existing
    mailbox route, so nothing changes in how leads arrive today. If you ever want
    Formspree gone, remove the `FORMSPREE` constant in `js/data.js` and the

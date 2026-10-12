@@ -6,7 +6,12 @@
   "a11y": {
     "skip": "Vai al contenuto",
     "menu": "Menu",
-    "close": "Chiudi"
+    "close": "Chiudi",
+    "home": "BlütenSturm — Home",
+    "nav": "Navigazione principale",
+    "lang": "Lingua",
+    "category": "Categoria",
+    "legal": "Note legali"
   },
   "brand": {
     "tag": "Creative Agency"
@@ -221,7 +226,7 @@
     "q": {
       "eyebrow": "Questionario di progetto",
       "title": "Ci racconti della<br>Sua <span class=\"pill\">azienda.</span>",
-      "lead": "Dieci domande, circa quattro minuti. Tutto arriva direttamente ai nostri partner su info@bluetensturm.com. Nessun chatbot, nessun call center.",
+      "lead": "Tre brevi sezioni, circa quattro minuti. Tutto arriva direttamente ai nostri partner su info@bluetensturm.com. Nessun chatbot, nessun call center.",
       "g1": "01 — Su di Lei",
       "g2": "02 — La Sua azienda",
       "g3": "03 — Il progetto",

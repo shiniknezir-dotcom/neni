@@ -62,6 +62,10 @@ function applyDict() {
     const v = get(dict, el.dataset.i18nPlaceholder);
     if (typeof v === 'string') el.setAttribute('placeholder', v);
   });
+  $$('[data-i18n-aria]').forEach((el) => {
+    const v = get(dict, el.dataset.i18nAria);
+    if (typeof v === 'string') el.setAttribute('aria-label', v);
+  });
   /* Each page names its own title/description keys on <body>; pages that
      name none keep the title in their markup. */
   const titleKey = document.body.dataset.i18nTitle;
@@ -428,7 +432,11 @@ $$('[data-form]').forEach((form) => {
     if (video.dataset.loaded) return;
     video.dataset.loaded = '1';
     const hd = window.innerWidth >= 1100 && (!conn || !/^3g$/.test(conn.effectiveType || ''));
-    video.src = hd ? video.dataset.srcHd : video.dataset.srcSd;
+    /* H.264 where the browser has it (Safari, Chrome, Edge), VP9 WebM
+       where it does not (some Linux and Firefox builds). */
+    const h264 = video.canPlayType('video/mp4; codecs="avc1.640028"');
+    const useWebm = !h264 && video.canPlayType('video/webm; codecs="vp9"');
+    video.src = useWebm ? (hd ? video.dataset.webmHd : video.dataset.webmSd) : (hd ? video.dataset.srcHd : video.dataset.srcSd);
     video.addEventListener('playing', () => video.classList.add('is-playing'), { once: true });
     video.addEventListener('error', () => video.remove(), { once: true });
     const p = video.play();
@@ -487,7 +495,8 @@ async function mountHero3D() {
   renderDisciplines();
   renderChips();
   loadBrands();
-  const first = initialLang();
+  /* Pages without a language switcher (Impressum, Datenschutz) are German
+     only: never relabel their content as another language. */
+  const first = $('[data-lang-switch]') ? initialLang() : 'de';
   if (first !== 'de') setLang(first, { persist: false });
-  else try { if (!localStorage.getItem('bs-lang')) localStorage.setItem('bs-lang', 'de'); } catch (e) { /* ignore */ }
 })();
