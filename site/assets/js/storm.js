@@ -12,7 +12,7 @@
    when prefers-reduced-motion matches, html has class motion-off, WebGL2 is
    missing or a shader fails. The loop pauses while the hero is out of view
    or the tab is hidden. html.storm-on is set only while the storm is active
-   (storm.css then hides the three CSS drift petals). fx.js's bs:motion
+   (motion.css then hides the three CSS drift petals). fx.js's bs:motion
    event stops and restarts it. Context loss and restore are handled.
    Budget: ≤ 6 ms of JavaScript per frame for 420 petals, no per-frame
    allocations (typed arrays, one buffer upload per frame). */

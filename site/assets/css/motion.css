@@ -1,11 +1,24 @@
 /* ==========================================================================
    BlütenSturm — Noir, motion layer
-   Styles for fx.js: hero video, motion toggle, 3D tilt, word reveal, scroll
-   choreography, cursor light and button press. Every effect is gated on
+   Styles for storm.js (the hero canvas) and fx.js: hero video, motion toggle,
+   3D tilt, word reveal, scroll choreography, cursor light and button press. Every effect is gated on
    html.fx-on (set by fx.js while motion is on) and switched off again under
    html.motion-off and prefers-reduced-motion at the end of this file.
    No rule here changes layout: everything moves with transform and opacity.
    ========================================================================== */
+
+/* ---------- 0. Hero storm canvas (storm.js) ----------
+   The canvas covers the hero: above the photo (z-index -1) and the three CSS
+   drift petals, below the title and the meta line. While WebGL2 is running
+   (html.storm-on) the CSS drifts are hidden, so the hero keeps exactly one
+   pollen-yellow element: the storm's own petal. Off under reduced motion and
+   html.motion-off; without JavaScript or WebGL2 the canvas stays empty and
+   the CSS drifts remain. */
+.hero__storm { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; display: block; }
+html.storm-on .drift { display: none; }
+html.motion-off .hero__storm { display: none; }
+/* The toggle needs fx.js; without JavaScript it is not shown (boot.js sets html.js before first paint). */
+html:not(.js) .motion-toggle { display: none; }
 
 /* ---------- Hero stacking: title and meta stay above the storm canvas ---------- */
 .hero__title { position: relative; z-index: 2; }
@@ -112,7 +125,7 @@
 
 /* ---------- Reduced motion: everything above is neutral ---------- */
 @media (prefers-reduced-motion: reduce) {
-  .motion-toggle { display: none; }
+  .motion-toggle, .hero__storm { display: none; }
   .hero__video, .fx-on .hero__video.is-playing { opacity: 0; transition: none; }
   [data-tilt], [data-tilt].is-tilting { transform: none !important; transition: none; will-change: auto; }
   .fx-on [data-tilt]:not(img)::after { display: none; }

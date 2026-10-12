@@ -31,8 +31,7 @@ The new website for BlütenSturm, built in the Noir brand (black and white, one 
     ├── robots.txt, sitemap.xml, site.webmanifest, favicons
     └── assets/
         ├── css/style.css        all styles, brand tokens at the top
-        ├── css/motion.css       the motion layer: tilt, word reveals, scroll choreography, video
-        ├── css/storm.css        the hero canvas
+        ├── css/motion.css       the motion layer: hero canvas, video, tilt, word reveals, scroll choreography
         ├── js/boot.js           picks the language before the page paints
         ├── js/i18n.js           DE · FR · ES · IT translations (English is in the HTML)
         ├── js/main.js           language switch, menu, reveals, forms
@@ -72,7 +71,7 @@ Everything is optional and polite: it switches off for visitors who have asked t
 
 The generated visuals (the hero loop and the three "force" images under Blüte, Sturm and Wurzel) were made with Higgsfield to the brand brief: black ground, one hard side light, white petals, one pollen-yellow petal. They are brand abstractions, not photographs of people or clients. If you would rather keep the original crops, the old files are still in `site/assets/img/` (`crop-head.webp`, `crop-edge.webp`, `crop-fibers.webp`).
 
-To switch the whole motion layer off for good, remove the four lines in `site/index.html` that load `storm.css`, `motion.css`, `storm.js` and `fx.js` (and the `motion.css`/`fx.js` lines on the other pages); the site then looks and behaves exactly like the original build.
+To switch the whole motion layer off for good, remove the three lines in `site/index.html` that load `motion.css`, `storm.js` and `fx.js` (and the `motion.css`/`fx.js` lines on the other pages); the site then looks and behaves exactly like the original build.
 
 ## Preview on your computer
 
