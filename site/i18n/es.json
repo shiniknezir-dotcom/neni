@@ -3,9 +3,22 @@
     "title": "BlütenSturm · Creative Agency Würzburg — Marcas en plena floración",
     "description": "BlütenSturm es la agencia creativa de Würzburg: estrategia de marca, marketing digital, contenido y social, eventos y formación corporativa para el Mittelstand en Alemania y Europa."
   },
-  "a11y": { "skip": "Ir al contenido", "menu": "Menú", "close": "Cerrar" },
-  "brand": { "tag": "Creative Agency" },
-  "nav": { "about": "Nosotros", "services": "Servicios", "work": "Proyectos", "partners": "Partners", "academy": "Academy", "contact": "Contacto" },
+  "a11y": {
+    "skip": "Ir al contenido",
+    "menu": "Menú",
+    "close": "Cerrar"
+  },
+  "brand": {
+    "tag": "Creative Agency"
+  },
+  "nav": {
+    "about": "Nosotros",
+    "services": "Servicios",
+    "work": "Proyectos",
+    "partners": "Partners",
+    "academy": "Academy",
+    "contact": "Contacto"
+  },
   "cta": {
     "start": "Iniciar un proyecto",
     "what": "Qué hacemos",
@@ -18,18 +31,32 @@
     "title": "Marcas en<br>plena <span class=\"pill\">floración.</span>",
     "sub": "Marketing, creatividad y formación corporativa desde Würzburg. Con el rigor de los consultores y la audacia de los artistas."
   },
-  "ticker": { "1": "Estrategia de marca", "2": "Marketing digital", "3": "Contenido y social", "4": "Eventos y experiencias", "5": "Formación corporativa" },
+  "ticker": {
+    "1": "Estrategia de marca",
+    "2": "Marketing digital",
+    "3": "Contenido y social",
+    "4": "Eventos y experiencias",
+    "5": "Formación corporativa"
+  },
   "about": {
     "eyebrow": "01 — La agencia",
     "title": "Raíces franconas.<br>Alcance europeo.",
     "badge": "Fundada en Würzburg",
     "p1": "BlütenSturm nació en Würzburg, una ciudad de viñedos, piedra barroca y oficio tenaz. Conservamos el oficio y le añadimos velocidad. Hoy trabajamos con empresas del Mittelstand, marcas retadoras e instituciones que necesitan un marketing que mueva mercados y equipos capaces de sostenerlo.",
     "p2": "Un equipo, tres disciplinas: creatividad que se recuerda. Estrategia que se aprueba. Formación que se queda en la empresa.",
-    "tag1": "Creatividad", "tag2": "Estrategia", "tag3": "Formación",
-    "stat1": "Proyectos entregados", "stat2": "Mercados", "stat3": "Directivos formados", "stat4": "Retención de clientes",
-    "f1": "Sede", "f1v": "Würzburg, Baviera",
-    "f2": "Idiomas de trabajo", "f2v": "Alemán e inglés, además de FR · ES · IT",
-    "f3": "Clientes", "f3v": "Mittelstand, marcas retadoras, instituciones",
+    "tag1": "Creatividad",
+    "tag2": "Estrategia",
+    "tag3": "Formación",
+    "stat1": "Proyectos entregados",
+    "stat2": "Mercados",
+    "stat3": "Directivos formados",
+    "stat4": "Retención de clientes",
+    "f1": "Sede",
+    "f1v": "Würzburg, Baviera",
+    "f2": "Idiomas de trabajo",
+    "f2v": "Alemán e inglés, además de FR · ES · IT",
+    "f3": "Clientes",
+    "f3v": "Mittelstand, marcas retadoras, instituciones",
     "f4": "Presencia"
   },
   "services": {
@@ -43,24 +70,33 @@
   "why": {
     "eyebrow": "03 — Por qué BlütenSturm",
     "title": "Las agencias presentan ideas. Nosotros respondemos por los resultados.",
-    "1t": "Rigor de consultoría", "1p": "Cada ruta creativa se apoya en una tesis económica que usted puede defender ante el consejo.",
-    "2t": "Bilingües desde el primer día", "2p": "Alemán e inglés desde una misma mesa, matices DACH y despliegue en Europa sin pérdidas de traducción.",
-    "3t": "Solo equipos senior", "3p": "Quienes presentan son quienes ejecutan. Sin traspasos a juniors.",
-    "4t": "Formamos el relevo", "4p": "Las campañas terminan. La capacidad se queda: su equipo sabrá hacerlo por sí mismo."
+    "1t": "Rigor de consultoría",
+    "1p": "Cada ruta creativa se apoya en una tesis económica que usted puede defender ante el consejo.",
+    "2t": "Bilingües desde el primer día",
+    "2p": "Alemán e inglés desde una misma mesa, matices DACH y despliegue en Europa sin pérdidas de traducción.",
+    "3t": "Solo equipos senior",
+    "3p": "Quienes presentan son quienes ejecutan. Sin traspasos a juniors.",
+    "4t": "Formamos el relevo",
+    "4p": "Las campañas terminan. La capacidad se queda: su equipo sabrá hacerlo por sí mismo.",
+    "caption": "Una B hecha de tres pétalos: tallo, flor y tormenta comparten una misma raíz."
   },
   "work": {
     "eyebrow": "04 — Proyectos seleccionados",
     "title": "Tormentas recientes.",
     "lead": "Nuestros casos se presentan anonimizados a petición de los clientes. El portfolio completo se lo mostramos con gusto bajo NDA.",
     "request": "Solicitar el portfolio",
-    "1k": "Rebranding · Mittelstand", "1t": "Fabricante reposicionado para Europa",
+    "1k": "Rebranding · Mittelstand",
+    "1t": "Fabricante reposicionado para Europa",
     "1p": "Una empresa familiar de Franconia con un producto sólido y un nombre que nadie fuera de Alemania sabía ubicar. Taller de posicionamiento, nueva arquitectura de marca y un sistema de identidad bilingüe, desplegados en una temporada en ventas, feria y web.",
-    "2k": "Campaña · DACH", "2t": "Lanzamiento en tres mercados",
+    "2k": "Campaña · DACH",
+    "2t": "Lanzamiento en tres mercados",
     "2p": "Un lanzamiento de producto en Alemania, Austria y Suiza: una idea creativa, adaptada a cada mercado en lugar de traducida, con paid media, landing pages y material de ventas, medidos por el pipeline, no por impresiones.",
     "3big": "Directivos · 12 meses",
-    "3k": "Formación · Liderazgo", "3t": "Programa de liderazgo para 400 directivos",
+    "3k": "Formación · Liderazgo",
+    "3t": "Programa de liderazgo para 400 directivos",
     "3p": "Módulos I y II, impartidos durante doce meses en alemán e inglés. Directivos nuevos y en crecimiento en cohortes pequeñas, casos reales de su propia empresa y un traspaso para que la siguiente ronda se dirija desde dentro.",
-    "4k": "Experiencia · Evento", "4t": "Cumbre insignia, Würzburg",
+    "4k": "Experiencia · Evento",
+    "4t": "Cumbre insignia, Würzburg",
     "4p": "Dos días, tres escenarios y una emisión híbrida: concepto, programa, puesta en escena y contenidos para la cumbre anual de un cliente, del primer boceto al último cable.",
     "note": "Nombres, cifras e imágenes de cada caso, disponibles previa solicitud y con total confidencialidad."
   },
@@ -71,7 +107,18 @@
   },
   "brands": {
     "open": "Ver la colaboración",
-    "cat": { "all": "Todas", "dairy": "Lácteos y refrigerados", "meat": "Carne y embutidos", "sweets": "Confitería", "food": "Alimentación y bebidas", "drinks": "Bebidas", "baby": "Bebé e infantil", "frozen": "Congelados y verduras", "bakery": "Panadería y cereales", "other": "Otras" },
+    "cat": {
+      "all": "Todas",
+      "dairy": "Lácteos y refrigerados",
+      "meat": "Carne y embutidos",
+      "sweets": "Confitería",
+      "food": "Alimentación y bebidas",
+      "drinks": "Bebidas",
+      "baby": "Bebé e infantil",
+      "frozen": "Congelados y verduras",
+      "bakery": "Panadería y cereales",
+      "other": "Otras"
+    },
     "panel": {
       "eyebrow": "Partner",
       "markets": "Albania · Kosovo · Balcanes",
@@ -92,17 +139,28 @@
     "lead": "Programas modulares de liderazgo, comunicación, atención al cliente, ventas y marketing. En alemán o inglés, en Würzburg, en su sede o en formato híbrido por toda Europa.",
     "formats": "Módulos de medio día, un día y dos días · grupos pequeños · casos reales de su empresa · certificado para cada participante.",
     "cta": "Solicitar el programa",
-    "m1t": "Liderar bajo presión", "m1p": "Decidir, delegar, resolver conflictos: para directivos nuevos y en crecimiento.", "m1d": "2 días",
-    "m2t": "Story & Stage", "m2p": "Estructura narrativa, pitch y presencia, ante la cámara y en la sala.", "m2d": "1 día",
-    "m3t": "Marketing para no especialistas", "m3p": "Posicionamiento, canales y presupuestos para fundadores y responsables de área.", "m3d": "½ día",
-    "m4t": "Customer Care Excellence", "m4p": "Estándares de servicio, conversaciones difíciles, reclamaciones y el traspaso de vuelta a ventas.", "m4d": "2 días"
+    "m1t": "Liderar bajo presión",
+    "m1p": "Decidir, delegar, resolver conflictos: para directivos nuevos y en crecimiento.",
+    "m1d": "2 días",
+    "m2t": "Story & Stage",
+    "m2p": "Estructura narrativa, pitch y presencia, ante la cámara y en la sala.",
+    "m2d": "1 día",
+    "m3t": "Marketing para no especialistas",
+    "m3p": "Posicionamiento, canales y presupuestos para fundadores y responsables de área.",
+    "m3d": "½ día",
+    "m4t": "Customer Care Excellence",
+    "m4p": "Estándares de servicio, conversaciones difíciles, reclamaciones y el traspaso de vuelta a ventas.",
+    "m4d": "2 días"
   },
   "process": {
     "eyebrow": "07 — Próximos pasos",
     "title": "Tres pasos hasta el kick-off.",
-    "1t": "Enviar el briefing", "1p": "Formulario, correo o cuestionario: lo que le resulte más rápido.",
-    "2t": "Ruta y propuesta", "2p": "En dos días laborables recibirá enfoque, equipo y un precio de partida.",
-    "3t": "Kick-off", "3p": "Un taller en Würzburg, en su sede o en línea. Y arrancamos."
+    "1t": "Enviar el briefing",
+    "1p": "Formulario, correo o cuestionario: lo que le resulte más rápido.",
+    "2t": "Ruta y propuesta",
+    "2p": "En dos días laborables recibirá enfoque, equipo y un precio de partida.",
+    "3t": "Kick-off",
+    "3p": "Un taller en Würzburg, en su sede o en línea. Y arrancamos."
   },
   "contact": {
     "eyebrow": "08 — Contacto",
@@ -112,16 +170,48 @@
     "questionnaire": "¿Prefiere el cuestionario completo? →"
   },
   "form": {
-    "name": "Su nombre", "namePh": "Nombre y apellidos",
-    "company": "Empresa", "companyPh": "Nombre de la empresa",
-    "email": "E-mail", "phone": "Teléfono", "optional": "(opcional)",
+    "name": "Su nombre",
+    "namePh": "Nombre y apellidos",
+    "company": "Empresa",
+    "companyPh": "Nombre de la empresa",
+    "email": "E-mail",
+    "phone": "Teléfono",
+    "optional": "(opcional)",
     "interest": "Interés en",
-    "opt": { "brand": "Estrategia de marca", "digital": "Marketing digital", "content": "Contenido y social", "events": "Eventos y experiencias", "training": "Formación corporativa", "mix": "Una combinación" },
-    "size": "Tamaño de la empresa", "size1": "1–10 empleados", "size2": "11–50 empleados", "size3": "51–250 empleados", "size4": "250+ empleados",
-    "budget": "Rango de presupuesto", "budget1": "Menos de 10.000 €", "budget2": "10.000–30.000 €", "budget3": "30.000–75.000 €", "budget4": "75.000 €+", "budget5": "Aún por definir",
-    "timeline": "Plazo", "time1": "Lo antes posible", "time2": "En 1–3 meses", "time3": "Este año", "time4": "Solo explorando",
-    "project": "Proyecto", "projectPh": "¿Qué quiere conseguir?",
-    "source": "¿Cómo nos ha conocido?", "src1": "Búsqueda en Google", "src2": "Google Ads", "src3": "Instagram", "src4": "LinkedIn", "src5": "Recomendación", "src6": "Evento o feria", "src7": "Otros",
+    "opt": {
+      "brand": "Estrategia de marca",
+      "digital": "Marketing digital",
+      "content": "Contenido y social",
+      "events": "Eventos y experiencias",
+      "training": "Formación corporativa",
+      "mix": "Una combinación"
+    },
+    "size": "Tamaño de la empresa",
+    "size1": "1–10 empleados",
+    "size2": "11–50 empleados",
+    "size3": "51–250 empleados",
+    "size4": "250+ empleados",
+    "budget": "Rango de presupuesto",
+    "budget1": "Menos de 10.000 €",
+    "budget2": "10.000–30.000 €",
+    "budget3": "30.000–75.000 €",
+    "budget4": "75.000 €+",
+    "budget5": "Aún por definir",
+    "timeline": "Plazo",
+    "time1": "Lo antes posible",
+    "time2": "En 1–3 meses",
+    "time3": "Este año",
+    "time4": "Solo explorando",
+    "project": "Proyecto",
+    "projectPh": "¿Qué quiere conseguir?",
+    "source": "¿Cómo nos ha conocido?",
+    "src1": "Búsqueda en Google",
+    "src2": "Google Ads",
+    "src3": "Instagram",
+    "src4": "LinkedIn",
+    "src5": "Recomendación",
+    "src6": "Evento o feria",
+    "src7": "Otros",
     "consent": "Al enviar, acepta que tratemos sus datos para gestionar su consulta. Más detalles en la <a href=\"/datenschutz/\">política de privacidad</a>.",
     "send": "Enviar consulta",
     "sending": "Enviando …",
@@ -132,15 +222,26 @@
       "eyebrow": "Cuestionario de proyecto",
       "title": "Háblenos de<br>su <span class=\"pill\">empresa.</span>",
       "lead": "Diez preguntas, unos cuatro minutos. Todo llega directamente a nuestros socios en info@bluetensturm.com. Sin chatbot, sin call center.",
-      "g1": "01 — Sobre usted", "g2": "02 — Su empresa", "g3": "03 — El proyecto",
-      "website": "Sitio web", "role": "Su cargo", "rolePh": "Dirección, marketing …",
-      "industry": "Sector", "industryPh": "Sector",
-      "markets": "Mercados en los que vende", "marketsPh": "DACH, UE, global …",
+      "g1": "01 — Sobre usted",
+      "g2": "02 — Su empresa",
+      "g3": "03 — El proyecto",
+      "website": "Sitio web",
+      "role": "Su cargo",
+      "rolePh": "Dirección, marketing …",
+      "industry": "Sector",
+      "industryPh": "Sector",
+      "markets": "Mercados en los que vende",
+      "marketsPh": "DACH, UE, global …",
       "inhouse": "¿Tiene un equipo de marketing propio?",
-      "inhouse1": "No, necesitamos apoyo completo", "inhouse2": "Una o dos personas", "inhouse3": "Un equipo completo que necesita más capacidad", "inhouse4": "Un equipo completo que solo necesita estrategia",
+      "inhouse1": "No, necesitamos apoyo completo",
+      "inhouse2": "Una o dos personas",
+      "inhouse3": "Un equipo completo que necesita más capacidad",
+      "inhouse4": "Un equipo completo que solo necesita estrategia",
       "need": "¿Qué necesita?",
-      "goals": "¿Qué quiere conseguir?", "goalsPh": "Objetivos, cifras, horizonte temporal …",
-      "obstacles": "¿Qué le ha frenado hasta ahora?", "obstaclesPh": "Presupuesto, capacidad, posicionamiento poco claro …",
+      "goals": "¿Qué quiere conseguir?",
+      "goalsPh": "Objetivos, cifras, horizonte temporal …",
+      "obstacles": "¿Qué le ha frenado hasta ahora?",
+      "obstaclesPh": "Presupuesto, capacidad, posicionamiento poco claro …",
       "replyLang": "Idioma preferido para la respuesta",
       "send": "Enviar cuestionario",
       "back": "← Volver a la página de inicio"
@@ -151,21 +252,36 @@
     "eyebrow": "Consulta recibida",
     "title": "Gracias. La tormenta<br>ya se <span class=\"pill\">acerca.</span>",
     "lead": "Su consulta ha llegado a nuestro equipo en Würzburg. Un socio lee cada briefing personalmente y responde en dos días laborables, a menudo antes.",
-    "1t": "Leemos el briefing", "1p": "Un socio revisa objetivos, mercado y calendario.",
-    "2t": "Una ruta, por escrito", "2p": "Recibirá un enfoque, un equipo y una cifra honesta.",
-    "3t": "30 minutos juntos", "3p": "Una conversación para ponerlo todo a prueba. Sin teatro de pitch.",
-    "follow": "Seguir nuestro trabajo", "work": "Ver proyectos",
+    "1t": "Leemos el briefing",
+    "1p": "Un socio revisa objetivos, mercado y calendario.",
+    "2t": "Una ruta, por escrito",
+    "2p": "Recibirá un enfoque, un equipo y una cifra honesta.",
+    "3t": "30 minutos juntos",
+    "3p": "Una conversación para ponerlo todo a prueba. Sin teatro de pitch.",
+    "follow": "Seguir nuestro trabajo",
+    "work": "Ver proyectos",
     "urgent": "¿Algo urgente? Escriba directamente a"
   },
   "footer": {
     "meta": "Würzburg, Alemania · Fundada por Nezir Shinik & Dijan Cika",
-    "imprint": "Aviso legal", "privacy": "Privacidad", "questionnaire": "Cuestionario", "mail": "E-mail",
+    "imprint": "Aviso legal",
+    "privacy": "Privacidad",
+    "questionnaire": "Cuestionario",
+    "mail": "E-mail",
     "copy": "© 2026 BlütenSturm · Marcas en plena floración.",
     "made": "Hecho en Franconia. Leído en Europa."
   },
   "panel": {
-    "service": "Servicio", "open": "Paquetes y alcance", "normal": "Estándar", "premium": "Premium",
-    "from": "desde", "unit": { "mo": "al mes", "pr": "por proyecto", "day": "por día" },
+    "service": "Servicio",
+    "open": "Paquetes y alcance",
+    "normal": "Estándar",
+    "premium": "Premium",
+    "from": "desde",
+    "unit": {
+      "mo": "al mes",
+      "pr": "por proyecto",
+      "day": "por día"
+    },
     "request": "Solicitar {tier}",
     "foot": "Precios orientativos de partida para el mercado bávaro, sin IVA. El alcance final se presupuesta según su briefing."
   },
@@ -175,162 +291,432 @@
       "short": "Análisis, arquitectura de marca, naming y diseño corporativo. Encontramos el filo.",
       "tagline": "Posicionamiento que sobrevive al consejo",
       "desc": "Análisis de categoría y competencia, arquitectura de marca, naming y el sistema verbal y visual que lo sostiene todo.",
-      "items": ["Análisis de mercado y categoría", "Arquitectura de marca", "Naming e identidad verbal", "Sistemas de identidad visual"],
-      "normal": ["Sprint de posicionamiento, dos talleres", "Mapa de competencia y categoría", "Messaging house y tono de voz", "Guía de marca, 20 páginas"],
-      "premium": ["Todo lo del Estándar", "Arquitectura de marca y naming", "Sistema completo de identidad visual", "Playbook de despliegue y lanzamiento interno", "Seis meses de acompañamiento"]
+      "items": [
+        "Análisis de mercado y categoría",
+        "Arquitectura de marca",
+        "Naming e identidad verbal",
+        "Sistemas de identidad visual"
+      ],
+      "normal": [
+        "Sprint de posicionamiento, dos talleres",
+        "Mapa de competencia y categoría",
+        "Messaging house y tono de voz",
+        "Guía de marca, 20 páginas"
+      ],
+      "premium": [
+        "Todo lo del Estándar",
+        "Arquitectura de marca y naming",
+        "Sistema completo de identidad visual",
+        "Playbook de despliegue y lanzamiento interno",
+        "Seis meses de acompañamiento"
+      ]
     },
     "marketing-strategy": {
       "name": "Estrategia de marketing",
       "short": "Canales, funnel y presupuesto, medidos por el pipeline y no por impresiones.",
       "tagline": "Un plan que se mide por el pipeline",
       "desc": "Estrategia de canales, diseño de funnel y reparto de presupuesto, ligados a resultados económicos en lugar de a alcance.",
-      "items": ["Estrategia de canales y funnel", "Reparto de presupuesto", "Marco de medición y KPI"],
-      "normal": ["Auditoría de canales y funnel", "Plan de canales a 12 meses", "Modelo de reparto de presupuesto", "Marco de KPI"],
-      "premium": ["Todo lo del Estándar", "Investigación de segmentos y buyer personas", "Modelado de media mix", "Seguimiento trimestral con su dirección general", "Configuración de atribución"]
+      "items": [
+        "Estrategia de canales y funnel",
+        "Reparto de presupuesto",
+        "Marco de medición y KPI"
+      ],
+      "normal": [
+        "Auditoría de canales y funnel",
+        "Plan de canales a 12 meses",
+        "Modelo de reparto de presupuesto",
+        "Marco de KPI"
+      ],
+      "premium": [
+        "Todo lo del Estándar",
+        "Investigación de segmentos y buyer personas",
+        "Modelado de media mix",
+        "Seguimiento trimestral con su dirección general",
+        "Configuración de atribución"
+      ]
     },
     "creative-services": {
       "name": "Servicios creativos",
       "short": "Concepto, dirección de arte y plataformas de campaña que funcionan en varios mercados.",
       "tagline": "Ideas que sobreviven al pitch",
       "desc": "Concepto, dirección de arte y plataformas de campaña, construidas para funcionar en varios mercados sin perder el filo.",
-      "items": ["Plataformas de campaña", "Dirección de arte", "Copy y concepto"],
-      "normal": ["Una ruta de campaña", "Key visual y sistema de titulares", "Dirección de arte para tres formatos", "Dos rondas de correcciones"],
-      "premium": ["Todo lo del Estándar", "Tres rutas en competencia", "Plataforma de campaña completa", "Kit de assets para todos los canales", "Adaptación de mercado para DACH"]
+      "items": [
+        "Plataformas de campaña",
+        "Dirección de arte",
+        "Copy y concepto"
+      ],
+      "normal": [
+        "Una ruta de campaña",
+        "Key visual y sistema de titulares",
+        "Dirección de arte para tres formatos",
+        "Dos rondas de correcciones"
+      ],
+      "premium": [
+        "Todo lo del Estándar",
+        "Tres rutas en competencia",
+        "Plataforma de campaña completa",
+        "Kit de assets para todos los canales",
+        "Adaptación de mercado para DACH"
+      ]
     },
     "digital-marketing": {
       "name": "Marketing digital",
       "short": "Performance, SEO, CRM y automatización, medidos por consultas, no por clics.",
       "tagline": "Performance sin métricas de vanidad",
       "desc": "Paid media, SEO, CRM y automatización, con resultados medidos en ingresos.",
-      "items": ["Paid media", "SEO y contenido", "CRM y automatización"],
-      "normal": ["Optimización SEO y de contenido", "Un canal de paid media gestionado", "Informe mensual de performance", "Hasta 12 horas senior"],
-      "premium": ["Todo lo del Estándar", "Tres canales de paid media gestionados", "CRM y automatización de marketing", "Programa de CRO para landing pages", "Reporting semanal con atribución de ingresos"]
+      "items": [
+        "Paid media",
+        "SEO y contenido",
+        "CRM y automatización"
+      ],
+      "normal": [
+        "Optimización SEO y de contenido",
+        "Un canal de paid media gestionado",
+        "Informe mensual de performance",
+        "Hasta 12 horas senior"
+      ],
+      "premium": [
+        "Todo lo del Estándar",
+        "Tres canales de paid media gestionados",
+        "CRM y automatización de marketing",
+        "Programa de CRO para landing pages",
+        "Reporting semanal con atribución de ingresos"
+      ]
     },
     "social-media-management": {
       "name": "Gestión de redes sociales",
       "short": "Plan editorial, comunidad y creatividad nativa para DACH y Europa.",
       "tagline": "Always-on, nunca genérico",
       "desc": "Calendario editorial, gestión de comunidad y creatividad nativa para audiencias alemanas y europeas.",
-      "items": ["Planificación editorial", "Gestión de comunidad", "Creatividad nativa"],
-      "normal": ["Dos canales, 12 publicaciones al mes", "Calendario editorial", "Gestión de comunidad en días laborables", "Informe mensual"],
-      "premium": ["Todo lo del Estándar", "Cuatro canales, 24 publicaciones al mes", "Producción de vídeo nativo y reels", "Gestión del presupuesto de paid social", "Gestión de influencers y creadores"]
+      "items": [
+        "Planificación editorial",
+        "Gestión de comunidad",
+        "Creatividad nativa"
+      ],
+      "normal": [
+        "Dos canales, 12 publicaciones al mes",
+        "Calendario editorial",
+        "Gestión de comunidad en días laborables",
+        "Informe mensual"
+      ],
+      "premium": [
+        "Todo lo del Estándar",
+        "Cuatro canales, 24 publicaciones al mes",
+        "Producción de vídeo nativo y reels",
+        "Gestión del presupuesto de paid social",
+        "Gestión de influencers y creadores"
+      ]
     },
     "content-production": {
       "name": "Contenido y social",
       "short": "Vídeo, fotografía y redes sociales para Alemania y Europa, desde una misma mesa.",
       "tagline": "Un solo techo, del concepto a la entrega",
       "desc": "Vídeo, fotografía, copy y diseño producidos como un único sistema, no como cinco briefings.",
-      "items": ["Vídeo y motion", "Fotografía", "Redacción y copy"],
-      "normal": ["Un día de rodaje al mes", "Redacción y copy", "Edición de foto y formato corto", "Entrega de la biblioteca de assets"],
-      "premium": ["Todo lo del Estándar", "Tres días de rodaje al mes", "Vídeo, motion y fotografía", "Redacción bilingüe", "Pipeline de contenido always-on"]
+      "items": [
+        "Vídeo y motion",
+        "Fotografía",
+        "Redacción y copy"
+      ],
+      "normal": [
+        "Un día de rodaje al mes",
+        "Redacción y copy",
+        "Edición de foto y formato corto",
+        "Entrega de la biblioteca de assets"
+      ],
+      "premium": [
+        "Todo lo del Estándar",
+        "Tres días de rodaje al mes",
+        "Vídeo, motion y fotografía",
+        "Redacción bilingüe",
+        "Pipeline de contenido always-on"
+      ]
     },
     "website-digital-experience": {
       "name": "Web y experiencia digital",
       "short": "Webs y productos que cargan rápido, posicionan y dan la talla en cualquier dispositivo.",
       "tagline": "Construido, no solo diseñado",
       "desc": "Webs y productos digitales que cargan rápido, posicionan y transmiten intención en cualquier dispositivo.",
-      "items": ["Diseño y desarrollo", "Rendimiento y SEO", "Accesibilidad"],
-      "normal": ["Hasta 10 páginas, diseño a medida", "CMS y migración de contenido", "Revisión de Core Web Vitals", "Base de accesibilidad"],
-      "premium": ["Todo lo del Estándar", "Multilingüe, hasta 40 páginas", "Sistema de diseño y biblioteca de componentes", "Integraciones y funciones a medida", "Doce meses de mantenimiento y CRO"]
+      "items": [
+        "Diseño y desarrollo",
+        "Rendimiento y SEO",
+        "Accesibilidad"
+      ],
+      "normal": [
+        "Hasta 10 páginas, diseño a medida",
+        "CMS y migración de contenido",
+        "Revisión de Core Web Vitals",
+        "Base de accesibilidad"
+      ],
+      "premium": [
+        "Todo lo del Estándar",
+        "Multilingüe, hasta 40 páginas",
+        "Sistema de diseño y biblioteca de componentes",
+        "Integraciones y funciones a medida",
+        "Doce meses de mantenimiento y CRO"
+      ]
     },
     "advertising": {
       "name": "Publicidad",
       "short": "Above y below the line, del concepto a la producción y la difusión.",
       "tagline": "Trabajo que se recuerda",
       "desc": "Above y below the line, del concepto a la producción y la inserción en medios.",
-      "items": ["Concepto de campaña", "Producción", "Inserción en medios"],
-      "normal": ["Un concepto de campaña", "Producción de tres piezas", "Plan de medios", "Inserción y trafficking"],
-      "premium": ["Todo lo del Estándar", "Plataforma ATL y BTL", "Producción completa, vídeo incluido", "Compra de medios en varios mercados", "Estudio de eficacia poscampaña"]
+      "items": [
+        "Concepto de campaña",
+        "Producción",
+        "Inserción en medios"
+      ],
+      "normal": [
+        "Un concepto de campaña",
+        "Producción de tres piezas",
+        "Plan de medios",
+        "Inserción y trafficking"
+      ],
+      "premium": [
+        "Todo lo del Estándar",
+        "Plataforma ATL y BTL",
+        "Producción completa, vídeo incluido",
+        "Compra de medios en varios mercados",
+        "Estudio de eficacia poscampaña"
+      ]
     },
     "pr": {
       "name": "Relaciones públicas",
       "short": "Prensa, thought leadership y comunicación de crisis en DACH y la UE.",
       "tagline": "Atención ganada",
       "desc": "Relaciones con la prensa, thought leadership y comunicación de crisis en DACH y la UE.",
-      "items": ["Relaciones con la prensa", "Thought leadership", "Comunicación de crisis"],
-      "normal": ["Dos notas de prensa al mes", "Lista de medios DACH y contacto", "Informe de clipping", "Briefing de portavoces"],
-      "premium": ["Todo lo del Estándar", "Programa de thought leadership", "Relaciones con medios en toda Europa", "Retainer de comunicación de crisis", "Media training para la dirección"]
+      "items": [
+        "Relaciones con la prensa",
+        "Thought leadership",
+        "Comunicación de crisis"
+      ],
+      "normal": [
+        "Dos notas de prensa al mes",
+        "Lista de medios DACH y contacto",
+        "Informe de clipping",
+        "Briefing de portavoces"
+      ],
+      "premium": [
+        "Todo lo del Estándar",
+        "Programa de thought leadership",
+        "Relaciones con medios en toda Europa",
+        "Retainer de comunicación de crisis",
+        "Media training para la dirección"
+      ]
     },
     "business-development-support": {
       "name": "Desarrollo de negocio",
       "short": "Alianzas, apoyo en pitches y go-to-market para nuevos mercados.",
       "tagline": "Crecimiento más allá de la campaña",
       "desc": "Desarrollo de alianzas, apoyo en pitches y planificación go-to-market para nuevas regiones.",
-      "items": ["Planificación go-to-market", "Apoyo en pitches", "Alianzas"],
-      "normal": ["Plan go-to-market para un mercado", "Pitch deck y one-pager", "Marco de cualificación de leads", "Sparring mensual"],
-      "premium": ["Todo lo del Estándar", "Tres mercados en paralelo", "Búsqueda de partners y presentaciones", "Pitch coaching para el equipo", "Biblioteca de sales enablement"]
+      "items": [
+        "Planificación go-to-market",
+        "Apoyo en pitches",
+        "Alianzas"
+      ],
+      "normal": [
+        "Plan go-to-market para un mercado",
+        "Pitch deck y one-pager",
+        "Marco de cualificación de leads",
+        "Sparring mensual"
+      ],
+      "premium": [
+        "Todo lo del Estándar",
+        "Tres mercados en paralelo",
+        "Búsqueda de partners y presentaciones",
+        "Pitch coaching para el equipo",
+        "Biblioteca de sales enablement"
+      ]
     },
     "event-marketing-promotions": {
       "name": "Eventos y experiencias",
       "short": "Lanzamientos, ferias y cumbres: concepto, producción y dirección in situ.",
       "tagline": "Donde la marca se encuentra con el espacio",
       "desc": "Lanzamientos, ferias y activación en el punto de venta: concepto, producción y dirección in situ.",
-      "items": ["Ferias y lanzamientos", "Activación en el punto de venta", "Dirección in situ"],
-      "normal": ["Concepto y escaleta", "Coordinación de proveedores", "Dirección in situ, un día", "Vídeo resumen y set de fotos"],
-      "premium": ["Todo lo del Estándar", "Construcción creativa y escenografía completas", "Producción de varios días", "Experiencia del invitado y campaña de invitaciones", "Contenido en directo y amplificación posevento"]
+      "items": [
+        "Ferias y lanzamientos",
+        "Activación en el punto de venta",
+        "Dirección in situ"
+      ],
+      "normal": [
+        "Concepto y escaleta",
+        "Coordinación de proveedores",
+        "Dirección in situ, un día",
+        "Vídeo resumen y set de fotos"
+      ],
+      "premium": [
+        "Todo lo del Estándar",
+        "Construcción creativa y escenografía completas",
+        "Producción de varios días",
+        "Experiencia del invitado y campaña de invitaciones",
+        "Contenido en directo y amplificación posevento"
+      ]
     },
     "video-multimedia": {
       "name": "Vídeo y multimedia",
       "short": "Brand films, vídeos de producto y motion design, producidos in-house.",
       "tagline": "Movimiento que sostiene la idea",
       "desc": "Brand films, vídeos de producto y motion design, producidos in-house.",
-      "items": ["Brand film", "Vídeo de producto", "Motion design"],
-      "normal": ["Un día de rodaje, equipo de dos personas", "Brand film de hasta 90 segundos", "Tres cutdowns para social", "Música con licencia y etalonaje"],
-      "premium": ["Todo lo del Estándar", "Tres días de rodaje, equipo completo", "Dirección, casting y búsqueda de localizaciones", "Motion design e inserciones 3D", "Diez cutdowns y versionado"]
+      "items": [
+        "Brand film",
+        "Vídeo de producto",
+        "Motion design"
+      ],
+      "normal": [
+        "Un día de rodaje, equipo de dos personas",
+        "Brand film de hasta 90 segundos",
+        "Tres cutdowns para social",
+        "Música con licencia y etalonaje"
+      ],
+      "premium": [
+        "Todo lo del Estándar",
+        "Tres días de rodaje, equipo completo",
+        "Dirección, casting y búsqueda de localizaciones",
+        "Motion design e inserciones 3D",
+        "Diez cutdowns y versionado"
+      ]
     },
     "analytics": {
       "name": "Analítica",
       "short": "Atribución, dashboards y reporting que el consejo puede leer de verdad.",
       "tagline": "Los números detrás del trabajo",
       "desc": "Atribución, dashboards y reporting que su dirección general puede leer de verdad.",
-      "items": ["Modelado de atribución", "Dashboards", "Reporting"],
-      "normal": ["Auditoría de tracking y consentimiento", "Configuración de GA4 y server-side", "Un dashboard ejecutivo", "Documentación de traspaso"],
-      "premium": ["Todo lo del Estándar, en retainer", "Modelado de atribución", "Sesión mensual de insights", "Programa de experimentos", "Revisión trimestral para la dirección"]
+      "items": [
+        "Modelado de atribución",
+        "Dashboards",
+        "Reporting"
+      ],
+      "normal": [
+        "Auditoría de tracking y consentimiento",
+        "Configuración de GA4 y server-side",
+        "Un dashboard ejecutivo",
+        "Documentación de traspaso"
+      ],
+      "premium": [
+        "Todo lo del Estándar, en retainer",
+        "Modelado de atribución",
+        "Sesión mensual de insights",
+        "Programa de experimentos",
+        "Revisión trimestral para la dirección"
+      ]
     },
     "ai-innovation": {
       "name": "IA e innovación",
       "short": "Automatización e IA en el marketing, justo donde ahorran tiempo de verdad.",
       "tagline": "Aplicada, no decorativa",
       "desc": "Automatización e IA integradas en la operativa de marketing, donde ahorran tiempo de verdad.",
-      "items": ["Automatización de marketing", "IA aplicada", "Diseño de procesos"],
-      "normal": ["Auditoría de casos de uso y shortlist", "Un flujo de trabajo automatizado", "Recomendación de herramientas", "Sesión de formación para el equipo"],
-      "premium": ["Todo lo del Estándar", "Tres flujos de trabajo automatizados", "Sistema propio de prompts y contenido", "Gobernanza y salvaguardas de compliance", "Iteración trimestral"]
+      "items": [
+        "Automatización de marketing",
+        "IA aplicada",
+        "Diseño de procesos"
+      ],
+      "normal": [
+        "Auditoría de casos de uso y shortlist",
+        "Un flujo de trabajo automatizado",
+        "Recomendación de herramientas",
+        "Sesión de formación para el equipo"
+      ],
+      "premium": [
+        "Todo lo del Estándar",
+        "Tres flujos de trabajo automatizados",
+        "Sistema propio de prompts y contenido",
+        "Gobernanza y salvaguardas de compliance",
+        "Iteración trimestral"
+      ]
     },
     "consulting": {
       "name": "Consultoría",
       "short": "Auditorías, talleres y apoyo interino para equipos de marketing con demasiado sobre la mesa.",
       "tagline": "Sparring para responsables de marketing",
       "desc": "Auditorías, talleres y apoyo interino para equipos que cargan con más de lo que su capacidad permite.",
-      "items": ["Auditorías de marketing", "Talleres", "Apoyo interino"],
-      "normal": ["Un día de taller o auditoría", "Conclusiones por escrito y próximos pasos", "Dos semanas de consultas posteriores"],
-      "premium": ["Todo lo del Estándar, en retainer", "Dos días al mes a su lado", "Dirección de marketing interina", "Gestión de agencias y proveedores", "Línea directa, respuesta el mismo día"]
+      "items": [
+        "Auditorías de marketing",
+        "Talleres",
+        "Apoyo interino"
+      ],
+      "normal": [
+        "Un día de taller o auditoría",
+        "Conclusiones por escrito y próximos pasos",
+        "Dos semanas de consultas posteriores"
+      ],
+      "premium": [
+        "Todo lo del Estándar, en retainer",
+        "Dos días al mes a su lado",
+        "Dirección de marketing interina",
+        "Gestión de agencias y proveedores",
+        "Línea directa, respuesta el mismo día"
+      ]
     },
     "employer-branding": {
       "name": "Marca empleadora",
       "short": "Posicionamiento como empleador, contenido para candidatos y campañas de captación de talento.",
       "tagline": "Storytelling de talento que llega",
       "desc": "Posicionamiento como empleador, contenido para candidatos y campañas de captación de talento.",
-      "items": ["Posicionamiento como empleador", "Contenido para candidatos", "Campañas de captación de talento"],
-      "normal": ["Taller de posicionamiento como empleador", "EVP y messaging", "Copy y diseño de la página de empleo", "Tres sets de anuncios de captación"],
-      "premium": ["Todo lo del Estándar", "Encuesta y entrevistas a empleados", "Vídeo y fotografía de talento", "Campaña de captación de talento always-on", "Toolkit de onboarding y cultura"]
+      "items": [
+        "Posicionamiento como empleador",
+        "Contenido para candidatos",
+        "Campañas de captación de talento"
+      ],
+      "normal": [
+        "Taller de posicionamiento como empleador",
+        "EVP y messaging",
+        "Copy y diseño de la página de empleo",
+        "Tres sets de anuncios de captación"
+      ],
+      "premium": [
+        "Todo lo del Estándar",
+        "Encuesta y entrevistas a empleados",
+        "Vídeo y fotografía de talento",
+        "Campaña de captación de talento always-on",
+        "Toolkit de onboarding y cultura"
+      ]
     },
     "ongoing-client-services": {
       "name": "Acompañamiento continuo",
       "short": "Retainer en estrategia, creatividad y performance, con perfiles senior en el proyecto.",
       "tagline": "Un equipo que se queda",
       "desc": "Apoyo continuo en estrategia, creatividad y performance, con perfiles senior en el trabajo.",
-      "items": ["Estrategia en retainer", "Creatividad continua", "Gestión de performance"],
-      "normal": ["20 horas senior al mes", "Una disciplina a su elección", "Reunión mensual de planificación", "Tablero compartido y reporting"],
-      "premium": ["Todo lo del Estándar", "55 horas senior al mes", "Estrategia, creatividad y performance", "Equipo fijo, sin traspaso a juniors", "Atención prioritaria"]
+      "items": [
+        "Estrategia en retainer",
+        "Creatividad continua",
+        "Gestión de performance"
+      ],
+      "normal": [
+        "20 horas senior al mes",
+        "Una disciplina a su elección",
+        "Reunión mensual de planificación",
+        "Tablero compartido y reporting"
+      ],
+      "premium": [
+        "Todo lo del Estándar",
+        "55 horas senior al mes",
+        "Estrategia, creatividad y performance",
+        "Equipo fijo, sin traspaso a juniors",
+        "Atención prioritaria"
+      ]
     },
     "corporate-training": {
       "name": "Formación corporativa",
       "short": "Liderazgo, comunicación, atención al cliente y ventas. Certificada, bilingüe, in-house o externa.",
       "tagline": "Capacidad que sobrevive a la campaña",
       "desc": "Liderazgo, comunicación y sales enablement, certificados, bilingües, in-house o externos.",
-      "items": ["Desarrollo de liderazgo", "Comunicación ejecutiva", "Sales enablement"],
-      "normal": ["Un día de formación, hasta 12 personas", "Alemán o inglés", "Workbook y materiales", "En su sede o en Würzburg"],
-      "premium": ["Todo lo del Estándar", "Diseño de programa en varios módulos", "Coaching 1:1 para participantes", "Certificación y tareas de transferencia", "Sesión de seguimiento a los 90 días"]
+      "items": [
+        "Desarrollo de liderazgo",
+        "Comunicación ejecutiva",
+        "Sales enablement"
+      ],
+      "normal": [
+        "Un día de formación, hasta 12 personas",
+        "Alemán o inglés",
+        "Workbook y materiales",
+        "En su sede o en Würzburg"
+      ],
+      "premium": [
+        "Todo lo del Estándar",
+        "Diseño de programa en varios módulos",
+        "Coaching 1:1 para participantes",
+        "Certificación y tareas de transferencia",
+        "Sesión de seguimiento a los 90 días"
+      ]
     }
   }
 }
