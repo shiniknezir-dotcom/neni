@@ -1,3 +1,14 @@
+# **bluetensturm.com — Lime Bloom website**
+
+The agency website lives in [`site/`](site/): a static, no-build site in the
+**01 Lime Bloom** brand direction with a live 3D petal-B hero, five languages,
+Higgsfield-generated imagery and a Netlify-ready configuration. Deploy by
+dropping the `site` folder on <https://app.netlify.com/drop> or by connecting
+this repository (the root `netlify.toml` points Netlify at `site/`). See
+[`site/README.md`](site/README.md) for content editing and form setup.
+
+---
+
 # **Claude Code + Higgsfield — The Complete UGC Pipeline**
 
 Automate AI image generation, Seedance 2.0 video creation, and full UGC ad pipelines with Playwright browser automation. 19 ready-to-use skills.
