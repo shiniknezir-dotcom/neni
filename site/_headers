@@ -1,0 +1,27 @@
+# Netlify response headers for bluetensturm.com
+# Docs: https://docs.netlify.com/routing/headers/
+#
+# The Content-Security-Policy allows only this site's own files plus
+# Formspree (form submissions). Netlify adds HSTS itself. If you add a third-party script, font,
+# embed or analytics tool, extend the policy here AND update /datenschutz.
+
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; manifest-src 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), browsing-topics=()
+  Cross-Origin-Opener-Policy: same-origin
+
+# Fonts never change under the same file name: cache for a year.
+/assets/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Images and logos: cache for a week (rename a file if you replace it in place).
+/assets/img/*
+  Cache-Control: public, max-age=604800
+/assets/brands/*
+  Cache-Control: public, max-age=604800
+
+# HTML, CSS and JS keep Netlify's default (revalidate on every visit), so a
+# new deploy is visible immediately without renaming files.
