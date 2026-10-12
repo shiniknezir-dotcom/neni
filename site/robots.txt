@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /danke/
+Sitemap: https://bluetensturm.com/sitemap.xml

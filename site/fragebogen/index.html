@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Projekt-Fragebogen — BlütenSturm</title>
+<meta name="description" content="Zehn Fragen, vier Minuten: Erzählen Sie BlütenSturm von Ihrem Unternehmen und Ihrem Vorhaben. Wir antworten innerhalb von zwei Werktagen.">
+<meta name="robots" content="noindex, follow">
+<meta name="theme-color" content="#D3F543">
+<link rel="canonical" href="https://bluetensturm.com/fragebogen/">
+<link rel="icon" href="/assets/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/css/fonts.css">
+<link rel="stylesheet" href="/css/site.css">
+</head>
+<body>
+<a class="skip" href="#main" data-i18n="a11y.skip">Zum Inhalt springen</a>
+<header class="site-header" data-header>
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="BlütenSturm — Startseite">
+      <svg class="brand__mark" viewBox="0 0 733.3 1000" aria-hidden="true" focusable="false"><use href="#bs-mono"></use></svg>
+      <span><span class="brand__word">Blütensturm</span><span class="brand__tag" data-i18n="brand.tag">Creative Agency</span></span>
+    </a>
+    <nav class="nav" aria-label="Navigation" data-nav>
+      <div class="nav__links">
+        <a href="/#services" data-i18n="nav.services">Leistungen</a>
+        <a href="/#work" data-i18n="nav.work">Arbeiten</a>
+        <a href="/#academy" data-i18n="nav.academy">Academy</a>
+        <a href="/#contact" data-i18n="nav.contact">Kontakt</a>
+      </div>
+      <div class="lang" role="group" aria-label="Sprache" data-lang-switch>
+        <button type="button" data-lang="de" aria-pressed="true" lang="de">DE</button>
+        <button type="button" data-lang="en" aria-pressed="false" lang="en">EN</button>
+        <button type="button" data-lang="fr" aria-pressed="false" lang="fr">FR</button>
+        <button type="button" data-lang="es" aria-pressed="false" lang="es">ES</button>
+        <button type="button" data-lang="it" aria-pressed="false" lang="it">IT</button>
+      </div>
+      <a class="btn btn--ghost" href="/" data-i18n="form.q.back">← Zurück zur Startseite</a>
+    </nav>
+    <button class="burger" type="button" aria-expanded="false" data-burger>
+      <span class="sr-only" data-i18n="a11y.menu">Menü</span>
+      <svg class="lines" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <svg class="x" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="main" class="page tone-mist">
+  <div class="wrap--narrow">
+    <div class="page__head">
+      <p class="eyebrow" data-i18n="form.q.eyebrow">Projekt-Fragebogen</p>
+      <h1 class="hero__title" style="font-size: clamp(40px, 6.4vw, 92px);" data-i18n-html="form.q.title">Erzählen Sie uns von<br>Ihrem <span class="pill">Unternehmen.</span></h1>
+      <p class="lead" data-i18n="form.q.lead">Zehn Fragen, etwa vier Minuten. Alles landet direkt bei unseren Partnern unter info@bluetensturm.com. Kein Chatbot, kein Callcenter.</p>
+    </div>
+
+    <form class="qform" name="fragebogen" method="POST" action="/danke/" data-netlify="true" netlify-honeypot="bot-field" data-form data-subject="Projekt-Fragebogen — bluetensturm.com">
+      <input type="hidden" name="form-name" value="fragebogen">
+      <input type="hidden" name="Formular" value="Fragebogen">
+      <p class="hp" aria-hidden="true"><label>Bitte leer lassen <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+
+      <section class="qform__group" aria-labelledby="g1">
+        <h2 id="g1" data-i18n="form.q.g1">01 — Über Sie</h2>
+        <div class="qform__row">
+          <div class="field"><label for="q-name" data-i18n="form.name">Ihr Name</label><input id="q-name" type="text" name="Name" required autocomplete="name" data-i18n-placeholder="form.namePh" placeholder="Vor- und Nachname"></div>
+          <div class="field"><label for="q-company" data-i18n="form.company">Unternehmen</label><input id="q-company" type="text" name="Unternehmen" required autocomplete="organization" data-i18n-placeholder="form.companyPh" placeholder="Name des Unternehmens"></div>
+          <div class="field"><label for="q-email" data-i18n="form.email">E-Mail</label><input id="q-email" type="email" name="Email" required autocomplete="email" inputmode="email" placeholder="name@firma.de" data-no-i18n></div>
+          <div class="field"><label for="q-phone"><span data-i18n="form.phone">Telefon</span> <small data-i18n="form.optional">(optional)</small></label><input id="q-phone" type="tel" name="Telefon" autocomplete="tel" inputmode="tel" placeholder="+49 …" data-no-i18n></div>
+          <div class="field"><label for="q-web" data-i18n="form.q.website">Website</label><input id="q-web" type="text" name="Website" autocomplete="url" inputmode="url" placeholder="www…" data-no-i18n></div>
+          <div class="field"><label for="q-role" data-i18n="form.q.role">Ihre Rolle</label><input id="q-role" type="text" name="Rolle" autocomplete="organization-title" data-i18n-placeholder="form.q.rolePh" placeholder="Geschäftsführung, Marketing …"></div>
+        </div>
+      </section>
+
+      <section class="qform__group" aria-labelledby="g2">
+        <h2 id="g2" data-i18n="form.q.g2">02 — Ihr Unternehmen</h2>
+        <div class="qform__row">
+          <div class="field"><label for="q-industry" data-i18n="form.q.industry">Branche</label><input id="q-industry" type="text" name="Branche" data-i18n-placeholder="form.q.industryPh" placeholder="Branche"></div>
+          <div class="field"><label for="q-size" data-i18n="form.size">Unternehmensgröße</label>
+            <select id="q-size" name="Unternehmensgroesse">
+              <option data-i18n="form.size1">1–10 Mitarbeitende</option>
+              <option data-i18n="form.size2">11–50 Mitarbeitende</option>
+              <option data-i18n="form.size3">51–250 Mitarbeitende</option>
+              <option data-i18n="form.size4">250+ Mitarbeitende</option>
+            </select>
+          </div>
+          <div class="field"><label for="q-markets" data-i18n="form.q.markets">Märkte, in denen Sie verkaufen</label><input id="q-markets" type="text" name="Maerkte" data-i18n-placeholder="form.q.marketsPh" placeholder="DACH, EU, global …"></div>
+          <div class="field"><label for="q-inhouse" data-i18n="form.q.inhouse">Haben Sie ein eigenes Marketingteam?</label>
+            <select id="q-inhouse" name="Inhouse-Team">
+              <option data-i18n="form.q.inhouse1">Nein, wir brauchen volle Unterstützung</option>
+              <option data-i18n="form.q.inhouse2">Ein bis zwei Personen</option>
+              <option data-i18n="form.q.inhouse3">Ein ganzes Team, das Kapazität braucht</option>
+              <option data-i18n="form.q.inhouse4">Ein ganzes Team, das nur Strategie braucht</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <section class="qform__group qform__group--accent" aria-labelledby="g3">
+        <h2 id="g3" data-i18n="form.q.g3">03 — Das Projekt</h2>
+        <div class="field"><label for="q-need" data-i18n="form.q.need">Was brauchen Sie?</label>
+          <select id="q-need" name="Leistung">
+            <option data-i18n="form.opt.brand">Markenstrategie</option>
+            <option data-i18n="form.opt.digital">Digital Marketing</option>
+            <option data-i18n="form.opt.content">Content &amp; Social</option>
+            <option data-i18n="form.opt.events">Events &amp; Erlebnis</option>
+            <option data-i18n="form.opt.training">Corporate Training</option>
+            <option data-i18n="form.opt.mix">Eine Kombination</option>
+          </select>
+        </div>
+        <div class="field"><label for="q-goals" data-i18n="form.q.goals">Was möchten Sie erreichen?</label><textarea id="q-goals" name="Ziele" rows="4" required data-i18n-placeholder="form.q.goalsPh" placeholder="Ziele, Zahlen, Zeithorizont …"></textarea></div>
+        <div class="field"><label for="q-obstacles" data-i18n="form.q.obstacles">Was hat Sie bisher gebremst?</label><textarea id="q-obstacles" name="Hindernisse" rows="3" data-i18n-placeholder="form.q.obstaclesPh" placeholder="Budget, Kapazität, unklare Positionierung …"></textarea></div>
+        <div class="qform__row">
+          <div class="field"><label for="q-budget" data-i18n="form.budget">Budgetrahmen</label>
+            <select id="q-budget" name="Budget">
+              <option data-i18n="form.budget1">Unter 10.000 €</option>
+              <option data-i18n="form.budget2">10.000–30.000 €</option>
+              <option data-i18n="form.budget3">30.000–75.000 €</option>
+              <option data-i18n="form.budget4">75.000 €+</option>
+              <option data-i18n="form.budget5">Noch unklar</option>
+            </select>
+          </div>
+          <div class="field"><label for="q-timeline" data-i18n="form.timeline">Zeitrahmen</label>
+            <select id="q-timeline" name="Zeitrahmen">
+              <option data-i18n="form.time1">So schnell wie möglich</option>
+              <option data-i18n="form.time2">In 1–3 Monaten</option>
+              <option data-i18n="form.time3">Dieses Jahr</option>
+              <option data-i18n="form.time4">Nur sondieren</option>
+            </select>
+          </div>
+          <div class="field"><label for="q-source" data-i18n="form.source">Wie haben Sie von uns erfahren?</label>
+            <select id="q-source" name="Quelle">
+              <option data-i18n="form.src1">Google-Suche</option>
+              <option data-i18n="form.src2">Google Ads</option>
+              <option data-i18n="form.src3">Instagram</option>
+              <option data-i18n="form.src4">LinkedIn</option>
+              <option data-i18n="form.src5">Empfehlung</option>
+              <option data-i18n="form.src6">Event oder Messe</option>
+              <option data-i18n="form.src7">Sonstiges</option>
+            </select>
+          </div>
+          <div class="field"><label for="q-lang" data-i18n="form.q.replyLang">Bevorzugte Sprache für die Antwort</label>
+            <select id="q-lang" name="Antwortsprache" data-no-i18n>
+              <option>Deutsch</option><option>English</option><option>Français</option><option>Español</option><option>Italiano</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <div class="form__foot">
+        <p class="form__consent" data-i18n-html="form.consent">Mit dem Absenden stimmen Sie der Verarbeitung Ihrer Angaben zur Bearbeitung der Anfrage zu. Details in der <a href="/datenschutz/">Datenschutzerklärung</a>.</p>
+        <button class="btn" type="submit" data-submit><span data-i18n="form.q.send">Fragebogen senden</span><i class="dot" aria-hidden="true"></i></button>
+      </div>
+      <p class="form__status" role="status" aria-live="polite" data-form-status hidden></p>
+    </form>
+  </div>
+</main>
+
+<footer class="site-footer tone-forest">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="BlütenSturm"><svg class="brand__mark" viewBox="0 0 733.3 1000" aria-hidden="true" focusable="false"><use href="#bs-mono"></use></svg><span><span class="brand__word">Blütensturm</span><span class="brand__tag" data-i18n="brand.tag">Creative Agency</span></span></a>
+    <p class="site-footer__meta" data-i18n="footer.meta">Würzburg, Deutschland · Gegründet von Nezir Shinik &amp; Dijan Cika</p>
+    <nav class="site-footer__links" aria-label="Rechtliches">
+      <a href="/impressum/" data-i18n="footer.imprint">Impressum</a>
+      <a href="/datenschutz/" data-i18n="footer.privacy">Datenschutz</a>
+      <a href="https://www.instagram.com/bluetensturmcreative" target="_blank" rel="noopener noreferrer">Instagram</a>
+      <a href="mailto:info@bluetensturm.com" data-i18n="footer.mail">E-Mail</a>
+    </nav>
+  </div>
+  <div class="wrap site-footer__bottom"><span data-i18n="footer.copy">© 2026 BlütenSturm · Marken in voller Blüte.</span><span data-i18n="footer.made">Made in Franken. Read in Europe.</span></div>
+</footer>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><symbol id="bs-mono" viewBox="0 0 733.3 1000"><path d="M0 0H223.8C206.3 351.2 173.5 703.2 14.0 1000.0L0 1000Z"/><path d="M255.6 0H416.7A232.5 232.5 0 0 1 416.7 465L428 463C253.9 614.0 254.2 860.0 42.0 990.0C178.4 694.2 234.2 352.0 255.6 0.0Z"/><path d="M428 463L465.8 465A267.5 267.5 0 0 1 465.8 1000H32C264.1 898.0 268.9 632.9 449 497Q447 472 428 463Z"/></symbol></svg>
+<script type="module" src="/js/site.js"></script>
+</body>
+</html>

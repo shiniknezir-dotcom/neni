@@ -1,0 +1,84 @@
+# BlütenSturm — Netlify configuration
+# Static site: no build step. Deploy this folder as the publish directory
+# (drag-and-drop in the Netlify UI, or point a Git deploy at base = "site").
+
+[build]
+  publish = "."
+  command = ""
+
+# Old URLs from the previous site keep working.
+[[redirects]]
+  from = "/Bluten%20Sturm%20v2.dc.html"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/bluten sturm v2.dc.html"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/Questionnaire.dc.html"
+  to = "/fragebogen/"
+  status = 301
+[[redirects]]
+  from = "/questionnaire.dc.html"
+  to = "/fragebogen/"
+  status = 301
+[[redirects]]
+  from = "/Thank You.dc.html"
+  to = "/danke/"
+  status = 301
+[[redirects]]
+  from = "/thank you.dc.html"
+  to = "/danke/"
+  status = 301
+[[redirects]]
+  from = "/Impressum.html"
+  to = "/impressum/"
+  status = 301
+[[redirects]]
+  from = "/impressum.html"
+  to = "/impressum/"
+  status = 301
+[[redirects]]
+  from = "/Datenschutz.html"
+  to = "/datenschutz/"
+  status = 301
+[[redirects]]
+  from = "/datenschutz.html"
+  to = "/datenschutz/"
+  status = 301
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; frame-ancestors 'self'; base-uri 'self'; object-src 'none'"
+
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+[[headers]]
+  for = "/vendor/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+[[headers]]
+  for = "/media/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+[[headers]]
+  for = "/i18n/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
