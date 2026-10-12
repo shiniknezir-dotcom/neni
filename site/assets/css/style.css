@@ -311,7 +311,7 @@ select.input option { background: var(--kohle); color: var(--weiss); }
 .form__status:not(.is-visible) { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; border: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .form__status:focus { outline: none; }
 .form__status:focus-visible { outline: 2px solid var(--pollen); outline-offset: 4px; }
-.form__status.is-error { border-color: var(--pollen); }
+.form__status.is-error { border-color: var(--weiss); }
 fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
 legend { padding: 0; }
 
@@ -649,4 +649,8 @@ h1, h2, h3, h4, .statement { overflow-wrap: break-word; }
   /* the 1360 nav block above would otherwise keep the logo at 160 px on phones */
   .nav__logo img { width: 150px; }
   .live__art { width: 120%; right: -10%; }
+}
+@media (max-width: 400px) {
+  /* the 900 px block above would otherwise keep two footer columns and split the e-mail address */
+  .fcols { grid-template-columns: minmax(0, 1fr); }
 }

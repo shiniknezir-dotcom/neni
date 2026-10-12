@@ -30,8 +30,9 @@ html:not(.js) .motion-toggle { display: none; }
   transition: text-decoration-color .2s ease; }
 .motion-toggle:hover, .motion-toggle:focus-visible { text-decoration-color: var(--pollen); }
 .hero__meta .wrap > .lbl:nth-child(2) { margin-left: auto; }
-@media (max-width: 760px) {
-  /* the toggle takes its own line under the place and the Scroll link */
+@media (max-width: 900px) {
+  /* the toggle takes its own line under the place and the Scroll link (on tablets too: next to the
+     full German or French label it would push "Würzburg" onto a second line) */
   .hero__meta .wrap { flex-wrap: wrap; }
   .hero__meta .wrap::before { content: ""; order: 1; flex-basis: 100%; height: 0; }
   .motion-toggle { order: 2; }
@@ -121,7 +122,7 @@ html:not(.js) .motion-toggle { display: none; }
    rules in style.css for the hero petals, the photo parallax and the reveals. */
 .motion-off .drift { animation-play-state: paused; }
 .motion-off .hero__photo { transform: translateX(-50%) !important; }
-.motion-off .reveal-on .reveal { opacity: 1; transform: none; transition: none; }
+html.motion-off.reveal-on .reveal { opacity: 1; transform: none; transition: none; }
 
 /* ---------- Reduced motion: everything above is neutral ---------- */
 @media (prefers-reduced-motion: reduce) {

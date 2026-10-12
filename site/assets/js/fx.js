@@ -104,11 +104,12 @@
   function splitNode(node) {
     var i, parts, frag, outer, inner, kids;
     if (node.nodeType === 3) {
-      parts = node.nodeValue.split(/(\s+)/);
+      // ASCII whitespace only: a no-break space (French "pétale :", "100 %") keeps its neighbours together.
+      parts = node.nodeValue.split(/([ \t\n\r\f]+)/);
       frag = doc.createDocumentFragment();
       for (i = 0; i < parts.length; i++) {
         if (!parts[i]) continue;
-        if (/^\s+$/.test(parts[i])) { frag.appendChild(doc.createTextNode(' ')); continue; }
+        if (/^[ \t\n\r\f]+$/.test(parts[i])) { frag.appendChild(doc.createTextNode(parts[i])); continue; }
         outer = doc.createElement('span');
         outer.className = 'w';
         inner = doc.createElement('span');

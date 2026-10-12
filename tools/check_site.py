@@ -6,8 +6,8 @@
 Checks:
   1. Translations: every data-i18n / data-i18n-html / data-i18n-attr key used
      in site/*.html exists in DE, FR, ES and IT in site/assets/js/i18n.js, and
-     every runtime key the scripts ask for (t('js.…') in main.js, quoted
-     dotted keys in fx.js) exists in the languages that need it. Unused
+     every runtime key the scripts ask for (t('js.…') in main.js, every quoted
+     dotted key in fx.js) exists in the languages that need it. Unused
      dictionary keys are listed as warnings. The dictionary must be strict
      JSON without repeated keys; no value may be empty.
   2. Markup in translations: text and attribute keys (applied with textContent
@@ -35,29 +35,56 @@ def tag_token(tag, attrs):
     return 'start', tag.lower(), tuple(sorted((k.lower(), v or '') for k, v in attrs))
 
 
+# Optional end tags (HTML spec, simplified): an open <li> is closed by the next <li>, an open
+# <option> by the next <option>/<optgroup>, an open <p> by the next block element, and so on.
+P_CLOSERS = {'address', 'article', 'aside', 'blockquote', 'details', 'div', 'dl', 'fieldset', 'figcaption',
+             'figure', 'footer', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'header', 'hr', 'main', 'menu',
+             'nav', 'ol', 'p', 'pre', 'section', 'table', 'ul'}
+IMPLIED = {'p': P_CLOSERS, 'li': {'li'}, 'option': {'option', 'optgroup'}, 'optgroup': {'optgroup'},
+           'dt': {'dt', 'dd'}, 'dd': {'dt', 'dd'}, 'tr': {'tr'}, 'td': {'td', 'th', 'tr'}, 'th': {'td', 'th', 'tr'}}
+
+
 class Page(HTMLParser):
-    """Collects i18n keys, ids, references and the tag sequence inside html keys."""
+    """Collects i18n keys, ids, references and the tag sequence inside html keys.
+
+    Keeps a stack of open elements, so omitted optional end tags (</li>, </option>, </p> …)
+    close their element where the browser would, instead of shifting every later record."""
 
     def __init__(self, name):
         super().__init__(convert_charrefs=True)
         self.name = name
         self.keys, self.ids, self.refs = {}, set(), []
-        self.html_stack = []   # [key, depth, [tokens]] for open data-i18n-html elements
-        self.text_stack = []   # [key, depth] for open data-i18n (textContent) elements
+        self.stack = []        # open elements: {'tag', 'text' (data-i18n key), 'html' ([key, tokens])}
         self.html_tags = {}
         self.interests, self.options = [], []
         self.in_interest = False
-        self.depth = 0
+
+    def close(self):
+        super().close()
+        while self.stack:
+            self._pop()
+
+    def _pop(self):
+        el = self.stack.pop()
+        if el['tag'] == 'select':
+            self.in_interest = False
+        if el['html']:
+            key, tokens = el['html']
+            self.html_tags[key] = tokens
 
     def handle_startendtag(self, tag, attrs):
         self.handle_starttag(tag, attrs)      # <br/> is a start tag only; never pops a record
 
     def handle_starttag(self, tag, attrs):
+        tag = tag.lower()
         a = dict(attrs)
-        for st in self.html_stack:
-            st[2].append(tag_token(tag, attrs))
-        for key, _ in self.text_stack:
-            errors.append(f'[i18n] {self.name}: element with data-i18n="{key}" contains a <{tag}> child (textContent would remove it)')
+        while self.stack and tag in IMPLIED.get(self.stack[-1]['tag'], ()):
+            self._pop()
+        for el in self.stack:
+            if el['html']:
+                el['html'][1].append(tag_token(tag, attrs))
+            if el['text']:
+                errors.append(f'[i18n] {self.name}: element with data-i18n="{el["text"]}" contains a <{tag}> child (textContent would remove it)')
         if a.get('id'):
             self.ids.add(a['id'])
         if 'data-i18n' in a:
@@ -81,26 +108,22 @@ class Page(HTMLParser):
             self.refs += [p.strip().split()[0] for p in a['srcset'].split(',') if p.strip()]
         if tag in VOID:
             return
-        self.depth += 1
-        if 'data-i18n' in a:
-            self.text_stack.append([a['data-i18n'], self.depth])
-        if 'data-i18n-html' in a:
-            self.html_stack.append([a['data-i18n-html'], self.depth, []])
+        self.stack.append({'tag': tag, 'text': a.get('data-i18n'),
+                           'html': [a['data-i18n-html'], []] if 'data-i18n-html' in a else None})
 
     def handle_endtag(self, tag):
+        tag = tag.lower()
         if tag in VOID:
             return
-        if tag == 'select' and self.in_interest:
-            self.in_interest = False
-        if self.text_stack and self.text_stack[-1][1] == self.depth:
-            self.text_stack.pop()
-        if self.html_stack and self.html_stack[-1][1] == self.depth:
-            key, _, tokens = self.html_stack.pop()
-            self.html_tags[key] = tokens
-        else:
-            for st in self.html_stack:
-                st[2].append(('end', tag.lower()))
-        self.depth -= 1
+        if not any(el['tag'] == tag for el in self.stack):
+            warnings.append(f'[html] {self.name}: </{tag}> has no open <{tag}> (the browser ignores it)')
+            return
+        while self.stack[-1]['tag'] != tag:  # elements whose end tag was omitted close here too
+            self._pop()
+        self._pop()
+        for el in self.stack:
+            if el['html']:
+                el['html'][1].append(('end', tag))
 
 
 class Fragment(HTMLParser):
@@ -145,6 +168,7 @@ for name in sorted(os.listdir(SITE)):
     if name.endswith('.html'):
         p = Page(name)
         p.feed(open(os.path.join(SITE, name), encoding='utf-8').read())
+        p.close()
         pages[name] = p
 
 D = load_dict()
@@ -167,12 +191,13 @@ runtime = set()
 fx_path = os.path.join(SITE, 'assets', 'js', 'fx.js')
 if os.path.exists(fx_path):
     fx = open(fx_path, encoding='utf-8').read()
+    # fx.js names its translation keys as quoted dotted strings ('hero.motion.on'); it has no other
+    # strings of that shape, so every one of them must exist in all four languages.
     for k in set(re.findall(r"'([a-z0-9]+(?:\.[a-z0-9\-]+)+)'", fx)):
-        if any(k in D.get(l, {}) for l in LANGS):
-            runtime.add(k)
-            for l in LANGS:
-                if k not in D.get(l, {}):
-                    errors.append(f'[i18n] runtime key "{k}" (fx.js) is missing in {l.upper()}')
+        runtime.add(k)
+        for l in LANGS:
+            if k not in D.get(l, {}):
+                errors.append(f'[i18n] runtime key "{k}" (fx.js) is missing in {l.upper()}')
 for l in LANGS:
     for k in D.get(l, {}):
         if k not in used and k not in runtime and not k.startswith('js.'):

@@ -98,6 +98,8 @@
     renderStats();
     renderPrices();
     renderPick();
+    // texts main.js wrote at runtime (the form's error message) follow the language too
+    each('[data-js-text]', function (el) { el.textContent = t(el.getAttribute('data-js-text')); });
     if (save) { try { window.localStorage.setItem(STORE, next); } catch (e) {} }
     d.classList.remove('i18n-pending');
   }
@@ -291,16 +293,30 @@
 
   /* ---------- 5. Forms ------------------------------------------------- */
   // Long answers are shortened: Windows hands mailto: links to the mail app with a ~2,000-character limit.
+  // The budget counts the encoded link (an "ä" takes six characters there).
+  var MAILTO_MAX = 1900;
+  function enc(s) {
+    try { return encodeURIComponent(s); } catch (e) { return encodeURIComponent(s.replace(/[\uD800-\uDFFF]/g, '\uFFFD')); }
+  }
+  function clip(s, n) { // the first n characters, never half an emoji
+    if (s.length <= n) return s;
+    s = s.slice(0, n);
+    return (/[\uD800-\uDBFF]$/.test(s) ? s.slice(0, -1) : s) + '…';
+  }
   function mailtoFrom(data, subject) {
-    var lines = [], total = 0;
+    var url = 'mailto:' + MAIL + '?subject=' + enc(subject) + '&body=', first = true;
     data.forEach(function (v, k) {
       if (k.charAt(0) === '_' || typeof v !== 'string' || !v.trim()) return;
-      var line = k + ': ' + (v.length > 400 ? v.slice(0, 400) + '…' : v);
-      if (total + line.length > 1500) return;
-      total += line.length + 2;
-      lines.push(line);
+      var room = MAILTO_MAX - url.length - (first ? 0 : 6), line = '', n; // 6 = %0D%0A
+      for (n = 400; n >= 40; n = Math.floor(n * 0.75)) {
+        line = enc(k + ': ' + clip(v, n));
+        if (line.length <= room) break;
+      }
+      if (line.length > room) return;
+      url += (first ? '' : '%0D%0A') + line;
+      first = false;
     });
-    return 'mailto:' + MAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(lines.join('\r\n'));
+    return url;
   }
 
   each('form[data-form]', function (f) {
@@ -327,10 +343,12 @@
         if (!status) { window.location.href = mailtoFrom(data, subject); return; }
         status.textContent = '';
         var p = document.createElement('p');
+        p.setAttribute('data-js-text', 'js.error');
         p.textContent = t('js.error');
         var link = document.createElement('a');
         link.className = 'btn btn--sm';
         link.href = mailtoFrom(data, subject);
+        link.setAttribute('data-js-text', 'js.mailto');
         link.textContent = t('js.mailto');
         status.appendChild(p);
         status.appendChild(link);
@@ -343,7 +361,8 @@
         .then(function (res) {
           if (!res.ok) throw new Error('HTTP ' + res.status);
           try { window.sessionStorage.setItem('bs-sent', f.getAttribute('data-form')); } catch (err) {}
-          f.__reset();
+          // The button stays in its sending state until /thank-you replaces this page, so a second
+          // click cannot send the enquiry twice. Coming back via Back is handled by pageshow below.
           window.location.href = '/thank-you';
         })
         .catch(fail);
