@@ -1,5 +1,5 @@
 /* ==========================================================================
-   BlütenSturm — enquiry delivery.
+   Blüten Sturm — enquiry delivery.
    Never silently drops a lead. Every transport that can reach the inbox is
    tried, best first:
 

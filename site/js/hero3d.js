@@ -1,5 +1,5 @@
 /* ==========================================================================
-   BlütenSturm — the hero in three dimensions.
+   Blüten Sturm — the hero in three dimensions.
 
    The B from the brand deck is three petals that share one root. Here they
    are three real extruded bodies: on load they fly in and grow together into
@@ -53,7 +53,7 @@ function petalShape() {
   return s;
 }
 
-export function mountHero(stage, { reduced = false } = {}) {
+export function mountHero(stage, { reduced = false, external = false, assembled = false } = {}) {
   const canvas = document.createElement('canvas');
   canvas.setAttribute('aria-hidden', 'true');
   stage.appendChild(canvas);
@@ -186,6 +186,7 @@ export function mountHero(stage, { reduced = false } = {}) {
       letterY = -vh * 0.09;
     }
   }
+  layout();
   const ro = new ResizeObserver(layout);
   ro.observe(stage);
   if (copyEl) ro.observe(copyEl);   // a language switch changes the copy height
@@ -200,7 +201,10 @@ export function mountHero(stage, { reduced = false } = {}) {
 
   let scrollP = 0;
   const hero = stage.closest('[data-hero]') || stage.parentElement;
+  /* On the home page the runway drives the bloom through setProgress();
+     anywhere else the letter follows the page scroll on its own. */
   const onScroll = () => {
+    if (external) return;
     const h = Math.max(hero.offsetHeight, 1);
     scrollP = clamp((window.scrollY || 0) / (h * 0.85), 0, 1);
   };
@@ -217,7 +221,7 @@ export function mountHero(stage, { reduced = false } = {}) {
   /* ---- animation -------------------------------------------------------- */
   const t0 = performance.now();
   let raf = 0, last = t0;
-  const ASSEMBLE_MS = reduced ? 1 : 1700, STAGGER_MS = reduced ? 0 : 160;
+  const ASSEMBLE_MS = (reduced || assembled) ? 1 : 1700, STAGGER_MS = (reduced || assembled) ? 0 : 160;
 
   function frame(now) {
     raf = 0;
@@ -228,11 +232,14 @@ export function mountHero(stage, { reduced = false } = {}) {
 
     mx += (tx - mx) * 0.045;
     my += (ty - my) * 0.045;
-    const p = easeInOut(scrollP);
+    const p = easeInOut(external ? clamp(scrollP / 0.55, 0, 1) : scrollP);
 
     /* the letter as a whole */
-    letter.scale.setScalar(letterScale);
-    letter.position.set(letterX + p * 0.35 * letterScale, letterY + Math.sin(t * 0.7) * 0.012 * letterScale + p * 0.18 * letterScale, 0);
+    /* on the runway the letter recedes as it opens, leaving the stage to
+       the eighteen petals */
+    letter.scale.setScalar(letterScale * (external ? 1 - 0.38 * p : 1));
+    const lx = external ? lerp(letterX, letterX * 0.55, p) : letterX + p * 0.35 * letterScale;
+    letter.position.set(lx, letterY + Math.sin(t * 0.7) * 0.012 * letterScale + p * 0.18 * letterScale, 0);
     letter.rotation.set(
       -my * 0.16 + Math.sin(t * 0.42) * 0.025 + p * 0.18,
       mx * 0.32 + Math.sin(t * 0.31) * 0.05 - 0.14 + p * 0.55,
@@ -282,6 +289,15 @@ export function mountHero(stage, { reduced = false } = {}) {
   kick();
 
   return {
+    /* 0..1 along the home page runway */
+    setProgress(v) { scrollP = clamp(v, 0, 1); kick(); },
+    /* where the letter's centre sits on screen, in stage pixels */
+    anchor() {
+      /* before the first frame the camera's world matrix is still identity */
+      camera.updateMatrixWorld();
+      const v = new THREE.Vector3(letterX, letterY, 0).project(camera);
+      return { x: (v.x + 1) / 2 * W, y: (1 - v.y) / 2 * H };
+    },
     destroy() {
       cancelAnimationFrame(raf);
       ro.disconnect(); io.disconnect();
