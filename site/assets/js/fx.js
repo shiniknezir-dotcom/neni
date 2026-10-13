@@ -270,6 +270,7 @@
     }
   }
 
+  function stalePortfolio() { pMeasured = -1e9; }
   function measurePortfolio(now) {
     if (!portfolio) return;
     var r = portfolio.getBoundingClientRect(), y = w.pageYOffset || 0;
@@ -335,8 +336,9 @@
     doc.addEventListener('pointermove', onMove, { passive: true });
     d.addEventListener('pointerleave', onLeave);
     w.addEventListener('blur', onLeave);
-    w.addEventListener('resize', function () { measurePortfolio(0); });
-    w.addEventListener('load', function () { measurePortfolio(0); });
+    // measured lazily on the next pointer move (no forced layout while the page is still loading)
+    w.addEventListener('resize', stalePortfolio);
+    w.addEventListener('load', stalePortfolio);
   }
 
   /* ---------- 7. Language switch -------------------------------------- */
@@ -344,7 +346,7 @@
     new w.MutationObserver(function () {
       splitAll();
       relabel();
-      measurePortfolio(0);
+      stalePortfolio();
     }).observe(d, { attributes: true, attributeFilter: ['data-lang'] });
   }
 
@@ -352,7 +354,7 @@
   cls(d, 'motion-ready', !!toggle);   // motion.css shows the toggle only now
   splitAll();
   watchIn();
-  measurePortfolio(0);
+  stalePortfolio();
   setMotion(on, false);
   var title = doc.querySelector('.hero__title');
   if (title && !title.classList.contains('is-in')) {
