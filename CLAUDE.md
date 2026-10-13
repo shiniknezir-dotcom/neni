@@ -78,7 +78,7 @@ Static website of **BlütenSturm**, a marketing, creative and corporate-training
 
 - Both forms post to **Formspree** `https://formspree.io/f/mvkpynzr` → info@bluetensturm.com. Hidden fields: `_subject` (German subject line for the team), `Form`, `Language` (set by JS), `Package` (contact form), honeypot `_gotcha`. The reply-to field is named `email` (lowercase).
 - Package buttons set the hidden `Package` field and the "Interested in" select; a later manual change of the select clears the package, so an enquiry never contradicts itself.
-- `main.js` sends with `fetch` (`FormData`, `Accept: application/json`). Success → `/thank-you` (and a `dataLayer` event); failure → a button that opens the visitor's mail app with all answers. Without JavaScript the browser posts directly to Formspree.
+- `main.js` sends with `fetch` (`FormData`, `Accept: application/json`). Success → `/thank-you` (and a `dataLayer` event; the button stays in its sending state until that page loads, and if the visitor stops the navigation the form shows `js.sent` after 6 s); failure → a button that opens the visitor's mail app with all answers. Without JavaScript the browser posts directly to Formspree.
 - Option **values stay English** in every language; only the labels are translated.
 - Changing the endpoint means: both forms + CSP (`connect-src`, `form-action` in `_headers`) + the Datenschutz text.
 - Conversion tracking is prepared but off (`ADS_SEND_TO` in main.js). Turning it on needs a consent banner, the Google tag, CSP changes and a privacy-policy update — ask the owner first.

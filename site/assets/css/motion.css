@@ -30,12 +30,16 @@ html.motion-ready .motion-toggle { visibility: visible; }
   transition: text-decoration-color .2s ease; }
 .motion-toggle:hover, .motion-toggle:focus-visible { text-decoration-color: var(--pollen); }
 .hero__meta .wrap > .lbl:nth-child(2) { margin-left: auto; }
-@media (max-width: 900px) {
-  /* the toggle takes its own line under the place and the Scroll link (on tablets too: next to the
-     full German or French label it would push "Würzburg" onto a second line) */
-  .hero__meta .wrap { flex-wrap: wrap; }
-  .hero__meta .wrap::before { content: ""; order: 1; flex-basis: 100%; height: 0; }
-  .motion-toggle { order: 2; }
+@media (max-width: 760px) {
+  /* phones: the toggle takes its own line under the place and the Scroll link */
+  html.js .hero__meta .wrap { flex-wrap: wrap; row-gap: 0; }
+  html.js .hero__meta .wrap::before { content: ""; order: 1; flex-basis: 100%; height: 0; }
+  .motion-toggle { order: 2; margin-top: 10px; }
+}
+@media (min-width: 761px) and (max-width: 900px) {
+  /* tablets: the toggle stays on the row and the descriptor gives way, as it does on phones, so the
+     row never wraps or grows into the title (the French title runs to four lines here) */
+  html.js .hero__meta .hide-sm { display: none; }
 }
 
 /* ---------- 2. Hero video backdrop ---------- */
@@ -69,6 +73,7 @@ html.motion-ready .motion-toggle { visibility: visible; }
 /* ---------- 4. Word reveal (fx.js wraps each word as .w > .w__i and sets --i) ---------- */
 .w { display: inline-block; perspective: 600px; clip-path: inset(-.3em -.15em -.35em); }
 .w__i { display: inline-block; }
+.w-glue { white-space: nowrap; }
 .fx-on .w__i { opacity: 0; transform: translateY(110%) rotateX(-70deg); }
 .fx-on .is-in .w__i { opacity: 1; transform: none; transition: transform .9s var(--ease), opacity .5s ease; transition-delay: calc(min(var(--i, 0), 30) * 40ms); }
 
@@ -128,6 +133,7 @@ html.motion-off [data-rule]::after { transform: none; animation: none; transitio
 /* ---------- Reduced motion: everything above is neutral ---------- */
 @media (prefers-reduced-motion: reduce) {
   html.js .motion-toggle, .hero__storm { display: none; }
+  .hero__meta .wrap::before { content: none; }
   .hero__video, .fx-on .hero__video.is-playing { opacity: 0; transition: none; }
   [data-tilt], [data-tilt].is-tilting { transform: none !important; transition: none; will-change: auto; }
   .fx-on [data-tilt]:not(img)::after { display: none; }
@@ -138,4 +144,7 @@ html.motion-off [data-rule]::after { transform: none; animation: none; transitio
   [data-depth] { --py: 0px !important; }
   .cursor-light { display: none; }
   :root:not(.motion-off) .btn:hover, :root:not(.motion-off) .btn:active { transform: none; }
+}
+@media (prefers-reduced-motion: reduce) and (min-width: 761px) {
+  html.js .hero__meta .hide-sm { display: inline; }   /* no toggle, so the full place line returns */
 }

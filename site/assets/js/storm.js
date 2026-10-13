@@ -72,9 +72,9 @@
     '  gl_Position = uProj * vec4(p, 1.0);',
     '  vec2 e = (gl_Position.xy / gl_Position.w - uTitle.xy) / uTitle.zw;',
     '  float sy = gl_Position.y / gl_Position.w;',
-    '  float band = max(smoothstep(uBand.x - 0.08, uBand.x, sy), 1.0 - smoothstep(uBand.y, uBand.y + 0.08, sy));',
+    '  float band = max(smoothstep(uBand.x - 0.12, uBand.x, sy), 1.0 - smoothstep(uBand.y, uBand.y + 0.12, sy));',
     // petals behind the title fade, and so do those crossing the nav and the meta labels: the type stays legible
-    '  vDim = min(1.0 - 0.55 * (1.0 - smoothstep(0.3, 1.0, length(e))), 1.0 - 0.6 * band);',
+    '  vDim = min(1.0 - 0.55 * (1.0 - smoothstep(0.3, 1.0, length(e))), 1.0 - 0.85 * band);',
     '}'
   ].join('\n');
   var FS = [

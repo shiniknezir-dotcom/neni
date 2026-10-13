@@ -32,7 +32,8 @@
   var EN = {
     'js.error': "We couldn’t reach the mail service just now. Nothing is lost: send the same message from your own e-mail app instead.",
     'js.mailto': "Open in my e-mail app",
-    'js.sending': "Sending…"
+    'js.sending': "Sending…",
+    'js.sent': "Sent. We answer within two working days."
   };
   var reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
   var lang = d.getAttribute('data-lang') || 'en';
@@ -100,6 +101,10 @@
     renderPick();
     // texts main.js wrote at runtime (the form's error message) follow the language too
     each('[data-js-text]', function (el) { el.textContent = t(el.getAttribute('data-js-text')); });
+    each('form[data-form]', function (f) {   // a form that is sending keeps saying so
+      var b = f.__sending && f.querySelector('button[type="submit"]');
+      if (b) b.textContent = t('js.sending');
+    });
     if (save) { try { window.localStorage.setItem(STORE, next); } catch (e) {} }
     d.classList.remove('i18n-pending');
   }
@@ -335,7 +340,13 @@
       if (status) { status.className = 'form__status'; status.textContent = ''; }
       f.__reset = function () {
         f.__sending = false;
-        if (btn) { btn.removeAttribute('aria-disabled'); btn.textContent = label; }
+        if (f.__sentTimer) { window.clearTimeout(f.__sentTimer); f.__sentTimer = 0; }
+        if (btn) {
+          btn.removeAttribute('aria-disabled');
+          // the label in the current language (the visitor may have switched while it was sending)
+          var key = btn.getAttribute('data-i18n'), own = lang !== 'en' && DICT[lang] && key ? DICT[lang][key] : null;
+          btn.textContent = own != null ? own : (orig(btn).text != null ? orig(btn).text : label);
+        }
       };
 
       function fail() {
@@ -364,6 +375,17 @@
           // The button stays in its sending state until /thank-you replaces this page, so a second
           // click cannot send the enquiry twice. Coming back via Back is handled by pageshow below.
           window.location.href = '/thank-you';
+          // If that navigation is stopped (Esc, a stalled connection), say plainly that it was sent.
+          f.__sentTimer = window.setTimeout(function () {
+            f.__reset();
+            if (!status) return;
+            status.textContent = '';
+            var done = document.createElement('p');
+            done.setAttribute('data-js-text', 'js.sent');
+            done.textContent = t('js.sent');
+            status.appendChild(done);
+            status.className = 'form__status is-visible';
+          }, 6000);
         })
         .catch(fail);
     });

@@ -35,13 +35,21 @@ def tag_token(tag, attrs):
     return 'start', tag.lower(), tuple(sorted((k.lower(), v or '') for k, v in attrs))
 
 
-# Optional end tags (HTML spec, simplified): an open <li> is closed by the next <li>, an open
-# <option> by the next <option>/<optgroup>, an open <p> by the next block element, and so on.
-P_CLOSERS = {'address', 'article', 'aside', 'blockquote', 'details', 'div', 'dl', 'fieldset', 'figcaption',
-             'figure', 'footer', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'header', 'hr', 'main', 'menu',
-             'nav', 'ol', 'p', 'pre', 'section', 'table', 'ul'}
-IMPLIED = {'p': P_CLOSERS, 'li': {'li'}, 'option': {'option', 'optgroup'}, 'optgroup': {'optgroup'},
-           'dt': {'dt', 'dd'}, 'dd': {'dt', 'dd'}, 'tr': {'tr'}, 'td': {'td', 'th', 'tr'}, 'th': {'td', 'th', 'tr'}}
+# Optional end tags, after the HTML parsing rules (simplified to what static pages use):
+# these start tags close an open <p> in button scope ...
+P_CLOSERS = {'address', 'article', 'aside', 'blockquote', 'center', 'details', 'dialog', 'dir', 'div', 'dl',
+             'fieldset', 'figcaption', 'figure', 'footer', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'header',
+             'hgroup', 'hr', 'li', 'dd', 'dt', 'listing', 'main', 'menu', 'nav', 'ol', 'p', 'plaintext', 'pre',
+             'search', 'section', 'summary', 'table', 'ul', 'xmp'}
+SCOPE = {'applet', 'caption', 'html', 'table', 'td', 'th', 'marquee', 'object', 'template'}
+BUTTON_SCOPE = SCOPE | {'button'}
+# ... an <li> closes an open <li> (a <dd>/<dt> an open <dd>/<dt>) unless a list or another special
+# element sits in between ...
+LIST_STOP = SCOPE | {'ol', 'ul', 'dl', 'section', 'article', 'aside', 'nav', 'header', 'footer', 'main',
+                     'form', 'fieldset', 'details', 'figure', 'blockquote', 'button', 'select', 'li', 'dd', 'dt'}
+# ... and these close only the current element.
+IMPLIED = {'option': {'option', 'optgroup'}, 'optgroup': {'optgroup'},
+           'tr': {'tr'}, 'td': {'td', 'th', 'tr'}, 'th': {'td', 'th', 'tr'}}
 
 
 class Page(HTMLParser):
@@ -64,6 +72,17 @@ class Page(HTMLParser):
         while self.stack:
             self._pop()
 
+    def _close(self, names, stop):
+        """Close the nearest open element named in names, unless an element in stop comes first."""
+        for i in range(len(self.stack) - 1, -1, -1):
+            tag = self.stack[i]['tag']
+            if tag in names:
+                while len(self.stack) > i:
+                    self._pop()
+                return
+            if tag in stop:
+                return
+
     def _pop(self):
         el = self.stack.pop()
         if el['tag'] == 'select':
@@ -78,6 +97,12 @@ class Page(HTMLParser):
     def handle_starttag(self, tag, attrs):
         tag = tag.lower()
         a = dict(attrs)
+        if tag in P_CLOSERS:
+            self._close({'p'}, BUTTON_SCOPE)
+        if tag == 'li':
+            self._close({'li'}, LIST_STOP - {'li'})
+        elif tag in ('dd', 'dt'):
+            self._close({'dd', 'dt'}, LIST_STOP - {'dd', 'dt'})
         while self.stack and tag in IMPLIED.get(self.stack[-1]['tag'], ()):
             self._pop()
         for el in self.stack:
@@ -116,7 +141,8 @@ class Page(HTMLParser):
         if tag in VOID:
             return
         if not any(el['tag'] == tag for el in self.stack):
-            warnings.append(f'[html] {self.name}: </{tag}> has no open <{tag}> (the browser ignores it)')
+            effect = {'p': 'the browser inserts an empty <p>', 'br': 'the browser reads it as <br>'}.get(tag, 'the browser ignores it')
+            warnings.append(f'[html] {self.name}: </{tag}> has no open <{tag}> ({effect})')
             return
         while self.stack[-1]['tag'] != tag:  # elements whose end tag was omitted close here too
             self._pop()

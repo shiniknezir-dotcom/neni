@@ -666,7 +666,11 @@ h1, h2, h3, h4, .statement { overflow-wrap: break-word; }
    1240 px the art sits smaller and higher, clear of the headline. */
 .contact__art { -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 16%); mask-image: linear-gradient(180deg, transparent 0%, #000 16%); }
 @media (min-width: 761px) and (max-width: 1240px) {
-  .contact__art { width: 36%; right: -4%; top: -24px; }
+  /* the art starts above the section (clipped) and moves up to 12 px more with the parallax, so the
+     fade begins below that band */
+  .contact__art { width: 36%; right: -4%; top: -24px;
+    -webkit-mask-image: linear-gradient(180deg, transparent 0, transparent 40px, #000 96px);
+    mask-image: linear-gradient(180deg, transparent 0, transparent 40px, #000 96px); }
 }
 
 /* Motion layer hooks. The hero canvas, the hero video and the motion toggle are in the markup;

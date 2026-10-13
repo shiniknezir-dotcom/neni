@@ -126,6 +126,26 @@
     } else if (node.nodeType === 1 && node.tagName !== 'BR') {
       kids = Array.prototype.slice.call(node.childNodes);
       for (i = 0; i < kids.length; i++) splitNode(kids[i]);
+      glue(node);
+    }
+  }
+  // A word that touches an element with no space between ("<em>petal</em>:", or French
+  // "</em> :" with a no-break space) becomes a separate inline block, and a browser may break
+  // between two inline blocks. Such runs are wrapped in one .w-glue (white-space: nowrap), so
+  // lines break exactly where the plain text breaks.
+  function glue(el) {
+    var run = [], c, next, k, span;
+    for (c = el.firstChild; ; c = next) {
+      next = c ? c.nextSibling : null;
+      if (c && c.nodeType === 1 && c.tagName !== 'BR') { run.push(c); continue; }
+      if (run.length > 1) {
+        span = doc.createElement('span');
+        span.className = 'w-glue';
+        el.insertBefore(span, run[0]);
+        for (k = 0; k < run.length; k++) span.appendChild(run[k]);
+      }
+      run = [];
+      if (!c) break;
     }
   }
   function splitAll() {

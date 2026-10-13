@@ -136,6 +136,7 @@ window.BS_I18N = {
   "js.error": "Der Mailservice ist gerade nicht erreichbar. Es geht nichts verloren: Senden Sie dieselbe Nachricht einfach aus Ihrem eigenen E-Mail-Programm.",
   "js.mailto": "In meinem E-Mail-Programm öffnen",
   "js.sending": "Wird gesendet …",
+  "js.sent": "Gesendet. Wir antworten innerhalb von zwei Werktagen.",
   "live.cta": "Demo-Tag buchen",
   "live.text": "Wir verwandeln Supermarktgänge in kleine Arenen: von Marken gesponserte Spiele, bei denen Kunden spielen, probieren und sich das Produkt merken. Konzept, Team, Material und Reporting aus einer Hand.",
   "live.title": "In-Store-Spiele. <em>Sampling, neu erfunden.</em>",
@@ -568,7 +569,8 @@ window.BS_I18N = {
  "en": {
   "js.error": "We couldn’t reach the mail service just now. Nothing is lost: send the same message from your own e-mail app instead.",
   "js.mailto": "Open in my e-mail app",
-  "js.sending": "Sending…"
+  "js.sending": "Sending…",
+  "js.sent": "Sent. We answer within two working days."
  },
  "fr": {
   "a11y.home": "BlütenSturm — accueil",
@@ -699,6 +701,7 @@ window.BS_I18N = {
   "js.error": "Le service d’envoi est momentanément injoignable. Rien n’est perdu : envoyez le même message depuis votre propre messagerie.",
   "js.mailto": "Ouvrir dans ma messagerie",
   "js.sending": "Envoi en cours…",
+  "js.sent": "Envoyé. Nous répondons en deux jours ouvrés.",
   "live.cta": "Réserver une journée démo",
   "live.text": "Nous transformons les rayons des supermarchés en petites arènes : des jeux sponsorisés par les marques, où les clients jouent, goûtent et retiennent le produit. Concept, équipe, matériel et reporting : tout chez un seul interlocuteur.",
   "live.title": "Jeux en magasin. <em>La dégustation, réinventée.</em>",
@@ -1257,6 +1260,7 @@ window.BS_I18N = {
   "js.error": "No hemos podido conectar con el servicio de correo en este momento. No se ha perdido nada: envíe el mismo mensaje desde su propia aplicación de correo.",
   "js.mailto": "Abrir en mi aplicación de correo",
   "js.sending": "Enviando…",
+  "js.sent": "Enviado. Respondemos en dos días laborables.",
   "live.cta": "Reservar un día de demostración",
   "live.text": "Convertimos los pasillos del supermercado en pequeñas arenas: juegos patrocinados por la marca en los que el comprador juega, prueba y recuerda el producto. Concepto, equipo, materiales e informes: todo en una sola mano.",
   "live.title": "Juegos en tienda. <em>La degustación, reinventada.</em>",
@@ -1815,6 +1819,7 @@ window.BS_I18N = {
   "js.error": "Al momento non riusciamo a raggiungere il servizio di posta. Non si è perso nulla: inviate lo stesso messaggio dalla vostra app di posta.",
   "js.mailto": "Apri l’app di posta",
   "js.sending": "Invio in corso…",
+  "js.sent": "Inviato. Rispondiamo entro due giorni lavorativi.",
   "live.cta": "Prenota una giornata demo",
   "live.text": "Trasformiamo le corsie del supermercato in piccole arene: giochi firmati dal brand, in cui chi fa la spesa gioca, assaggia e ricorda il prodotto. Concept, team, materiali e reportistica da un’unica regia.",
   "live.title": "Giochi in-store. <em>La degustazione, reinventata.</em>",
