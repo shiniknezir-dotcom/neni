@@ -33,8 +33,10 @@ After the first deploy:
 4. **Conversion tracking (optional):** the thank-you page already pushes
    `enquiry_submitted` to `window.dataLayer` and fires the Google Ads conversion
    once `gtag` is on the page. Replace `AW-XXXXXXXXX/YYYYYYYY` in `js/site.js`
-   with the real label. Before adding any tracking, extend the privacy policy
-   and add a consent banner.
+   with the real label, and switch `netlify.toml` to the commented
+   Content-Security-Policy line that allows Google's hosts (the current one
+   blocks them). Before adding any tracking, extend the privacy policy and add
+   a consent banner.
 
 ## Every old address keeps working
 
@@ -87,7 +89,9 @@ Datenschutz stay German, as on the live site.
   plain HTML in `index.html`.
 * **Partners:** add a row to `media/brands/manifest.json`, drop the PNG in
   `media/brands/` and add a matching tile in `index.html` under
-  `data-brands`.
+  `data-brands` (the `data-brand` number is the row's position). As on the
+  live site, all partners share one description, list of work and market
+  line; those live in `i18n/<lang>.json → brands`, so they are translated.
 * **Case studies:** the four cards in `index.html` under `#work`. Images
   sit in `media/gen/` as JPEG + WebP in two sizes.
 

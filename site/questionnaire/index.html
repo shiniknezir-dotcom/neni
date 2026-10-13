@@ -59,8 +59,8 @@
       <input type="hidden" name="Language" value="en" data-lang-field>
       <p class="hp" aria-hidden="true"><label><span data-i18n="form.honey">Leave this field empty</span> <input type="text" name="_honey" tabindex="-1" autocomplete="off"></label><input type="text" name="bot-field" tabindex="-1" autocomplete="off"></p>
 
-      <fieldset class="qform__group">
-        <h2 data-i18n="q.g1">01 — About you</h2>
+      <fieldset class="qform__group" aria-labelledby="q-g1">
+        <h2 id="q-g1" data-i18n="q.g1">01 — About you</h2>
         <div class="field"><label for="q-name" data-i18n="q.name">Your name *</label><input id="q-name" type="text" name="Name" required autocomplete="name" placeholder="Your name" data-i18n-placeholder="q.namePh"></div>
         <div class="field"><label for="q-business" data-i18n="q.business">Name of your business *</label><input id="q-business" type="text" name="Business name" required autocomplete="organization" placeholder="Company" data-i18n-placeholder="q.businessPh"></div>
         <div class="field"><label for="q-email" data-i18n="q.email">Email *</label><input id="q-email" type="email" name="Email" required autocomplete="email" inputmode="email" placeholder="name@company.com" data-i18n-placeholder="q.emailPh"></div>
@@ -69,8 +69,8 @@
         <div class="field"><label for="q-role" data-i18n="q.role">Your role</label><input id="q-role" type="text" name="Role" autocomplete="organization-title" placeholder="Managing director, marketing …" data-i18n-placeholder="q.rolePh"></div>
       </fieldset>
 
-      <fieldset class="qform__group">
-        <h2 data-i18n="q.g2">02 — Your company</h2>
+      <fieldset class="qform__group" aria-labelledby="q-g2">
+        <h2 id="q-g2" data-i18n="q.g2">02 — Your company</h2>
         <div class="field"><label for="q-industry" data-i18n="q.industry">Industry</label><input id="q-industry" type="text" name="Industry" placeholder="Industry" data-i18n-placeholder="q.industryPh"></div>
         <div class="field"><label for="q-size" data-i18n="form.size">Company size</label>
           <select id="q-size" name="Company size">
@@ -91,8 +91,8 @@
         </div>
       </fieldset>
 
-      <fieldset class="qform__group">
-        <h2 data-i18n="q.g3">03 — The project</h2>
+      <fieldset class="qform__group" aria-labelledby="q-g3">
+        <h2 id="q-g3" data-i18n="q.g3">03 — The project</h2>
         <div class="field field--full"><label for="q-need" data-i18n="q.need">What do you need? *</label>
           <select id="q-need" name="Services needed" required>
             <option value="Brand strategy &amp; positioning" data-i18n="q.need1">Brand strategy &amp; positioning</option>
@@ -154,7 +154,7 @@
         </div>
         <button class="btn" type="submit" data-submit><span data-i18n="q.send">Send questionnaire</span><i class="dot" aria-hidden="true"></i></button>
       </div>
-      <p class="form__status" role="status" aria-live="polite" data-form-status hidden></p>
+      <p class="form__status" id="q-status" role="status" aria-live="polite" data-form-status></p>
     </form>
   </div>
 </main>
@@ -162,7 +162,7 @@
 <footer class="mini-footer tone-forest">
   <div class="wrap">
     <span data-i18n="q.foot">© 2026 Blüten Sturm GmbH · Würzburg</span>
-    <span><a href="/impressum/">Impressum</a> · <a href="/datenschutz/">Datenschutz</a> · <a href="/">bluetensturm.com</a></span>
+    <span><a href="/impressum/" data-i18n="footer.imprint">Impressum</a> · <a href="/datenschutz/" data-i18n="footer.privacy">Datenschutz</a> · <a href="/">bluetensturm.com</a></span>
   </div>
 </footer>
 

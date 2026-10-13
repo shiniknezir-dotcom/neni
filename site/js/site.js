@@ -6,6 +6,7 @@
    ========================================================================== */
 
 import { SERVICES, BRAND_CATEGORIES, COMPANY } from './data.js';
+import { sendEnquiry, fallbackHref } from './form-send.js';
 
 const LANGS = ['en', 'de', 'fr', 'es', 'it'];
 const LOCALES = { en: 'en-GB', de: 'de-DE', fr: 'fr-FR', es: 'es-ES', it: 'it-IT' };
@@ -45,12 +46,23 @@ export function t(key, fallback = '') {
 const fmtNum = (n) => n.toLocaleString(LOCALES[lang] || 'en-GB');
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
-async function loadDict(code) {
-  if (dicts[code]) return dicts[code];
-  const res = await fetch(`/i18n/${code}.json`);
-  if (!res.ok) throw new Error(`i18n ${code}: ${res.status}`);
-  dicts[code] = await res.json();
-  return dicts[code];
+/* One request per language, shared by every caller; the head script may
+   already have started the visitor's saved language. */
+const pendingDicts = {};
+function loadDict(code) {
+  if (dicts[code]) return Promise.resolve(dicts[code]);
+  if (!pendingDicts[code]) {
+    const early = window.__bsDict && window.__bsDict.code === code ? window.__bsDict.p : null;
+    pendingDicts[code] = (early || fetch(`/i18n/${code}.json`).then((res) => {
+      if (!res.ok) throw new Error(`i18n ${code}: ${res.status}`);
+      return res.json();
+    })).then((j) => {
+      if (!j) throw new Error(`i18n ${code}: empty`);
+      dicts[code] = j;
+      return j;
+    }).catch((e) => { delete pendingDicts[code]; throw e; });
+  }
+  return pendingDicts[code];
 }
 
 function applyDict() {
@@ -83,7 +95,8 @@ function applyDict() {
   $$('[data-lang-field]').forEach((i) => { i.value = lang; });
   $$('[data-reply-lang]').forEach((sel) => { if (!sel.dataset.touched) sel.value = REPLY_LANG[lang] || 'English'; });
   $$('[data-count]').forEach((el) => {
-    if (el.dataset.done || !el.dataset.started) el.textContent = fmtNum(parseFloat(el.dataset.count) || 0) + (el.dataset.suffix || '');
+    if (el.dataset.done || !cio) el.textContent = fmtNum(parseFloat(el.dataset.count) || 0) + (el.dataset.suffix || '');
+    else if (!el.dataset.started) el.textContent = '0' + (el.dataset.suffix || '');
   });
   const bc = $('[data-brand-count]');
   if (bc) bc.innerHTML = esc(t('stage.brandsCount', '{n} brands and counting')).replace('{n}', `<b>${bc.dataset.n || $$('[data-brand]').length}</b>`);
@@ -132,7 +145,16 @@ function ready() {
 
 function runIntro() {
   const el = $('[data-intro]');
-  if (!el || !root.classList.contains('has-intro')) { ready(); return; }
+  if (!el || !root.classList.contains('has-intro') || root.classList.contains('is-ready')) {
+    /* no opening, or the module arrived after the head failsafe lifted it */
+    root.classList.remove('has-intro');
+    if (el) { el.remove(); try { sessionStorage.setItem('bs-intro', '1'); } catch (e) { /* ignore */ } }
+    ready();
+    return;
+  }
+  clearTimeout(window.__bsFailsafe);
+  el.style.animation = 'none';
+  el.classList.add('is-running');
   const g = $('[data-intro-b]', el);
   const paths = $$('[data-intro-p]', el);
   const count = $('[data-intro-count]', el);
@@ -201,7 +223,11 @@ function runIntro() {
   el.addEventListener('click', skip);
   document.addEventListener('keydown', function onKey(e) {
     if (finished) { document.removeEventListener('keydown', onKey); return; }
-    if (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ') { e.preventDefault(); skip(); }
+    if (e.key !== 'Escape' && e.key !== 'Enter' && e.key !== ' ') return;
+    /* a focused link (e.g. "Skip to content") still does its job */
+    const link = e.target && e.target.closest && e.target.closest('a[href]');
+    if (!(link && !el.contains(link) && e.key === 'Enter')) e.preventDefault();
+    skip();
   });
 }
 
@@ -234,7 +260,7 @@ function fillPanel(state) {
   const logo = $('[data-panel-logo]', panel);
   if (state.type === 'service') {
     const s = svcById[state.id];
-    if (!s) return;
+    if (!s) return false;
     $('[data-panel-eyebrow]', panel).textContent = t('panel.service');
     img.src = `/media/services/${s.id}-1280.webp`;
     img.srcset = `/media/services/${s.id}-640.webp 640w, /media/services/${s.id}-1280.webp 1280w`;
@@ -248,8 +274,8 @@ function fillPanel(state) {
     $('[data-panel-packs]', panel).innerHTML = pack('normal', s) + pack('premium', s);
     $('[data-panel-foot]', panel).hidden = false;
   } else {
-    const b = brands[state.index];
-    if (!b) return;
+    const b = brandAt(state.index);
+    if (!b) return false;
     $('[data-panel-eyebrow]', panel).textContent = t('panel.partner');
     media.hidden = true;
     img.removeAttribute('src'); img.removeAttribute('srcset');
@@ -262,13 +288,26 @@ function fillPanel(state) {
     $('[data-panel-packs]', panel).innerHTML = '';
     $('[data-panel-foot]', panel).hidden = true;
   }
+  return true;
+}
+
+/* The partner texts are shared by all 44 partners and live in the
+   dictionaries (brands.*); manifest.json supplies name, logo and category.
+   If the manifest has not arrived, the tile itself is enough. */
+function brandAt(i) {
+  if (brands[i]) return brands[i];
+  const tile = $(`[data-brand="${i}"]`);
+  if (!tile) return null;
+  const img = $('img', tile);
+  return { name: ($('.brand-tile__name', tile) || tile).textContent.trim(), logo: img ? img.getAttribute('src') : '', category: '' };
 }
 
 function openPanel(state) {
   if (!panel) return;
+  if (!fillPanel(state)) return;
   panelState = state;
-  fillPanel(state);
   lastFocus = document.activeElement;
+  if (hero3d && hero3d.pause) hero3d.pause();     // nothing to see behind the modal
   if (typeof panel.showModal === 'function') { if (!panel.open) panel.showModal(); }
   else panel.setAttribute('open', '');
   root.classList.add('is-locked');
@@ -288,7 +327,9 @@ const DISCIPLINE_OF = {
   'ai-innovation': 'Digital marketing', 'advertising': 'Digital marketing',
   'social-media-management': 'Content & social', 'content-production': 'Content & social', 'video-multimedia': 'Content & social', 'pr': 'Content & social',
   'event-marketing-promotions': 'Events & experience',
-  'corporate-training': 'Corporate training'
+  'corporate-training': 'Corporate training',
+  'business-development-support': 'Brand strategy', 'consulting': 'Brand strategy',
+  'employer-branding': 'Brand strategy', 'ongoing-client-services': 'Brand strategy'
 };
 function prefillContact(serviceId, tier) {
   const form = $('#contact form');
@@ -297,22 +338,30 @@ function prefillContact(serviceId, tier) {
   const want = DISCIPLINE_OF[serviceId];
   if (sel && want) sel.value = want;
   const ta = form.querySelector('[name="Project"]');
-  if (ta && !ta.value.trim()) ta.value = `${t(`svc.${serviceId}.name`)} — ${t(`panel.${tier}`)}: `;
+  /* replace an earlier prefill, never the visitor's own words */
+  if (ta && (!ta.value.trim() || ta.value === ta.dataset.prefill)) {
+    ta.value = `${t(`svc.${serviceId}.name`)} — ${t(`panel.${tier}`)}: `;
+    ta.dataset.prefill = ta.value;
+  }
+  return ta;
 }
 
 if (panel) {
   panel.addEventListener('close', () => {
-    root.classList.remove('is-locked');
+    if (!header || !header.classList.contains('is-open')) root.classList.remove('is-locked');
     panelState = null;
-    if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
+    if (hero3d && hero3d.resume) hero3d.resume();
+    if (lastFocus && lastFocus.focus) {
+      lastFocus.focus({ preventScroll: true });
+      if (lastFocus.setSelectionRange && lastFocus.value) lastFocus.setSelectionRange(lastFocus.value.length, lastFocus.value.length);
+    }
   });
   panel.addEventListener('click', (e) => {
     if (e.target === panel) { closePanel(); return; }       // backdrop
     if (e.target.closest('[data-panel-close]')) { closePanel(); return; }
     const cta = e.target.closest('[data-panel-cta]');
     if (cta) {
-      prefillContact(cta.dataset.service, cta.dataset.tier);
-      lastFocus = null;
+      lastFocus = prefillContact(cta.dataset.service, cta.dataset.tier) || null;
       closePanel();
     }
   });
@@ -322,13 +371,18 @@ document.addEventListener('click', (e) => {
   const svc = e.target.closest('[data-service-open]');
   if (svc) { e.preventDefault(); openPanel({ type: 'service', id: svc.dataset.serviceOpen }); return; }
   const br = e.target.closest('[data-brand]');
-  if (br) { e.preventDefault(); openPanel({ type: 'brand', index: Number(br.dataset.brand) }); }
+  if (br) {
+    e.preventDefault();
+    const index = Number(br.dataset.brand);
+    brandsReady.then(() => openPanel({ type: 'brand', index }));
+  }
 });
 
+let brandsReady = Promise.resolve();
 async function loadBrands() {
   if (!$('[data-brands]')) return;
   try {
-    const res = await fetch('/media/brands/manifest.json');
+    const res = await fetch('/media/brands/manifest.json', { cache: 'no-cache' });
     const list = res.ok ? await res.json() : [];
     brands = list.map((b) => ({ ...b, logo: '/' + String(b.logo || '').replace(/^\/+/, '') }));
   } catch (e) { brands = []; }
@@ -341,15 +395,19 @@ async function loadBrands() {
 const header = $('[data-header]');
 const burger = $('[data-burger]');
 function setDrawer(open) {
-  if (!header) return;
+  if (!header || header.classList.contains('is-open') === open) return;
   header.classList.toggle('is-open', open);
   burger?.setAttribute('aria-expanded', String(open));
-  root.classList.toggle('is-locked', open);
+  /* an open panel keeps its own scroll lock */
+  root.classList.toggle('is-locked', open || !!(panel && panel.open));
+  /* keyboard focus stays inside the open menu */
+  ['#main', '.site-footer'].forEach((sel) => { const el = $(sel); if (el) el.inert = open; });
+  if (open) $('.nav__links a', header)?.focus();
 }
 burger?.addEventListener('click', () => setDrawer(!header.classList.contains('is-open')));
 $('[data-nav]')?.addEventListener('click', (e) => { if (e.target.closest('a')) setDrawer(false); });
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && header?.classList.contains('is-open')) { setDrawer(false); burger?.focus(); } });
-window.matchMedia('(min-width: 1181px)').addEventListener('change', (e) => { if (e.matches) setDrawer(false); });
+window.matchMedia('(min-width: 1301px)').addEventListener('change', (e) => { if (e.matches) setDrawer(false); });
 $$('[data-lang]').forEach((b) => b.addEventListener('click', () => { setLang(b.dataset.lang); setDrawer(false); }));
 
 const progressBar = $('[data-progress]');
@@ -387,6 +445,9 @@ window.addEventListener('resize', onScrollUi);
     });
   }, { rootMargin: '-45% 0px -50% 0px' });
   byId.forEach((_, id) => { const s = document.getElementById(id); if (s) spy.observe(s); });
+  /* back at the top, no section is current */
+  const top = document.getElementById('top');
+  if (top) spy.observe(top);
 })();
 
 /* --------------------------------------------------------------------------
@@ -399,6 +460,7 @@ const io = ('IntersectionObserver' in window) ? new IntersectionObserver((entrie
     io.unobserve(en.target);
   });
 }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' }) : null;
+root.classList.add('reveal-on');
 $$('.reveal').forEach((el) => { if (io && !reduceMotion) io.observe(el); else el.classList.add('is-in'); });
 
 const cio = ('IntersectionObserver' in window && !reduceMotion) ? new IntersectionObserver((entries) => {
@@ -411,7 +473,7 @@ const cio = ('IntersectionObserver' in window && !reduceMotion) ? new Intersecti
     el.dataset.started = '1';
     const dur = 1700, start = performance.now();
     const tick = (now) => {
-      const p = Math.min(1, (now - start) / dur);
+      const p = clamp((now - start) / dur, 0, 1);
       if (p >= 1) { el.dataset.done = '1'; el.textContent = fmtNum(target) + suffix; return; }
       el.textContent = fmtNum(Math.round(target * easeOut(p))) + suffix;
       requestAnimationFrame(tick);
@@ -476,7 +538,7 @@ if (!reduceMotion) {
 const hero = $('[data-hero]');
 const petalsEl = $('[data-petals]');
 let hero3d = null;
-const runway = { on: false, p: 0, geo: [], originX: 0, originY: 0, raf: 0, visible: true };
+const runway = { on: false, p: 0, geo: [], originX: 0, originY: 0, raf: 0, inView: true, pageVisible: !document.hidden };
 
 function wantsRunway() {
   if (!hero || !petalsEl) return false;
@@ -488,12 +550,19 @@ function wantsRunway() {
   return true;
 }
 
+/* Returns false when the eighteen petals do not fit the pinned screen (a
+   short window, a long translation); the caller then falls back to the list. */
 function layoutRunway() {
-  if (!runway.on) return;
+  if (!runway.on) return false;
   const pin = $('[data-hero-pin]');
   const pr = pin.getBoundingClientRect();
   const btns = $$('.petal-btn', petalsEl);
   btns.forEach((b) => { b.style.transform = 'none'; });
+  const field = $('[data-petal-field]', petalsEl);
+  if (field && motionOverride() !== 'full' && field.getBoundingClientRect().bottom - pr.top > pr.height - 8) {
+    teardownRunway();
+    return false;
+  }
   /* where the petals come from: the letter, wherever the layout put it */
   let ox = pr.width * 0.7, oy = pr.height * 0.55;
   const a = hero3d && hero3d.anchor ? hero3d.anchor() : null;
@@ -511,9 +580,8 @@ function layoutRunway() {
   });
   const maxD = Math.max(1, ...runway.geo.map((g) => g.dist));
   runway.geo.forEach((g) => { g.order = g.dist / maxD; });
-  const runLen = window.innerWidth < 720 ? 280 : 300;
-  hero.style.setProperty('--runway', `${runLen}vh`);
   paintRunway(true);
+  return true;
 }
 
 function runwayProgress() {
@@ -563,44 +631,55 @@ function paintRunway(force) {
   petalsEl.classList.toggle('is-live', live > runway.geo.length * 0.6);
 }
 
+const runwayLive = () => runway.on && runway.inView && runway.pageVisible;
 function runwayLoop() {
   runway.raf = 0;
-  if (!runway.on || !runway.visible) return;
+  if (!runwayLive()) return;
   paintRunway(false);
   runway.raf = requestAnimationFrame(runwayLoop);
 }
-function kickRunway() { if (!runway.raf && runway.on) runway.raf = requestAnimationFrame(runwayLoop); }
+function kickRunway() { if (!runway.raf && runwayLive()) runway.raf = requestAnimationFrame(runwayLoop); }
+
+/* Decide (again) whether the runway runs: on load, on resize or rotation,
+   after a language switch and once the fonts are in. */
+function evaluateRunway() {
+  if (!wantsRunway()) {
+    if (runway.on) teardownRunway();
+    root.classList.remove('runway');
+    return;
+  }
+  if (!runway.on) { runway.on = true; root.classList.add('runway'); }
+  if (layoutRunway()) kickRunway();
+}
 
 function setupRunway() {
-  if (!wantsRunway()) return;
-  runway.on = true;
-  root.classList.add('runway');
-  layoutRunway();
+  if (!hero || !petalsEl) { root.classList.remove('runway'); return; }
+  evaluateRunway();
   if ('IntersectionObserver' in window) {
-    new IntersectionObserver((es) => { runway.visible = es[0].isIntersecting; if (runway.visible) kickRunway(); }).observe(hero);
+    new IntersectionObserver((es) => { runway.inView = es[0].isIntersecting; kickRunway(); }).observe(hero);
   }
-  document.addEventListener('visibilitychange', () => { runway.visible = !document.hidden; if (runway.visible) kickRunway(); });
-  let rt = 0;
-  const relayout = () => { clearTimeout(rt); rt = setTimeout(() => {
-    if (!wantsRunway()) { teardownRunway(); return; }
-    layoutRunway();
-  }, 140); };
+  document.addEventListener('visibilitychange', () => { runway.pageVisible = !document.hidden; kickRunway(); });
+  let rt = 0, lastW = window.innerWidth;
+  const relayout = (e) => {
+    /* an on-screen keyboard only changes the height: leave the page alone */
+    if (e && e.type === 'resize' && window.innerWidth === lastW && document.activeElement && document.activeElement.matches('input, textarea, select')) return;
+    clearTimeout(rt);
+    rt = setTimeout(() => { lastW = window.innerWidth; evaluateRunway(); }, 140);
+  };
   window.addEventListener('resize', relayout);
   window.addEventListener('bs:lang', relayout);
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(relayout).catch(() => {});
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => relayout()).catch(() => {});
   /* a keyboard visitor tabbing into the petals is taken to where they are open */
-  petalsEl.addEventListener('focusin', () => {
-    if (!runway.on || runway.p >= 0.62) return;
+  petalsEl.addEventListener('focusin', (e) => {
+    if (!runway.on || runway.p >= 0.62 || !e.target.matches(':focus-visible')) return;
     const dist = hero.offsetHeight - window.innerHeight;
     const target = hero.getBoundingClientRect().top + window.scrollY + dist * 0.66;
-    window.scrollTo({ top: target, behavior: 'auto' });
+    window.scrollTo({ top: target, behavior: 'instant' });
   });
-  kickRunway();
 }
 function teardownRunway() {
   runway.on = false;
   root.classList.remove('runway');
-  hero.style.removeProperty('--runway');
   [copyEl, headEl, stageEl].forEach((el) => { if (el) { el.style.opacity = ''; el.style.transform = ''; el.style.visibility = ''; } });
   $$('.petal-btn', petalsEl).forEach((b) => { b.style.opacity = ''; b.style.transform = ''; });
   if (hero3d && hero3d.setProgress) hero3d.setProgress(0);
@@ -627,7 +706,7 @@ async function mountHero3D() {
     hero3d = mod.mountHero(stage, { external: runway.on, assembled: true });
     if (hero3d) {
       hero.classList.add('has-3d');
-      if (runway.on) { layoutRunway(); kickRunway(); }
+      if (runway.on && layoutRunway()) kickRunway();
     }
   } catch (e) {
     console.warn('[hero3d] not mounted:', e);
@@ -646,7 +725,6 @@ $$('[data-form]').forEach((form) => {
   if (next) next.value = new URL(thanks, window.location.origin).href;
   const show = (msg, kind) => {
     if (!status) return;
-    status.hidden = false;
     status.textContent = msg;
     status.classList.toggle('is-error', kind === 'error');
     status.classList.toggle('is-ok', kind === 'ok');
@@ -665,22 +743,29 @@ $$('[data-form]').forEach((form) => {
     if (!ev.persisted) return;
     sending = false;
     resetButton();
-    if (status) { status.hidden = true; status.textContent = ''; }
+    if (status) { status.textContent = ''; status.className = 'form__status'; }
   });
+  const email = form.querySelector('[name="Email"]');
+  email?.addEventListener('input', () => { email.setCustomValidity(''); email.removeAttribute('aria-invalid'); });
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (sending) return;
     const trap = ['_honey', 'bot-field'].some((n) => { const f = form.querySelector(`[name="${n}"]`); return f && f.value; });
     if (trap) { window.location.href = thanks; return; }
     if (!form.checkValidity()) { form.reportValidity(); return; }
-    const email = form.querySelector('[name="Email"]');
-    if (email && !EMAIL_RE.test(email.value.trim())) { show(t('form.invalidEmail'), 'error'); email.focus(); return; }
+    if (email && !EMAIL_RE.test(email.value.trim())) {
+      /* a message at the field itself, announced by assistive tech */
+      email.setCustomValidity(t('form.invalidEmail'));
+      email.setAttribute('aria-invalid', 'true');
+      email.reportValidity();
+      return;
+    }
     sending = true;
     if (btn) { btn.disabled = true; btn.textContent = t('form.sending'); }
     show(t(sendingKey), 'ok');
+    const subject = form.dataset.subject || 'Neue Anfrage über bluetensturm.com';
     try {
-      const mod = await import('./form-send.js');
-      const r = await mod.sendEnquiry(form, form.dataset.subject || 'Neue Anfrage über bluetensturm.com');
+      const r = await sendEnquiry(form, subject);
       if (r.ok) {
         try { sessionStorage.setItem('bs-sent', form.getAttribute('name') || '1'); } catch (err) { /* ignore */ }
         window.location.href = thanks;
@@ -689,7 +774,9 @@ $$('[data-form]').forEach((form) => {
       show(t('form.fallback'), 'error');
       window.location.href = r.href;
     } catch (err) {
-      show(t('form.error'), 'error');
+      /* never lose a lead: hand it to the visitor's mail app */
+      show(t('form.fallback'), 'error');
+      try { window.location.href = fallbackHref(form, subject); } catch (e2) { show(t('form.error'), 'error'); }
     }
     sending = false;
     resetButton();
@@ -716,10 +803,11 @@ $$('[data-reply-lang]').forEach((sel) => sel.addEventListener('change', () => { 
     const h264 = video.canPlayType('video/mp4; codecs="avc1.640028"');
     const useWebm = !h264 && video.canPlayType('video/webm; codecs="vp9"');
     video.src = useWebm ? (hd ? video.dataset.webmHd : video.dataset.webmSd) : (hd ? video.dataset.srcHd : video.dataset.srcSd);
+    video.poster = '/media/gen/weather-petals-900.webp';
     video.addEventListener('playing', () => video.classList.add('is-playing'), { once: true });
     video.addEventListener('error', () => video.remove(), { once: true });
     const p = video.play();
-    if (p && p.catch) p.catch(() => { /* autoplay refused: the poster stays */ });
+    if (p && p.catch) p.catch(() => { video.classList.add('is-playing'); /* autoplay refused: show the still */ });
   };
   if ('IntersectionObserver' in window) {
     new IntersectionObserver((es) => {
@@ -736,6 +824,10 @@ $$('[data-reply-lang]').forEach((sel) => sel.addEventListener('change', () => { 
    -------------------------------------------------------------------------- */
 (function conversion() {
   if (!document.body.hasAttribute('data-conversion')) return;
+  /* only a real submission counts: not a reload, a direct visit or a bot */
+  let form = null;
+  try { form = sessionStorage.getItem('bs-sent'); sessionStorage.removeItem('bs-sent'); } catch (e) { /* ignore */ }
+  if (!form) return;
   try {
     /* Google Ads / GA4: replace AW-XXXXXXXXX/YYYYYYYY with the real
        conversion label (Goals → Conversions → enquiry → tag setup). */
@@ -744,8 +836,6 @@ $$('[data-reply-lang]').forEach((sel) => sel.addEventListener('change', () => { 
       window.gtag('event', 'generate_lead', { currency: 'EUR', value: 1 });
     }
     window.dataLayer = window.dataLayer || [];
-    let form = 'contact';
-    try { form = sessionStorage.getItem('bs-sent') || 'contact'; sessionStorage.removeItem('bs-sent'); } catch (e) { /* ignore */ }
     window.dataLayer.push({ event: 'enquiry_submitted', form, page: 'thank-you' });
   } catch (e) { /* never let tracking break the page */ }
 })();
@@ -761,15 +851,25 @@ $$('[data-reply-lang]').forEach((sel) => sel.addEventListener('change', () => { 
      doing that under the opening would stutter it, so it waits its turn. */
   if (readyDone) mountHero3D();
   else window.addEventListener('bs:ready', () => setTimeout(mountHero3D, 650), { once: true });
-  loadBrands();
+  /* a partner click waits for the manifest, but never for long */
+  brandsReady = Promise.race([loadBrands(), new Promise((r) => setTimeout(r, 1500))]);
   if (fixedLang) {
     /* German-only pages: keep the markup's language and never relabel it */
     lang = fixedLang;
     return;
   }
   const first = initialLang();
-  try { await loadDict('en'); } catch (e) { console.warn('[i18n] en.json unavailable:', e); }
+  /* English is the fallback for any missing key; fetch it alongside, not first */
+  const en = loadDict('en').catch((e) => console.warn('[i18n] en.json unavailable:', e));
   await setLang(first.code, { persist: first.persist });
+  await en;
+  /* a page restored from the back/forward cache follows a later choice */
+  window.addEventListener('pageshow', (e) => {
+    if (!e.persisted) return;
+    let saved = null;
+    try { saved = localStorage.getItem('bs-lang'); } catch (err) { /* ignore */ }
+    if (saved && LANGS.includes(saved) && saved !== lang) setLang(saved, { persist: false });
+  });
 })();
 
 export { COMPANY };

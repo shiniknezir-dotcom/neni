@@ -16,9 +16,11 @@
 <script>document.documentElement.classList.add('js', 'is-ready')</script>
 <link rel="stylesheet" href="/css/fonts.css">
 <link rel="stylesheet" href="/css/site.css">
-<!-- Google Ads / GA4: paste the gtag.js snippet here once the account exists.
-     The page already fires the conversion (AW-XXXXXXXXX/YYYYYYYY placeholder,
-     see js/site.js) and pushes "enquiry_submitted" to window.dataLayer. -->
+<!-- Google Ads / GA4: paste the gtag.js snippet here once the account exists,
+     and switch netlify.toml to the commented Content-Security-Policy line that
+     allows Google's hosts. The page already fires the conversion
+     (AW-XXXXXXXXX/YYYYYYYY placeholder, see js/site.js) and pushes
+     "enquiry_submitted" to window.dataLayer after a real submission only. -->
 </head>
 <body data-i18n-title="ty.metaTitle" data-conversion>
 <a class="skip" href="#main" data-i18n="a11y.skip">Skip to content</a>

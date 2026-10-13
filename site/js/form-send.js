@@ -56,7 +56,8 @@ async function sendFormspree(data, subject, timeoutMs = 12000) {
 
 async function sendNetlify(form, data, timeoutMs = 10000) {
   const name = form.getAttribute('name');
-  if (!name || !form.hasAttribute('data-netlify')) return false;
+  /* Netlify strips data-netlify from deployed HTML but keeps form-name */
+  if (!name || !form.querySelector('input[name="form-name"]')) return false;
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), timeoutMs);
   try {

@@ -154,6 +154,8 @@ export function mountHero(stage, { reduced = false, external = false, assembled 
   function layout() {
     W = stage.clientWidth || window.innerWidth;
     H = stage.clientHeight || window.innerHeight;
+    /* cap the backing store at about three million pixels */
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75, Math.sqrt(3e6 / Math.max(1, W * H))));
     renderer.setSize(W, H, false);
     camera.aspect = W / H;
     camera.updateProjectionMatrix();
@@ -167,8 +169,9 @@ export function mountHero(stage, { reduced = false, external = false, assembled 
          cropped by the screen like the phone layout in the brand deck. */
       let copyBottom = H * 0.6;
       if (copyEl) {
-        const s = stage.getBoundingClientRect(), c = copyEl.getBoundingClientRect();
-        copyBottom = c.bottom - s.top;
+        /* the layout box, not the painted one: the copy may be mid-entrance or
+           already stepping back on the runway, and both move it by transform */
+        copyBottom = copyEl.offsetTop + copyEl.offsetHeight - stage.offsetTop;
       }
       const room = Math.max(H - copyBottom - 28, H * 0.16) * pxToWorld;   // free height below the copy
       letterScale = Math.min(room * 1.45, vw * 0.78 / 0.733, vh * 0.62);
@@ -225,7 +228,7 @@ export function mountHero(stage, { reduced = false, external = false, assembled 
 
   function frame(now) {
     raf = 0;
-    if (!visible || hidden) return;
+    if (!visible || hidden || paused) return;
     const dt = Math.min(0.05, (now - last) / 1000);
     last = now;
     const t = (now - t0) / 1000;
@@ -285,12 +288,16 @@ export function mountHero(stage, { reduced = false, external = false, assembled 
     renderer.render(scene, camera);
     raf = requestAnimationFrame(frame);
   }
+  let paused = false;
   function kick() { if (!raf) { last = performance.now(); raf = requestAnimationFrame(frame); } }
   kick();
 
   return {
     /* 0..1 along the home page runway */
-    setProgress(v) { scrollP = clamp(v, 0, 1); kick(); },
+    setProgress(v) { external = true; scrollP = clamp(v, 0, 1); kick(); },
+    /* nothing to paint behind a modal */
+    pause() { paused = true; },
+    resume() { if (paused) { paused = false; kick(); } },
     /* where the letter's centre sits on screen, in stage pixels */
     anchor() {
       /* before the first frame the camera's world matrix is still identity */
