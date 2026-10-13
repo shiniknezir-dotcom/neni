@@ -115,7 +115,7 @@
     var nf;
     try { nf = new Intl.NumberFormat(lang, { style: 'currency', currency: 'EUR', minimumFractionDigits: 0, maximumFractionDigits: 0 }); }
     catch (e) { return; }
-    each('[data-price]', function (el) { el.textContent = nf.format(+el.getAttribute('data-price')); });
+    each('[data-price]', function (el) { el.textContent = wide(nf.format(+el.getAttribute('data-price'))); });
   }
 
   // Translate first, so nothing below can keep a visitor waiting on English.
@@ -204,17 +204,20 @@
 
   // Stats: formatted for the current language (2,400 · 2.400 · 2 400), and
   // counted up once when they scroll into view.
+  // French groups thousands with a narrow no-break space that all but disappears in the serif;
+  // a regular no-break space keeps "6 500 €" readable.
+  function wide(s) { return String(s).replace(/\u202f/g, '\u00a0'); }
   function fmt(n, kind) {
     try {
-      return kind === 'percent'
+      return wide(kind === 'percent'
         ? new Intl.NumberFormat(lang, { style: 'percent', maximumFractionDigits: 0 }).format(n / 100)
-        : new Intl.NumberFormat(lang, { maximumFractionDigits: 0 }).format(n);
+        : new Intl.NumberFormat(lang, { maximumFractionDigits: 0 }).format(n));
     } catch (e) { return kind === 'percent' ? Math.round(n) + '%' : String(Math.round(n)); }
   }
   function renderStats() {
     each('[data-count]', function (el) {
       var n = el.__cur != null ? el.__cur : +el.getAttribute('data-count');
-      el.textContent = fmt(n, el.getAttribute('data-format'));
+      el.textContent = fmt(n, el.getAttribute('data-format')) + (el.getAttribute('data-suffix') || '');
     });
   }
   var stats = document.querySelector('.stats');
@@ -251,77 +254,106 @@
   var brandDlg = document.getElementById('brand-dialog');
   var canDialog = !!(svcDlg && typeof svcDlg.showModal === 'function');
   if (canDialog) d.classList.add('svc-dlg');
-  var moved = [], svcOpener = null, svcId = '';
+  var moved = [], svcOpener = null, svcId = '', pushed = false, skipPop = false, before = '';
 
   function lockScroll(on) { d.classList.toggle('dlg-open', !!on); }
-  function restoreSvc() {
-    for (var i = moved.length - 1; i >= 0; i--) {
-      var m = moved[i];
-      if (m.next && m.next.parentNode === m.parent) m.parent.insertBefore(m.node, m.next); else m.parent.appendChild(m.node);
-    }
-    moved = [];
-    if (svcId && window.location.hash === '#svc-' + svcId && window.history.replaceState) {
-      window.history.replaceState(null, '', window.location.pathname + window.location.search);
-    }
-    svcId = '';
-    if (!(brandDlg && brandDlg.open)) lockScroll(false);
+  function hereUrl() { return window.location.pathname + window.location.search; }
+  function hashId() {
+    try { return decodeURIComponent((window.location.hash || '').slice(1)); } catch (e) { return ''; }
   }
   function moveInto(node, slot) {
     if (!node || !slot) return;
     moved.push({ node: node, parent: node.parentNode, next: node.nextSibling });
     slot.appendChild(node);
   }
-  function closeSvc() {
+  function restoreNodes() {
+    for (var i = moved.length - 1; i >= 0; i--) {
+      var m = moved[i];
+      if (m.next && m.next.parentNode === m.parent) m.parent.insertBefore(m.node, m.next); else m.parent.appendChild(m.node);
+    }
+    moved = [];
+    if (!(brandDlg && brandDlg.open)) lockScroll(false);
+  }
+  // how: 'ui' (close button, Escape, backdrop) · 'link' (a link inside, e.g. a package request) · 'history' (Back/Forward)
+  function closeSvc(how) {
     var opener = svcOpener;
     svcOpener = null;
-    restoreSvc();
+    restoreNodes();
+    svcId = '';
     if (svcDlg.open) svcDlg.close();
+    if (how !== 'history' && window.history.replaceState) {
+      if (pushed && how === 'ui') { skipPop = true; window.history.back(); }        // the dialog had its own entry: step back off it
+      else if (pushed) window.history.replaceState(null, '', before);               // a link follows: turn the entry back into the page
+      else if (hashId().indexOf('svc-') === 0) window.history.replaceState(null, '', hereUrl());   // opened by a deep link
+    }
+    pushed = false;
     if (opener && opener.focus && document.contains(opener)) opener.focus();
   }
-  function openSvc(id, opener) {
+  function openSvc(id, opener, fromHistory) {
     var el = document.getElementById('svc-' + id);
     if (!canDialog || !el || el.tagName !== 'DETAILS') return false;
-    if (svcDlg.open) restoreSvc();
+    if (svcDlg.open) { if (svcId === id) return true; restoreNodes(); }
     svcId = id;
     svcOpener = opener || null;
     moveInto(el.querySelector('.svc__name'), svcDlg.querySelector('[data-dlg-title]'));
     moveInto(el.querySelector('.svc__tagline'), svcDlg.querySelector('[data-dlg-tagline]'));
     moveInto(el.querySelector('.svc__body'), svcDlg.querySelector('[data-dlg-body]'));
+    if (!fromHistory && !pushed && window.history.pushState) {
+      // its own history entry, so Back (and the phone's back gesture) closes the dialog
+      before = window.location.href;
+      window.history.pushState({ bsSvc: id }, '', '#svc-' + id);
+      pushed = true;
+    }
     if (!svcDlg.open) svcDlg.showModal();
     svcDlg.scrollTop = 0;
     lockScroll(true);
-    if (window.location.hash !== '#svc-' + id && window.history.replaceState) window.history.replaceState(null, '', '#svc-' + id);
     var close = svcDlg.querySelector('[data-dlg-close]');
     if (close) close.focus();
     return true;
   }
+  // A backdrop click closes a dialog only when the press also started on the backdrop and is a
+  // single click: a double click on a tile, or a text selection released outside, must not close it.
+  function backdropCloser(dlg, close) {
+    var downOnBackdrop = false;
+    dlg.addEventListener('pointerdown', function (e) { downOnBackdrop = e.target === dlg; });
+    return function (e) { return e.target === dlg && downOnBackdrop && e.detail <= 1; };
+  }
   if (canDialog) {
-    svcDlg.addEventListener('close', function () { if (moved.length || svcId) closeSvc(); });
+    var svcBackdrop = backdropCloser(svcDlg);
+    svcDlg.addEventListener('cancel', function (e) { e.preventDefault(); closeSvc('ui'); });   // Escape
+    svcDlg.addEventListener('close', function () { if (moved.length) closeSvc('ui'); });
     svcDlg.addEventListener('click', function (e) {
-      if (e.target === svcDlg || (e.target.closest && e.target.closest('[data-dlg-close]'))) { closeSvc(); return; }
+      if (svcBackdrop(e) || (e.target.closest && e.target.closest('[data-dlg-close]'))) { closeSvc('ui'); return; }
       // A link inside (a package button to #contact): put the service back first,
       // so the package handler below finds it, then let the link do its job.
       var a = e.target.closest ? e.target.closest('a[href^="#"]') : null;
-      if (a) closeSvc();
+      if (a) closeSvc('link');
     });
   }
   document.addEventListener('click', function (e) {
     var a = e.target.closest ? e.target.closest('[data-svc-open]') : null;
-    if (a && openSvc(a.getAttribute('data-svc-open'), a)) e.preventDefault();
+    if (!a || e.defaultPrevented || e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return;   // new tab etc.: /#svc-… opens there
+    if (openSvc(a.getAttribute('data-svc-open'), a, false)) e.preventDefault();
   });
 
-  function openFromHash() {
-    var id = '';
-    try { id = decodeURIComponent((window.location.hash || '').slice(1)); } catch (e) { return; }
-    if (!id || id.indexOf('svc-') !== 0) return;
-    if (openSvc(id.slice(4), null)) return;
+  function onHistory() {
+    if (skipPop) { skipPop = false; return; }
+    var id = hashId();
+    if (svcDlg && svcDlg.open) {
+      if (id === 'svc-' + svcId) return;
+      closeSvc('history');
+    }
+    if (id.indexOf('svc-') !== 0) return;
+    if (openSvc(id.slice(4), null, true)) return;
     var el = document.getElementById(id);
     if (el && el.tagName === 'DETAILS') el.open = true;
   }
-  window.addEventListener('hashchange', openFromHash);
-  openFromHash();
+  window.addEventListener('popstate', onHistory);
+  window.addEventListener('hashchange', onHistory);
+  onHistory();
 
   // Brands in 05: any logo opens the brand dialog (name, category, markets, the work).
+  // The buttons ship disabled (no dead buttons without JavaScript or <dialog>); enabled here.
   var brandOpener = null;
   function renderBrand() {
     if (!brandOpener || !brandDlg) return;
@@ -341,6 +373,8 @@
     if (opener && opener.focus) opener.focus();
   }
   if (canDialog && brandDlg) {
+    each('[data-brand]', function (b) { b.disabled = false; });
+    var brandBackdrop = backdropCloser(brandDlg);
     document.addEventListener('click', function (e) {
       var b = e.target.closest ? e.target.closest('[data-brand]') : null;
       if (!b) return;
@@ -353,7 +387,7 @@
       if (close) close.focus();
     });
     brandDlg.addEventListener('click', function (e) {
-      if (e.target === brandDlg || (e.target.closest && e.target.closest('[data-dlg-close]'))) closeBrand();
+      if (brandBackdrop(e) || (e.target.closest && e.target.closest('[data-dlg-close]'))) closeBrand();
     });
     brandDlg.addEventListener('close', function () { if (brandOpener) closeBrand(); });
   }

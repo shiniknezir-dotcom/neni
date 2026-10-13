@@ -212,7 +212,7 @@ html.is-locked, html.is-locked body { overflow: hidden; }
 .five { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border-top: 1px solid var(--rauch); }
 .five li { padding: 18px 16px 0 0; display: flex; flex-direction: column; gap: 6px; font-size: 15px; }
 .five .serif { font-size: 22px; color: var(--asche); }
-.five li:first-child .serif { color: var(--pollen); }
+.five li:first-child .serif { color: var(--weiss); }   /* the flower's petal carries the section's pollen */
 
 /* 04 — work */
 .clients li { border-bottom: 1px solid var(--rauch); }
@@ -290,7 +290,7 @@ html.is-locked, html.is-locked body { overflow: hidden; }
 /* ---------- Forms ---------- */
 .form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
 .form .full { grid-column: 1 / -1; }
-.field { display: flex; flex-direction: column; gap: 10px; }
+.field { display: flex; flex-direction: column; justify-content: flex-end; gap: 10px; }   /* a two-line label never pushes its control out of line */
 .field label, .field .label { font-size: 11px; font-weight: 500; letter-spacing: .24em; text-transform: uppercase; color: var(--nebel); }
 .field label .opt { color: var(--asche); letter-spacing: .1em; text-transform: none; }
 .field label .req { color: var(--asche); margin-left: 2px; }
@@ -504,7 +504,7 @@ body { transition: opacity .25s ease; }
 .contact__aside { display: flex; flex-direction: column; gap: 28px; }
 .qcard { border: 1px solid var(--rauch); background: var(--kohle); padding: 28px; display: flex; flex-direction: column; gap: 14px; }
 .qcard p { color: var(--nebel); font-size: 15px; }
-.form__picked { grid-column: 1 / -1; display: flex; align-items: baseline; gap: 10px; padding: 14px 16px; border-left: 2px solid var(--pollen); background: var(--kohle); font-size: 14px; color: var(--weiss); }
+.form__picked { grid-column: 1 / -1; display: flex; align-items: baseline; gap: 10px; padding: 14px 16px; border-left: 2px solid var(--weiss); background: var(--kohle); font-size: 14px; color: var(--weiss); }
 .form__picked:not(.is-visible) { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; border: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .form__picked .lbl { flex: none; }
 .form__status a:not(.btn) { color: var(--weiss); }
@@ -692,7 +692,8 @@ html.motion-off .hero__storm { display: none; }
 
 /* Hero: the live headline, lead and two buttons over the storm */
 .hero__copy { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 24px; max-width: 1240px; padding: 104px 16px 132px; text-align: center; }
-.hero__eyebrow { color: var(--nebel); }
+.hero__eyebrow { color: var(--weiss); text-wrap: balance; text-shadow: 0 0 14px rgba(10, 10, 10, .95), 0 0 3px rgba(10, 10, 10, .9); }
+.hero__lead { text-shadow: 0 0 18px rgba(10, 10, 10, .85); }
 /* a soft dark field behind the words, so they read over the bright petal and the storm */
 .hero__copy::before { content: ""; position: absolute; z-index: -1; left: 50%; top: 50%; width: 120%; height: 90%; transform: translate(-50%, -50%); pointer-events: none;
   background: radial-gradient(closest-side, rgba(10, 10, 10, .62), rgba(10, 10, 10, .34) 55%, rgba(10, 10, 10, 0)); }
@@ -736,7 +737,7 @@ html.motion-off .hero__storm { display: none; }
 .clients-line .lbl { color: var(--asche); }
 .names { grid-column: 2; display: flex; flex-wrap: wrap; align-items: center; row-gap: 4px; font-family: var(--serif); font-style: italic; font-size: 22px; line-height: 1.4; color: var(--nebel); }
 .names li { display: inline-flex; align-items: center; }
-.names li + li::before { content: ""; flex: none; width: 6px; height: 9px; margin: 0 14px; background: var(--line-strong);
+.names li:not(:last-child)::after { content: ""; flex: none; width: 6px; height: 9px; margin: 0 14px; background: var(--line-strong);
   -webkit-mask: url("../img/petal.svg") center / contain no-repeat; mask: url("../img/petal.svg") center / contain no-repeat; }
 .clients-line .tlink { grid-column: 1; grid-row: 2; align-self: start; }
 @media (max-width: 900px) {
@@ -773,6 +774,10 @@ html.svc-dlg .svc-index { display: none; }
 .disc__from { margin-top: auto; padding-top: 6px; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--asche); }
 .disc__from b { font-family: var(--serif); font-style: italic; font-weight: 400; font-size: 28px; letter-spacing: 0; text-transform: none; color: var(--weiss); margin: 0 6px; }
 .disc .tlink { align-self: flex-start; }
+/* the whole card opens its service (one link per card for assistive technology) */
+.disc { position: relative; }
+.disc .tlink::after { content: ""; position: absolute; inset: 0; }
+.disc:hover .tlink { border-bottom-color: var(--pollen); }
 @media (max-width: 1080px) {
   .discs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .disc, .disc:nth-child(-n+2) { grid-column: auto; }
@@ -790,7 +795,10 @@ html.svc-dlg .svc-index { display: none; }
   border: 1px solid var(--line-strong); background: var(--kohle); color: var(--weiss); overflow: auto; overscroll-behavior: contain; }
 .dlg::backdrop { background: rgba(10, 10, 10, .8); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
 .dlg__card { position: relative; display: flex; flex-direction: column; gap: 16px; padding: 44px 48px 40px; }
-.dlg__close { position: absolute; top: 16px; right: 16px; width: 44px; height: 44px; padding: 0; border-radius: 50%; border: 1px solid var(--line-strong); background: transparent; color: var(--weiss); cursor: pointer; }
+/* sticky: on phones a long service scrolls inside the dialog and the close button stays in reach */
+.dlg__close { position: sticky; top: 12px; z-index: 3; flex: none; align-self: flex-end; margin: -28px -32px -32px 0; width: 44px; height: 44px; padding: 0; border-radius: 50%;
+  border: 1px solid var(--line-strong); background: var(--kohle); color: var(--weiss); cursor: pointer; }
+.dlg__close span { position: absolute; inset: 0; }
 .dlg__close span::before, .dlg__close span::after { content: ""; position: absolute; left: 13px; right: 13px; top: 21px; height: 1.5px; background: currentColor; transform: rotate(45deg); }
 .dlg__close span::after { transform: rotate(-45deg); }
 .dlg__close:hover { border-color: var(--weiss); }
@@ -805,12 +813,14 @@ html.svc-dlg .svc-index { display: none; }
 html.dlg-open, html.dlg-open body { overflow: hidden; }
 .dlg--brand { width: min(720px, calc(100vw - 32px)); }
 .dlg__brand { width: 200px; height: 96px; display: flex; align-items: center; }
-.dlg__brand img { max-width: 100%; max-height: 80px; width: auto; height: auto; filter: grayscale(1) brightness(0) invert(.94); }
+/* inverted, not silhouetted: badges and plates keep their lettering */
+.dlg__brand img { max-width: 100%; max-height: 80px; width: auto; height: auto; filter: grayscale(1) invert(.94) contrast(1.1); }
 .dlg--brand .held { grid-template-columns: minmax(0, 1fr); }
 .dlg--brand .held li { border-top-color: var(--rauch); color: var(--nebel); }
 .dlg--brand .held .petal-mark { color: var(--asche); }
 @media (max-width: 760px) {
-  .dlg__card { padding: 68px 20px 24px; gap: 14px; }
+  .dlg__card { padding: 24px 20px 24px; gap: 14px; }
+  .dlg__close { margin: -8px -8px -20px 0; }
   .dlg__title { font-size: 36px; padding-right: 0; }
   .dlg__body .svc__body { grid-template-columns: minmax(0, 1fr); }
 }
@@ -822,4 +832,14 @@ html.dlg-open, html.dlg-open body { overflow: hidden; }
 .logo__open:focus-visible { outline: 2px solid var(--nacht); outline-offset: -2px; }
 .logos-note { text-align: center; color: var(--ink-muted-light); }
 html:not(.svc-dlg) .logos-note { display: none; }
-html:not(.svc-dlg) .logo__open { cursor: default; }
+html:not(.svc-dlg) .logo__open, .logo__open:disabled { cursor: default; }
+.logo__open:disabled { color: inherit; opacity: 1; }
+@media (max-width: 760px) { .logo__open { padding: 10px; } }
+/* "from" above every package price, as on the live site */
+.pkg__price .pkg__from { display: block; margin-bottom: 6px; font-family: var(--sans); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--asche); }
+/* short landscape screens (e.g. 1024×600): the hero fits the screen, so its bottom row is never cut */
+@media (min-width: 761px) and (max-height: 700px) {
+  .hero { min-height: 560px; }
+  .hero__copy { gap: 16px; padding: 84px 16px 96px; }
+  .hero__copy .hero__title { font-size: clamp(52px, min(9.2vw, 15vh), 148px); }
+}

@@ -180,7 +180,7 @@ def no_duplicates(pairs):
 
 
 def load_dict():
-    src = open(os.path.join(SITE, 'assets', 'js', 'i18n.js'), encoding='utf-8').read()
+    src = open(os.path.join(SITE, 'assets', 'js', 'i18n.js'), encoding='utf-8-sig').read()   # a BOM is fine for browsers
     # Blank out closed /* … */ comments (keeping offsets), so a mention of the
     # assignment inside the header comment is never mistaken for the real one.
     code = re.sub(r'/\*.*?\*/', lambda m: ' ' * len(m.group(0)), src, flags=re.S)

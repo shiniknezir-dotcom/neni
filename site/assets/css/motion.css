@@ -100,7 +100,7 @@ html.motion-ready .motion-toggle { visibility: visible; }
 @keyframes fx-turn { to { transform: rotateY(360deg); } }
 
 /* ---------- 6b. The discipline ribbon drifts (two copies of the five labels loop seamlessly) ---------- */
-.fx-on .ribbon__track { animation: fx-ribbon 52s linear infinite; }
+.fx-on .ribbon__track { animation: fx-ribbon 104s linear infinite; }   /* four copies: half the track is two copies */
 .fx-on .ribbon:hover .ribbon__track { animation-play-state: paused; }
 @keyframes fx-ribbon { to { transform: translate3d(-50%, 0, 0); } }
 
