@@ -683,3 +683,142 @@ html.storm-on .drift { display: none; }
 html.storm-on .hero__title { position: relative; z-index: 2; }
 html.storm-on .hero__meta { z-index: 2; }
 html.motion-off .hero__storm { display: none; }
+
+/* ==========================================================================
+   Live-site structure: hero copy, "What we do" petals, the ribbon, the five
+   disciplines, the service and brand dialogs, portfolio logo buttons.
+   ========================================================================== */
+
+/* Hero: the live headline, lead and two buttons over the storm */
+.hero__copy { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 24px; max-width: 1240px; padding: 104px 16px 132px; text-align: center; }
+.hero__eyebrow { color: var(--nebel); }
+/* a soft dark field behind the words, so they read over the bright petal and the storm */
+.hero__copy::before { content: ""; position: absolute; z-index: -1; left: 50%; top: 50%; width: 120%; height: 90%; transform: translate(-50%, -50%); pointer-events: none;
+  background: radial-gradient(closest-side, rgba(10, 10, 10, .62), rgba(10, 10, 10, .34) 55%, rgba(10, 10, 10, 0)); }
+.hero__copy .hero__title { font-size: clamp(52px, 9.2vw, 148px); padding: 0; }
+.hero__lead { max-width: 33em; font-size: 18px; line-height: 1.65; color: var(--nebel); }
+.hero__cta { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 8px; }
+@media (max-width: 760px) {
+  .hero { height: auto; min-height: max(600px, 100svh); }
+  .hero__copy { gap: 18px; padding: 96px 16px 128px; }
+  .hero__copy::before { width: 150%; height: 80%; }
+  .hero__eyebrow { font-size: 10px; letter-spacing: .2em; }
+  .hero__lead { font-size: 15.5px; }
+  .hero__cta .btn { min-width: 220px; }
+}
+
+/* What we do: eighteen petals, each opens the service dialog */
+.petals { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 1px; background: var(--rauch); border: 1px solid var(--rauch); }
+.petals li { background: var(--nacht); min-width: 0; }
+.petal-tile { position: relative; isolation: isolate; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; gap: 28px; height: 100%; min-height: 200px;
+  padding: 20px 20px 22px; color: var(--weiss); text-decoration: none; transition: background-color .35s ease; }
+.petal-tile::after { content: ""; position: absolute; z-index: -1; right: -16px; top: -14px; width: 76px; height: 112px; background: var(--rauch);
+  -webkit-mask: url("../img/petal.svg") center / contain no-repeat; mask: url("../img/petal.svg") center / contain no-repeat;
+  transform: rotate(24deg); transition: transform .7s var(--ease), background-color .35s ease; }
+.petal-tile:hover, .petal-tile:focus-visible { background: var(--kohle); }
+.petal-tile:hover::after, .petal-tile:focus-visible::after { background: var(--weiss); transform: rotate(-6deg) translate(-8px, 12px) scale(1.05); }
+.petal-tile:focus-visible { outline: 2px solid var(--pollen); outline-offset: -2px; }
+.petal-tile__n { font-family: var(--serif); font-style: italic; font-size: 18px; color: var(--asche); }
+.petal-tile__name { font-family: var(--serif); font-size: clamp(20px, 1.75vw, 25px); line-height: 1.1; overflow-wrap: anywhere; -webkit-hyphens: auto; hyphens: auto; }
+@media (max-width: 1240px) { .petals { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (max-width: 900px) { .petals { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 760px) {
+  .petals { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .petal-tile { min-height: 150px; padding: 16px; gap: 20px; }
+  .petal-tile__name { font-size: 20px; }
+  .petal-tile::after { width: 56px; height: 84px; }
+}
+
+/* Selected clients: the names, in one breath */
+.clients-line { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 28px 48px; padding-top: 48px; border-top: 1px solid var(--rauch); }
+.clients-line > .stack { grid-column: 1 / -1; }
+.clients-line .lbl { color: var(--asche); }
+.names { grid-column: 2; display: flex; flex-wrap: wrap; align-items: center; row-gap: 4px; font-family: var(--serif); font-style: italic; font-size: 22px; line-height: 1.4; color: var(--nebel); }
+.names li { display: inline-flex; align-items: center; }
+.names li + li::before { content: ""; flex: none; width: 6px; height: 9px; margin: 0 14px; background: var(--line-strong);
+  -webkit-mask: url("../img/petal.svg") center / contain no-repeat; mask: url("../img/petal.svg") center / contain no-repeat; }
+.clients-line .tlink { grid-column: 1; grid-row: 2; align-self: start; }
+@media (max-width: 900px) {
+  .clients-line { grid-template-columns: minmax(0, 1fr); }
+  .names, .clients-line .tlink { grid-column: auto; grid-row: auto; }
+  .names { font-size: 19px; }
+}
+/* With dialogs available the list of eighteen gives way to the petals (without JavaScript it stays) */
+html.svc-dlg .svc-index { display: none; }
+
+/* The ribbon: the five disciplines between "What we do" and 01 */
+.ribbon { overflow: hidden; border-top: 1px solid var(--rauch); border-bottom: 1px solid var(--rauch); padding: 26px 0; }
+.ribbon__track { display: flex; width: max-content; }
+.ribbon__track span { display: inline-flex; align-items: center; font-family: var(--serif); font-style: italic; font-size: 44px; line-height: 1.1; white-space: nowrap; color: var(--weiss); }
+.ribbon__track span::after { content: ""; flex: none; width: 14px; height: 21px; margin: 0 44px; background: var(--line-strong);
+  -webkit-mask: url("../img/petal.svg") center / contain no-repeat; mask: url("../img/petal.svg") center / contain no-repeat; }
+@media (max-width: 760px) {
+  .ribbon { padding: 18px 0; }
+  .ribbon__track span { font-size: 30px; }
+  .ribbon__track span::after { width: 10px; height: 15px; margin: 0 26px; }
+}
+
+/* 02 — five disciplines */
+.disc-note { color: var(--asche); }
+.discs { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 24px; }
+.disc { grid-column: span 2; display: flex; flex-direction: column; min-width: 0; background: var(--kohle); border: 1px solid var(--rauch); }
+.disc:nth-child(-n+2) { grid-column: span 3; }
+.disc__img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; background: var(--nacht); }
+.disc__body { flex: 1; display: flex; flex-direction: column; gap: 14px; padding: 26px 26px 28px; }
+.disc__n { font-family: var(--serif); font-style: italic; font-size: 20px; color: var(--asche); }
+.disc__title { font-family: var(--serif); font-size: 34px; line-height: 1.05; overflow-wrap: break-word; -webkit-hyphens: auto; hyphens: auto; }
+.disc__body > p:not(.disc__from) { font-size: 15px; color: var(--nebel); }
+.disc__tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.disc__from { margin-top: auto; padding-top: 6px; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--asche); }
+.disc__from b { font-family: var(--serif); font-style: italic; font-weight: 400; font-size: 28px; letter-spacing: 0; text-transform: none; color: var(--weiss); margin: 0 6px; }
+.disc .tlink { align-self: flex-start; }
+@media (max-width: 1080px) {
+  .discs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .disc, .disc:nth-child(-n+2) { grid-column: auto; }
+  .disc:last-child { grid-column: 1 / -1; }
+}
+@media (max-width: 760px) {
+  .discs { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .disc:last-child { grid-column: auto; }
+  .disc__title { font-size: 28px; }
+  .disc__body { padding: 20px; }
+}
+
+/* Dialogs: service detail and brand detail */
+.dlg { width: min(980px, calc(100vw - 32px)); max-width: none; max-height: calc(100vh - 48px); max-height: calc(100dvh - 48px); margin: auto; padding: 0;
+  border: 1px solid var(--line-strong); background: var(--kohle); color: var(--weiss); overflow: auto; overscroll-behavior: contain; }
+.dlg::backdrop { background: rgba(10, 10, 10, .8); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+.dlg__card { position: relative; display: flex; flex-direction: column; gap: 16px; padding: 44px 48px 40px; }
+.dlg__close { position: absolute; top: 16px; right: 16px; width: 44px; height: 44px; padding: 0; border-radius: 50%; border: 1px solid var(--line-strong); background: transparent; color: var(--weiss); cursor: pointer; }
+.dlg__close span::before, .dlg__close span::after { content: ""; position: absolute; left: 13px; right: 13px; top: 21px; height: 1.5px; background: currentColor; transform: rotate(45deg); }
+.dlg__close span::after { transform: rotate(-45deg); }
+.dlg__close:hover { border-color: var(--weiss); }
+.dlg__close:focus-visible { outline: 2px solid var(--pollen); outline-offset: 3px; }
+.dlg .lbl { color: var(--asche); }
+.dlg__title { font-family: var(--serif); font-size: 48px; line-height: 1.02; padding-right: 56px; }
+.dlg__title .svc__name { font-size: inherit; line-height: inherit; }
+.dlg__tagline .svc__tagline { margin: 0; font-size: 17px; color: var(--nebel); }
+.dlg__body .svc__body { padding: 12px 0 0; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.dlg__body .svc__body > .stack { grid-column: 1 / -1; }
+.dlg__foot { font-size: 13px; color: var(--asche); border-top: 1px solid var(--rauch); padding-top: 16px; margin-top: 8px; }
+html.dlg-open, html.dlg-open body { overflow: hidden; }
+.dlg--brand { width: min(720px, calc(100vw - 32px)); }
+.dlg__brand { width: 200px; height: 96px; display: flex; align-items: center; }
+.dlg__brand img { max-width: 100%; max-height: 80px; width: auto; height: auto; filter: grayscale(1) brightness(0) invert(.94); }
+.dlg--brand .held { grid-template-columns: minmax(0, 1fr); }
+.dlg--brand .held li { border-top-color: var(--rauch); color: var(--nebel); }
+.dlg--brand .held .petal-mark { color: var(--asche); }
+@media (max-width: 760px) {
+  .dlg__card { padding: 68px 20px 24px; gap: 14px; }
+  .dlg__title { font-size: 36px; padding-right: 0; }
+  .dlg__body .svc__body { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* Portfolio: each logo is a button that opens the brand dialog */
+.logo { padding: 0; }
+.logo__open { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; padding: 18px 24px; margin: 0; border: 0; border-radius: 2px;
+  background: none; color: inherit; font: inherit; cursor: pointer; }
+.logo__open:focus-visible { outline: 2px solid var(--nacht); outline-offset: -2px; }
+.logos-note { text-align: center; color: var(--ink-muted-light); }
+html:not(.svc-dlg) .logos-note { display: none; }
+html:not(.svc-dlg) .logo__open { cursor: default; }

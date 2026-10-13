@@ -1,6 +1,6 @@
 # bluetensturm.com — BlütenSturm Noir
 
-The new website for BlütenSturm, built in the Noir brand (black and white, one pollen-yellow spark per surface) with all the content from the current bluetensturm.com. Plain HTML, CSS and JavaScript: no framework, no build step, nothing to install. Ready for Netlify.
+The new website for BlütenSturm, built in the Noir brand (black and white, one pollen-yellow spark per surface) with all the content and the section order of the current bluetensturm.com, in all five languages: the hero, the eighteen services (each opens its detail with Normal and Premium packages), the five disciplines, why us, the work, the 44 brands (each opens its detail), the academy, the contact form and the questionnaire. Plain HTML, CSS and JavaScript: no framework, no build step, nothing to install. Ready for Netlify.
 
 **Real brands. Real people.**
 

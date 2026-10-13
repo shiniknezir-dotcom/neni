@@ -18,7 +18,7 @@ Static website of **BlütenSturm**, a marketing, creative and corporate-training
 
 | Path | What |
 |---|---|
-| `site/index.html` | Home. Sections in order: hero · 01 agency (stats, facts) · 02 services (3 forces + index of 18 services with Normal/Premium packages) · 03 full package · 04 work (clients + case studies) · 05 portfolio (light band, 44 logos) · BlütenSturm Live · 06 academy · 07 why · 08 people · 09 contact (form) · footer |
+| `site/index.html` | Home, built like the live bluetensturm.com (content and section order) in the Noir design. In order: hero ("Where brands bloom and ideas storm.", lead, two buttons) · What we do (18 petal tiles → service dialog; selected clients; the 18 `details.svc` entries as the no-JS list) · ribbon (five disciplines) · 01 agency (stats, facts) · 02 services (five discipline cards → service dialog) · the full package · 03 why · 04 work (clients + case studies) · 05 portfolio (light band, 44 logos → brand dialog; "Let's work together") · BlütenSturm Live · 06 academy · Real people · 07 contact (form) · footer. Unnumbered sections (full package, Live, people) are not on the live site |
 | `site/questionnaire.html` | Full project questionnaire (`/questionnaire`) |
 | `site/thank-you.html` | Landing page after a successful form (`/thank-you`, noindex) |
 | `site/impressum.html`, `site/datenschutz.html` | Legal pages, German, noindex |
@@ -68,7 +68,8 @@ Static website of **BlütenSturm**, a marketing, creative and corporate-training
 
 ## Services and prices
 
-- 18 services in `index.html`, grouped under the three forces **Blüte** (brand & creative), **Sturm** (marketing & reach), **Wurzel** (people & leadership). Each is `<details class="svc" id="svc-<id>">`; `/#svc-<id>` opens it.
+- 18 services in `index.html` (in "What we do"), grouped under the three forces **Blüte** (brand & creative), **Sturm** (marketing & reach), **Wurzel** (people & leadership). Each is `<details class="svc" id="svc-<id>">`. Without JavaScript they are a plain list; where `<dialog>` is supported (`html.svc-dlg`) the list is hidden and the petal tiles, the five cards in 02 (`data-svc-open="<id>"`) and `/#svc-<id>` open the service in `#svc-dialog`: main.js moves the entry's name, tagline and body into the dialog and back on close, so translations, prices and package buttons keep working on the same nodes.
+- The five discipline cards in 02 open brand-strategy, digital-marketing, content-production, event-marketing-promotions and corporate-training, as on the live site. Their from-prices repeat the Normal tier of those services: change both.
 - Prices are numbers in `data-price` attributes; main.js formats them per language with `Intl.NumberFormat` (€6,500 · 6.500 € · 6 500 €). The HTML text inside is the English fallback (`€6,500`).
 - Each price appears in **three places**: the summary "from" price (`.svc__from b[data-price]`, Normal tier), the package price (`.pkg__price [data-price]`), and the text of the request link's `data-package` attribute. Change the number, the fallback text and the `data-package` text — search for the old value.
 - `data-package` = English text written into the form's hidden `Package` field (read by the team). `data-interest` = value selected in "Interested in"; it must equal an `<option value>` in the contact form.
@@ -78,6 +79,8 @@ Static website of **BlütenSturm**, a marketing, creative and corporate-training
 
 - Both forms post to **Formspree** `https://formspree.io/f/mvkpynzr` → info@bluetensturm.com. Hidden fields: `_subject` (German subject line for the team), `Form`, `Language` (set by JS), `Package` (contact form), honeypot `_gotcha`. The reply-to field is named `email` (lowercase).
 - Package buttons set the hidden `Package` field and the "Interested in" select; a later manual change of the select clears the package, so an enquiry never contradicts itself.
+- Hidden `_next` = `https://bluetensturm.com/thank-you` (as on the live site): Formspree's redirect for visitors without JavaScript.
+- Portfolio logos are buttons (`data-brand`) that open `#brand-dialog`: logo, name, category, markets, the shared summary and work list (keys `portfolio.*`).
 - `main.js` sends with `fetch` (`FormData`, `Accept: application/json`). Success → `/thank-you` (and a `dataLayer` event; the button stays in its sending state until that page loads, and if the visitor stops the navigation the form shows `js.sent` after 6 s); failure → a button that opens the visitor's mail app with all answers. Without JavaScript the browser posts directly to Formspree.
 - Option **values stay English** in every language; only the labels are translated.
 - Changing the endpoint means: both forms + CSP (`connect-src`, `form-action` in `_headers`) + the Datenschutz text.

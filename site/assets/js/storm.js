@@ -28,7 +28,7 @@
   if (!canvas || !canvas.getContext || !canvas.closest) return;
   var hero = canvas.closest('.hero');
   if (!hero) return;
-  var title = hero.querySelector('.hero__title');
+  var title = hero.querySelector('.hero__copy') || hero.querySelector('.hero__title');   // the copy block: title, lead and buttons
   var nav = doc.getElementById('nav'), meta = hero.querySelector('.hero__meta');
   var mqReduce = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
   var mqCoarse = window.matchMedia ? window.matchMedia('(pointer: coarse)') : null;
@@ -73,8 +73,8 @@
     '  vec2 e = (gl_Position.xy / gl_Position.w - uTitle.xy) / uTitle.zw;',
     '  float sy = gl_Position.y / gl_Position.w;',
     '  float band = max(smoothstep(uBand.x - 0.12, uBand.x, sy), 1.0 - smoothstep(uBand.y, uBand.y + 0.12, sy));',
-    // petals behind the title fade, and so do those crossing the nav and the meta labels: the type stays legible
-    '  vDim = min(1.0 - 0.55 * (1.0 - smoothstep(0.3, 1.0, length(e))), 1.0 - 0.85 * band);',
+    // petals behind the hero copy fade, and so do those crossing the nav and the meta labels: the type stays legible
+    '  vDim = min(1.0 - 0.7 * (1.0 - smoothstep(0.35, 1.05, length(e))), 1.0 - 0.85 * band);',
     '}'
   ].join('\n');
   var FS = [
@@ -260,11 +260,18 @@
     heroTop = hr.top + (window.pageYOffset || 0);
     heroLeft = hr.left;
     if (!title || !hr.width || !hr.height) return;
-    var tr = title.getBoundingClientRect();
-    tcx = ((tr.left + tr.width / 2 - hr.left) / hr.width) * 2 - 1;
-    tcy = 1 - ((tr.top + tr.height / 2 - hr.top) / hr.height) * 2;
-    ta = Math.max(0.05, tr.width / hr.width * 1.05);
-    tb = Math.max(0.05, tr.height / hr.height * 1.3);
+    // the text itself, not the copy block's padding: the union of its children (title, lead, buttons)
+    var l = Infinity, t = Infinity, r = -Infinity, b = -Infinity, kids = title.children.length ? title.children : [title];
+    for (var k = 0; k < kids.length; k++) {
+      var kr = kids[k].getBoundingClientRect();
+      if (!kr.width || !kr.height) continue;
+      l = Math.min(l, kr.left); t = Math.min(t, kr.top); r = Math.max(r, kr.right); b = Math.max(b, kr.bottom);
+    }
+    if (r <= l) return;
+    tcx = (((l + r) / 2 - hr.left) / hr.width) * 2 - 1;
+    tcy = 1 - (((t + b) / 2 - hr.top) / hr.height) * 2;
+    ta = Math.max(0.05, (r - l) / hr.width * 1.02);
+    tb = Math.max(0.05, (b - t) / hr.height * 1.3);
     // label bands, measured with the hero at the top of the page: the fixed nav, the meta row
     var bandTop = nav && nav.offsetHeight ? 1 - 2 * nav.offsetHeight / hr.height : 2;
     var bandBot = meta && meta.offsetHeight ? 1 - 2 * meta.offsetTop / hr.height : -2;

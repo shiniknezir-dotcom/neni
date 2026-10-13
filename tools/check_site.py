@@ -181,9 +181,18 @@ def no_duplicates(pairs):
 
 def load_dict():
     src = open(os.path.join(SITE, 'assets', 'js', 'i18n.js'), encoding='utf-8').read()
+    # Blank out closed /* … */ comments (keeping offsets), so a mention of the
+    # assignment inside the header comment is never mistaken for the real one.
+    code = re.sub(r'/\*.*?\*/', lambda m: ' ' * len(m.group(0)), src, flags=re.S)
+    m = re.search(r'window\.BS_I18N\s*=\s*\{', code)
+    if not m or code[:m.start()].strip():
+        errors.append('i18n.js: the file must be comments, then "window.BS_I18N = {…};" (an unclosed /* comment breaks the whole script)')
+        return {}
+    end = code.rindex('}')
+    if code[end + 1:].strip() not in ('', ';'):
+        errors.append('i18n.js: unexpected text after the closing brace of window.BS_I18N')
     try:
-        start = src.index('{', src.index('window.BS_I18N'))
-        return json.loads(src[start:src.rindex('}') + 1], object_pairs_hook=no_duplicates)
+        return json.loads(src[m.end() - 1:end + 1], object_pairs_hook=no_duplicates)
     except ValueError as e:
         errors.append(f'i18n.js: the object after "window.BS_I18N =" is not valid JSON: {e}')
         return {}

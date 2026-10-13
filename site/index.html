@@ -130,7 +130,15 @@
     <span class="drift drift--2" aria-hidden="true"></span>
     <span class="drift drift--pollen drift--3" aria-hidden="true"></span>
     <canvas class="hero__storm" id="storm" aria-hidden="true"></canvas>
-    <h1 class="hero__title" id="hero-title" data-i18n-html="hero.title">Real brands.<br><em>Real people.</em></h1>
+    <div class="hero__copy">
+      <p class="lbl hero__eyebrow">Würzburg · Berlin · Zürich · Wien · Milano</p>
+      <h1 class="hero__title" id="hero-title" data-i18n-html="hero.title">Where brands bloom<br>and ideas <em>storm.</em></h1>
+      <p class="hero__lead" data-i18n="about.lead">Marketing, creative and corporate training from Würzburg — built with the rigour of consultants and the nerve of artists.</p>
+      <div class="hero__cta">
+        <a class="btn" href="#contact" data-i18n="cta.start">Start a project</a>
+        <a class="btn btn--ghost" href="#what" data-i18n="cta.whatwedo">What we do</a>
+      </div>
+    </div>
     <div class="hero__meta">
       <div class="wrap">
         <span class="lbl"><span class="hide-sm" data-i18n="hero.meta">Creative · Marketing · Academy</span><span class="hide-sm"> — </span>Würzburg</span>
@@ -140,104 +148,49 @@
     </div>
   </section>
 
-  <!-- 01 — The agency -->
-  <section class="section" id="about" aria-labelledby="about-title">
-    <div class="wrap">
-      <div class="split">
-        <p class="lbl" data-i18n="about.lbl" data-rule>01 — The agency</p>
-        <div class="stack gap-40">
-          <p class="statement reveal" data-i18n-html="about.statement">Every brand begins as a <em>single petal</em>: one person, one idea, one honest story. We look closer until we find it. Then we bring it into the light, and let it travel.</p>
-          <p class="lead" data-i18n="about.lead">Marketing, creative and corporate training from Würzburg — built with the rigour of consultants and the nerve of artists.</p>
-          <div class="row row--wrap gap-16">
-            <a class="btn" href="#contact" data-i18n="cta.start">Start a project</a>
-            <a class="btn btn--ghost" href="#services" data-i18n="cta.whatwedo">What we do</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="about-grid mt-120">
-        <h2 class="h-m reveal" id="about-title" data-i18n-html="about.title">Franconian roots.<br><em>European reach.</em></h2>
-        <div class="stack gap-24 soft">
-          <p data-i18n="about.p1">BlütenSturm was founded in Würzburg — a city of vineyards, baroque stone and stubborn craft. We kept the craft and added velocity. Today we work with Mittelstand leaders, challenger brands and institutions who need marketing that moves markets and teams able to carry it.</p>
-          <p data-i18n="about.p2">One team, three disciplines: creative that gets remembered, strategy that gets signed off, and training that makes it stick inside the organisation.</p>
-        </div>
-      </div>
-
-      <!-- TODO(owner): confirm these four numbers before going live. They come from the previous site build. -->
-      <ul class="stats mt-96">
-        <li class="stat"><span class="stat__value" data-count="120">120</span><p class="lbl stat__label" data-i18n="stats.projects">Projects shipped</p></li>
-        <li class="stat"><span class="stat__value" data-count="9">9</span><p class="lbl stat__label" data-i18n="stats.markets">Markets</p></li>
-        <li class="stat"><span class="stat__value" data-count="2400">2,400</span><p class="lbl stat__label" data-i18n="stats.leaders">Leaders trained</p></li>
-        <li class="stat"><span class="stat__value" data-count="94" data-format="percent">94%</span><p class="lbl stat__label" data-i18n="stats.retention">Client retention</p></li>
-      </ul>
-
-      <dl class="facts mt-72">
-        <div><dt class="lbl" data-i18n="facts.based.t">Based in</dt><dd data-i18n="facts.based.d">Würzburg, Bavaria</dd></div>
-        <div><dt class="lbl" data-i18n="facts.lang.t">Working languages</dt><dd data-i18n="facts.lang.d">German and English, plus FR · ES · IT</dd></div>
-        <div><dt class="lbl" data-i18n="facts.clients.t">Clients</dt><dd data-i18n="facts.clients.d">Mittelstand leaders, challenger brands, institutions</dd></div>
-        <div><dt class="lbl" data-i18n="facts.presence.t">Presence</dt><dd>Würzburg · Berlin · Zürich · Wien · Milano</dd></div>
-      </dl>
-    </div>
-  </section>
-
-  <!-- 02 — What we do -->
-  <section class="section" id="services" aria-labelledby="services-title">
+  <!-- What we do: the eighteen services, each one opens its detail -->
+  <section class="section what" id="what" aria-labelledby="what-title">
     <div class="wrap">
       <div class="split split--end">
-        <p class="lbl" data-i18n="services.lbl" data-rule>02 — What we do</p>
+        <p class="lbl" data-i18n="cta.whatwedo" data-rule>What we do</p>
         <div class="stack gap-24">
-          <h2 class="h-l reveal" id="services-title" data-i18n-html="services.title">Three forces. <em>One storm.</em></h2>
-          <p class="lead" data-i18n="services.lead">Engage one. Or let us run the whole stack — from positioning workshop to performance dashboard.</p>
+          <h2 class="h-l reveal" id="what-title" data-i18n-html="what.title">Eighteen ways we move a brand. <em>Every petal opens.</em></h2>
+          <p class="lead" data-i18n="what.lead">Eighteen services. Select one for detail.</p>
         </div>
       </div>
 
-      <div class="forces mt-72">
-        <article class="force reveal">
-          <span class="force__num">I</span>
-          <h3 class="force__name">Blüte</h3>
-          <p class="lbl" data-i18n="force.1.lbl">Brand &amp; Creative</p>
-          <img class="force__img" src="/assets/img/force-bluete-1400.webp" srcset="/assets/img/force-bluete-800.webp 800w, /assets/img/force-bluete-1400.webp 1400w" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1240px) 30vw, 420px" alt="The head of the petal in side light, folds and fibres" data-i18n-attr="alt:force.1.alt" width="1400" height="1046" loading="lazy" decoding="async" data-tilt data-depth="16">
-          <p class="soft" data-i18n="force.1.line">We find the sharp edge, then build everything around it.</p>
-          <ul class="force__list">
-            <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="force.1.i1">Brand strategy &amp; positioning</span></li>
-            <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="force.1.i2">Identity, naming &amp; design</span></li>
-            <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="force.1.i3">Content, film &amp; photography</span></li>
-            <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="force.1.i4">Websites &amp; digital experience</span></li>
-          </ul>
-        </article>
-        <article class="force reveal">
-          <span class="force__num">II</span>
-          <h3 class="force__name">Sturm</h3>
-          <p class="lbl" data-i18n="force.2.lbl">Marketing &amp; Reach</p>
-          <img class="force__img" src="/assets/img/force-sturm-1400.webp" srcset="/assets/img/force-sturm-800.webp 800w, /assets/img/force-sturm-1400.webp 1400w" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1240px) 30vw, 420px" alt="A blossom bursting into petals in a gust, frozen against the dark" data-i18n-attr="alt:force.2.alt" width="1400" height="1046" loading="lazy" decoding="async" data-tilt data-depth="16">
-          <p class="soft" data-i18n="force.2.line">Measured against pipeline, not impressions.</p>
-          <ul class="force__list">
-            <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="force.2.i1">Social media management</span></li>
-            <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="force.2.i2">Performance, SEO &amp; advertising</span></li>
-            <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="force.2.i3">Promotions, in-store games &amp; events</span></li>
-            <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="force.2.i4">PR, analytics &amp; AI</span></li>
-          </ul>
-        </article>
-        <article class="force reveal">
-          <span class="force__num">III</span>
-          <h3 class="force__name">Wurzel</h3>
-          <p class="lbl" data-i18n="force.3.lbl">People &amp; Leadership</p>
-          <img class="force__img" src="/assets/img/force-wurzel-1400.webp" srcset="/assets/img/force-wurzel-800.webp 800w, /assets/img/force-wurzel-1400.webp 1400w" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1240px) 30vw, 420px" alt="The fibres at the base of the petal, like roots" data-i18n-attr="alt:force.3.alt" width="1400" height="1046" loading="lazy" decoding="async" data-tilt data-depth="16">
-          <p class="soft" data-i18n="force.3.line">Training that outlives the campaign.</p>
-          <ul class="force__list">
-            <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="force.3.i1">Leadership development</span></li>
-            <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="force.3.i2">Team building</span></li>
-            <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="force.3.i3">Communication, negotiation &amp; conflict</span></li>
-            <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="force.3.i4">HR, organisation &amp; employer branding</span></li>
-          </ul>
-        </article>
+      <ol class="petals mt-72" aria-label="Eighteen services" data-i18n-attr="aria-label:what.ring">
+          <li><a class="petal-tile" href="#svc-brand-strategy" data-svc-open="brand-strategy"><span class="petal-tile__n">01</span><span class="petal-tile__name" data-i18n="svc.brand-strategy.name">Brand Strategy</span></a></li>
+          <li><a class="petal-tile" href="#svc-marketing-strategy" data-svc-open="marketing-strategy"><span class="petal-tile__n">02</span><span class="petal-tile__name" data-i18n="svc.marketing-strategy.name">Marketing Strategy</span></a></li>
+          <li><a class="petal-tile" href="#svc-creative-services" data-svc-open="creative-services"><span class="petal-tile__n">03</span><span class="petal-tile__name" data-i18n="svc.creative-services.name">Creative Services</span></a></li>
+          <li><a class="petal-tile" href="#svc-digital-marketing" data-svc-open="digital-marketing"><span class="petal-tile__n">04</span><span class="petal-tile__name" data-i18n="svc.digital-marketing.name">Digital Marketing</span></a></li>
+          <li><a class="petal-tile" href="#svc-social-media-management" data-svc-open="social-media-management"><span class="petal-tile__n">05</span><span class="petal-tile__name" data-i18n="svc.social-media-management.name">Social Media Management</span></a></li>
+          <li><a class="petal-tile" href="#svc-content-production" data-svc-open="content-production"><span class="petal-tile__n">06</span><span class="petal-tile__name" data-i18n="svc.content-production.name">Content Production</span></a></li>
+          <li><a class="petal-tile" href="#svc-website-digital-experience" data-svc-open="website-digital-experience"><span class="petal-tile__n">07</span><span class="petal-tile__name" data-i18n="svc.website-digital-experience.name">Website &amp; Digital Experience</span></a></li>
+          <li><a class="petal-tile" href="#svc-advertising" data-svc-open="advertising"><span class="petal-tile__n">08</span><span class="petal-tile__name" data-i18n="svc.advertising.name">Advertising</span></a></li>
+          <li><a class="petal-tile" href="#svc-pr" data-svc-open="pr"><span class="petal-tile__n">09</span><span class="petal-tile__name" data-i18n="svc.pr.name">PR</span></a></li>
+          <li><a class="petal-tile" href="#svc-business-development-support" data-svc-open="business-development-support"><span class="petal-tile__n">10</span><span class="petal-tile__name" data-i18n="svc.business-development-support.name">Business Development Support</span></a></li>
+          <li><a class="petal-tile" href="#svc-event-marketing-promotions" data-svc-open="event-marketing-promotions"><span class="petal-tile__n">11</span><span class="petal-tile__name" data-i18n="svc.event-marketing-promotions.name">Event Marketing &amp; Promotions</span></a></li>
+          <li><a class="petal-tile" href="#svc-video-multimedia" data-svc-open="video-multimedia"><span class="petal-tile__n">12</span><span class="petal-tile__name" data-i18n="svc.video-multimedia.name">Video &amp; Multimedia</span></a></li>
+          <li><a class="petal-tile" href="#svc-analytics" data-svc-open="analytics"><span class="petal-tile__n">13</span><span class="petal-tile__name" data-i18n="svc.analytics.name">Analytics</span></a></li>
+          <li><a class="petal-tile" href="#svc-ai-innovation" data-svc-open="ai-innovation"><span class="petal-tile__n">14</span><span class="petal-tile__name" data-i18n="svc.ai-innovation.name">AI &amp; Innovation</span></a></li>
+          <li><a class="petal-tile" href="#svc-consulting" data-svc-open="consulting"><span class="petal-tile__n">15</span><span class="petal-tile__name" data-i18n="svc.consulting.name">Consulting</span></a></li>
+          <li><a class="petal-tile" href="#svc-employer-branding" data-svc-open="employer-branding"><span class="petal-tile__n">16</span><span class="petal-tile__name" data-i18n="svc.employer-branding.name">Employer Branding</span></a></li>
+          <li><a class="petal-tile" href="#svc-ongoing-client-services" data-svc-open="ongoing-client-services"><span class="petal-tile__n">17</span><span class="petal-tile__name" data-i18n="svc.ongoing-client-services.name">Ongoing Client Services</span></a></li>
+          <li><a class="petal-tile" href="#svc-corporate-training" data-svc-open="corporate-training"><span class="petal-tile__n">18</span><span class="petal-tile__name" data-i18n="svc.corporate-training.name">Corporate Training &amp; Organizational Development</span></a></li>
+      </ol>
+
+      <div class="clients-line mt-96">
+        <div class="stack gap-8">
+          <p class="h-s" data-i18n="what.clients">Mittelstand leaders. Challenger brands. Nine markets.</p>
+          <p class="lbl" data-i18n="what.clients.lbl">Selected clients.</p>
+        </div>
+        <ul class="names" aria-label="Selected clients" data-i18n-attr="aria-label:what.clients.lbl"><li>Zott</li><li>Woerle</li><li>Vilvi</li><li>Capro</li><li>Bayerland</li><li>Viotros</li><li>Exquisa</li><li>Miree</li><li>Alpsko</li><li>Olympus</li><li>Gazi</li><li>Mantova</li><li>Président</li><li>Galbani Professionale</li><li>Perutnina Ptuj</li><li>Greisinger</li><li>T.Boer &amp; zn</li><li>Ferrero</li><li>Golden Prize</li><li>Storck</li><li>Baci</li><li>Violanta</li><li>Cavendish &amp; Harvey</li><li>Flis</li><li>Ghidetti</li><li>Bio Levante</li><li>Dijo</li><li>Bonizzi</li><li>Regina</li><li>Noa</li><li>Podravka</li><li>Joya</li><li>Capri-Sun</li><li>Mokate</li><li>Loyd</li><li>HIPP</li><li>Iglotex</li><li>Aviko</li><li>Kartofelland</li><li>Hortex</li><li>De Champignonspecialist</li><li>Akadia</li><li>Kupiec</li><li>rice UP!</li></ul>
+        <a class="tlink self-start" href="#portfolio" data-i18n="nav.portfolio">Portfolio</a>
       </div>
 
-      <div class="svc-intro mt-120">
-        <h3 class="h-s" data-i18n="svc.title">Eighteen ways we move a brand.</h3>
-        <p class="lbl" data-i18n="svc.note">Open any service for scope and packages</p>
-      </div>
-
+      <!-- The full index: shown as a list without JavaScript; with it, each entry opens in the service dialog. -->
+      <div class="svc-index mt-96">
       <div class="svc-group">
         <div class="svc-group__head"><span class="force__num">I</span><span class="serif">Blüte</span><p class="lbl" data-i18n="force.1.lbl">Brand &amp; Creative</p></div>
         <div class="svc-list">
@@ -597,10 +550,119 @@
       </div>
 
       <p class="price-note" data-i18n="svc.pricenote">Indicative from-prices for the Bavarian market, net of VAT. Our offers are for businesses only. Final scope is quoted against your brief.</p>
+      </div>
     </div>
   </section>
 
-  <!-- 03 — The full package -->
+  <div class="ribbon" aria-hidden="true">
+    <div class="ribbon__track">
+      <span data-i18n="ribbon.1">Brand Strategy</span><span data-i18n="ribbon.2">Digital Marketing</span><span data-i18n="ribbon.3">Content &amp; Social</span><span data-i18n="ribbon.4">Events &amp; Experience</span><span data-i18n="ribbon.5">Corporate Training</span><span data-i18n="ribbon.1">Brand Strategy</span><span data-i18n="ribbon.2">Digital Marketing</span><span data-i18n="ribbon.3">Content &amp; Social</span><span data-i18n="ribbon.4">Events &amp; Experience</span><span data-i18n="ribbon.5">Corporate Training</span>
+    </div>
+  </div>
+
+  <!-- 01 — The agency -->
+  <section class="section" id="about" aria-labelledby="about-title">
+    <div class="wrap">
+      <div class="split">
+        <p class="lbl" data-i18n="about.lbl" data-rule>01 — The agency</p>
+        <div class="stack gap-40">
+          <p class="statement reveal" data-i18n-html="about.statement">Every brand begins as a <em>single petal</em>: one person, one idea, one honest story. We look closer until we find it. Then we bring it into the light, and let it travel.</p>
+        </div>
+      </div>
+
+      <div class="about-grid mt-120">
+        <h2 class="h-m reveal" id="about-title" data-i18n-html="about.title">Franconian roots.<br><em>European reach.</em></h2>
+        <div class="stack gap-24 soft">
+          <p data-i18n="about.p1">BlütenSturm was founded in Würzburg — a city of vineyards, baroque stone and stubborn craft. We kept the craft and added velocity. Today we work with Mittelstand leaders, challenger brands and institutions who need marketing that moves markets and teams able to carry it.</p>
+          <p data-i18n="about.p2">One team, three disciplines: creative that gets remembered, strategy that gets signed off, and training that makes it stick inside the organisation.</p>
+        </div>
+      </div>
+
+      <!-- TODO(owner): confirm these four numbers before going live. They come from the previous site build. -->
+      <ul class="stats mt-96">
+        <li class="stat"><span class="stat__value" data-count="120">120</span><p class="lbl stat__label" data-i18n="stats.projects">Projects shipped</p></li>
+        <li class="stat"><span class="stat__value" data-count="9">9</span><p class="lbl stat__label" data-i18n="stats.markets">Markets</p></li>
+        <li class="stat"><span class="stat__value" data-count="2400">2,400</span><p class="lbl stat__label" data-i18n="stats.leaders">Leaders trained</p></li>
+        <li class="stat"><span class="stat__value" data-count="94" data-format="percent">94%</span><p class="lbl stat__label" data-i18n="stats.retention">Client retention</p></li>
+      </ul>
+
+      <dl class="facts mt-72">
+        <div><dt class="lbl" data-i18n="facts.based.t">Based in</dt><dd data-i18n="facts.based.d">Würzburg, Bavaria</dd></div>
+        <div><dt class="lbl" data-i18n="facts.lang.t">Working languages</dt><dd data-i18n="facts.lang.d">German and English, plus FR · ES · IT</dd></div>
+        <div><dt class="lbl" data-i18n="facts.clients.t">Clients</dt><dd data-i18n="facts.clients.d">Mittelstand leaders, challenger brands, institutions</dd></div>
+        <div><dt class="lbl" data-i18n="facts.presence.t">Presence</dt><dd>Würzburg · Berlin · Zürich · Wien · Milano</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- 02 — Services: five disciplines -->
+  <section class="section" id="services" aria-labelledby="services-title">
+    <div class="wrap">
+      <div class="split split--end">
+        <p class="lbl" data-i18n="services.lbl" data-rule>02 — Services</p>
+        <div class="stack gap-24">
+          <h2 class="h-l reveal" id="services-title" data-i18n-html="services.title">Five disciplines, <em>one operating system.</em></h2>
+          <p class="lead" data-i18n="services.lead">Engage one. Or let us run the whole stack — from positioning workshop to performance dashboard.</p>
+        </div>
+      </div>
+      <p class="lbl disc-note mt-72" data-i18n="svc.note">Open any card for scope and packages</p>
+      <div class="discs mt-24">
+        <article class="disc reveal" data-tilt>
+          <img class="disc__img" src="/assets/img/force-bluete-800.webp" srcset="/assets/img/force-bluete-800.webp 800w, /assets/img/force-bluete-1400.webp 1400w" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1080px) 46vw, 640px" alt="" width="800" height="598" loading="lazy" decoding="async">
+          <div class="disc__body">
+            <span class="disc__n">01</span>
+            <h3 class="disc__title" data-i18n="disc.1.t">Brand strategy &amp; positioning</h3>
+            <p data-i18n="disc.1.p">Market and category analysis, brand architecture, naming, verbal and visual identity systems. We find the sharp edge, then build everything around it.</p>
+            <ul class="disc__tags"><li class="tag" data-i18n="disc.1.tag1">Positioning</li><li class="tag" data-i18n="disc.1.tag2">Identity systems</li><li class="tag" data-i18n="disc.1.tag3">Naming</li></ul>
+            <p class="disc__from"><span data-i18n="pkg.from">from</span> <b data-price="6500">€6,500</b> <small data-i18n="pkg.unit.pr">per project</small></p>
+            <a class="tlink" href="#svc-brand-strategy" data-svc-open="brand-strategy" data-i18n="disc.cta">Packages &amp; scope</a>
+          </div>
+        </article>
+        <article class="disc reveal" data-tilt>
+          <img class="disc__img" src="/assets/img/force-sturm-800.webp" srcset="/assets/img/force-sturm-800.webp 800w, /assets/img/force-sturm-1400.webp 1400w" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1080px) 46vw, 640px" alt="" width="800" height="598" loading="lazy" decoding="async">
+          <div class="disc__body">
+            <span class="disc__n">02</span>
+            <h3 class="disc__title" data-i18n="disc.2.t">Digital marketing</h3>
+            <p data-i18n="disc.2.p">Performance media, SEO, CRM and marketing automation — measured against pipeline, not impressions.</p>
+            <p class="disc__from"><span data-i18n="pkg.from">from</span> <b data-price="2400">€2,400</b> <small data-i18n="pkg.unit.mo">per month</small></p>
+            <a class="tlink" href="#svc-digital-marketing" data-svc-open="digital-marketing" data-i18n="disc.cta">Packages &amp; scope</a>
+          </div>
+        </article>
+        <article class="disc reveal" data-tilt>
+          <img class="disc__img" src="/assets/img/crop-edge.webp" alt="" width="1000" height="700" loading="lazy" decoding="async">
+          <div class="disc__body">
+            <span class="disc__n">03</span>
+            <h3 class="disc__title" data-i18n="disc.3.t">Content &amp; social</h3>
+            <p data-i18n="disc.3.p">Editorial systems, film, photography and always-on social built for German and EU-wide audiences.</p>
+            <p class="disc__from"><span data-i18n="pkg.from">from</span> <b data-price="3200">€3,200</b> <small data-i18n="pkg.unit.mo">per month</small></p>
+            <a class="tlink" href="#svc-content-production" data-svc-open="content-production" data-i18n="disc.cta">Packages &amp; scope</a>
+          </div>
+        </article>
+        <article class="disc reveal" data-tilt>
+          <img class="disc__img" src="/assets/img/crop-head.webp" alt="" width="1000" height="700" loading="lazy" decoding="async">
+          <div class="disc__body">
+            <span class="disc__n">04</span>
+            <h3 class="disc__title" data-i18n="disc.4.t">Events &amp; experience</h3>
+            <p data-i18n="disc.4.p">Launches, trade fairs and internal summits — concept, production and on-site direction.</p>
+            <p class="disc__from"><span data-i18n="pkg.from">from</span> <b data-price="7500">€7,500</b> <small data-i18n="pkg.unit.pr">per project</small></p>
+            <a class="tlink" href="#svc-event-marketing-promotions" data-svc-open="event-marketing-promotions" data-i18n="disc.cta">Packages &amp; scope</a>
+          </div>
+        </article>
+        <article class="disc reveal" data-tilt>
+          <img class="disc__img" src="/assets/img/force-wurzel-800.webp" srcset="/assets/img/force-wurzel-800.webp 800w, /assets/img/force-wurzel-1400.webp 1400w" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1080px) 46vw, 640px" alt="" width="800" height="598" loading="lazy" decoding="async">
+          <div class="disc__body">
+            <span class="disc__n">05</span>
+            <h3 class="disc__title" data-i18n="disc.5.t">Corporate training</h3>
+            <p data-i18n="disc.5.p">Leadership development, communication, customer care and sales enablement — certified, bilingual, in-house or off-site.</p>
+            <p class="disc__from"><span data-i18n="pkg.from">from</span> <b data-price="2400">€2,400</b> <small data-i18n="pkg.unit.day">per day</small></p>
+            <a class="tlink" href="#svc-corporate-training" data-svc-open="corporate-training" data-i18n="disc.cta">Packages &amp; scope</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- The full package (unnumbered: not on the previous site) -->
   <section class="section" id="package" aria-labelledby="package-title">
     <div class="wrap package">
       <div class="flower reveal" role="img" aria-label="Five petals around one centre: the full package" data-i18n-attr="aria-label:package.alt">
@@ -613,7 +675,7 @@
         </div></div>
       </div>
       <div class="stack gap-32">
-        <p class="lbl" data-i18n="package.lbl" data-rule>03 — The full package</p>
+        <p class="lbl" data-i18n="package.lbl" data-rule>The full package</p>
         <h2 class="h-l" id="package-title" data-i18n-html="package.title">Five petals. <em>One bloom.</em></h2>
         <p class="lead" data-i18n="package.lead">For clients who want everything from one hand: one team, one rhythm, one person to call. Branding is where it starts, which is why that petal carries the pollen.</p>
         <ol class="five">
@@ -624,6 +686,22 @@
           <li><span class="serif">05</span><span data-i18n="package.i5">Events</span></li>
         </ol>
         <div><a class="btn btn--ghost" href="#contact" data-package="The full package" data-interest="The full package" data-i18n="package.cta">Ask for the full package</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 — Why BlütenSturm -->
+  <section class="section" aria-labelledby="why-title">
+    <div class="wrap">
+      <div class="split split--end">
+        <p class="lbl" data-i18n="why.lbl" data-rule>03 — Why BlütenSturm</p>
+        <h2 class="h-m reveal" id="why-title" data-i18n-html="why.title">Agencies pitch ideas. <em>We are accountable for outcomes.</em></h2>
+      </div>
+      <div class="why mt-72">
+        <div class="reveal"><h3 data-i18n="why.1.t">Consultant rigour</h3><p data-i18n="why.1.p">Every creative route is tied to a commercial thesis you can defend to a board.</p></div>
+        <div class="reveal"><h3 data-i18n="why.2.t">Bilingual by default</h3><p data-i18n="why.2.p">German and English craft copy, DACH nuance, EU-wide rollout without translation drift.</p></div>
+        <div class="reveal"><h3 data-i18n="why.3.t">Senior-only teams</h3><p data-i18n="why.3.p">The people in the pitch are the people on the work. No handover to juniors.</p></div>
+        <div class="reveal"><h3 data-i18n="why.4.t">We train the handover</h3><p data-i18n="why.4.p">Campaigns end. Capability stays — your team leaves able to run it themselves.</p></div>
       </div>
     </div>
   </section>
@@ -687,7 +765,7 @@
         <article class="case reveal" data-tilt>
           <p class="lbl" data-i18n="case.3.k">Training · Leadership</p>
           <h4 class="case__title" data-i18n="case.3.t">Leadership programme, 400 managers</h4>
-          <p data-i18n="case.3.p">Modules I and II, delivered over twelve months in German and English. New and scaling leaders in small cohorts, real cases from their own floor, and a handover so the client’s people run the next round themselves.</p>
+          <p data-i18n="case.3.p">Modul I and II, delivered over twelve months in German and English. New and scaling leaders in small cohorts, real cases from their own floor, and a handover so the client’s people run the next round themselves.</p>
         </article>
         <article class="case reveal" data-tilt>
           <p class="lbl" data-i18n="case.4.k">Experience · Event</p>
@@ -711,51 +789,52 @@
       </div>
 
       <ul class="logos mt-72" aria-label="Brands we have worked for" data-i18n-attr="aria-label:portfolio.logos">
-        <li class="logo"><img src="/assets/brands/zott.png" alt="Zott" width="201" height="200" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.dairy">Dairy &amp; Chilled</span></li>
-        <li class="logo"><img src="/assets/brands/woerle.png" alt="Woerle" width="320" height="127" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.dairy">Dairy &amp; Chilled</span></li>
-        <li class="logo"><img src="/assets/brands/perutnina-ptuj.png" alt="Perutnina Ptuj" width="247" height="200" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.meat">Meat &amp; Charcuterie</span></li>
-        <li class="logo"><img src="/assets/brands/greisinger.png" alt="Greisinger" width="201" height="200" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.meat">Meat &amp; Charcuterie</span></li>
-        <li class="logo"><img src="/assets/brands/ferrero.png" alt="Ferrero" width="320" height="43" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.confectionery">Confectionery</span></li>
-        <li class="logo"><img src="/assets/brands/vilvi.png" alt="Vilvi" width="320" height="131" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.dairy">Dairy &amp; Chilled</span></li>
-        <li class="logo"><img src="/assets/brands/capro.png" alt="Capro" width="320" height="149" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.dairy">Dairy &amp; Chilled</span></li>
-        <li class="logo"><img src="/assets/brands/bayerland.png" alt="Bayerland" width="320" height="177" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.dairy">Dairy &amp; Chilled</span></li>
-        <li class="logo"><img src="/assets/brands/viotros.png" alt="Viotros" width="320" height="167" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.dairy">Dairy &amp; Chilled</span></li>
-        <li class="logo"><img src="/assets/brands/exquisa.png" alt="Exquisa" width="320" height="156" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.dairy">Dairy &amp; Chilled</span></li>
-        <li class="logo"><img src="/assets/brands/miree.png" alt="Miree" width="320" height="108" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.dairy">Dairy &amp; Chilled</span></li>
-        <li class="logo"><img src="/assets/brands/alpsko.png" alt="Alpsko" width="320" height="77" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.dairy">Dairy &amp; Chilled</span></li>
-        <li class="logo"><img src="/assets/brands/ghidetti.png" alt="Ghidetti" width="320" height="175" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.food">Food &amp; Beverage</span></li>
-        <li class="logo"><img src="/assets/brands/bio-levante.png" alt="Bio Levante" width="320" height="87" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.food">Food &amp; Beverage</span></li>
-        <li class="logo"><img src="/assets/brands/joya.png" alt="Joya" width="320" height="166" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.beverages">Beverages</span></li>
-        <li class="logo"><img src="/assets/brands/capri-sun.png" alt="Capri-Sun" width="320" height="106" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.beverages">Beverages</span></li>
-        <li class="logo"><img src="/assets/brands/hipp.png" alt="HIPP" width="320" height="96" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.baby">Baby &amp; Infant</span></li>
-        <li class="logo"><img src="/assets/brands/olympus.png" alt="Olympus" width="262" height="200" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.dairy">Dairy &amp; Chilled</span></li>
-        <li class="logo"><img src="/assets/brands/dijo.png" alt="Dijo" width="280" height="200" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.food">Food &amp; Beverage</span></li>
-        <li class="logo"><img src="/assets/brands/golden-prize.png" alt="Golden Prize" width="205" height="200" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.confectionery">Confectionery</span></li>
-        <li class="logo"><img src="/assets/brands/iglotex.png" alt="Iglotex" width="292" height="200" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.frozen">Frozen &amp; Vegetables</span></li>
-        <li class="logo"><img src="/assets/brands/storck.png" alt="Storck" width="320" height="157" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.confectionery">Confectionery</span></li>
-        <li class="logo"><img src="/assets/brands/aviko.png" alt="Aviko" width="320" height="176" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.frozen">Frozen &amp; Vegetables</span></li>
-        <li class="logo"><img src="/assets/brands/bonizzi.png" alt="Bonizzi" width="299" height="200" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.food">Food &amp; Beverage</span></li>
-        <li class="logo"><img src="/assets/brands/mokate.png" alt="Mokate" width="320" height="122" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.beverages">Beverages</span></li>
-        <li class="logo"><img src="/assets/brands/akadia.png" alt="Akadia" width="320" height="88" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.bakery">Bakery &amp; Grains</span></li>
-        <li class="logo"><img src="/assets/brands/kartofelland.png" alt="Kartofelland" width="320" height="65" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.frozen">Frozen &amp; Vegetables</span></li>
-        <li class="logo"><img src="/assets/brands/loyd.png" alt="Loyd" width="320" height="196" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.beverages">Beverages</span></li>
-        <li class="logo"><img src="/assets/brands/baci.png" alt="Baci" width="243" height="200" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.confectionery">Confectionery</span></li>
-        <li class="logo"><img src="/assets/brands/regina.png" alt="Regina" width="320" height="183" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.food">Food &amp; Beverage</span></li>
-        <li class="logo"><img src="/assets/brands/gazi.png" alt="Gazi" width="320" height="75" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.dairy">Dairy &amp; Chilled</span></li>
-        <li class="logo"><img src="/assets/brands/hortex.png" alt="Hortex" width="320" height="193" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.frozen">Frozen &amp; Vegetables</span></li>
-        <li class="logo"><img src="/assets/brands/mantova.png" alt="Mantova" width="320" height="148" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.dairy">Dairy &amp; Chilled</span></li>
-        <li class="logo"><img src="/assets/brands/violanta.png" alt="Violanta" width="320" height="199" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.confectionery">Confectionery</span></li>
-        <li class="logo"><img src="/assets/brands/cavendish-harvey.png" alt="Cavendish &amp; Harvey" width="320" height="147" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.confectionery">Confectionery</span></li>
-        <li class="logo"><img src="/assets/brands/noa.png" alt="Noa" width="260" height="200" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.food">Food &amp; Beverage</span></li>
-        <li class="logo"><img src="/assets/brands/podravka.png" alt="Podravka" width="320" height="136" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.food">Food &amp; Beverage</span></li>
-        <li class="logo"><img src="/assets/brands/de-champignonspecialist.png" alt="De Champignonspecialist" width="320" height="50" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.frozen">Frozen &amp; Vegetables</span></li>
-        <li class="logo"><img src="/assets/brands/flis.png" alt="Flis" width="205" height="200" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.confectionery">Confectionery</span></li>
-        <li class="logo"><img src="/assets/brands/t-boer-zn.png" alt="T.Boer &amp; zn" width="249" height="200" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.meat">Meat &amp; Charcuterie</span></li>
-        <li class="logo"><img src="/assets/brands/president.png" alt="Président" width="320" height="183" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.dairy">Dairy &amp; Chilled</span></li>
-        <li class="logo"><img src="/assets/brands/kupiec.png" alt="Kupiec" width="320" height="154" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.bakery">Bakery &amp; Grains</span></li>
-        <li class="logo"><img src="/assets/brands/galbani-professionale.png" alt="Galbani Professionale" width="313" height="200" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.dairy">Dairy &amp; Chilled</span></li>
-        <li class="logo"><img src="/assets/brands/rice-up.png" alt="rice UP!" width="226" height="200" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.bakery">Bakery &amp; Grains</span></li>
+        <li class="logo"><button type="button" class="logo__open" data-brand><img src="/assets/brands/zott.png" alt="Zott" width="201" height="200" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.dairy">Dairy &amp; Chilled</span></button></li>
+        <li class="logo"><button type="button" class="logo__open" data-brand><img src="/assets/brands/woerle.png" alt="Woerle" width="320" height="127" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.dairy">Dairy &amp; Chilled</span></button></li>
+        <li class="logo"><button type="button" class="logo__open" data-brand><img src="/assets/brands/perutnina-ptuj.png" alt="Perutnina Ptuj" width="247" height="200" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.meat">Meat &amp; Charcuterie</span></button></li>
+        <li class="logo"><button type="button" class="logo__open" data-brand><img src="/assets/brands/greisinger.png" alt="Greisinger" width="201" height="200" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.meat">Meat &amp; Charcuterie</span></button></li>
+        <li class="logo"><button type="button" class="logo__open" data-brand><img src="/assets/brands/ferrero.png" alt="Ferrero" width="320" height="43" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.confectionery">Confectionery</span></button></li>
+        <li class="logo"><button type="button" class="logo__open" data-brand><img src="/assets/brands/vilvi.png" alt="Vilvi" width="320" height="131" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.dairy">Dairy &amp; Chilled</span></button></li>
+        <li class="logo"><button type="button" class="logo__open" data-brand><img src="/assets/brands/capro.png" alt="Capro" width="320" height="149" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.dairy">Dairy &amp; Chilled</span></button></li>
+        <li class="logo"><button type="button" class="logo__open" data-brand><img src="/assets/brands/bayerland.png" alt="Bayerland" width="320" height="177" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.dairy">Dairy &amp; Chilled</span></button></li>
+        <li class="logo"><button type="button" class="logo__open" data-brand><img src="/assets/brands/viotros.png" alt="Viotros" width="320" height="167" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.dairy">Dairy &amp; Chilled</span></button></li>
+        <li class="logo"><button type="button" class="logo__open" data-brand><img src="/assets/brands/exquisa.png" alt="Exquisa" width="320" height="156" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.dairy">Dairy &amp; Chilled</span></button></li>
+        <li class="logo"><button type="button" class="logo__open" data-brand><img src="/assets/brands/miree.png" alt="Miree" width="320" height="108" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.dairy">Dairy &amp; Chilled</span></button></li>
+        <li class="logo"><button type="button" class="logo__open" data-brand><img src="/assets/brands/alpsko.png" alt="Alpsko" width="320" height="77" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.dairy">Dairy &amp; Chilled</span></button></li>
+        <li class="logo"><button type="button" class="logo__open" data-brand><img src="/assets/brands/ghidetti.png" alt="Ghidetti" width="320" height="175" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.food">Food &amp; Beverage</span></button></li>
+        <li class="logo"><button type="button" class="logo__open" data-brand><img src="/assets/brands/bio-levante.png" alt="Bio Levante" width="320" height="87" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.food">Food &amp; Beverage</span></button></li>
+        <li class="logo"><button type="button" class="logo__open" data-brand><img src="/assets/brands/joya.png" alt="Joya" width="320" height="166" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.beverages">Beverages</span></button></li>
+        <li class="logo"><button type="button" class="logo__open" data-brand><img src="/assets/brands/capri-sun.png" alt="Capri-Sun" width="320" height="106" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.beverages">Beverages</span></button></li>
+        <li class="logo"><button type="button" class="logo__open" data-brand><img src="/assets/brands/hipp.png" alt="HIPP" width="320" height="96" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.baby">Baby &amp; Infant</span></button></li>
+        <li class="logo"><button type="button" class="logo__open" data-brand><img src="/assets/brands/olympus.png" alt="Olympus" width="262" height="200" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.dairy">Dairy &amp; Chilled</span></button></li>
+        <li class="logo"><button type="button" class="logo__open" data-brand><img src="/assets/brands/dijo.png" alt="Dijo" width="280" height="200" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.food">Food &amp; Beverage</span></button></li>
+        <li class="logo"><button type="button" class="logo__open" data-brand><img src="/assets/brands/golden-prize.png" alt="Golden Prize" width="205" height="200" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.confectionery">Confectionery</span></button></li>
+        <li class="logo"><button type="button" class="logo__open" data-brand><img src="/assets/brands/iglotex.png" alt="Iglotex" width="292" height="200" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.frozen">Frozen &amp; Vegetables</span></button></li>
+        <li class="logo"><button type="button" class="logo__open" data-brand><img src="/assets/brands/storck.png" alt="Storck" width="320" height="157" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.confectionery">Confectionery</span></button></li>
+        <li class="logo"><button type="button" class="logo__open" data-brand><img src="/assets/brands/aviko.png" alt="Aviko" width="320" height="176" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.frozen">Frozen &amp; Vegetables</span></button></li>
+        <li class="logo"><button type="button" class="logo__open" data-brand><img src="/assets/brands/bonizzi.png" alt="Bonizzi" width="299" height="200" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.food">Food &amp; Beverage</span></button></li>
+        <li class="logo"><button type="button" class="logo__open" data-brand><img src="/assets/brands/mokate.png" alt="Mokate" width="320" height="122" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.beverages">Beverages</span></button></li>
+        <li class="logo"><button type="button" class="logo__open" data-brand><img src="/assets/brands/akadia.png" alt="Akadia" width="320" height="88" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.bakery">Bakery &amp; Grains</span></button></li>
+        <li class="logo"><button type="button" class="logo__open" data-brand><img src="/assets/brands/kartofelland.png" alt="Kartofelland" width="320" height="65" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.frozen">Frozen &amp; Vegetables</span></button></li>
+        <li class="logo"><button type="button" class="logo__open" data-brand><img src="/assets/brands/loyd.png" alt="Loyd" width="320" height="196" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.beverages">Beverages</span></button></li>
+        <li class="logo"><button type="button" class="logo__open" data-brand><img src="/assets/brands/baci.png" alt="Baci" width="243" height="200" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.confectionery">Confectionery</span></button></li>
+        <li class="logo"><button type="button" class="logo__open" data-brand><img src="/assets/brands/regina.png" alt="Regina" width="320" height="183" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.food">Food &amp; Beverage</span></button></li>
+        <li class="logo"><button type="button" class="logo__open" data-brand><img src="/assets/brands/gazi.png" alt="Gazi" width="320" height="75" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.dairy">Dairy &amp; Chilled</span></button></li>
+        <li class="logo"><button type="button" class="logo__open" data-brand><img src="/assets/brands/hortex.png" alt="Hortex" width="320" height="193" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.frozen">Frozen &amp; Vegetables</span></button></li>
+        <li class="logo"><button type="button" class="logo__open" data-brand><img src="/assets/brands/mantova.png" alt="Mantova" width="320" height="148" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.dairy">Dairy &amp; Chilled</span></button></li>
+        <li class="logo"><button type="button" class="logo__open" data-brand><img src="/assets/brands/violanta.png" alt="Violanta" width="320" height="199" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.confectionery">Confectionery</span></button></li>
+        <li class="logo"><button type="button" class="logo__open" data-brand><img src="/assets/brands/cavendish-harvey.png" alt="Cavendish &amp; Harvey" width="320" height="147" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.confectionery">Confectionery</span></button></li>
+        <li class="logo"><button type="button" class="logo__open" data-brand><img src="/assets/brands/noa.png" alt="Noa" width="260" height="200" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.food">Food &amp; Beverage</span></button></li>
+        <li class="logo"><button type="button" class="logo__open" data-brand><img src="/assets/brands/podravka.png" alt="Podravka" width="320" height="136" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.food">Food &amp; Beverage</span></button></li>
+        <li class="logo"><button type="button" class="logo__open" data-brand><img src="/assets/brands/de-champignonspecialist.png" alt="De Champignonspecialist" width="320" height="50" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.frozen">Frozen &amp; Vegetables</span></button></li>
+        <li class="logo"><button type="button" class="logo__open" data-brand><img src="/assets/brands/flis.png" alt="Flis" width="205" height="200" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.confectionery">Confectionery</span></button></li>
+        <li class="logo"><button type="button" class="logo__open" data-brand><img src="/assets/brands/t-boer-zn.png" alt="T.Boer &amp; zn" width="249" height="200" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.meat">Meat &amp; Charcuterie</span></button></li>
+        <li class="logo"><button type="button" class="logo__open" data-brand><img src="/assets/brands/president.png" alt="Président" width="320" height="183" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.dairy">Dairy &amp; Chilled</span></button></li>
+        <li class="logo"><button type="button" class="logo__open" data-brand><img src="/assets/brands/kupiec.png" alt="Kupiec" width="320" height="154" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.bakery">Bakery &amp; Grains</span></button></li>
+        <li class="logo"><button type="button" class="logo__open" data-brand><img src="/assets/brands/galbani-professionale.png" alt="Galbani Professionale" width="313" height="200" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.dairy">Dairy &amp; Chilled</span></button></li>
+        <li class="logo"><button type="button" class="logo__open" data-brand><img src="/assets/brands/rice-up.png" alt="rice UP!" width="226" height="200" loading="lazy" decoding="async"><span class="logo__cat" data-i18n="cat.bakery">Bakery &amp; Grains</span></button></li>
       </ul>
+      <p class="lbl logos-note mt-24" data-i18n="portfolio.open">Open any logo for the work</p>
 
       <div class="split mt-96">
         <p class="lbl" data-i18n="portfolio.held.lbl">For every brand</p>
@@ -817,46 +896,30 @@
       </div>
       <div>
         <div class="module reveal">
-          <p class="lbl" data-i18n="mod.1.lbl">Module I</p>
-          <div><h3 data-i18n="mod.1.t">Leading under pressure</h3><p data-i18n="mod.1.p">Two days · decision-making, delegation and conflict for new and scaling leaders.</p></div>
+          <p class="lbl" data-i18n="mod.1.lbl">Modul I</p>
+          <div><h3 data-i18n="mod.1.t">Führung unter Druck</h3><p data-i18n="mod.1.p">Two days · decision-making, delegation and conflict for new and scaling leaders.</p></div>
         </div>
         <div class="module reveal">
-          <p class="lbl" data-i18n="mod.2.lbl">Module II</p>
+          <p class="lbl" data-i18n="mod.2.lbl">Modul II</p>
           <div><h3 data-i18n="mod.2.t">Story &amp; Stage</h3><p data-i18n="mod.2.p">One day · narrative structure, pitch craft and presence on camera and in the room.</p></div>
         </div>
         <div class="module reveal">
-          <p class="lbl" data-i18n="mod.3.lbl">Module III</p>
-          <div><h3 data-i18n="mod.3.t">Marketing for non-marketers</h3><p data-i18n="mod.3.p">Half day · positioning, channels and budgets for founders and department heads.</p></div>
+          <p class="lbl" data-i18n="mod.3.lbl">Modul III</p>
+          <div><h3 data-i18n="mod.3.t">Marketing für Nicht-Marketer</h3><p data-i18n="mod.3.p">Half day · positioning, channels and budgets for founders and department heads.</p></div>
         </div>
         <div class="module reveal">
-          <p class="lbl" data-i18n="mod.4.lbl">Module IV</p>
+          <p class="lbl" data-i18n="mod.4.lbl">Modul IV</p>
           <div><h3 data-i18n="mod.4.t">Customer Care Excellence</h3><p data-i18n="mod.4.p">Two days · service standards, difficult conversations, complaint recovery and the handover back to sales.</p></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 07 — Why BlütenSturm -->
-  <section class="section" aria-labelledby="why-title">
-    <div class="wrap">
-      <div class="split split--end">
-        <p class="lbl" data-i18n="why.lbl" data-rule>07 — Why BlütenSturm</p>
-        <h2 class="h-m reveal" id="why-title" data-i18n-html="why.title">Agencies pitch ideas. <em>We are accountable for outcomes.</em></h2>
-      </div>
-      <div class="why mt-72">
-        <div class="reveal"><h3 data-i18n="why.1.t">Consultant rigour</h3><p data-i18n="why.1.p">Every creative route is tied to a commercial thesis you can defend to a board.</p></div>
-        <div class="reveal"><h3 data-i18n="why.2.t">Bilingual by default</h3><p data-i18n="why.2.p">German and English craft copy, DACH nuance, EU-wide rollout without translation drift.</p></div>
-        <div class="reveal"><h3 data-i18n="why.3.t">Senior-only teams</h3><p data-i18n="why.3.p">The people in the pitch are the people on the work. No handover to juniors.</p></div>
-        <div class="reveal"><h3 data-i18n="why.4.t">We train the handover</h3><p data-i18n="why.4.p">Campaigns end. Capability stays — your team leaves able to run it themselves.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 08 — Real people -->
+  <!-- Real people (unnumbered) -->
   <section class="section" id="people" aria-labelledby="people-title">
     <div class="wrap">
       <div class="split split--end">
-        <p class="lbl" data-i18n="people.lbl" data-rule>08 — Real people</p>
+        <p class="lbl" data-i18n="people.lbl" data-rule>Real people</p>
         <h2 class="h-l reveal" id="people-title" data-i18n-html="people.title">The people behind <em>the storm.</em></h2>
       </div>
       <div class="people mt-72">
@@ -876,11 +939,11 @@
     </div>
   </section>
 
-  <!-- 09 — Contact -->
+  <!-- 07 — Contact -->
   <section class="section contact" id="contact" aria-labelledby="contact-title">
     <img class="contact__art" src="/assets/img/bloom-to-storm.svg" alt="" width="1600" height="900" loading="lazy" decoding="async" data-depth="24">
     <div class="wrap">
-      <p class="lbl" data-i18n="contact.lbl" data-rule>09 — Contact</p>
+      <p class="lbl" data-i18n="contact.lbl" data-rule>07 — Contact</p>
       <h2 class="h-xl maxw-760 mt-24" id="contact-title" data-i18n-html="contact.title">Let’s make <em>weather.</em></h2>
       <p class="lead mt-32" data-i18n="contact.lead">Tell us what you’re building. We answer every serious enquiry within two working days.</p>
 
@@ -893,6 +956,7 @@
       <div class="contact-grid mt-72">
         <form class="form" id="enquiry" action="https://formspree.io/f/mvkpynzr" method="POST" accept-charset="UTF-8" data-form="contact">
           <input type="hidden" name="_subject" value="Neue Anfrage über bluetensturm.com">
+          <input type="hidden" name="_next" value="https://bluetensturm.com/thank-you">
           <input type="hidden" name="Form" value="Contact form (home page)">
           <input type="hidden" name="Language" value="en" data-lang-field>
           <input type="hidden" name="Package" value="" data-package-field>
@@ -900,8 +964,8 @@
 
           <p class="form__picked" data-picked aria-live="polite"><span class="lbl" data-i18n="form.picked">You’re asking about</span><span data-picked-text></span></p>
 
-          <div class="field"><label for="f-name" data-i18n="form.name">Your name</label><input class="input" id="f-name" name="Name" type="text" autocomplete="name" required></div>
-          <div class="field"><label for="f-company" data-i18n="form.company">Business name</label><input class="input" id="f-company" name="Company" type="text" autocomplete="organization" required></div>
+          <div class="field"><label for="f-name" data-i18n="form.name">Your name</label><input class="input" id="f-name" name="Name" type="text" autocomplete="name" placeholder="Your name" data-i18n-attr="placeholder:form.name.ph" required></div>
+          <div class="field"><label for="f-company" data-i18n="form.company">Business name</label><input class="input" id="f-company" name="Company" type="text" autocomplete="organization" placeholder="Name of your business" data-i18n-attr="placeholder:form.company.ph" required></div>
           <div class="field"><label for="f-email" data-i18n="form.email">Email</label><input class="input" id="f-email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="name@company.com" data-i18n-attr="placeholder:form.email.ph" required></div>
           <div class="field"><label for="f-phone"><span data-i18n="form.phone">Phone</span> <span class="opt" data-i18n="form.optional">(optional)</span></label><input class="input" id="f-phone" name="Phone" type="tel" autocomplete="tel" placeholder="+49 …"></div>
           <div class="field full"><label for="f-interest" data-i18n="form.interest">Interested in</label>
@@ -990,7 +1054,7 @@
 
         <div class="contact__aside">
           <a class="mail" href="mailto:info@bluetensturm.com">info@bluetensturm.com</a>
-          <p class="soft" data-i18n="contact.place">BlütenSturm · Würzburg, Germany</p>
+          <p class="soft" data-i18n="contact.place">BlütenSturm · Würzburg, Deutschland</p>
           <a class="plain-link self-start" href="https://www.instagram.com/bluetensturmcreative" rel="noopener" target="_blank">Instagram · @bluetensturmcreative</a>
           <div class="qcard" data-tilt>
             <p class="lbl" data-i18n="contact.q.lbl">Prefer the full questionnaire?</p>
@@ -1001,6 +1065,40 @@
       </div>
     </div>
   </section>
+
+  <!-- Service detail: the petals in "What we do" and the cards in 02 open it; main.js moves the entry's content in and back -->
+  <dialog class="dlg" id="svc-dialog" aria-labelledby="svc-dialog-title">
+    <div class="dlg__card">
+      <button class="dlg__close" type="button" aria-label="Close" data-i18n-attr="aria-label:dlg.close" data-dlg-close><span aria-hidden="true"></span></button>
+      <p class="lbl" data-i18n="dlg.service">Service</p>
+      <h3 class="dlg__title" id="svc-dialog-title" data-dlg-title></h3>
+      <div class="dlg__tagline" data-dlg-tagline></div>
+      <div class="dlg__body" data-dlg-body></div>
+      <p class="dlg__foot" data-i18n="svc.pricenote">Indicative from-prices for the Bavarian market, net of VAT. Our offers are for businesses only. Final scope is quoted against your brief.</p>
+    </div>
+  </dialog>
+
+  <!-- Brand detail: any logo in 05 opens it -->
+  <dialog class="dlg dlg--brand" id="brand-dialog" aria-labelledby="brand-dialog-title">
+    <div class="dlg__card">
+      <button class="dlg__close" type="button" aria-label="Close" data-i18n-attr="aria-label:dlg.close" data-dlg-close><span aria-hidden="true"></span></button>
+      <p class="lbl" data-i18n="dlg.partner">Partner</p>
+      <div class="dlg__brand"><img alt="" data-brand-logo width="320" height="200"></div>
+      <h3 class="dlg__title" id="brand-dialog-title" data-brand-name></h3>
+      <p class="lbl" data-brand-cat></p>
+      <p class="soft" data-i18n="portfolio.markets">Albania · Kosovo · Balkans</p>
+      <p data-i18n="portfolio.summary">A distribution partnership run out of the Balkans: we sit between the brand and the regional distributor, hold the marketing budget, and are measured on what leaves the shelf rather than on what was posted.</p>
+      <p class="lbl" data-i18n="dlg.work">The work</p>
+      <ul class="held">
+        <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="portfolio.h1">Distribution partnerships managed across the Balkan markets</span></li>
+        <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="portfolio.h2">Marketing budgets held and reported for Albania and Kosovo</span></li>
+        <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="portfolio.h3">Creative content produced for social media, in local language</span></li>
+        <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="portfolio.h4">Paid advertising planned, run and optimised against sell-out</span></li>
+        <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="portfolio.h5">In-store and seasonal promotions built with the distributor</span></li>
+        <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="portfolio.h6">Sales managed through the campaign calendar, reported month by month</span></li>
+      </ul>
+    </div>
+  </dialog>
 
 </main>
 
@@ -1014,8 +1112,8 @@
     </div>
     <img class="footer__mark" src="/assets/img/wordmark.svg" alt="BlütenSturm" width="1312" height="164" loading="lazy" decoding="async">
     <div class="legal">
-      <p class="legal__line"><span>© <span data-year>2026</span> BlütenSturm</span><span data-i18n="foot.line">Where brands bloom and ideas storm.</span></p>
-      <nav aria-label="Legal" data-i18n-attr="aria-label:a11y.legal"><a href="/impressum" data-i18n="foot.imprint">Legal notice</a><a href="/datenschutz" data-i18n="foot.privacy">Privacy policy</a></nav>
+      <p class="legal__line"><span>© <span data-year>2026</span> Blüten Sturm GmbH —</span><span data-i18n="foot.line">Where brands bloom and ideas storm.</span></p>
+      <nav aria-label="Legal" data-i18n-attr="aria-label:a11y.legal"><a href="/impressum" data-i18n="foot.imprint">Impressum</a><a href="/datenschutz" data-i18n="foot.privacy">Datenschutz</a></nav>
       <p>Nezir Shinik &amp; Dijan Cika</p>
     </div>
   </div>

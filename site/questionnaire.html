@@ -60,6 +60,7 @@
 
     <form class="qform mt-96" id="questionnaire" action="https://formspree.io/f/mvkpynzr" method="POST" accept-charset="UTF-8" data-form="questionnaire">
       <input type="hidden" name="_subject" value="Projekt-Fragebogen — bluetensturm.com">
+      <input type="hidden" name="_next" value="https://bluetensturm.com/thank-you">
       <input type="hidden" name="Form" value="Full questionnaire">
       <input type="hidden" name="Language" value="en" data-lang-field>
       <div class="hp" aria-hidden="true"><label for="q-gotcha">Leave this empty</label><input type="text" id="q-gotcha" name="_gotcha" tabindex="-1" autocomplete="off"></div>
@@ -67,8 +68,8 @@
       <div class="qblock split" role="group" aria-labelledby="q-g1">
         <p class="lbl" id="q-g1" data-i18n="q.g1">01 — About you</p>
         <div class="form">
-          <div class="field"><label for="q-name"><span data-i18n="form.name">Your name</span><span class="req" aria-hidden="true">*</span></label><input class="input" id="q-name" name="Name" type="text" autocomplete="name" required></div>
-          <div class="field"><label for="q-company"><span data-i18n="q.company">Name of your business</span><span class="req" aria-hidden="true">*</span></label><input class="input" id="q-company" name="Company" type="text" autocomplete="organization" required></div>
+          <div class="field"><label for="q-name"><span data-i18n="form.name">Your name</span><span class="req" aria-hidden="true">*</span></label><input class="input" id="q-name" name="Name" type="text" autocomplete="name" placeholder="Your name" data-i18n-attr="placeholder:form.name.ph" required></div>
+          <div class="field"><label for="q-company"><span data-i18n="q.company">Name of your business</span><span class="req" aria-hidden="true">*</span></label><input class="input" id="q-company" name="Company" type="text" autocomplete="organization" placeholder="Business" data-i18n-attr="placeholder:q.company.ph" required></div>
           <div class="field"><label for="q-email"><span data-i18n="form.email">Email</span><span class="req" aria-hidden="true">*</span></label><input class="input" id="q-email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="name@company.com" data-i18n-attr="placeholder:form.email.ph" required></div>
           <div class="field"><label for="q-phone" data-i18n="form.phone">Phone</label><input class="input" id="q-phone" name="Phone" type="tel" autocomplete="tel" placeholder="+49 …"></div>
           <div class="field"><label for="q-website" data-i18n="q.website">Website</label><input class="input" id="q-website" name="Website" type="text" inputmode="url" autocomplete="url" placeholder="www…"></div>
@@ -188,7 +189,7 @@
     </div>
     <img class="footer__mark" src="/assets/img/wordmark.svg" alt="BlütenSturm" width="1312" height="164" loading="lazy" decoding="async">
     <div class="legal">
-      <p class="legal__line"><span>© <span data-year>2026</span> BlütenSturm</span><span data-i18n="foot.line">Where brands bloom and ideas storm.</span></p>
+      <p class="legal__line"><span>© <span data-year>2026</span> Blüten Sturm GmbH · Würzburg</span><span data-i18n="foot.line">Where brands bloom and ideas storm.</span></p>
       <nav aria-label="Legal" data-i18n-attr="aria-label:a11y.legal"><a href="/impressum" data-i18n="foot.imprint">Legal notice</a><a href="/datenschutz" data-i18n="foot.privacy">Privacy policy</a></nav>
       <p>Nezir Shinik &amp; Dijan Cika</p>
     </div>

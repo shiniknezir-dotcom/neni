@@ -1,0 +1,93 @@
+/* BlütenSturm — the opening of the home page: the bloom becomes the storm. Shown only under html.intro
+   (boot.js, fresh arrivals; style.css hides .opening otherwise). Keyframes alone run and end it: without
+   intro.js the stage is gone and click-through at 2.55 s (phones 1.9 s); intro.js skips and cleans up. */
+:root { --ik: 1; }
+@media (max-width: 760px) { :root { --ik: .75; } }
+.opening { display: none; position: fixed; inset: 0; z-index: 400; overflow: hidden; contain: strict;
+  --e: cubic-bezier(.16, .84, .24, 1); --wm: min(64vmin, 600px); --wh: calc(var(--wm) / 8.017); --x: calc(var(--wh) * .56); --ph: min(24vmin, 170px);
+  animation: intro-end 1ms calc(var(--ik) * 2.55s) forwards; }
+@media (prefers-reduced-motion: no-preference) {
+  html.intro:not(.motion-off) .opening, .opening.is-out { display: block; }
+  html.intro.i18n-pending body { opacity: 1; }
+  html.intro .hero__title { animation: intro-rise calc(var(--ik) * .6s) cubic-bezier(.16, .84, .24, 1) calc(var(--ik) * 1.95s) backwards; }
+  html.intro .nav, html.intro .hero__meta { animation: intro-in calc(var(--ik) * .4s) ease calc(var(--ik) * 2.15s) backwards; }
+}
+.opening.is-out { pointer-events: none; animation: intro-out .25s ease forwards; }
+
+/* The stage: two black halves part along the hairline; the upper one (painted last) carries wordmark and line */
+.opening__h { position: absolute; inset: 0; background: #0A0A0A; clip-path: inset(0 0 calc(50% - var(--x)) 0);
+  animation: intro-up calc(var(--ik) * .55s) cubic-bezier(.76, 0, .24, 1) calc(var(--ik) * 2s) forwards; }
+.opening__h--low { clip-path: inset(calc(50% + var(--x) - 2px) 0 0 0); animation-name: intro-down; }
+.opening__mark, .opening__line { position: absolute; left: 50%; width: var(--wm); margin-left: calc(var(--wm) / -2); }
+.opening__mark { top: calc(50% - var(--wh) * .7); height: var(--wh);
+  animation: intro-focus calc(var(--ik) * .6s) var(--e) calc(var(--ik) * 1.28s) both, intro-in calc(var(--ik) * .3s) ease-in calc(var(--ik) * 2.08s) reverse forwards; }
+/* Eleven copies of the wordmark, each clipped to one letter (an even 1/11 grid falls between the
+   letters), close in from wide tracking */
+.opening__mark i { --i: 0; position: absolute; inset: 0; background: url(/assets/img/wordmark.svg) 0 0 / 100% 100% no-repeat;
+  clip-path: inset(0 calc(100% - (var(--i) + 1) * 100% / 11) 0 calc(var(--i) * 100% / 11));
+  animation: intro-track calc(var(--ik) * .75s) var(--e) calc(var(--ik) * 1.2s) both; }
+.opening__mark i:nth-child(2) { --i: 1; } .opening__mark i:nth-child(3) { --i: 2; } .opening__mark i:nth-child(4) { --i: 3; }
+.opening__mark i:nth-child(5) { --i: 4; } .opening__mark i:nth-child(6) { --i: 5; } .opening__mark i:nth-child(7) { --i: 6; }
+.opening__mark i:nth-child(8) { --i: 7; } .opening__mark i:nth-child(9) { --i: 8; } .opening__mark i:nth-child(10) { --i: 9; }
+.opening__mark i:nth-child(11) { --i: 10; }
+.opening__line { top: calc(50% + var(--x) - 1px); height: 1px; background: #F2F0EB; box-shadow: 0 0 10px rgba(242, 240, 235, .5); opacity: .45; transform: scaleX(0);
+  animation: intro-draw calc(var(--ik) * .45s) var(--e) calc(var(--ik) * 1.5s) forwards, intro-cut calc(var(--ik) * .5s) ease-out calc(var(--ik) * 1.92s) forwards; }
+
+/* The bloom: the brand flower (.flower): five petals, tips at the centre, the pollen one on top */
+.opening__bloom { position: absolute; left: 50%; top: 50%; perspective: 100vmin; }
+.opening__bloom i { position: absolute; left: calc(var(--ph) * -.51); top: calc(var(--ph) * -.967); width: calc(var(--ph) * .6726); height: var(--ph);
+  background: url(/assets/img/petal.svg) 0 0 / 100% 100% no-repeat; transform-origin: 75.8% 96.7%; opacity: 0; }
+.opening__bloom span { position: absolute; }
+.opening__bloom .opening__glow { --g: calc(var(--ph) * 3.2); left: calc(var(--g) / -2); top: calc(var(--g) / -2); width: var(--g); height: var(--g); transform-origin: 50% 50%;
+  background: radial-gradient(closest-side, rgba(242, 240, 235, .16), rgba(242, 240, 235, .05) 50%, transparent);
+  animation: intro-glow calc(var(--ik) * 1.2s) ease-out calc(var(--ik) * .4s) forwards; }
+.opening__bloom .opening__pollen { background-image: url(/assets/img/petal-pollen.svg); transform-origin: 50% 55%;
+  animation: intro-drop calc(var(--ik) * .55s) cubic-bezier(.3, .45, .35, 1) both, intro-fly calc(var(--ik) * .5s) cubic-bezier(.5, 0, .7, .4) calc(var(--ik) * 1.1s) forwards; }
+/* White petals: angle, start, burst direction, spin, final depth */
+.opening__bloom > i:nth-child(n+2):nth-child(-n+5) {
+  animation: intro-open calc(var(--ik) * .6s) var(--e) calc(var(--ik) * var(--t)) both, intro-burst calc(var(--ik) * .75s) calc(var(--ik) * (var(--t) + .62s)) forwards; }
+.opening__bloom > i:nth-child(2) { --a: 72deg; --t: .46s; --rx: .83; --ry: -.56; --s: 160deg; --z: 1.35; }
+.opening__bloom > i:nth-child(3) { --a: -72deg; --t: .46s; --rx: -1; --ry: -.04; --s: 130deg; --z: .55; }
+.opening__bloom > i:nth-child(4) { --a: 144deg; --t: .5s; --rx: .79; --ry: .62; --s: 230deg; --z: .7; }
+.opening__bloom > i:nth-child(5) { --a: -144deg; --t: .5s; --rx: -.34; --ry: .94; --s: -190deg; --z: 1.2; }
+/* Shards torn off by the gust: start inside the flower (vmin), spin, size */
+.opening__bloom span i { animation: intro-shard calc(var(--ik) * .7s) cubic-bezier(.35, .15, .6, 1) calc(var(--ik) * 1.1s) forwards; }
+.opening__bloom span i:nth-child(1) { --sx: -4; --sy: -9; --r: 300deg; --z: .3; }
+.opening__bloom span i:nth-child(2) { --sx: 8; --sy: -4; --r: -240deg; --z: .2; }
+.opening__bloom span i:nth-child(3) { --sx: 9; --sy: 6; --r: 200deg; --z: .36; }
+.opening__bloom span i:nth-child(4) { --sx: -9; --sy: 5; --r: -320deg; --z: .24; }
+.opening__bloom span i:nth-child(5) { --sx: 1; --sy: 10; --r: 260deg; --z: .18; }
+.opening__bloom span i:nth-child(6) { --sx: -10; --sy: -3; --r: -200deg; --z: .28; }
+
+/* Every transform list keeps the same functions in the same order, so spins interpolate in full */
+@keyframes intro-drop {
+  from { opacity: 0; transform: translate(-4vmin, -50vh) rotate(-80deg) rotateX(60deg); }
+  30% { opacity: 1; }
+  60% { transform: translate(1.5vmin, -9vh) rotate(-16deg) rotateX(-24deg); }
+  to { opacity: 1; transform: translate(0, 0) rotate(0deg) rotateX(0deg); } }
+@keyframes intro-fly { 0%, 75% { opacity: 1; } to { opacity: 0; transform: translate(62vmin, -70vmin) rotate(220deg) rotateX(50deg) scale(.55); } }
+@keyframes intro-glow { from { transform: scale(.6); } 54% { opacity: 1; transform: scale(1); } 60% { opacity: 1; transform: scale(1.2); } to { opacity: 0; transform: scale(1.7); } }
+@keyframes intro-open {
+  from { opacity: 0; transform: translate(0, 0) rotate(0deg) rotateX(0deg) scale(.6); }
+  1% { opacity: 1; }
+  to { opacity: 1; transform: translate(0, 0) rotate(var(--a)) rotateX(0deg) scale(1); } }
+@keyframes intro-burst {
+  from { opacity: 1; filter: blur(0); transform: translate(0, 0) rotate(var(--a)) rotateX(0deg) scale(1); animation-timing-function: cubic-bezier(.2, .7, .4, 1); }
+  25% { transform: translate(calc(var(--rx) * 14vmin), calc(var(--ry) * 14vmin)) rotate(calc(var(--a) + var(--s) * .25)) rotateX(25deg) scale(1);
+    animation-timing-function: cubic-bezier(.45, 0, .8, .6); }
+  75% { opacity: 1; }
+  to { opacity: 0; filter: blur(8px); transform: translate(calc(var(--rx) * 30vmin + 78vmin), calc(var(--ry) * 30vmin - 56vmin)) rotate(calc(var(--a) + var(--s))) rotateX(75deg) scale(var(--z)); } }
+@keyframes intro-shard {
+  from { opacity: 0; transform: translate(calc(var(--sx) * 1vmin), calc(var(--sy) * 1vmin)) rotate(0deg) scale(var(--z)); }
+  10%, 80% { opacity: 1; }
+  to { opacity: 0; transform: translate(calc(var(--sx) * 3.4vmin + 70vmin), calc(var(--sy) * 3.4vmin - 52vmin)) rotate(var(--r)) scale(var(--z)); } }
+@keyframes intro-focus { from { opacity: 0; filter: blur(10px); } to { opacity: 1; filter: blur(0); } }
+@keyframes intro-track { from { transform: translateX(calc((var(--i) - 5) * var(--wm) * .055)); } }
+@keyframes intro-draw { to { transform: scaleX(1); } }
+@keyframes intro-cut { from { transform: scaleX(1); } 20% { opacity: .9; transform: scaleX(10); } to { opacity: 0; transform: scaleX(10); } }
+@keyframes intro-up { to { transform: translateY(calc(-50% - var(--x) - 2px)); } }
+@keyframes intro-down { to { transform: translateY(calc(50% - var(--x) + 2px)); } }
+@keyframes intro-rise { from { opacity: 0; transform: translateY(5vh) scale(.97); } }
+@keyframes intro-in { from { opacity: 0; } }
+@keyframes intro-out { to { opacity: 0; } }
+@keyframes intro-end { to { opacity: 0; visibility: hidden; pointer-events: none; } }

@@ -99,6 +99,11 @@ html.motion-ready .motion-toggle { visibility: visible; }
 .fx-on .flower.is-near:hover .flower__spin-in { animation-play-state: running; }
 @keyframes fx-turn { to { transform: rotateY(360deg); } }
 
+/* ---------- 6b. The discipline ribbon drifts (two copies of the five labels loop seamlessly) ---------- */
+.fx-on .ribbon__track { animation: fx-ribbon 52s linear infinite; }
+.fx-on .ribbon:hover .ribbon__track { animation-play-state: paused; }
+@keyframes fx-ribbon { to { transform: translate3d(-50%, 0, 0); } }
+
 /* ---------- 7. Portfolio logos float in with a stagger (fx.js sets --i) ---------- */
 .fx-on .logo { opacity: 0; transform: translate3d(0, 16px, 0); }
 .fx-on .logos.is-in .logo { opacity: 1; transform: none;
@@ -129,6 +134,7 @@ html.motion-ready .motion-toggle { visibility: visible; }
 .motion-off .hero__photo { transform: translateX(-50%) !important; }
 html.motion-off.reveal-on .reveal { opacity: 1; transform: none; transition: none; }
 html.motion-off [data-rule]::after { transform: none; animation: none; transition: none; }
+html.motion-off .ribbon__track { animation: none; }
 
 /* ---------- Reduced motion: everything above is neutral ---------- */
 @media (prefers-reduced-motion: reduce) {
@@ -139,7 +145,7 @@ html.motion-off [data-rule]::after { transform: none; animation: none; transitio
   .fx-on [data-tilt]:not(img)::after { display: none; }
   .w__i, .fx-on .w__i, .fx-on .is-in .w__i { opacity: 1; transform: none; transition: none; }
   [data-rule]::after, .fx-on [data-rule]::after { transform: none; animation: none; transition: none; }
-  .fx-on .flower__spin, .fx-on .flower__spin-in { animation: none; }
+  .fx-on .flower__spin, .fx-on .flower__spin-in, .fx-on .ribbon__track { animation: none; }
   .fx-on .logo, .fx-on .logos.is-in .logo { opacity: 1; transform: none; transition: background-color .3s ease; }
   [data-depth] { --py: 0px !important; }
   .cursor-light { display: none; }

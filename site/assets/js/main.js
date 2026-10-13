@@ -101,6 +101,7 @@
     renderPick();
     // texts main.js wrote at runtime (the form's error message) follow the language too
     each('[data-js-text]', function (el) { el.textContent = t(el.getAttribute('data-js-text')); });
+    if (typeof renderBrand === 'function') renderBrand();   // an open brand dialog follows the language
     each('form[data-form]', function (f) {   // a form that is sending keeps saying so
       var b = f.__sending && f.querySelector('button[type="submit"]');
       if (b) b.textContent = t('js.sending');
@@ -241,15 +242,121 @@
   each('[data-year]', function (el) { el.textContent = String(new Date().getFullYear()); });
 
   /* ---------- 4. Services ---------------------------------------------- */
+  // The eighteen services live in <details class="svc" id="svc-…"> (a plain list
+  // without JavaScript). Where <dialog> is supported, the petals in "What we do",
+  // the cards in 02 and /#svc-… links open the service in a dialog instead: its
+  // name, tagline and body are moved in while it is open and moved back on close,
+  // so translations, prices and the package buttons keep working on the same nodes.
+  var svcDlg = document.getElementById('svc-dialog');
+  var brandDlg = document.getElementById('brand-dialog');
+  var canDialog = !!(svcDlg && typeof svcDlg.showModal === 'function');
+  if (canDialog) d.classList.add('svc-dlg');
+  var moved = [], svcOpener = null, svcId = '';
+
+  function lockScroll(on) { d.classList.toggle('dlg-open', !!on); }
+  function restoreSvc() {
+    for (var i = moved.length - 1; i >= 0; i--) {
+      var m = moved[i];
+      if (m.next && m.next.parentNode === m.parent) m.parent.insertBefore(m.node, m.next); else m.parent.appendChild(m.node);
+    }
+    moved = [];
+    if (svcId && window.location.hash === '#svc-' + svcId && window.history.replaceState) {
+      window.history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+    svcId = '';
+    if (!(brandDlg && brandDlg.open)) lockScroll(false);
+  }
+  function moveInto(node, slot) {
+    if (!node || !slot) return;
+    moved.push({ node: node, parent: node.parentNode, next: node.nextSibling });
+    slot.appendChild(node);
+  }
+  function closeSvc() {
+    var opener = svcOpener;
+    svcOpener = null;
+    restoreSvc();
+    if (svcDlg.open) svcDlg.close();
+    if (opener && opener.focus && document.contains(opener)) opener.focus();
+  }
+  function openSvc(id, opener) {
+    var el = document.getElementById('svc-' + id);
+    if (!canDialog || !el || el.tagName !== 'DETAILS') return false;
+    if (svcDlg.open) restoreSvc();
+    svcId = id;
+    svcOpener = opener || null;
+    moveInto(el.querySelector('.svc__name'), svcDlg.querySelector('[data-dlg-title]'));
+    moveInto(el.querySelector('.svc__tagline'), svcDlg.querySelector('[data-dlg-tagline]'));
+    moveInto(el.querySelector('.svc__body'), svcDlg.querySelector('[data-dlg-body]'));
+    if (!svcDlg.open) svcDlg.showModal();
+    svcDlg.scrollTop = 0;
+    lockScroll(true);
+    if (window.location.hash !== '#svc-' + id && window.history.replaceState) window.history.replaceState(null, '', '#svc-' + id);
+    var close = svcDlg.querySelector('[data-dlg-close]');
+    if (close) close.focus();
+    return true;
+  }
+  if (canDialog) {
+    svcDlg.addEventListener('close', function () { if (moved.length || svcId) closeSvc(); });
+    svcDlg.addEventListener('click', function (e) {
+      if (e.target === svcDlg || (e.target.closest && e.target.closest('[data-dlg-close]'))) { closeSvc(); return; }
+      // A link inside (a package button to #contact): put the service back first,
+      // so the package handler below finds it, then let the link do its job.
+      var a = e.target.closest ? e.target.closest('a[href^="#"]') : null;
+      if (a) closeSvc();
+    });
+  }
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest ? e.target.closest('[data-svc-open]') : null;
+    if (a && openSvc(a.getAttribute('data-svc-open'), a)) e.preventDefault();
+  });
+
   function openFromHash() {
     var id = '';
     try { id = decodeURIComponent((window.location.hash || '').slice(1)); } catch (e) { return; }
     if (!id || id.indexOf('svc-') !== 0) return;
+    if (openSvc(id.slice(4), null)) return;
     var el = document.getElementById(id);
     if (el && el.tagName === 'DETAILS') el.open = true;
   }
   window.addEventListener('hashchange', openFromHash);
   openFromHash();
+
+  // Brands in 05: any logo opens the brand dialog (name, category, markets, the work).
+  var brandOpener = null;
+  function renderBrand() {
+    if (!brandOpener || !brandDlg) return;
+    var img = brandOpener.querySelector('img'), cat = brandOpener.querySelector('.logo__cat');
+    var logo = brandDlg.querySelector('[data-brand-logo]');
+    if (logo && img) { logo.src = img.currentSrc || img.src; logo.width = img.naturalWidth || img.width; logo.height = img.naturalHeight || img.height; }
+    var name = brandDlg.querySelector('[data-brand-name]');
+    if (name && img) name.textContent = img.alt;
+    var c = brandDlg.querySelector('[data-brand-cat]');
+    if (c && cat) c.textContent = cat.textContent;
+  }
+  function closeBrand() {
+    var opener = brandOpener;
+    brandOpener = null;
+    if (brandDlg.open) brandDlg.close();
+    if (!(svcDlg && svcDlg.open)) lockScroll(false);
+    if (opener && opener.focus) opener.focus();
+  }
+  if (canDialog && brandDlg) {
+    document.addEventListener('click', function (e) {
+      var b = e.target.closest ? e.target.closest('[data-brand]') : null;
+      if (!b) return;
+      brandOpener = b;
+      renderBrand();
+      brandDlg.showModal();
+      brandDlg.scrollTop = 0;
+      lockScroll(true);
+      var close = brandDlg.querySelector('[data-dlg-close]');
+      if (close) close.focus();
+    });
+    brandDlg.addEventListener('click', function (e) {
+      if (e.target === brandDlg || (e.target.closest && e.target.closest('[data-dlg-close]'))) closeBrand();
+    });
+    brandDlg.addEventListener('close', function () { if (brandOpener) closeBrand(); });
+  }
 
   // Any element with data-package="…" (package buttons, Live, Academy, the
   // full package) writes that text into the form's hidden "Package" field and
