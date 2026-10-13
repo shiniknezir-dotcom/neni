@@ -1,11 +1,16 @@
 # **bluetensturm.com — Lime Bloom website**
 
-The agency website lives in [`site/`](site/): a static, no-build site in the
-**01 Lime Bloom** brand direction with a live 3D petal-B hero, five languages,
-Higgsfield-generated imagery and a Netlify-ready configuration. Deploy by
-dropping the `site` folder on <https://app.netlify.com/drop> or by connecting
-this repository (the root `netlify.toml` points Netlify at `site/`). See
-[`site/README.md`](site/README.md) for content editing and form setup.
+The agency website lives in [`site/`](site/): a one-to-one rebuild of the live
+bluetensturm.com (same pages, sections, copy, prices, panels and forms) in the
+**01 Lime Bloom** brand direction, with an opening sequence, a 3D hero whose
+petals become the eighteen services, five languages and Higgsfield-generated
+imagery.
+
+**Deploy:** drop [`dist/bluetensturm-netlify.zip`](dist/bluetensturm-netlify.zip)
+(or the `site` folder) on <https://app.netlify.com/drop>, or connect this
+repository (the root `netlify.toml` points Netlify at `site/`). See
+[`site/README.md`](site/README.md) for forms, legal blanks, languages and
+content editing.
 
 ---
 
