@@ -1,21 +1,27 @@
-/* BlütenSturm — the opening (home page). boot.js decides before the first paint (html.intro) and
-   intro.css plays it with keyframes alone. This file never animates: it skips on any intent, then
-   removes the overlay and the class and fires the window event "bs:intro-done". Nothing is stored. */
+/* BlütenSturm — home opening. boot.js sets html.intro, intro.css plays and ends it; this file skips
+   on intent, then removes the stage and the class and fires "bs:intro-done". */
 (function () {
   'use strict';
-  var w = window, doc = document, d = doc.documentElement;
-  var el = doc.querySelector('.opening');
+  var w = window, d = document.documentElement, el = document.querySelector('.opening');
   var mq = w.matchMedia && w.matchMedia('(prefers-reduced-motion: reduce)');
-  var opt = { capture: true, passive: true };
-  var done = false, timer = 0;
+  var done, timer, opt = { capture: true, passive: true };
 
   function bind(m) {
-    ['pointerdown', 'keydown', 'wheel', 'touchstart'].forEach(function (t) { w[m](t, skip, opt); });
-    w[m]('bs:motion', onMotion);
-    w[m]('pageshow', onShow);
-    doc[m]('visibilitychange', onVis);
-    if (mq && mq[m]) mq[m]('change', onReduce);
-    if (el) el[m]('animationend', onEnd);
+    'pointerdown keydown wheel touchstart'.split(' ').forEach(function (t) { w[m](t, skip, opt); });
+    'animationend pageshow visibilitychange bs:motion'.split(' ').forEach(function (t) { w[m](t, check, opt); });
+    if (mq && mq[m]) mq[m]('change', check);
+  }
+  function check(e) {   // stage ended, bfcache, reduced motion, motion off, hidden tab
+    var t = e.type;
+    if (t === 'animationend' ? e.target === el : t === 'pageshow' ? e.persisted : t === 'change' ? e.matches :
+        t === 'bs:motion' ? !(e.detail || {}).on : document.hidden) finish();
+  }
+  function skip() {     // 0.25 s fade; clicks pass at once
+    if (done || el.classList.contains('is-out')) return;
+    el.classList.add('is-out');
+    d.classList.remove('intro');
+    clearTimeout(timer);
+    timer = setTimeout(finish, 300);
   }
   function finish() {
     if (done) return;
@@ -24,26 +30,10 @@
     bind('removeEventListener');
     d.classList.remove('intro');
     if (el && el.parentNode) el.parentNode.removeChild(el);
-    try { w.dispatchEvent(new w.CustomEvent('bs:intro-done')); } catch (e) {}
+    try { w.dispatchEvent(new CustomEvent('bs:intro-done')); } catch (e) {}
   }
-  // Any intent: a quick fade (intro.css .opening.is-out, clicks pass through at once), then clean up.
-  function skip() {
-    if (done || el.classList.contains('is-out')) return;
-    el.classList.add('is-out');
-    d.classList.remove('intro');   // the hero title and the nav stop waiting
-    clearTimeout(timer);
-    timer = setTimeout(finish, 300);
-  }
-  function onEnd(e) { if (e.target === el) finish(); }
-  function onMotion(e) { if (e.detail && e.detail.on === false) finish(); }
-  function onShow(e) { if (e.persisted) finish(); }
-  function onVis() { if (doc.hidden) finish(); }
-  function onReduce(e) { if (e.matches) finish(); }
 
-  if (!el || !d.classList.contains('intro') || d.classList.contains('motion-off') || (mq && mq.matches)) {
-    finish();
-    return;
-  }
+  if (!el || !d.classList.contains('intro') || d.classList.contains('motion-off') || (mq && mq.matches)) return finish();
   bind('addEventListener');
-  timer = setTimeout(finish, 5000);   // backstop; the CSS has hidden the stage at 2.5 s anyway
+  timer = setTimeout(finish, 5000);   // backstop
 })();
