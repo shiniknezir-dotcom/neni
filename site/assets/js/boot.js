@@ -26,3 +26,21 @@
     setTimeout(function () { d.classList.remove('i18n-pending'); }, 1800);
   }
 })();
+
+/* Opening (intro.css + intro.js): only on a fresh arrival at the home page, decided here before the
+   first paint. Not on reload or back/forward, not from another page of this site, not with a #hash,
+   not in a background tab or prerender, not under reduced motion. Nothing is stored. */
+(function () {
+  var d = document.documentElement, p = window.performance, o = location.origin, r = document.referrer;
+  try {
+    var n = p && p.getEntriesByType && p.getEntriesByType('navigation')[0];
+    var type = n ? n.type : (p && p.navigation && p.navigation.type === 0 ? 'navigate' : '');
+    if (d.getAttribute('data-page') === 'home' && type === 'navigate' && !location.hash &&
+        !(r && (r === o || r.indexOf(o + '/') === 0)) &&
+        document.visibilityState !== 'hidden' && !document.prerendering &&
+        !d.classList.contains('motion-off') &&
+        !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+      d.classList.add('intro');
+    }
+  } catch (e) {}
+})();

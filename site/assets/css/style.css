@@ -683,6 +683,7 @@ html.storm-on .drift { display: none; }
 html.storm-on .hero__title { position: relative; z-index: 2; }
 html.storm-on .hero__meta { z-index: 2; }
 html.motion-off .hero__storm { display: none; }
+.opening { display: none; }   /* the opening is shown only by intro.css under html.intro */
 
 /* ==========================================================================
    Live-site structure: hero copy, "What we do" petals, the ribbon, the five

@@ -1,24 +1,27 @@
-/* BlütenSturm — home opening. boot.js sets html.intro, intro.css plays and ends it; this file skips
-   on intent, then removes the stage and the class and fires "bs:intro-done". */
+/* BlütenSturm — home opening (intro.css). Skips on intent, cleans up, fires "bs:intro-done". Async. */
 (function () {
-  'use strict';
-  var w = window, d = document.documentElement, el = document.querySelector('.opening');
+  var w = window, doc = document, d = doc.documentElement, done, timer, opt = { capture: true, passive: true };
   var mq = w.matchMedia && w.matchMedia('(prefers-reduced-motion: reduce)');
-  var done, timer, opt = { capture: true, passive: true };
-
-  function bind(m) {
-    'pointerdown keydown wheel touchstart'.split(' ').forEach(function (t) { w[m](t, skip, opt); });
-    'animationend pageshow visibilitychange bs:motion'.split(' ').forEach(function (t) { w[m](t, check, opt); });
+  function stage() { return doc.querySelector('.opening'); }
+  function on(m) {
+    'pointerdown touchstart keydown wheel click focusin'.split(' ').forEach(function (t) { w[m](t, skip, opt); });
+    w[m]('animationend', check, opt); w[m]('pageshow', check, opt);
     if (mq && mq[m]) mq[m]('change', check);
   }
-  function check(e) {   // stage ended, bfcache, reduced motion, motion off, hidden tab
-    var t = e.type;
-    if (t === 'animationend' ? e.target === el : t === 'pageshow' ? e.persisted : t === 'change' ? e.matches :
-        t === 'bs:motion' ? !(e.detail || {}).on : document.hidden) finish();
+  function check(e) {   // stage ended, bfcache restore, reduced motion on
+    if (e.type === 'animationend' ? e.target === stage() : e.persisted || e.matches) finish();
   }
-  function skip() {     // 0.25 s fade; clicks pass at once
-    if (done || el.classList.contains('is-out')) return;
-    el.classList.add('is-out');
+  function eat(e) {   // the tap that skips must not press what was hidden below (a scroll cancels)
+    if (e.type === 'click') { e.preventDefault(); e.stopPropagation(); }
+    eats('removeEventListener');
+  }
+  function eats(m) { w[m]('click', eat, true); w[m]('pointercancel', eat, true); }
+  function skip(e) {
+    var s = stage();
+    if (!s) return finish();
+    if (done || s.classList.contains('is-out')) return;
+    if (/^[pt]/.test(e.type)) { eats('addEventListener'); setTimeout(eats, 1000, 'removeEventListener'); }
+    s.classList.add('is-out');
     d.classList.remove('intro');
     clearTimeout(timer);
     timer = setTimeout(finish, 300);
@@ -27,13 +30,16 @@
     if (done) return;
     done = true;
     clearTimeout(timer);
-    bind('removeEventListener');
+    on('removeEventListener');
+    var s = stage();
+    if (s) s.remove();
     d.classList.remove('intro');
-    if (el && el.parentNode) el.parentNode.removeChild(el);
-    try { w.dispatchEvent(new CustomEvent('bs:intro-done')); } catch (e) {}
+    w.dispatchEvent(new CustomEvent('bs:intro-done'));
   }
-
-  if (!el || !d.classList.contains('intro') || d.classList.contains('motion-off') || (mq && mq.matches)) return finish();
-  bind('addEventListener');
-  timer = setTimeout(finish, 5000);   // backstop
+  if (!d.classList.contains('intro') || d.classList.contains('motion-off') || (mq && mq.matches)) return finish();
+  on('addEventListener');
+  w.addEventListener('load', function () {   // no stage or no intro.css: end now
+    var s = stage();
+    if (!s || getComputedStyle(s).display === 'none') finish(); else setTimeout(finish, 3000);
+  });
 })();

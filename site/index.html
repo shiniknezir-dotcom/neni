@@ -19,7 +19,9 @@
 <link rel="preload" as="image" href="/assets/img/petal-hero.webp" type="image/webp" imagesrcset="/assets/img/petal-hero-840.webp 840w, /assets/img/petal-hero.webp 1256w" imagesizes="(max-width: 760px) 60vh, 66vh" fetchpriority="high">
 <link rel="stylesheet" href="/assets/css/style.css">
 <link rel="stylesheet" href="/assets/css/motion.css">
+<link rel="stylesheet" href="/assets/css/intro.css">
 <script src="/assets/js/boot.js"></script>
+<script src="/assets/js/intro.js" async></script>
 <script src="/assets/js/i18n.js" defer></script>
 <script src="/assets/js/main.js" defer></script>
 <script src="/assets/js/storm.js" defer fetchpriority="low"></script>
@@ -61,6 +63,8 @@
 </script>
 </head>
 <body>
+<!-- Opening: the bloom becomes the storm (intro.css / intro.js; boot.js decides before the first paint) -->
+<div class="opening" aria-hidden="true"><div class="opening__h opening__h--low"></div><div class="opening__h"><div class="opening__mark"><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b></div><div class="opening__line"></div></div><div class="opening__bloom"><i></i><i></i><i></i><i></i><i class="opening__pollen"></i><span><i></i><i></i><i></i><i></i></span></div></div>
 <a class="skip" href="#main" data-i18n="a11y.skip">Skip to content</a>
 
 <header class="nav" id="nav">
