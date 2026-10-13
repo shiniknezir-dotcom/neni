@@ -53,6 +53,7 @@ function loadDict(code) {
   if (dicts[code]) return Promise.resolve(dicts[code]);
   if (!pendingDicts[code]) {
     const early = window.__bsDict && window.__bsDict.code === code ? window.__bsDict.p : null;
+    if (early) window.__bsDict = null;          // a failed prefetch must not stick
     pendingDicts[code] = (early || fetch(`/i18n/${code}.json`).then((res) => {
       if (!res.ok) throw new Error(`i18n ${code}: ${res.status}`);
       return res.json();
@@ -145,7 +146,8 @@ function ready() {
 
 function runIntro() {
   const el = $('[data-intro]');
-  if (!el || !root.classList.contains('has-intro') || root.classList.contains('is-ready')) {
+  const fading = el && el.getAnimations && el.getAnimations().some((a) => a.currentTime > 5400);
+  if (!el || !root.classList.contains('has-intro') || root.classList.contains('is-ready') || fading) {
     /* no opening, or the module arrived after the head failsafe lifted it */
     root.classList.remove('has-intro');
     if (el) { el.remove(); try { sessionStorage.setItem('bs-intro', '1'); } catch (e) { /* ignore */ } }
@@ -354,6 +356,10 @@ if (panel) {
     if (lastFocus && lastFocus.focus) {
       lastFocus.focus({ preventScroll: true });
       if (lastFocus.setSelectionRange && lastFocus.value) lastFocus.setSelectionRange(lastFocus.value.length, lastFocus.value.length);
+      if (lastFocus.tagName === 'TEXTAREA') {
+        const field = lastFocus;
+        setTimeout(() => field.scrollIntoView({ block: 'center', behavior: reduceMotion ? 'auto' : 'smooth' }), 60);
+      }
     }
   });
   panel.addEventListener('click', (e) => {
@@ -401,14 +407,19 @@ function setDrawer(open) {
   /* an open panel keeps its own scroll lock */
   root.classList.toggle('is-locked', open || !!(panel && panel.open));
   /* keyboard focus stays inside the open menu */
-  ['#main', '.site-footer'].forEach((sel) => { const el = $(sel); if (el) el.inert = open; });
+  ['#main', '.site-footer', '.skip', '.site-header .brand'].forEach((sel) => { const el = $(sel); if (el) el.inert = open; });
   if (open) $('.nav__links a', header)?.focus();
 }
 burger?.addEventListener('click', () => setDrawer(!header.classList.contains('is-open')));
 $('[data-nav]')?.addEventListener('click', (e) => { if (e.target.closest('a')) setDrawer(false); });
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && header?.classList.contains('is-open')) { setDrawer(false); burger?.focus(); } });
 window.matchMedia('(min-width: 1301px)').addEventListener('change', (e) => { if (e.matches) setDrawer(false); });
-$$('[data-lang]').forEach((b) => b.addEventListener('click', () => { setLang(b.dataset.lang); setDrawer(false); }));
+$$('[data-lang]').forEach((b) => b.addEventListener('click', () => {
+  const wasOpen = !!(header && header.classList.contains('is-open'));
+  setLang(b.dataset.lang);
+  setDrawer(false);
+  if (wasOpen) burger?.focus();
+}));
 
 const progressBar = $('[data-progress]');
 function onScrollUi() {
@@ -640,9 +651,30 @@ function runwayLoop() {
 }
 function kickRunway() { if (!runway.raf && runwayLive()) runway.raf = requestAnimationFrame(runwayLoop); }
 
+/* Switching the runway on or off changes the hero's height by hundreds of
+   pixels. Keep the reader where they are: on the deep-link target until they
+   scroll themselves, otherwise on the first section after the hero. */
+let userScrolled = false;
+['wheel', 'touchstart', 'keydown', 'pointerdown'].forEach((type) => window.addEventListener(type, () => { userScrolled = true; }, { once: true, passive: true }));
+function keepPlace(change) {
+  const was = runway.on;
+  const id = location.hash.length > 1 ? decodeURIComponent(location.hash.slice(1)) : '';
+  const target = !userScrolled && id ? document.getElementById(id) : null;
+  const next = hero.nextElementSibling;
+  const past = hero.getBoundingClientRect().bottom <= 0;
+  const t0 = past && next ? next.getBoundingClientRect().top : 0;
+  const result = change();
+  if (runway.on !== was) {
+    if (target && (hero.compareDocumentPosition(target) & Node.DOCUMENT_POSITION_FOLLOWING)) target.scrollIntoView({ behavior: 'instant' });
+    else if (past && next) window.scrollBy({ top: next.getBoundingClientRect().top - t0, behavior: 'instant' });
+  }
+  return result;
+}
+
 /* Decide (again) whether the runway runs: on load, on resize or rotation,
    after a language switch and once the fonts are in. */
-function evaluateRunway() {
+function evaluateRunway() { return keepPlace(evaluateRunwayNow); }
+function evaluateRunwayNow() {
   if (!wantsRunway()) {
     if (runway.on) teardownRunway();
     root.classList.remove('runway');
@@ -682,7 +714,7 @@ function teardownRunway() {
   root.classList.remove('runway');
   [copyEl, headEl, stageEl].forEach((el) => { if (el) { el.style.opacity = ''; el.style.transform = ''; el.style.visibility = ''; } });
   $$('.petal-btn', petalsEl).forEach((b) => { b.style.opacity = ''; b.style.transform = ''; });
-  if (hero3d && hero3d.setProgress) hero3d.setProgress(0);
+  if (hero3d && hero3d.release) hero3d.release();
 }
 
 /* --------------------------------------------------------------------------
@@ -706,7 +738,7 @@ async function mountHero3D() {
     hero3d = mod.mountHero(stage, { external: runway.on, assembled: true });
     if (hero3d) {
       hero.classList.add('has-3d');
-      if (runway.on && layoutRunway()) kickRunway();
+      if (runway.on && keepPlace(layoutRunway)) kickRunway();
     }
   } catch (e) {
     console.warn('[hero3d] not mounted:', e);
@@ -731,11 +763,20 @@ $$('[data-form]').forEach((form) => {
   };
   const sendingKey = form.dataset.sendingKey || 'form.sendingMsg';
   const sendKey = form.dataset.sendKey || 'form.send';
+  /* English wording if no dictionary could be loaded at all */
+  const FALLBACK = {
+    send: btn ? btn.textContent.trim() : 'Send',
+    sending: 'Sending…',
+    sendingMsg: `Sending to ${COMPANY.email} …`,
+    invalidEmail: 'Please enter a valid email address so we can reply.',
+    fallback: `We could not reach the mail service. Opening your mail app addressed to ${COMPANY.email} — just press send.`,
+    error: `Something went wrong. Please write to us directly at ${COMPANY.email}.`
+  };
   let sending = false;
   const resetButton = () => {
     if (!btn) return;
     btn.disabled = false;
-    btn.innerHTML = `<span data-i18n="${sendKey}">${esc(t(sendKey))}</span><i class="dot" aria-hidden="true"></i>`;
+    btn.innerHTML = `<span data-i18n="${sendKey}">${esc(t(sendKey, FALLBACK.send))}</span><i class="dot" aria-hidden="true"></i>`;
   };
   /* Back from the thank-you page restores this exact DOM from the
      back/forward cache: put the button and the status line back. */
@@ -747,6 +788,7 @@ $$('[data-form]').forEach((form) => {
   });
   const email = form.querySelector('[name="Email"]');
   email?.addEventListener('input', () => { email.setCustomValidity(''); email.removeAttribute('aria-invalid'); });
+  window.addEventListener('bs:lang', () => { if (email && email.getAttribute('aria-invalid')) email.setCustomValidity(t('form.invalidEmail', FALLBACK.invalidEmail)); });
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (sending) return;
@@ -755,14 +797,14 @@ $$('[data-form]').forEach((form) => {
     if (!form.checkValidity()) { form.reportValidity(); return; }
     if (email && !EMAIL_RE.test(email.value.trim())) {
       /* a message at the field itself, announced by assistive tech */
-      email.setCustomValidity(t('form.invalidEmail'));
+      email.setCustomValidity(t('form.invalidEmail', FALLBACK.invalidEmail));
       email.setAttribute('aria-invalid', 'true');
       email.reportValidity();
       return;
     }
     sending = true;
-    if (btn) { btn.disabled = true; btn.textContent = t('form.sending'); }
-    show(t(sendingKey), 'ok');
+    if (btn) { btn.disabled = true; btn.textContent = t('form.sending', FALLBACK.sending); }
+    show(t(sendingKey, FALLBACK.sendingMsg), 'ok');
     const subject = form.dataset.subject || 'Neue Anfrage über bluetensturm.com';
     try {
       const r = await sendEnquiry(form, subject);
@@ -771,12 +813,12 @@ $$('[data-form]').forEach((form) => {
         window.location.href = thanks;
         return;
       }
-      show(t('form.fallback'), 'error');
+      show(t('form.fallback', FALLBACK.fallback), 'error');
       window.location.href = r.href;
     } catch (err) {
       /* never lose a lead: hand it to the visitor's mail app */
-      show(t('form.fallback'), 'error');
-      try { window.location.href = fallbackHref(form, subject); } catch (e2) { show(t('form.error'), 'error'); }
+      show(t('form.fallback', FALLBACK.fallback), 'error');
+      try { window.location.href = fallbackHref(form, subject); } catch (e2) { show(t('form.error', FALLBACK.error), 'error'); }
     }
     sending = false;
     resetButton();

@@ -148,6 +148,12 @@
   for = "/media/*"
   [headers.values]
     Cache-Control = "public, max-age=2592000"
+# the thank-you page stays out of search results (robots.txt lets crawlers
+# read this, so the old indexed addresses that redirect here drop out)
+[[headers]]
+  for = "/thank-you/*"
+  [headers.values]
+    X-Robots-Tag = "noindex"
 # partner data must reach returning visitors the moment it changes
 [[headers]]
   for = "/media/brands/manifest.json"

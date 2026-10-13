@@ -44,14 +44,18 @@
   try {
     reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
     m = (/[?&]motion=(full|reduced)/.exec(location.search) || [])[1];
+    var W = innerWidth, H = innerHeight;
+    if (m !== 'reduced' && (m === 'full' || (!reduce && !(H < 540 || (W < 720 && H < 680))))) d.classList.add('runway');
+  } catch (e) {}
+  try {
     var q = /[?&]intro=(0|1)/.exec(location.search);
     var seen = sessionStorage.getItem('bs-intro');
     if ((q && q[1] === '1') || (!q && !reduce && !seen && !location.hash)) d.classList.add('has-intro');
-    var W = innerWidth, H = innerHeight;
-    if (m !== 'reduced' && (m === 'full' || (!reduce && !(H < 540 || (W < 720 && H < 680))))) d.classList.add('runway');
+  } catch (e) {}
+  try {
     var L = (/[?&]lang=(en|de|fr|es|it)\b/.exec(location.search) || [])[1] || localStorage.getItem('bs-lang');
     if (L && L !== 'en' && /^(de|fr|es|it)$/.test(L) && window.fetch) {
-      window.__bsDict = { code: L, p: fetch('/i18n/' + L + '.json').then(function (r) { return r.ok ? r.json() : null; }) };
+      window.__bsDict = { code: L, p: fetch('/i18n/' + L + '.json').then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }) };
     }
   } catch (e) {}
   /* failsafe: if the module cannot run, nothing stays hidden */

@@ -188,6 +188,14 @@ export function mountHero(stage, { reduced = false, external = false, assembled 
       letterX = vw * 0.24;
       letterY = -vh * 0.09;
     }
+    if (W / H >= 0.9 && copyEl) {
+      /* landscape: the letter starts right of the copy column, however
+         square the screen (layout boxes, so transforms do not matter) */
+      const copyRight = copyEl.offsetLeft + copyEl.offsetWidth - stage.offsetLeft;
+      const minLeft = ((copyRight + 24) / W - 0.5) * vw;
+      const half = (0.733 * letterScale) / 2;
+      if (letterX - half < minLeft) letterX = minLeft + half;
+    }
   }
   layout();
   const ro = new ResizeObserver(layout);
@@ -295,6 +303,8 @@ export function mountHero(stage, { reduced = false, external = false, assembled 
   return {
     /* 0..1 along the home page runway */
     setProgress(v) { external = true; scrollP = clamp(v, 0, 1); kick(); },
+    /* back to following the page scroll (the runway was switched off) */
+    release() { external = false; onScroll(); kick(); },
     /* nothing to paint behind a modal */
     pause() { paused = true; },
     resume() { if (paused) { paused = false; kick(); } },

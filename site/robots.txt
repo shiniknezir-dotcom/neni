@@ -1,4 +1,3 @@
 User-agent: *
 Allow: /
-Disallow: /thank-you/
 Sitemap: https://bluetensturm.com/sitemap.xml
