@@ -1,0 +1,6 @@
+# Git-based Netlify deploy for this repository: the website lives in /site.
+# (The folder also carries its own netlify.toml for drag-and-drop deploys.)
+[build]
+  base = "site"
+  publish = "."
+  command = ""

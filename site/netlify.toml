@@ -1,0 +1,177 @@
+# Blüten Sturm — Netlify configuration
+# Static site, no build step: this folder is the publish directory
+# (drag-and-drop the folder or the zip in the Netlify UI, or point a Git
+# deploy at base = "site").
+
+[build]
+  publish = "."
+  command = ""
+
+# ---------------------------------------------------------------------------
+# Every address of the previous site keeps working.
+# ---------------------------------------------------------------------------
+[[redirects]]
+  from = "/questionnaire.dc"
+  to = "/questionnaire/"
+  status = 301
+[[redirects]]
+  from = "/Questionnaire.dc"
+  to = "/questionnaire/"
+  status = 301
+[[redirects]]
+  from = "/questionnaire.dc.html"
+  to = "/questionnaire/"
+  status = 301
+[[redirects]]
+  from = "/Questionnaire.dc.html"
+  to = "/questionnaire/"
+  status = 301
+[[redirects]]
+  from = "/fragebogen/*"
+  to = "/questionnaire/"
+  status = 301
+[[redirects]]
+  from = "/Thank You.dc"
+  to = "/thank-you/"
+  status = 301
+[[redirects]]
+  from = "/Thank%20You.dc"
+  to = "/thank-you/"
+  status = 301
+[[redirects]]
+  from = "/thank you.dc"
+  to = "/thank-you/"
+  status = 301
+[[redirects]]
+  from = "/thank%20you.dc"
+  to = "/thank-you/"
+  status = 301
+[[redirects]]
+  from = "/Bluten Sturm v2.dc"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/Bluten%20Sturm%20v2.dc"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/bluten sturm v2.dc"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/bluten%20sturm%20v2.dc"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/Thank You.dc.html"
+  to = "/thank-you/"
+  status = 301
+[[redirects]]
+  from = "/Thank%20You.dc.html"
+  to = "/thank-you/"
+  status = 301
+[[redirects]]
+  from = "/thank you.dc.html"
+  to = "/thank-you/"
+  status = 301
+[[redirects]]
+  from = "/thank%20you.dc.html"
+  to = "/thank-you/"
+  status = 301
+[[redirects]]
+  from = "/danke/*"
+  to = "/thank-you/"
+  status = 301
+[[redirects]]
+  from = "/Bluten Sturm v2.dc.html"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/Bluten%20Sturm%20v2.dc.html"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/bluten sturm v2.dc.html"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/bluten%20sturm%20v2.dc.html"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/index.html"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/Impressum.html"
+  to = "/impressum/"
+  status = 301
+[[redirects]]
+  from = "/impressum.html"
+  to = "/impressum/"
+  status = 301
+[[redirects]]
+  from = "/Datenschutz.html"
+  to = "/datenschutz/"
+  status = 301
+[[redirects]]
+  from = "/datenschutz.html"
+  to = "/datenschutz/"
+  status = 301
+
+# ---------------------------------------------------------------------------
+# Security headers. Everything is served from this site; the only outside
+# address the page talks to is Formspree, which mails the enquiries.
+# ---------------------------------------------------------------------------
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
+    # When Google Ads / GA4 is added (see README), use this line instead:
+    # Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.google-analytics.com https://*.google-analytics.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com https://www.google.de; font-src 'self'; media-src 'self'; connect-src 'self' https://formspree.io https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com; form-action 'self' https://formspree.io; frame-src https://www.googletagmanager.com https://td.doubleclick.net; frame-ancestors 'self'; base-uri 'self'; object-src 'none'"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; frame-ancestors 'self'; base-uri 'self'; object-src 'none'"
+
+# Caching: fingerprint-free files revalidate; heavy media caches for a month.
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+[[headers]]
+  for = "/vendor/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+[[headers]]
+  for = "/media/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+# the thank-you page stays out of search results (robots.txt lets crawlers
+# read this, so the old indexed addresses that redirect here drop out)
+[[headers]]
+  for = "/thank-you/*"
+  [headers.values]
+    X-Robots-Tag = "noindex"
+# partner data must reach returning visitors the moment it changes
+[[headers]]
+  for = "/media/brands/manifest.json"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+[[headers]]
+  for = "/i18n/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+[[headers]]
+  for = "/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"

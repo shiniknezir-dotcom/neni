@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script type="importmap">{"imports":{"three":"/vendor/three/three.module.min.js","three/addons/":"/vendor/three/addons/"}}</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Blüten Sturm — Where brands bloom and ideas storm.</title>
+<meta name="description" content="Marketing, creative and corporate training from Würzburg — built with the rigour of consultants and the nerve of artists.">
+<meta name="theme-color" content="#D3F543">
+<link rel="canonical" href="https://bluetensturm.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Blüten Sturm">
+<meta property="og:title" content="Blüten Sturm — Where brands bloom and ideas storm.">
+<meta property="og:description" content="Marketing, creative and corporate training from Würzburg — built with the rigour of consultants and the nerve of artists.">
+<meta property="og:url" content="https://bluetensturm.com/">
+<meta property="og:image" content="https://bluetensturm.com/media/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_GB">
+<meta property="og:locale:alternate" content="de_DE">
+<meta property="og:locale:alternate" content="fr_FR">
+<meta property="og:locale:alternate" content="es_ES">
+<meta property="og:locale:alternate" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Blüten Sturm — Where brands bloom and ideas storm.">
+<meta name="twitter:description" content="Marketing, creative and corporate training from Würzburg.">
+<meta name="twitter:image" content="https://bluetensturm.com/media/og-image.jpg">
+<link rel="icon" href="/assets/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preload" href="/fonts/unbounded-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
+<script>
+/* Runs before first paint: mark JS, decide whether this visit gets the
+   opening (once per session, never with reduced motion, never on a deep
+   link) and whether the hero runs as a scroll runway (same rules as
+   wantsRunway() in js/site.js), so the layout never jumps when the module
+   arrives. A returning visitor's language starts loading right away. */
+(function () {
+  var d = document.documentElement;
+  d.classList.add('js');
+  var reduce = false, m = null;
+  try {
+    reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    m = (/[?&]motion=(full|reduced)/.exec(location.search) || [])[1];
+    var W = innerWidth, H = innerHeight;
+    if (m !== 'reduced' && (m === 'full' || (!reduce && !(H < 540 || (W < 720 && H < 680))))) d.classList.add('runway');
+  } catch (e) {}
+  try {
+    var q = /[?&]intro=(0|1)/.exec(location.search);
+    var seen = sessionStorage.getItem('bs-intro');
+    if ((q && q[1] === '1') || (!q && !reduce && !seen && !location.hash)) d.classList.add('has-intro');
+  } catch (e) {}
+  try {
+    var L = (/[?&]lang=(en|de|fr|es|it)\b/.exec(location.search) || [])[1] || localStorage.getItem('bs-lang');
+    if (L && L !== 'en' && /^(de|fr|es|it)$/.test(L) && window.fetch) {
+      window.__bsDict = { code: L, p: fetch('/i18n/' + L + '.json').then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }) };
+    }
+  } catch (e) {}
+  /* failsafe: if the module cannot run, nothing stays hidden */
+  window.__bsFailsafe = setTimeout(function () {
+    d.classList.add('is-ready');
+    if (!d.classList.contains('reveal-on')) d.classList.add('reveal-off');
+  }, d.classList.contains('has-intro') ? 6500 : 2500);
+})();
+</script>
+<link rel="stylesheet" href="/css/fonts.css">
+<link rel="stylesheet" href="/css/site.css">
+<link rel="modulepreload" href="/js/site.js">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Blüten Sturm",
+  "legalName": "Blüten Sturm GmbH",
+  "slogan": "Where brands bloom and ideas storm.",
+  "url": "https://bluetensturm.com/",
+  "email": "info@bluetensturm.com",
+  "image": "https://bluetensturm.com/media/og-image.jpg",
+  "logo": "https://bluetensturm.com/assets/icon-512.png",
+  "description": "Marketing, creative and corporate training from Würzburg — built with the rigour of consultants and the nerve of artists.",
+  "address": { "@type": "PostalAddress", "addressLocality": "Würzburg", "addressRegion": "Bavaria", "addressCountry": "DE" },
+  "areaServed": ["DE", "AT", "CH", "IT", "FR", "ES", "AL", "XK"],
+  "knowsLanguage": ["de", "en", "fr", "es", "it"],
+  "sameAs": ["https://www.instagram.com/bluetensturmcreative"]
+}
+</script>
+</head>
+<body data-i18n-title="meta.title" data-i18n-description="meta.description">
+<a class="skip" href="#main" data-i18n="a11y.skip">Skip to content</a>
+<div class="progress" aria-hidden="true"><i data-progress></i></div>
+
+<!-- =====================================================================
+     Opening: three petals fly in and lock into the B, then the camera falls
+     through the letter into the lime page underneath.
+     ===================================================================== -->
+<div class="intro" data-intro>
+  <svg class="intro__svg" aria-hidden="true" focusable="false">
+    <defs>
+      <mask id="intro-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="100%" height="100%">
+        <rect x="-10" y="-10" width="200%" height="200%" fill="#fff"/>
+        <g data-intro-b>
+          <path data-intro-p d="M0 0H223.8C206.3 351.2 173.5 703.2 14.0 1000.0L0 1000Z"/>
+          <path data-intro-p d="M255.6 0H416.7A232.5 232.5 0 0 1 416.7 465L428 463C253.9 614.0 254.2 860.0 42.0 990.0C178.4 694.2 234.2 352.0 255.6 0.0Z"/>
+          <path data-intro-p d="M428 463L465.8 465A267.5 267.5 0 0 1 465.8 1000H32C264.1 898.0 268.9 632.9 449 497Q447 472 428 463Z"/>
+        </g>
+      </mask>
+    </defs>
+    <rect x="-10" y="-10" width="200%" height="200%" fill="#0F2A1D" mask="url(#intro-mask)"/>
+  </svg>
+  <div class="intro__chrome" aria-hidden="true">
+    <span class="intro__word">Blüten Sturm</span>
+    <span class="intro__cities">Würzburg · Berlin · Zürich · Wien · Milano</span>
+    <span class="intro__count"><b data-intro-count>000</b><small>%</small></span>
+  </div>
+  <button class="intro__skip" type="button" data-intro-skip data-i18n="a11y.skipIntro">Skip intro</button>
+</div>
+
+<!-- =====================================================================
+     Header
+     ===================================================================== -->
+<header class="site-header" data-header>
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Blüten Sturm — home" data-i18n-aria="a11y.home">
+      <svg class="brand__mark" viewBox="0 0 733.3 1000" aria-hidden="true" focusable="false"><use href="#bs-mono"></use></svg>
+      <span class="brand__word">Blüten Sturm</span>
+    </a>
+    <button class="burger" type="button" aria-expanded="false" aria-controls="nav" data-burger>
+      <span class="sr-only" data-i18n="a11y.menu">Menu</span>
+      <svg class="lines" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <svg class="x" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <nav class="nav" id="nav" aria-label="Main navigation" data-i18n-aria="a11y.nav" data-nav>
+      <div class="nav__links">
+        <a href="#about" data-i18n="nav.about">About</a>
+        <a href="#services" data-i18n="nav.services">Services</a>
+        <a href="#work" data-i18n="nav.work">Work</a>
+        <a href="#portfolio" data-i18n="nav.portfolio">Portfolio</a>
+        <a href="#training" data-i18n="nav.academy">Academy</a>
+      </div>
+      <div class="lang" role="group" aria-label="Language" data-i18n-aria="a11y.lang" data-lang-switch>
+        <button type="button" data-lang="de" aria-pressed="false" lang="de">DE</button>
+        <button type="button" data-lang="en" aria-pressed="true" lang="en">EN</button>
+        <button type="button" data-lang="fr" aria-pressed="false" lang="fr">FR</button>
+        <button type="button" data-lang="es" aria-pressed="false" lang="es">ES</button>
+        <button type="button" data-lang="it" aria-pressed="false" lang="it">IT</button>
+      </div>
+      <a class="btn" href="#contact"><span data-i18n="nav.talk">Let's talk</span><i class="dot" aria-hidden="true"></i></a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- =====================================================================
+     Hero runway. The B blooms apart as you scroll and its petals become the
+     eighteen services. Every petal is a real button with real text, so the
+     language switch renames it and the static layout needs no second markup.
+     ===================================================================== -->
+<section id="top" class="hero tone-lime" data-hero aria-label="Blüten Sturm">
+  <div class="hero__pin" data-hero-pin>
+    <div class="wrap hero__wrap">
+      <div class="hero__stage" data-hero-stage aria-hidden="true">
+        <svg class="hero__static" viewBox="0 0 733.3 1000" aria-hidden="true" focusable="false"><use href="#bs-mono"></use></svg>
+      </div>
+      <div class="hero__grain" aria-hidden="true"></div>
+      <div class="hero__copy" data-hero-copy>
+        <p class="eyebrow hero__eyebrow" data-no-i18n>Würzburg · Berlin · Zürich · Wien · Milano</p>
+        <h1 class="hero__title" data-i18n-html="hero.title">Where brands bloom<br>and ideas <em>storm</em>.</h1>
+        <p class="hero__sub" data-i18n="hero.sub">Marketing, creative and corporate training from Würzburg — built with the rigour of consultants and the nerve of artists.</p>
+        <div class="hero__actions">
+          <a class="btn" href="#contact"><span data-i18n="hero.start">Start a project</span><i class="dot" aria-hidden="true"></i></a>
+          <a class="btn btn--ghost" href="#services" data-i18n="hero.what">What we do</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="petals" data-petals role="region" aria-label="The eighteen services" data-i18n-aria="a11y.stage">
+      <div class="wrap petals__head">
+        <div class="petals__run">
+          <h2 class="petals__title" data-i18n="stage.title">Eighteen ways we move a brand.</h2>
+          <p class="petals__note" data-i18n="stage.note">Every petal opens.</p>
+        </div>
+        <div class="petals__static">
+          <h2 class="petals__title" data-i18n="stage.staticTitle">What we do</h2>
+          <p class="petals__note" data-i18n="stage.staticNote">Eighteen services. Select one for detail.</p>
+        </div>
+      </div>
+      <ul class="wrap petals__field" data-petal-field>
+<!--@PETALS-->
+        <li><button class="petal-btn petal-btn--f" type="button" data-service-open="brand-strategy" style="--i:0"><span class="petal-btn__n" aria-hidden="true">01</span><span class="petal-btn__label" data-i18n="svc.brand-strategy.name">Brand Strategy</span><span class="petal-btn__go" aria-hidden="true"></span></button></li>
+        <li><button class="petal-btn" type="button" data-service-open="marketing-strategy" style="--i:1"><span class="petal-btn__n" aria-hidden="true">02</span><span class="petal-btn__label" data-i18n="svc.marketing-strategy.name">Marketing Strategy</span><span class="petal-btn__go" aria-hidden="true"></span></button></li>
+        <li><button class="petal-btn" type="button" data-service-open="creative-services" style="--i:2"><span class="petal-btn__n" aria-hidden="true">03</span><span class="petal-btn__label" data-i18n="svc.creative-services.name">Creative Services</span><span class="petal-btn__go" aria-hidden="true"></span></button></li>
+        <li><button class="petal-btn petal-btn--f" type="button" data-service-open="digital-marketing" style="--i:3"><span class="petal-btn__n" aria-hidden="true">04</span><span class="petal-btn__label" data-i18n="svc.digital-marketing.name">Digital Marketing</span><span class="petal-btn__go" aria-hidden="true"></span></button></li>
+        <li><button class="petal-btn petal-btn--f" type="button" data-service-open="social-media-management" style="--i:4"><span class="petal-btn__n" aria-hidden="true">05</span><span class="petal-btn__label" data-i18n="svc.social-media-management.name">Social Media Management</span><span class="petal-btn__go" aria-hidden="true"></span></button></li>
+        <li><button class="petal-btn petal-btn--f" type="button" data-service-open="content-production" style="--i:5"><span class="petal-btn__n" aria-hidden="true">06</span><span class="petal-btn__label" data-i18n="svc.content-production.name">Content Production</span><span class="petal-btn__go" aria-hidden="true"></span></button></li>
+        <li><button class="petal-btn petal-btn--f" type="button" data-service-open="website-digital-experience" style="--i:6"><span class="petal-btn__n" aria-hidden="true">07</span><span class="petal-btn__label" data-i18n="svc.website-digital-experience.name">Website &amp; Digital Experience</span><span class="petal-btn__go" aria-hidden="true"></span></button></li>
+        <li><button class="petal-btn" type="button" data-service-open="advertising" style="--i:7"><span class="petal-btn__n" aria-hidden="true">08</span><span class="petal-btn__label" data-i18n="svc.advertising.name">Advertising</span><span class="petal-btn__go" aria-hidden="true"></span></button></li>
+        <li><button class="petal-btn" type="button" data-service-open="pr" style="--i:8"><span class="petal-btn__n" aria-hidden="true">09</span><span class="petal-btn__label" data-i18n="svc.pr.name">PR</span><span class="petal-btn__go" aria-hidden="true"></span></button></li>
+        <li><button class="petal-btn" type="button" data-service-open="business-development-support" style="--i:9"><span class="petal-btn__n" aria-hidden="true">10</span><span class="petal-btn__label" data-i18n="svc.business-development-support.name">Business Development Support</span><span class="petal-btn__go" aria-hidden="true"></span></button></li>
+        <li><button class="petal-btn" type="button" data-service-open="event-marketing-promotions" style="--i:10"><span class="petal-btn__n" aria-hidden="true">11</span><span class="petal-btn__label" data-i18n="svc.event-marketing-promotions.name">Event Marketing &amp; Promotions</span><span class="petal-btn__go" aria-hidden="true"></span></button></li>
+        <li><button class="petal-btn" type="button" data-service-open="video-multimedia" style="--i:11"><span class="petal-btn__n" aria-hidden="true">12</span><span class="petal-btn__label" data-i18n="svc.video-multimedia.name">Video &amp; Multimedia</span><span class="petal-btn__go" aria-hidden="true"></span></button></li>
+        <li><button class="petal-btn" type="button" data-service-open="analytics" style="--i:12"><span class="petal-btn__n" aria-hidden="true">13</span><span class="petal-btn__label" data-i18n="svc.analytics.name">Analytics</span><span class="petal-btn__go" aria-hidden="true"></span></button></li>
+        <li><button class="petal-btn" type="button" data-service-open="ai-innovation" style="--i:13"><span class="petal-btn__n" aria-hidden="true">14</span><span class="petal-btn__label" data-i18n="svc.ai-innovation.name">AI &amp; Innovation</span><span class="petal-btn__go" aria-hidden="true"></span></button></li>
+        <li><button class="petal-btn" type="button" data-service-open="consulting" style="--i:14"><span class="petal-btn__n" aria-hidden="true">15</span><span class="petal-btn__label" data-i18n="svc.consulting.name">Consulting</span><span class="petal-btn__go" aria-hidden="true"></span></button></li>
+        <li><button class="petal-btn" type="button" data-service-open="employer-branding" style="--i:15"><span class="petal-btn__n" aria-hidden="true">16</span><span class="petal-btn__label" data-i18n="svc.employer-branding.name">Employer Branding</span><span class="petal-btn__go" aria-hidden="true"></span></button></li>
+        <li><button class="petal-btn" type="button" data-service-open="ongoing-client-services" style="--i:16"><span class="petal-btn__n" aria-hidden="true">17</span><span class="petal-btn__label" data-i18n="svc.ongoing-client-services.name">Ongoing Client Services</span><span class="petal-btn__go" aria-hidden="true"></span></button></li>
+        <li><button class="petal-btn" type="button" data-service-open="corporate-training" style="--i:17"><span class="petal-btn__n" aria-hidden="true">18</span><span class="petal-btn__label" data-i18n="svc.corporate-training.name">Corporate Training &amp; Organizational Development</span><span class="petal-btn__go" aria-hidden="true"></span></button></li>
+<!--/@PETALS-->
+      </ul>
+    </div>
+
+    <div class="hero__cue" aria-hidden="true"><i></i></div>
+  </div>
+</section>
+
+<!-- Marquee: the five disciplines -->
+<div class="marquee tone-forest" aria-hidden="true">
+  <div class="marquee__track" data-marquee>
+    <span class="marquee__item"><span data-i18n="marquee.0">Brand Strategy</span><i></i></span>
+    <span class="marquee__item"><span data-i18n="marquee.1">Digital Marketing</span><i></i></span>
+    <span class="marquee__item"><span data-i18n="marquee.2">Content &amp; Social</span><i></i></span>
+    <span class="marquee__item"><span data-i18n="marquee.3">Events &amp; Experience</span><i></i></span>
+    <span class="marquee__item"><span data-i18n="marquee.4">Corporate Training</span><i></i></span>
+  </div>
+</div>
+
+<!-- =====================================================================
+     01 — The agency
+     ===================================================================== -->
+<section id="about" class="section tone-paper">
+  <div class="wrap about">
+    <div class="about__lead">
+      <p class="eyebrow" data-i18n="about.eyebrow">01 — The agency</p>
+      <h2 class="h-1 reveal" data-i18n-html="about.title">Franconian roots.<br>European reach.</h2>
+      <figure class="about__figure reveal">
+        <picture>
+          <source type="image/webp" srcset="/media/gen/wuerzburg-duotone-900.webp 900w, /media/gen/wuerzburg-duotone.webp 1400w" sizes="(max-width: 980px) 90vw, 40vw">
+          <img class="petal" src="/media/gen/wuerzburg-duotone-900.jpg" srcset="/media/gen/wuerzburg-duotone-900.jpg 900w, /media/gen/wuerzburg-duotone.jpg 1400w" sizes="(max-width: 980px) 90vw, 40vw" width="1400" height="1750" alt="" loading="lazy" decoding="async">
+        </picture>
+        <svg class="about__mark" viewBox="0 0 733.3 1000" aria-hidden="true" focusable="false"><use href="#bs-mono"></use></svg>
+      </figure>
+    </div>
+    <div class="about__copy">
+      <p class="lead reveal" data-i18n="about.p1">Blüten Sturm was founded in Würzburg — a city of vineyards, baroque stone and stubborn craft. We kept the craft and added velocity. Today we work with Mittelstand leaders, challenger brands and institutions who need marketing that moves markets and teams able to carry it.</p>
+      <p class="reveal" data-i18n="about.p2">One team, three disciplines: creative that gets remembered, strategy that gets signed off, and training that makes it stick inside the organisation.</p>
+      <div class="stats reveal">
+        <div class="stat"><b data-count="120" data-suffix="+">120+</b><span data-i18n="about.stat1">Projects shipped</span></div>
+        <div class="stat"><b data-count="9" data-suffix="">9</b><span data-i18n="about.stat2">Markets</span></div>
+        <div class="stat"><b data-count="2400" data-suffix="+">2,400+</b><span data-i18n="about.stat3">Leaders trained</span></div>
+        <div class="stat"><b data-count="94" data-suffix="%">94%</b><span data-i18n="about.stat4">Client retention</span></div>
+      </div>
+      <dl class="facts reveal">
+        <div><dt data-i18n="about.f1">Based in</dt><dd data-i18n="about.f1v">Würzburg, Bavaria</dd></div>
+        <div><dt data-i18n="about.f2">Working languages</dt><dd data-i18n="about.f2v">German and English, plus FR · ES · IT</dd></div>
+        <div><dt data-i18n="about.f3">Clients</dt><dd data-i18n="about.f3v">Mittelstand leaders, challenger brands, institutions</dd></div>
+        <div><dt data-i18n="about.f4">Presence</dt><dd data-no-i18n>Würzburg · Berlin · Zürich · Wien · Milano</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     02 — Services
+     ===================================================================== -->
+<section id="services" class="section tone-mist">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow" data-i18n="services.eyebrow">02 — Services</p>
+        <h2 class="h-1 reveal" data-i18n-html="services.title">Five disciplines,<br>one operating system.</h2>
+      </div>
+      <div class="reveal">
+        <p class="lead" data-i18n="services.lead">Engage one. Or let us run the whole stack — from positioning workshop to performance dashboard.</p>
+        <p class="hint"><i aria-hidden="true"></i><span data-i18n="services.hint">Open any card for scope and packages</span></p>
+      </div>
+    </div>
+    <div class="svc-grid">
+<!--@CARDS-->
+      <article class="svc svc--wide reveal" data-delay="0" data-tilt>
+        <div class="svc__media" aria-hidden="true"><img src="/media/services/brand-strategy-640.webp" srcset="/media/services/brand-strategy-640.webp 640w, /media/services/brand-strategy-1280.webp 1280w" sizes="(max-width: 980px) 92vw, 50vw" width="1280" height="720" alt="" loading="lazy" decoding="async"></div>
+        <span class="svc__num" aria-hidden="true">01</span>
+        <div class="svc__body">
+          <h3 class="svc__title" id="svc-t1" data-i18n="services.c1t">Brand strategy &amp; positioning</h3>
+          <p class="svc__text" data-i18n="services.c1p">Market and category analysis, brand architecture, naming, verbal and visual identity systems. We find the sharp edge, then build everything around it.</p>
+          <div class="svc__tags"><span data-i18n="services.tag1">Positioning</span><span data-i18n="services.tag2">Identity systems</span><span data-i18n="services.tag3">Naming</span></div>
+        </div>
+        <p class="svc__from"><span data-i18n="panel.from">from</span> <b>6.500 €</b> <em data-i18n="panel.unit.pr">per project</em></p>
+        <button class="svc__open" type="button" data-service-open="brand-strategy" aria-describedby="svc-t1"><span data-i18n="services.open">Packages &amp; scope</span><i aria-hidden="true"></i></button>
+      </article>
+      <article class="svc reveal" data-delay="1" data-tilt>
+        <div class="svc__media" aria-hidden="true"><img src="/media/services/digital-marketing-640.webp" srcset="/media/services/digital-marketing-640.webp 640w, /media/services/digital-marketing-1280.webp 1280w" sizes="(max-width: 720px) 92vw, (max-width: 1180px) 46vw, 25vw" width="1280" height="720" alt="" loading="lazy" decoding="async"></div>
+        <span class="svc__num" aria-hidden="true">02</span>
+        <div class="svc__body">
+          <h3 class="svc__title" id="svc-t2" data-i18n="services.c2t">Digital marketing</h3>
+          <p class="svc__text" data-i18n="services.c2p">Performance media, SEO, CRM and marketing automation — measured against pipeline, not impressions.</p>
+        </div>
+        <p class="svc__from"><span data-i18n="panel.from">from</span> <b>2.400 €</b> <em data-i18n="panel.unit.mo">per month</em></p>
+        <button class="svc__open" type="button" data-service-open="digital-marketing" aria-describedby="svc-t2"><span data-i18n="services.open">Packages &amp; scope</span><i aria-hidden="true"></i></button>
+      </article>
+      <article class="svc reveal" data-delay="2" data-tilt>
+        <div class="svc__media" aria-hidden="true"><img src="/media/services/content-production-640.webp" srcset="/media/services/content-production-640.webp 640w, /media/services/content-production-1280.webp 1280w" sizes="(max-width: 720px) 92vw, (max-width: 1180px) 46vw, 25vw" width="1280" height="720" alt="" loading="lazy" decoding="async"></div>
+        <span class="svc__num" aria-hidden="true">03</span>
+        <div class="svc__body">
+          <h3 class="svc__title" id="svc-t3" data-i18n="services.c3t">Content &amp; social</h3>
+          <p class="svc__text" data-i18n="services.c3p">Editorial systems, film, photography and always-on social built for German and EU-wide audiences.</p>
+        </div>
+        <p class="svc__from"><span data-i18n="panel.from">from</span> <b>3.200 €</b> <em data-i18n="panel.unit.mo">per month</em></p>
+        <button class="svc__open" type="button" data-service-open="content-production" aria-describedby="svc-t3"><span data-i18n="services.open">Packages &amp; scope</span><i aria-hidden="true"></i></button>
+      </article>
+      <article class="svc reveal" data-delay="0" data-tilt>
+        <div class="svc__media" aria-hidden="true"><img src="/media/services/event-marketing-promotions-640.webp" srcset="/media/services/event-marketing-promotions-640.webp 640w, /media/services/event-marketing-promotions-1280.webp 1280w" sizes="(max-width: 720px) 92vw, (max-width: 1180px) 46vw, 25vw" width="1280" height="720" alt="" loading="lazy" decoding="async"></div>
+        <span class="svc__num" aria-hidden="true">04</span>
+        <div class="svc__body">
+          <h3 class="svc__title" id="svc-t4" data-i18n="services.c4t">Events &amp; experience</h3>
+          <p class="svc__text" data-i18n="services.c4p">Launches, trade fairs and internal summits — concept, production and on-site direction.</p>
+        </div>
+        <p class="svc__from"><span data-i18n="panel.from">from</span> <b>7.500 €</b> <em data-i18n="panel.unit.pr">per project</em></p>
+        <button class="svc__open" type="button" data-service-open="event-marketing-promotions" aria-describedby="svc-t4"><span data-i18n="services.open">Packages &amp; scope</span><i aria-hidden="true"></i></button>
+      </article>
+      <article class="svc svc--accent reveal" data-delay="1" data-tilt>
+        <div class="svc__media" aria-hidden="true"><img src="/media/services/corporate-training-640.webp" srcset="/media/services/corporate-training-640.webp 640w, /media/services/corporate-training-1280.webp 1280w" sizes="(max-width: 720px) 92vw, (max-width: 1180px) 46vw, 25vw" width="1280" height="720" alt="" loading="lazy" decoding="async"></div>
+        <span class="svc__num" aria-hidden="true">05</span>
+        <div class="svc__body">
+          <h3 class="svc__title" id="svc-t5" data-i18n="services.c5t">Corporate training</h3>
+          <p class="svc__text" data-i18n="services.c5p">Leadership development, communication, customer care and sales enablement — certified, bilingual, in-house or off-site.</p>
+        </div>
+        <p class="svc__from"><span data-i18n="panel.from">from</span> <b>2.400 €</b> <em data-i18n="panel.unit.day">per day</em></p>
+        <button class="svc__open" type="button" data-service-open="corporate-training" aria-describedby="svc-t5"><span data-i18n="services.open">Packages &amp; scope</span><i aria-hidden="true"></i></button>
+      </article>
+<!--/@CARDS-->
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     03 — Why Blüten Sturm
+     ===================================================================== -->
+<section class="section tone-paper why-sec">
+  <div class="wrap">
+    <div class="sec-head sec-head--single">
+      <div>
+        <p class="eyebrow" data-i18n="why.eyebrow">03 — Why Blüten Sturm</p>
+        <h2 class="h-1 reveal" data-i18n="why.title">Agencies pitch ideas. We are accountable for outcomes.</h2>
+      </div>
+    </div>
+    <div class="why">
+      <div class="reveal"><span class="why__n" aria-hidden="true">01</span><h3 data-i18n="why.t1">Consultant rigour</h3><p data-i18n="why.p1">Every creative route is tied to a commercial thesis you can defend to a board.</p></div>
+      <div class="reveal" data-delay="1"><span class="why__n" aria-hidden="true">02</span><h3 data-i18n="why.t2">Bilingual by default</h3><p data-i18n="why.p2">German and English craft copy, DACH nuance, EU-wide rollout without translation drift.</p></div>
+      <div class="reveal" data-delay="2"><span class="why__n" aria-hidden="true">03</span><h3 data-i18n="why.t3">Senior-only teams</h3><p data-i18n="why.p3">The people in the pitch are the people on the work. No handover to juniors.</p></div>
+      <div class="reveal" data-delay="3"><span class="why__n" aria-hidden="true">04</span><h3 data-i18n="why.t4">We train the handover</h3><p data-i18n="why.p4">Campaigns end. Capability stays — your team leaves able to run it themselves.</p></div>
+    </div>
+    <figure class="why__figure reveal">
+      <picture>
+        <source type="image/webp" srcset="/media/gen/b-low-angle-1000.webp 1000w, /media/gen/b-low-angle.webp 1920w" sizes="(max-width: 980px) 92vw, 1360px">
+        <img src="/media/gen/b-low-angle.jpg" width="1920" height="1086" alt="" loading="lazy" decoding="async" data-parallax>
+      </picture>
+    </figure>
+  </div>
+</section>
+
+<!-- =====================================================================
+     04 — Selected work
+     ===================================================================== -->
+<section id="work" class="section tone-forest">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow" data-i18n="work.eyebrow">04 — Selected work</p>
+        <h2 class="h-1 reveal" data-i18n="work.title">Recent storms.</h2>
+      </div>
+      <div class="reveal sec-head__end">
+        <a class="btn btn--lime" href="#contact"><span data-i18n="work.request">Request full portfolio</span><i class="dot" aria-hidden="true"></i></a>
+      </div>
+    </div>
+    <div class="work-grid">
+      <article class="case case--tall reveal" data-tilt>
+        <div class="case__media">
+          <picture>
+            <source type="image/webp" srcset="/media/gen/work-rebrand-900.webp 900w, /media/gen/work-rebrand.webp 1600w" sizes="(max-width: 980px) 92vw, 46vw">
+            <img src="/media/gen/work-rebrand-900.jpg" srcset="/media/gen/work-rebrand-900.jpg 900w, /media/gen/work-rebrand.jpg 1600w" sizes="(max-width: 980px) 92vw, 46vw" width="1600" height="1063" alt="" loading="lazy" decoding="async">
+          </picture>
+          <span class="case__num" aria-hidden="true">01</span>
+        </div>
+        <div class="case__body">
+          <p class="case__kicker" data-i18n="work.k1">Rebrand · Mittelstand</p>
+          <h3 class="case__title" data-i18n="work.t1">Manufacturer, repositioned for Europe</h3>
+          <p class="case__text" data-i18n="work.p1">A family-owned Franconian manufacturer with a strong product and a name nobody outside Germany could place. Positioning workshop, new brand architecture and a bilingual identity system, rolled out across sales, trade fair and web in one season.</p>
+        </div>
+      </article>
+      <article class="case case--tall reveal" data-delay="1" data-tilt>
+        <div class="case__media">
+          <picture>
+            <source type="image/webp" srcset="/media/gen/work-campaign-900.webp 900w, /media/gen/work-campaign.webp 1600w" sizes="(max-width: 980px) 92vw, 46vw">
+            <img src="/media/gen/work-campaign-900.jpg" srcset="/media/gen/work-campaign-900.jpg 900w, /media/gen/work-campaign.jpg 1600w" sizes="(max-width: 980px) 92vw, 46vw" width="1600" height="1063" alt="" loading="lazy" decoding="async">
+          </picture>
+          <span class="case__num" aria-hidden="true">02</span>
+        </div>
+        <div class="case__body">
+          <p class="case__kicker" data-i18n="work.k2">Campaign · DACH</p>
+          <h3 class="case__title" data-i18n="work.t2">Launch campaign across three markets</h3>
+          <p class="case__text" data-i18n="work.p2">A product launch in Germany, Austria and Switzerland: one creative idea, adapted per market rather than translated, with paid media, landing pages and sales material measured against pipeline, not impressions.</p>
+        </div>
+      </article>
+      <article class="case reveal" data-tilt>
+        <div class="case__media">
+          <picture>
+            <source type="image/webp" srcset="/media/gen/work-training-900.webp 900w, /media/gen/work-training.webp 1600w" sizes="(max-width: 980px) 92vw, 46vw">
+            <img src="/media/gen/work-training-900.jpg" srcset="/media/gen/work-training-900.jpg 900w, /media/gen/work-training.jpg 1600w" sizes="(max-width: 980px) 92vw, 46vw" width="1600" height="1063" alt="" loading="lazy" decoding="async">
+          </picture>
+          <span class="case__num" aria-hidden="true">03</span>
+        </div>
+        <div class="case__body">
+          <p class="case__kicker" data-i18n="work.k3">Training · Leadership</p>
+          <h3 class="case__title" data-i18n="work.t3">Leadership programme, 400 managers</h3>
+          <p class="case__text" data-i18n="work.p3">Modul I and II, delivered over twelve months in German and English. New and scaling leaders in small cohorts, real cases from their own floor, and a handover so the client’s people run the next round themselves.</p>
+        </div>
+      </article>
+      <article class="case reveal" data-delay="1" data-tilt>
+        <div class="case__media">
+          <picture>
+            <source type="image/webp" srcset="/media/gen/work-summit-900.webp 900w, /media/gen/work-summit.webp 1600w" sizes="(max-width: 980px) 92vw, 46vw">
+            <img src="/media/gen/work-summit-900.jpg" srcset="/media/gen/work-summit-900.jpg 900w, /media/gen/work-summit.jpg 1600w" sizes="(max-width: 980px) 92vw, 46vw" width="1600" height="1063" alt="" loading="lazy" decoding="async">
+          </picture>
+          <span class="case__num" aria-hidden="true">04</span>
+        </div>
+        <div class="case__body">
+          <p class="case__kicker" data-i18n="work.k4">Experience · Event</p>
+          <h3 class="case__title" data-i18n="work.t4">Flagship summit, Würzburg</h3>
+          <p class="case__text" data-i18n="work.p4">Two days, three stages and a hybrid stream: concept, programme, staging and content for a client’s annual summit, produced end to end — from the first sketch to the last cable.</p>
+        </div>
+      </article>
+    </div>
+    <p class="work-note" data-i18n="work.note">Case studies are anonymised here at our clients’ request. The full portfolio — names, figures and imagery — is available on request under NDA.</p>
+  </div>
+</section>
+
+<!-- =====================================================================
+     05 — Portfolio
+     ===================================================================== -->
+<section id="portfolio" class="section tone-paper">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow" data-i18n="portfolio.eyebrow">05 — Portfolio</p>
+        <h2 class="h-1 reveal" data-i18n="portfolio.title">Brands we move.</h2>
+      </div>
+      <div class="reveal">
+        <p class="lead" data-i18n="portfolio.lead">Distribution partnerships across the Balkans — the marketing budget, the creative, the media and the sell-out, held in one place.</p>
+        <p class="hint"><i aria-hidden="true"></i><span data-i18n="portfolio.hint">Open any logo for the work</span></p>
+      </div>
+    </div>
+    <div class="clients reveal">
+      <p class="clients__kicker" data-i18n="stage.brandsNote">Selected clients.</p>
+      <p class="clients__title" data-i18n="stage.brandsTitle">Mittelstand leaders. Challenger brands. Nine markets.</p>
+      <p class="clients__count" data-brand-count><b>44</b> brands and counting</p>
+    </div>
+    <ul class="brands" data-brands>
+<!--@BRANDS-->
+      <li><button class="brand-tile" type="button" data-brand="0"><span class="brand-tile__logo"><img src="/media/brands/zott.png" alt="" width="281" height="280" loading="lazy" decoding="async"></span><span class="brand-tile__name">Zott</span></button></li>
+      <li><button class="brand-tile" type="button" data-brand="1"><span class="brand-tile__logo"><img src="/media/brands/woerle.png" alt="" width="340" height="153" loading="lazy" decoding="async"></span><span class="brand-tile__name">Woerle</span></button></li>
+      <li><button class="brand-tile" type="button" data-brand="2"><span class="brand-tile__logo"><img src="/media/brands/perutnina-ptuj.png" alt="" width="339" height="280" loading="lazy" decoding="async"></span><span class="brand-tile__name">Perutnina Ptuj</span></button></li>
+      <li><button class="brand-tile" type="button" data-brand="3"><span class="brand-tile__logo"><img src="/media/brands/greisinger.png" alt="" width="281" height="280" loading="lazy" decoding="async"></span><span class="brand-tile__name">Greisinger</span></button></li>
+      <li><button class="brand-tile" type="button" data-brand="4"><span class="brand-tile__logo"><img src="/media/brands/ferrero.png" alt="" width="340" height="72" loading="lazy" decoding="async"></span><span class="brand-tile__name">Ferrero</span></button></li>
+      <li><button class="brand-tile" type="button" data-brand="5"><span class="brand-tile__logo"><img src="/media/brands/vilvi.png" alt="" width="340" height="157" loading="lazy" decoding="async"></span><span class="brand-tile__name">Vilvi</span></button></li>
+      <li><button class="brand-tile" type="button" data-brand="6"><span class="brand-tile__logo"><img src="/media/brands/capro.png" alt="" width="340" height="174" loading="lazy" decoding="async"></span><span class="brand-tile__name">Capro</span></button></li>
+      <li><button class="brand-tile" type="button" data-brand="7"><span class="brand-tile__logo"><img src="/media/brands/bayerland.png" alt="" width="340" height="201" loading="lazy" decoding="async"></span><span class="brand-tile__name">Bayerland</span></button></li>
+      <li><button class="brand-tile" type="button" data-brand="8"><span class="brand-tile__logo"><img src="/media/brands/viotros.png" alt="" width="340" height="192" loading="lazy" decoding="async"></span><span class="brand-tile__name">Viotros</span></button></li>
+      <li><button class="brand-tile" type="button" data-brand="9"><span class="brand-tile__logo"><img src="/media/brands/exquisa.png" alt="" width="340" height="181" loading="lazy" decoding="async"></span><span class="brand-tile__name">Exquisa</span></button></li>
+      <li><button class="brand-tile" type="button" data-brand="10"><span class="brand-tile__logo"><img src="/media/brands/miree.png" alt="" width="340" height="134" loading="lazy" decoding="async"></span><span class="brand-tile__name">Miree</span></button></li>
+      <li><button class="brand-tile" type="button" data-brand="11"><span class="brand-tile__logo"><img src="/media/brands/alpsko.png" alt="" width="340" height="105" loading="lazy" decoding="async"></span><span class="brand-tile__name">Alpsko</span></button></li>
+      <li><button class="brand-tile" type="button" data-brand="12"><span class="brand-tile__logo"><img src="/media/brands/ghidetti.png" alt="" width="340" height="200" loading="lazy" decoding="async"></span><span class="brand-tile__name">Ghidetti</span></button></li>
+      <li><button class="brand-tile" type="button" data-brand="13"><span class="brand-tile__logo"><img src="/media/brands/bio-levante.png" alt="" width="340" height="114" loading="lazy" decoding="async"></span><span class="brand-tile__name">Bio Levante</span></button></li>
+      <li><button class="brand-tile" type="button" data-brand="14"><span class="brand-tile__logo"><img src="/media/brands/joya.png" alt="" width="340" height="191" loading="lazy" decoding="async"></span><span class="brand-tile__name">Joya</span></button></li>
+      <li><button class="brand-tile" type="button" data-brand="15"><span class="brand-tile__logo"><img src="/media/brands/capri-sun.png" alt="" width="340" height="134" loading="lazy" decoding="async"></span><span class="brand-tile__name">Capri-Sun</span></button></li>
+      <li><button class="brand-tile" type="button" data-brand="16"><span class="brand-tile__logo"><img src="/media/brands/hipp.png" alt="" width="340" height="124" loading="lazy" decoding="async"></span><span class="brand-tile__name">HIPP</span></button></li>
+      <li><button class="brand-tile" type="button" data-brand="17"><span class="brand-tile__logo"><img src="/media/brands/olympus.png" alt="" width="340" height="266" loading="lazy" decoding="async"></span><span class="brand-tile__name">Olympus</span></button></li>
+      <li><button class="brand-tile" type="button" data-brand="18"><span class="brand-tile__logo"><img src="/media/brands/dijo.png" alt="" width="340" height="252" loading="lazy" decoding="async"></span><span class="brand-tile__name">Dijo</span></button></li>
+      <li><button class="brand-tile" type="button" data-brand="19"><span class="brand-tile__logo"><img src="/media/brands/golden-prize.png" alt="" width="286" height="280" loading="lazy" decoding="async"></span><span class="brand-tile__name">Golden Prize</span></button></li>
+      <li><button class="brand-tile" type="button" data-brand="20"><span class="brand-tile__logo"><img src="/media/brands/iglotex.png" alt="" width="340" height="242" loading="lazy" decoding="async"></span><span class="brand-tile__name">Iglotex</span></button></li>
+      <li><button class="brand-tile" type="button" data-brand="21"><span class="brand-tile__logo"><img src="/media/brands/storck.png" alt="" width="340" height="182" loading="lazy" decoding="async"></span><span class="brand-tile__name">Storck</span></button></li>
+      <li><button class="brand-tile" type="button" data-brand="22"><span class="brand-tile__logo"><img src="/media/brands/aviko.png" alt="" width="340" height="200" loading="lazy" decoding="async"></span><span class="brand-tile__name">Aviko</span></button></li>
+      <li><button class="brand-tile" type="button" data-brand="23"><span class="brand-tile__logo"><img src="/media/brands/bonizzi.png" alt="" width="340" height="238" loading="lazy" decoding="async"></span><span class="brand-tile__name">Bonizzi</span></button></li>
+      <li><button class="brand-tile" type="button" data-brand="24"><span class="brand-tile__logo"><img src="/media/brands/mokate.png" alt="" width="340" height="149" loading="lazy" decoding="async"></span><span class="brand-tile__name">Mokate</span></button></li>
+      <li><button class="brand-tile" type="button" data-brand="25"><span class="brand-tile__logo"><img src="/media/brands/akadia.png" alt="" width="340" height="117" loading="lazy" decoding="async"></span><span class="brand-tile__name">Akadia</span></button></li>
+      <li><button class="brand-tile" type="button" data-brand="26"><span class="brand-tile__logo"><img src="/media/brands/kartofelland.png" alt="" width="340" height="93" loading="lazy" decoding="async"></span><span class="brand-tile__name">Kartofelland</span></button></li>
+      <li><button class="brand-tile" type="button" data-brand="27"><span class="brand-tile__logo"><img src="/media/brands/loyd.png" alt="" width="340" height="220" loading="lazy" decoding="async"></span><span class="brand-tile__name">Loyd</span></button></li>
+      <li><button class="brand-tile" type="button" data-brand="28"><span class="brand-tile__logo"><img src="/media/brands/baci.png" alt="" width="334" height="280" loading="lazy" decoding="async"></span><span class="brand-tile__name">Baci</span></button></li>
+      <li><button class="brand-tile" type="button" data-brand="29"><span class="brand-tile__logo"><img src="/media/brands/regina.png" alt="" width="340" height="209" loading="lazy" decoding="async"></span><span class="brand-tile__name">Regina</span></button></li>
+      <li><button class="brand-tile" type="button" data-brand="30"><span class="brand-tile__logo"><img src="/media/brands/gazi.png" alt="" width="340" height="103" loading="lazy" decoding="async"></span><span class="brand-tile__name">Gazi</span></button></li>
+      <li><button class="brand-tile" type="button" data-brand="31"><span class="brand-tile__logo"><img src="/media/brands/hortex.png" alt="" width="340" height="217" loading="lazy" decoding="async"></span><span class="brand-tile__name">Hortex</span></button></li>
+      <li><button class="brand-tile" type="button" data-brand="32"><span class="brand-tile__logo"><img src="/media/brands/mantova.png" alt="" width="340" height="173" loading="lazy" decoding="async"></span><span class="brand-tile__name">Mantova</span></button></li>
+      <li><button class="brand-tile" type="button" data-brand="33"><span class="brand-tile__logo"><img src="/media/brands/violanta.png" alt="" width="340" height="221" loading="lazy" decoding="async"></span><span class="brand-tile__name">Violanta</span></button></li>
+      <li><button class="brand-tile" type="button" data-brand="34"><span class="brand-tile__logo"><img src="/media/brands/cavendish-harvey.png" alt="" width="340" height="173" loading="lazy" decoding="async"></span><span class="brand-tile__name">Cavendish &amp; Harvey</span></button></li>
+      <li><button class="brand-tile" type="button" data-brand="35"><span class="brand-tile__logo"><img src="/media/brands/noa.png" alt="" width="340" height="271" loading="lazy" decoding="async"></span><span class="brand-tile__name">Noa</span></button></li>
+      <li><button class="brand-tile" type="button" data-brand="36"><span class="brand-tile__logo"><img src="/media/brands/podravka.png" alt="" width="340" height="162" loading="lazy" decoding="async"></span><span class="brand-tile__name">Podravka</span></button></li>
+      <li><button class="brand-tile" type="button" data-brand="37"><span class="brand-tile__logo"><img src="/media/brands/de-champignonspecialist.png" alt="" width="340" height="78" loading="lazy" decoding="async"></span><span class="brand-tile__name">De Champignonspecialist</span></button></li>
+      <li><button class="brand-tile" type="button" data-brand="38"><span class="brand-tile__logo"><img src="/media/brands/flis.png" alt="" width="286" height="280" loading="lazy" decoding="async"></span><span class="brand-tile__name">Flis</span></button></li>
+      <li><button class="brand-tile" type="button" data-brand="39"><span class="brand-tile__logo"><img src="/media/brands/t-boer-zn.png" alt="" width="340" height="279" loading="lazy" decoding="async"></span><span class="brand-tile__name">T.Boer &amp; zn</span></button></li>
+      <li><button class="brand-tile" type="button" data-brand="40"><span class="brand-tile__logo"><img src="/media/brands/president.png" alt="" width="340" height="207" loading="lazy" decoding="async"></span><span class="brand-tile__name">Président</span></button></li>
+      <li><button class="brand-tile" type="button" data-brand="41"><span class="brand-tile__logo"><img src="/media/brands/kupiec.png" alt="" width="340" height="179" loading="lazy" decoding="async"></span><span class="brand-tile__name">Kupiec</span></button></li>
+      <li><button class="brand-tile" type="button" data-brand="42"><span class="brand-tile__logo"><img src="/media/brands/galbani-professionale.png" alt="" width="340" height="229" loading="lazy" decoding="async"></span><span class="brand-tile__name">Galbani Professionale</span></button></li>
+      <li><button class="brand-tile" type="button" data-brand="43"><span class="brand-tile__logo"><img src="/media/brands/rice-up.png" alt="" width="312" height="280" loading="lazy" decoding="async"></span><span class="brand-tile__name">rice UP!</span></button></li>
+<!--/@BRANDS-->
+    </ul>
+    <div class="cta-band reveal">
+      <svg class="cta-band__mark" viewBox="0 0 733.3 1000" aria-hidden="true" focusable="false"><use href="#bs-mono"></use></svg>
+      <div>
+        <h3 data-i18n="portfolio.bandTitle">Let's work together.</h3>
+        <p data-i18n="portfolio.bandText">Brand, campaign, event or academy programme — send us the brief and we'll come back with a route, a team and a number.</p>
+      </div>
+      <a class="btn btn--lime" href="/questionnaire/"><span data-i18n="portfolio.brief">Send us a brief</span><i class="dot" aria-hidden="true"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     06 — Corporate academy
+     ===================================================================== -->
+<section id="training" class="section tone-lime">
+  <div class="wrap academy">
+    <div class="academy__copy">
+      <p class="eyebrow" data-i18n="academy.eyebrow">06 — Corporate academy</p>
+      <h2 class="h-1 reveal" data-i18n="academy.title">Training that outlives the campaign.</h2>
+      <p class="lead reveal" data-i18n="academy.p1">The Blüten Sturm Academy runs modular programmes for leadership, communication, customer care, sales and marketing teams — delivered in German or English, in Würzburg, on your site, or hybrid across Europe.</p>
+      <p class="academy__formats reveal" data-i18n="academy.p2">Half-day, one-day and two-day modules · small groups · real cases from your own business · a certificate of completion for every participant.</p>
+      <div class="academy__chips reveal">
+        <span class="chip" data-i18n="academy.chip1">Leadership development</span>
+        <span class="chip" data-i18n="academy.chip2">Executive communication</span>
+        <span class="chip" data-i18n="academy.chip3">Sales enablement</span>
+        <span class="chip" data-i18n="academy.chip4">Customer care</span>
+        <span class="chip" data-i18n="academy.chip5">Change &amp; culture</span>
+      </div>
+      <a class="btn reveal" href="#contact"><span data-i18n="academy.cta">Request the curriculum</span><i class="dot" aria-hidden="true"></i></a>
+    </div>
+    <div class="academy__side">
+      <div class="academy__img reveal">
+        <picture>
+          <source type="image/webp" srcset="/media/gen/academy-room-900.webp 900w, /media/gen/academy-room.webp 1600w" sizes="(max-width: 980px) 92vw, 46vw">
+          <img src="/media/gen/academy-room-900.jpg" srcset="/media/gen/academy-room-900.jpg 900w, /media/gen/academy-room.jpg 1600w" sizes="(max-width: 980px) 92vw, 46vw" width="1600" height="1063" alt="" loading="lazy" decoding="async">
+        </picture>
+      </div>
+      <ol class="modules">
+        <li class="module reveal" data-tilt><span class="module__n" data-i18n="academy.m1n">Modul I</span><h3 class="module__title" data-i18n="academy.m1t">Führung unter Druck</h3><p class="module__text" data-i18n="academy.m1p">Two days · decision-making, delegation and conflict for new and scaling leaders.</p></li>
+        <li class="module reveal" data-delay="1" data-tilt><span class="module__n" data-i18n="academy.m2n">Modul II</span><h3 class="module__title" data-i18n="academy.m2t">Story &amp; Stage</h3><p class="module__text" data-i18n="academy.m2p">One day · narrative structure, pitch craft and presence on camera and in the room.</p></li>
+        <li class="module reveal" data-delay="2" data-tilt><span class="module__n" data-i18n="academy.m3n">Modul III</span><h3 class="module__title" data-i18n="academy.m3t">Marketing für Nicht-Marketer</h3><p class="module__text" data-i18n="academy.m3p">Half day · positioning, channels and budgets for founders and department heads.</p></li>
+        <li class="module reveal" data-delay="3" data-tilt><span class="module__n" data-i18n="academy.m4n">Modul IV</span><h3 class="module__title" data-i18n="academy.m4t">Customer Care Excellence</h3><p class="module__text" data-i18n="academy.m4p">Two days · service standards, difficult conversations, complaint recovery and the handover back to sales.</p></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     07 — Contact
+     ===================================================================== -->
+<section id="contact" class="section tone-forest contact">
+  <!-- Ambient loop made with Higgsfield: the petal storm. Loaded only when the
+       section comes near, never with reduced motion or Save-Data. -->
+  <div class="contact__weather" aria-hidden="true" data-weather>
+    <video class="contact__video" muted loop playsinline preload="none"
+           data-src-sd="/media/gen/weather-540.mp4" data-src-hd="/media/gen/weather-720.mp4" data-webm-sd="/media/gen/weather-540.webm" data-webm-hd="/media/gen/weather-720.webm"></video>
+    <div class="contact__veil"></div>
+  </div>
+  <svg class="contact__mark" viewBox="0 0 733.3 1000" aria-hidden="true" focusable="false"><use href="#bs-mono"></use></svg>
+  <div class="wrap contact__grid">
+    <div class="contact__intro">
+      <p class="eyebrow" data-i18n="contact.eyebrow">07 — Contact</p>
+      <h2 class="h-display reveal" data-i18n="contact.title">Let's make weather.</h2>
+      <p class="lead reveal" data-i18n="contact.lead">Tell us what you're building. We answer every serious enquiry within two working days.</p>
+      <a class="link-arrow reveal" href="/questionnaire/"><span data-i18n="contact.questionnaire">Prefer the full questionnaire?</span>
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></a>
+      <ol class="steps reveal">
+        <li><p class="steps__t" data-i18n="contact.s1t">01 — Send the brief</p><p class="steps__p" data-i18n="contact.s1p">This form, an e-mail or the questionnaire — whichever is fastest for you.</p></li>
+        <li><p class="steps__t" data-i18n="contact.s2t">02 — Route and number</p><p class="steps__p" data-i18n="contact.s2p">Within two working days you get a proposed approach, the team and a from-price.</p></li>
+        <li><p class="steps__t" data-i18n="contact.s3t">03 — Kick-off</p><p class="steps__p" data-i18n="contact.s3p">A workshop in Würzburg, at your site or online. Then the work starts.</p></li>
+      </ol>
+    </div>
+
+    <form class="form reveal" name="contact" method="POST" action="/thank-you/" data-netlify="true" netlify-honeypot="bot-field" data-form data-subject="Neue Anfrage über bluetensturm.com">
+      <input type="hidden" name="form-name" value="contact">
+      <input type="hidden" name="_subject" value="Neue Anfrage über bluetensturm.com">
+      <input type="hidden" name="_next" value="https://bluetensturm.com/thank-you/" data-next>
+      <input type="hidden" name="Language" value="en" data-lang-field>
+      <p class="hp" aria-hidden="true"><label><span data-i18n="form.honey">Leave this field empty</span> <input type="text" name="_honey" tabindex="-1" autocomplete="off"></label><input type="text" name="bot-field" tabindex="-1" autocomplete="off"></p>
+      <div class="field"><label for="f-name" data-i18n="form.name">Your name</label><input id="f-name" type="text" name="Name" required autocomplete="name" placeholder="Your name" data-i18n-placeholder="form.namePh"></div>
+      <div class="field"><label for="f-business" data-i18n="form.business">Business name</label><input id="f-business" type="text" name="Business" required autocomplete="organization" placeholder="Your company name" data-i18n-placeholder="form.businessPh"></div>
+      <div class="field"><label for="f-email" data-i18n="form.email">Email</label><input id="f-email" type="email" name="Email" required autocomplete="email" inputmode="email" placeholder="name@company.com" data-i18n-placeholder="form.emailPh"></div>
+      <div class="field"><label for="f-phone"><span data-i18n="form.phone">Phone</span> <small data-i18n="form.optional">(optional)</small></label><input id="f-phone" type="tel" name="Phone" autocomplete="tel" inputmode="tel" placeholder="+49 …"></div>
+      <div class="field"><label for="f-service" data-i18n="form.interest">Interested in</label>
+        <select id="f-service" name="Service">
+          <option value="Brand strategy" data-i18n="form.opt.brand">Brand strategy</option>
+          <option value="Digital marketing" data-i18n="form.opt.digital">Digital marketing</option>
+          <option value="Content &amp; social" data-i18n="form.opt.content">Content &amp; social</option>
+          <option value="Events &amp; experience" data-i18n="form.opt.events">Events &amp; experience</option>
+          <option value="Corporate training" data-i18n="form.opt.training">Corporate training</option>
+        </select>
+      </div>
+      <div class="field"><label for="f-size" data-i18n="form.size">Company size</label>
+        <select id="f-size" name="Company size">
+          <option value="1–10 employees" data-i18n="form.size1">1–10 employees</option>
+          <option value="11–50 employees" data-i18n="form.size2">11–50 employees</option>
+          <option value="51–250 employees" data-i18n="form.size3">51–250 employees</option>
+          <option value="250+ employees" data-i18n="form.size4">250+ employees</option>
+        </select>
+      </div>
+      <div class="field"><label for="f-budget" data-i18n="form.budget">Budget range</label>
+        <select id="f-budget" name="Budget">
+          <option value="Under €10k" data-i18n="form.budget1">Under €10k</option>
+          <option value="€10k–€30k" data-i18n="form.budget2">€10k–€30k</option>
+          <option value="€30k–€75k" data-i18n="form.budget3">€30k–€75k</option>
+          <option value="€75k+" data-i18n="form.budget4">€75k+</option>
+          <option value="Not sure yet" data-i18n="form.budget5">Not sure yet</option>
+        </select>
+      </div>
+      <div class="field"><label for="f-timeline" data-i18n="form.timeline">Timeline</label>
+        <select id="f-timeline" name="Timeline">
+          <option value="As soon as possible" data-i18n="form.time1">As soon as possible</option>
+          <option value="Within 1–3 months" data-i18n="form.time2">Within 1–3 months</option>
+          <option value="This year" data-i18n="form.time3">This year</option>
+          <option value="Just exploring" data-i18n="form.time4">Just exploring</option>
+        </select>
+      </div>
+      <div class="field field--full"><label for="f-project" data-i18n="form.project">Project</label><textarea id="f-project" name="Project" rows="5" required placeholder="What do you want to achieve?" data-i18n-placeholder="form.projectPh"></textarea></div>
+      <div class="field field--full"><label for="f-source" data-i18n="form.source">How did you hear about us?</label>
+        <select id="f-source" name="Source">
+          <option value="Google search" data-i18n="form.src1">Google search</option>
+          <option value="Google Ads" data-i18n="form.src2">Google Ads</option>
+          <option value="Instagram" data-i18n="form.src3">Instagram</option>
+          <option value="LinkedIn" data-i18n="form.src4">LinkedIn</option>
+          <option value="Referral / word of mouth" data-i18n="form.src5">Referral / word of mouth</option>
+          <option value="Event or trade fair" data-i18n="form.src6">Event or trade fair</option>
+          <option value="Other" data-i18n="form.src7">Other</option>
+        </select>
+      </div>
+      <div class="form__foot">
+        <div class="form__contact">
+          <a class="form__mail" href="mailto:info@bluetensturm.com">info@bluetensturm.com</a>
+          <span data-i18n="contact.place">Blüten Sturm · Würzburg, Deutschland</span>
+          <a class="form__ig" href="https://www.instagram.com/bluetensturmcreative" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg>
+            @bluetensturmcreative</a>
+        </div>
+        <button class="btn" type="submit" data-submit><span data-i18n="form.send">Send enquiry</span><i class="dot" aria-hidden="true"></i></button>
+      </div>
+      <p class="form__status" id="contact-status" role="status" aria-live="polite" data-form-status></p>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<!-- =====================================================================
+     Footer
+     ===================================================================== -->
+<footer class="site-footer tone-forest">
+  <div class="wrap site-footer__row">
+    <a class="brand" href="#top" aria-label="Blüten Sturm — home" data-i18n-aria="a11y.home">
+      <svg class="brand__mark" viewBox="0 0 733.3 1000" aria-hidden="true" focusable="false"><use href="#bs-mono"></use></svg>
+      <span class="brand__word">Blüten Sturm</span>
+    </a>
+    <p class="site-footer__copy" data-i18n="footer.copy">© 2026 Blüten Sturm GmbH — Where brands bloom and ideas storm.</p>
+    <nav class="site-footer__links" aria-label="Legal" data-i18n-aria="a11y.legal">
+      <a href="/impressum/" data-i18n="footer.imprint">Impressum</a>
+      <a href="/datenschutz/" data-i18n="footer.privacy">Datenschutz</a>
+      <a href="/questionnaire/" data-i18n="footer.questionnaire">Questionnaire</a>
+      <a href="mailto:info@bluetensturm.com" data-i18n="footer.email">Email</a>
+      <a href="https://www.instagram.com/bluetensturmcreative" target="_blank" rel="noopener noreferrer" class="site-footer__ig">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg>
+        <span data-i18n="footer.instagram">Instagram</span></a>
+    </nav>
+  </div>
+  <div class="site-footer__giant" aria-hidden="true">Blüten Sturm</div>
+</footer>
+
+<!-- =====================================================================
+     Detail panel: services and partners share one dialog
+     ===================================================================== -->
+<dialog class="panel" data-panel aria-labelledby="panel-title">
+  <div class="panel__inner">
+    <button class="panel__close" type="button" data-panel-close><span class="sr-only" data-i18n="a11y.close">Close</span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <figure class="panel__media" data-panel-media hidden><img alt="" data-panel-img width="1280" height="720"></figure>
+    <div class="panel__head">
+      <p class="eyebrow" data-panel-eyebrow>Service</p>
+      <img class="panel__logo" alt="" data-panel-logo hidden>
+      <h2 class="panel__title" id="panel-title" data-panel-title></h2>
+      <p class="panel__tagline" data-panel-tagline></p>
+    </div>
+    <p class="panel__body" data-panel-body></p>
+    <ul class="panel__list" data-panel-list></ul>
+    <div class="packs" data-panel-packs></div>
+    <p class="panel__foot" data-panel-foot data-i18n="panel.foot">Indicative from-prices for the Bavarian market, net of VAT. Final scope is quoted against your brief.</p>
+  </div>
+</dialog>
+
+<!-- Monogram symbol: the B from the brand deck, three petals from one root -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="bs-mono" viewBox="0 0 733.3 1000">
+    <path d="M0 0H223.8C206.3 351.2 173.5 703.2 14.0 1000.0L0 1000Z"/>
+    <path d="M255.6 0H416.7A232.5 232.5 0 0 1 416.7 465L428 463C253.9 614.0 254.2 860.0 42.0 990.0C178.4 694.2 234.2 352.0 255.6 0.0Z"/>
+    <path d="M428 463L465.8 465A267.5 267.5 0 0 1 465.8 1000H32C264.1 898.0 268.9 632.9 449 497Q447 472 428 463Z"/>
+  </symbol>
+</svg>
+
+<script type="module" src="/js/site.js"></script>
+</body>
+</html>
