@@ -4,7 +4,7 @@
    1. Language switch (DE · EN · FR · ES · IT), texts from i18n.js
    2. Navigation: scrolled state, mobile menu sheet
    3. Motion: reveal on scroll, hero parallax, counting stats
-   4. Services: deep links to a service, package buttons prefill the form
+   4. Services: deep links to a service; prices: the October offer, request buttons prefill the form
    5. Forms: send to Formspree, then /thank-you; e-mail fallback on failure
    6. Thank-you page: optional conversion signal (off until configured)
 
@@ -110,12 +110,18 @@
     d.classList.remove('i18n-pending');
   }
 
-  // Prices: data-price holds the number; show it the way each language writes it.
+  // Prices: data-price holds the number (data-price-range "min-max"); show it the way each language writes it.
   function renderPrices() {
     var nf;
     try { nf = new Intl.NumberFormat(lang, { style: 'currency', currency: 'EUR', minimumFractionDigits: 0, maximumFractionDigits: 0 }); }
     catch (e) { return; }
     each('[data-price]', function (el) { el.textContent = wide(nf.format(+el.getAttribute('data-price'))); });
+    each('[data-price-range]', function (el) {
+      var r = el.getAttribute('data-price-range').split('-'), lo = +r[0], hi = +r[1];
+      var s;
+      try { s = nf.formatRange(lo, hi); } catch (e) { s = nf.format(lo) + ' – ' + nf.format(hi); }   // formatRange: 2023+ browsers
+      el.textContent = wide(s).replace(/\s?[-\u2013]\s?(?=[\d\u20ac])/, '\u2013');   // "2.000–4.000 €", "€2,000–€4,000"
+    });
   }
 
   // Translate first, so nothing below can keep a visitor waiting on English.
@@ -249,7 +255,7 @@
   // without JavaScript). Where <dialog> is supported, the petals in "What we do",
   // the cards in 02 and /#svc-… links open the service in a dialog instead: its
   // name, tagline and body are moved in while it is open and moved back on close,
-  // so translations, prices and the package buttons keep working on the same nodes.
+  // so translations and the request buttons keep working on the same nodes.
   var svcDlg = document.getElementById('svc-dialog');
   var brandDlg = document.getElementById('brand-dialog');
   var canDialog = !!(svcDlg && typeof svcDlg.showModal === 'function');
@@ -392,29 +398,79 @@
     brandDlg.addEventListener('close', function () { if (brandOpener) closeBrand(); });
   }
 
-  // Any element with data-package="…" (package buttons, Live, Academy, the
-  // full package) writes that text into the form's hidden "Package" field and
-  // preselects "Interested in"; the anchor then scrolls to #contact as usual.
+  // The October offer runs through offer.valid_until (/data/pricing.json, written into
+  // <meta name="bs-offer-until"> by tools/pricing.py). boot.js sets html.offer-on before the
+  // first paint; this ends it on time: at the deadline while the page stays open, after a
+  // sleeping laptop or a background tab wakes, and by the server's clock when the device's
+  // clock is behind (the live JSON can only end it sooner, never extend it). Once over, it
+  // stays over for this page view.
+  var offerMeta = document.querySelector('meta[name="bs-offer-until"]');
+  var offerEnd = offerMeta ? Date.parse(offerMeta.getAttribute('content')) + 1000 : NaN;   // valid through its last second
+  var offerOver = !(offerEnd > 0), offerTimer = 0;
+  function offerOn() { return d.classList.contains('offer-on'); }
+  function checkOffer() {
+    if (!offerOver && Date.now() >= offerEnd) offerOver = true;
+    var was = offerOn();
+    d.classList.toggle('offer-on', !offerOver);
+    clearTimeout(offerTimer);
+    // at the deadline, or in an hour if that is sooner (timers longer than ~24 days fire at once)
+    if (!offerOver) offerTimer = setTimeout(checkOffer, Math.min(offerEnd - Date.now() + 50, 36e5));
+    if (was !== offerOn()) syncPick();
+  }
+  if (!offerOver) {
+    document.addEventListener('visibilitychange', function () { if (!document.hidden) checkOffer(); });
+    window.addEventListener('pageshow', checkOffer);
+    // The live price list, fresh: its server date, and its own valid_until (no offer there: over).
+    var askServer = function () {
+      if (offerOver || !window.fetch) return;
+      fetch('/data/pricing.json', { cache: 'no-store' }).then(function (r) {
+        var now = Date.parse(r.headers.get('Date') || '');
+        return r.ok ? r.json().then(function (data) {
+          var o = data && data.offer, end = o ? Date.parse(o.valid_until) + 1000 : 0;
+          if (end < offerEnd) offerEnd = end;
+          if (now >= offerEnd || !(offerEnd > 0)) offerOver = true;
+          checkOffer();
+        }) : null;
+      }).catch(function () {});
+    };
+    if (document.readyState === 'complete') askServer(); else window.addEventListener('load', askServer);
+  }
+
+  // Request buttons: data-package="…" (price cards, Live, Academy, the full package) writes that
+  // text into the form's hidden "Package" field (data-package-offer instead while the offer is on),
+  // data-interest="…" preselects "Interested in"; the anchor then scrolls to #contact as usual.
   var form = document.getElementById('enquiry');
-  var pick = null;
+  var pick = null, pickBtn = null;   // the price card (data-pick) and the button it was asked from
+  function txt(n) { return n ? n.textContent.replace(/\s+/g, ' ').trim() : ''; }
+  function packageOf(a) { return (offerOn() && a.getAttribute('data-package-offer')) || a.getAttribute('data-package') || ''; }
   function renderPick() {
     if (!form) return;
     var box = form.querySelector('[data-picked]'), out = form.querySelector('[data-picked-text]');
     if (!box || !out) return;
     if (!pick) { box.classList.remove('is-visible'); return; }
-    var q = function (root, sel) { var n = root.querySelector(sel); return n ? n.textContent.trim() : ''; };
-    var amount = q(pick.pkg, '.pkg__price [data-price]');
-    out.textContent = q(pick.svc, '.svc__name') + ' — ' + q(pick.pkg, '.pkg__head .lbl') +
-      ' (' + q(pick.svc, '[data-i18n="pkg.from"]') + ' ' + amount + ' ' + q(pick.pkg, '.pkg__price small') + ')';
+    var name = txt(pick.querySelector('[data-pick-name]'));
+    var group = pick.hasAttribute('data-pick-group') && pick.closest('.price-group');
+    if (group) name = txt(group.querySelector('h3')) + ' · ' + name;
+    var price = txt(pick.querySelector('[data-pick-reg]'));
+    var deal = offerOn() ? pick.querySelector('[data-pick-offer]') : null;
+    if (deal) price = (deal.hasAttribute('data-pick-add') ? price + ' · ' : '') + txt(deal);
+    out.textContent = name + ' — ' + price;
     box.classList.add('is-visible');
   }
+  // The offer ended while a request was picked: the form says what applies now.
+  function syncPick() {
+    if (!form || !pickBtn) return;
+    var field = form.querySelector('[data-package-field]');
+    if (field) field.value = packageOf(pickBtn);
+    renderPick();
+  }
   var interest = form ? form.querySelector('select[name="Interested in"]') : null;
-  var autoInterest = null; // the value a package button chose, until the visitor changes it
+  var autoInterest = null; // the value a request button chose, until the visitor changes it
   document.addEventListener('click', function (e) {
-    var a = e.target.closest ? e.target.closest('[data-package]') : null;
+    var a = e.target.closest ? e.target.closest('[data-package], [data-interest]') : null;
     if (!a || !form) return;
     var field = form.querySelector('[data-package-field]');
-    if (field) field.value = a.getAttribute('data-package');
+    if (field) field.value = packageOf(a);
     var want = a.getAttribute('data-interest');
     if (want && interest) {
       for (var i = 0; i < interest.options.length; i++) if (interest.options[i].value === want) { interest.selectedIndex = i; autoInterest = want; break; }
@@ -422,20 +478,21 @@
       interest.selectedIndex = 0;
       autoInterest = null;
     }
-    var svc = a.closest('.svc'), pkg = a.closest('.pkg');
-    pick = (svc && pkg) ? { svc: svc, pkg: pkg } : null;
+    pick = a.closest('[data-pick]');
+    pickBtn = pick ? a : null;
     renderPick();
   });
   if (interest) {
     // A manual choice wins: forget the package so the enquiry never contradicts itself.
     interest.addEventListener('change', function () {
       autoInterest = null;
-      pick = null;
+      pick = pickBtn = null;
       var field = form.querySelector('[data-package-field]');
       if (field) field.value = '';
       renderPick();
     });
   }
+  checkOffer();
 
   /* ---------- 5. Forms ------------------------------------------------- */
   // Long answers are shortened: Windows hands mailto: links to the mail app with a ~2,000-character limit.

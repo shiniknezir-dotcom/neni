@@ -1,6 +1,6 @@
 # bluetensturm.com — BlütenSturm Noir
 
-The new website for BlütenSturm, built in the Noir brand (black and white, one pollen-yellow spark per surface) with all the content and the section order of the current bluetensturm.com, in all five languages: the hero, the eighteen services (each opens its detail with Normal and Premium packages), the five disciplines, why us, the work, the 44 brands (each opens its detail), the academy, the contact form and the questionnaire. Plain HTML, CSS and JavaScript: no framework, no build step, nothing to install. Ready for Netlify.
+The new website for BlütenSturm, built in the Noir brand (black and white, one pollen-yellow spark per surface) with all the content and the section order of the current bluetensturm.com, in all five languages: the hero, the eighteen services (each opens its detail), the five disciplines, the prices and the October offer (from your price list of 17.10.2026), why us, the work, the 44 brands (each opens its detail), the academy, the contact form and the questionnaire. Plain HTML, CSS and JavaScript: no framework, no build step, nothing to install. Ready for Netlify.
 
 **Real brands. Real people.**
 
@@ -15,12 +15,16 @@ The new website for BlütenSturm, built in the Noir brand (black and white, one 
 ├── CLAUDE.md                    project memory for Claude Code (rules, structure, how-tos)
 ├── HIGGSFIELD-SKILLS.md         the Higgsfield skills pack that also lives in this repository
 ├── tools/
-│   ├── check_site.py            pre-deploy check: translations, links, files
+│   ├── check_site.py            pre-deploy check: translations, links, files, prices
+│   ├── pricing.py               writes the price section from site/data/pricing.json
+│   ├── pricing_i18n.json        the price list's EN · FR · ES · IT translations
+│   ├── make_zip.py              builds dist/bluetensturm-netlify.zip for drag-and-drop upload
 │   └── serve.py                 local preview that behaves like Netlify
 └── site/                        ← this is the website
-    ├── index.html               home: hero, agency, services (18, with packages),
-    │                            full package, work, portfolio (44 brands), Live,
-    │                            Academy, why us, people, contact form
+    ├── index.html               home: hero, services (18), agency, five disciplines,
+    │                            prices & offers, full package, work, portfolio
+    │                            (44 brands), Live, Academy, people, contact form
+    ├── data/pricing.json        your price list: the one place prices are kept
     ├── questionnaire.html       the full project questionnaire  → /questionnaire
     ├── thank-you.html           after a form is sent            → /thank-you
     ├── impressum.html           legal notice (German)           → /impressum
@@ -49,7 +53,15 @@ Every page except Impressum and Datenschutz is in **DE · EN · FR · ES · IT**
 
 ## Forms
 
-The contact form (home page) and the questionnaire send to Formspree (`https://formspree.io/f/mvkpynzr`, the same endpoint as today), which forwards to **info@bluetensturm.com**. On success the visitor lands on `/thank-you`. If Formspree can't be reached, the visitor gets a button that opens their own e-mail app with everything they typed, so no enquiry is lost. Every package button ("Request Premium" etc.) pre-fills the form with the exact package.
+The contact form (home page) and the questionnaire send to Formspree (`https://formspree.io/f/mvkpynzr`, the same endpoint as today), which forwards to **info@bluetensturm.com**. On success the visitor lands on `/thank-you`. If Formspree can't be reached, the visitor gets a button that opens their own e-mail app with everything they typed, so no enquiry is lost. Every "Request" button in the price list pre-fills the form with the exact package and price in German (during the October offer: the offer price and the regular one, e.g. "Website Business — Oktober-Aktion: 1.200 € statt 2.400 €"), so you see which price the visitor saw.
+
+## Prices and the October offer
+
+All prices come from **`site/data/pricing.json`**, your price list of 17.10.2026, saved exactly as you sent it (the table texts the JSON did not carry, such as the features of the Academy and the in-store promotions, were added from the same file; no other prices exist on the site). The home page shows them in the section **Preise & Angebote**, in all five languages; the German is word for word yours. "Alle Preise sind Endpreise." stands under the prices and in the footer of every page.
+
+The **Oktober-Aktion** (banner in the price section, a link under the hero buttons, the regular price struck through next to the October price) shows only until **31.10.2026, 23:59:59** (Berlin time) and disappears by itself from 1 November 00:00, also on a page that is open at midnight, and and also when a visitor's own clock is behind (the site checks the server's clock). Without JavaScript only the regular prices show.
+
+To change a price: edit `site/data/pricing.json`, then run `python3 tools/pricing.py` (it rewrites the price section and the translations) and `python3 tools/check_site.py`. A new or changed German text needs its translations in `tools/pricing_i18n.json`; the tool tells you which. After the offer has ended, delete the `"offer"` block from the JSON and run the tool again, so the offer is gone from the code too.
 
 ## Deploy
 
@@ -59,7 +71,7 @@ Pick one way:
 
 1. **From this repository (recommended).** In Netlify: Add new project → Import an existing project → GitHub → this repository. Leave the **Base directory** empty, the build command and the publish directory come from `netlify.toml` (publish `site`, no build). Every push to the production branch then publishes the site; every other branch gets a deploy preview with its own link. If the existing bluetensturm.com site is not linked to Git yet, link it under Project configuration → Build & deploy → Continuous deployment, so the domain and the DNS stay exactly as they are.
 2. **Netlify CLI.** At the repository root: `netlify login`, `netlify link` (choose the existing bluetensturm.com site), then `netlify deploy --dir=site` for a preview link and `netlify deploy --prod --dir=site` to publish.
-3. **Drag and drop.** Netlify → your site → Deploys → drag the **`site` folder** (not the whole repository) onto the page. Headers and redirects come along because they live inside `site/`.
+3. **Drag and drop.** Netlify → your site → Deploys → drag the **`site` folder** (not the whole repository) onto the page. Headers and redirects come along because they live inside `site/`. Or upload the ready zip, **`dist/bluetensturm-netlify.zip`** (the contents of `site/`, rebuilt with `python3 tools/make_zip.py`, which refuses to build if the check finds an error).
 
 Publish to production only after you have looked at a preview. The previous site stays reachable through its old URLs (see "Old addresses").
 
@@ -90,12 +102,13 @@ python3 tools/check_site.py     # must end with "0 errors" before every deploy
 Things only you can confirm. Placeholders on the legal pages are shown in **yellow** on purpose, so nothing slips through.
 
 **Legal (required in Germany)**
-- [ ] **Impressum**: company name as registered (the old site said "Blüten Sturm GmbH"; the brand is "BlütenSturm"), street, postcode, phone, managing director, commercial register number, VAT ID, person responsible for content. File: `site/impressum.html`.
-- [ ] **Datenschutz**: the same company details, and the legal basis Formspree gives for sending form data to the USA (look it up in Formspree's data processing agreement). File: `site/datenschutz.html`.
+- [ ] **Impressum**: company name as registered (the old site said "Blüten Sturm GmbH"; the brand is "BlütenSturm"), phone, managing director, commercial register number, VAT ID, person responsible for content. The address is now **Kirchstraße 8, 97209 Veitshöchheim**, taken from your price list: confirm it is also the address for the Impressum. File: `site/impressum.html`.
+- [ ] **VAT**: the prices are final prices without VAT, as your price list says. If you use the small-business rule (§ 19 UStG), the Impressum's VAT-ID line may not apply; and check the Kleinunternehmer limit with your Steuerberater before these totals run into 2027, as your list notes.
+- [ ] **Datenschutz**: the same company details (the address is filled in), and the legal basis Formspree gives for sending form data to the USA (look it up in Formspree's data processing agreement). File: `site/datenschutz.html`.
 - The old Impressum linked to the EU online dispute platform. That platform closed on 20 July 2025 and the link must no longer appear, so it has been removed.
 
 **Content carried over from the old site that was written as placeholder text**
-- [ ] **Prices.** The 18 services show "from" prices and two packages each, exactly as on the current site (e.g. Social media management from 1.900 €/month, Website from 8.500 €). The old site's code itself called these "positioning numbers, not a rate card", and they are not the same as your internal price list. Decide which prices to show (or show none). Because the prices are net (plus VAT), the note under the list now also says the offers are for businesses only; German price rules require gross prices for consumers. Keep that sentence unless you switch to gross prices.
+- Prices: done. The old "from" prices and the Normal/Premium packages of the 18 services are gone; only your price list of 17.10.2026 is shown. The old 500 € website price appears nowhere (the check refuses it). Instagram highlights, bio and the sales agent skill are outside this website: update them yourself.
 - [ ] **The four numbers** under "Franconian roots": 120 projects, 9 markets, 2,400 leaders trained, 94 % client retention.
 - [ ] **The four anonymised case studies** (manufacturer rebrand, DACH launch, 400-manager programme, Würzburg summit). Keep them only if they are real; otherwise delete that block.
 - [ ] **"Presence: Würzburg · Berlin · Zürich · Wien · Milano"** under the facts.
@@ -113,7 +126,7 @@ Things only you can confirm. Placeholders on the legal pages are shown in **yell
 
 ## Changing things later
 
-Ask Claude Code in plain words ("change the Social media price to 1.200 €", "add a sentence about Dijan", "remove the case studies"). `CLAUDE.md` tells it where everything is and which rules to keep: brand, five languages, privacy, security headers.
+Ask Claude Code in plain words ("change the Website Business price to 2.600 €", "add a sentence about Dijan", "remove the case studies"). `CLAUDE.md` tells it where everything is and which rules to keep: brand, five languages, privacy, security headers.
 
 ## Tracking (off on purpose)
 

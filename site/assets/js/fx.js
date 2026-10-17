@@ -103,7 +103,7 @@
   /* ---------- 3. Word reveal ------------------------------------------ */
   var SPLIT = '.hero__title, .h-xl, .h-l, .h-m, .statement, .center-page h1';
   // main.js reads text from these; they are never split.
-  var NEVER = '.svc__name, .pkg__head .lbl, [data-i18n="pkg.from"], .pkg__price, .stat__value, [data-picked-text], .form__status';
+  var NEVER = '.svc__name, [data-pick-name], [data-pick-reg], [data-pick-offer], .stat__value, [data-picked-text], .form__status';
 
   function splitNode(node) {
     var i, parts, frag, outer, inner, kids;

@@ -19,9 +19,14 @@ Checks:
      "Interested in" select on the home page.
   4. Links and files: every local href/src (pages, #anchors, images, CSS, JS,
      fonts referenced from CSS) resolves to a real file or element id.
+  5. Prices: the price section, the offer and the "prices.*" translations
+     match site/data/pricing.json (tools/pricing.py --check); every page links
+     Impressum and Datenschutz and carries the price note in its footer; the
+     old 500 € website price appears nowhere. Once the offer's valid_until has
+     passed, a warning asks to remove it from the JSON.
 Exits with status 1 if anything is missing, so it can gate a deploy.
 """
-import json, os, re, sys
+import datetime, importlib.util, io, contextlib, json, os, re, sys
 from html.parser import HTMLParser
 
 BASE = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
@@ -292,6 +297,41 @@ for name, p in pages.items():
         target = ref.split('#')[0] or '/'
         if frag and target in ('/', '/index.html') and frag not in pages['index.html'].ids:
             errors.append(f'[link] {name}: {ref} — no id "{frag}" on the home page')
+
+# 5. prices
+spec = importlib.util.spec_from_file_location('pricing', os.path.join(BASE, 'tools', 'pricing.py'))
+pricing = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(pricing)
+said, err = io.StringIO(), io.StringIO()
+with contextlib.redirect_stdout(said), contextlib.redirect_stderr(err):
+    stale = pricing.main(['--check'])
+if stale:
+    for line in (said.getvalue() + err.getvalue()).strip().splitlines():
+        errors.append('[prices] ' + line.replace('pricing: ', '', 1))
+try:
+    offer = json.load(open(os.path.join(SITE, 'data', 'pricing.json'), encoding='utf-8')).get('offer') or {}
+    until = datetime.datetime.fromisoformat(offer['valid_until']) if offer.get('valid_until') else None
+    if until and datetime.datetime.now(datetime.timezone.utc) > until:
+        warnings.append(f'[prices] the offer "{offer.get("name")}" ended {offer["valid_until"]}: the site already hides it; '
+                        'remove "offer" from site/data/pricing.json and run python3 tools/pricing.py')
+except (ValueError, OSError) as e:
+    errors.append(f'[prices] site/data/pricing.json: {e}')
+for name in pages:
+    src = open(os.path.join(SITE, name), encoding='utf-8').read()
+    foot = src[src.rfind('<footer'):] if '<footer' in src else ''
+    for need in ('href="/impressum"', 'href="/datenschutz"'):
+        if need not in foot:
+            errors.append(f'[legal] {name}: the footer has no {need} link')
+    if 'data-i18n="prices.vat"' not in foot and 'data-vat-de' not in foot:
+        errors.append(f'[prices] {name}: the footer has no price note ("Alle Preise sind Endpreise.")')
+old_price = re.compile(r'(?<!\d[.,\u00a0\u202f ])(?<!\d)500[\u00a0\u202f ]?€|€[\u00a0 ]?500(?!\d|[.,]\d)|data-price="500"')
+for name in pages:
+    if old_price.search(open(os.path.join(SITE, name), encoding='utf-8').read()):
+        errors.append(f'[prices] {name}: a 500 € price is still on the page (the old website price was withdrawn)')
+for l in LANGS:
+    for k, v in D.get(l, {}).items():
+        if isinstance(v, str) and old_price.search(v):
+            errors.append(f'[prices] i18n.js {l.upper()} "{k}": a 500 € price (the old website price was withdrawn)')
 
 css_dir = os.path.join(SITE, 'assets', 'css')
 for css_name in sorted(os.listdir(css_dir)):

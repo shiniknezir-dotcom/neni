@@ -20,6 +20,7 @@
 <link rel="stylesheet" href="/assets/css/style.css">
 <link rel="stylesheet" href="/assets/css/motion.css">
 <link rel="stylesheet" href="/assets/css/intro.css">
+<meta name="bs-offer-until" content="2026-10-31T23:59:59+01:00">
 <script src="/assets/js/boot.js"></script>
 <script src="/assets/js/intro.js" async></script>
 <script src="/assets/js/i18n.js" defer></script>
@@ -99,6 +100,7 @@
   <nav class="sheet__links" aria-label="Main" data-i18n-attr="aria-label:a11y.mainnav">
     <a href="#about"><span class="t" data-i18n="nav.about">About</span><span class="n">01</span></a>
     <a href="#services"><span class="t" data-i18n="nav.services">Services</span><span class="n">02</span></a>
+    <a href="#prices"><span class="t" data-i18n="prices.lbl">Prices &amp; offers</span><span class="n">€</span></a>
     <a href="#work"><span class="t" data-i18n="nav.work">Work</span><span class="n">04</span></a>
     <a href="#portfolio"><span class="t" data-i18n="nav.portfolio">Portfolio</span><span class="n">05</span></a>
     <a href="#academy"><span class="t" data-i18n="nav.academy">Academy</span><span class="n">06</span></a>
@@ -142,6 +144,9 @@
         <a class="btn" href="#contact" data-i18n="cta.start">Start a project</a>
         <a class="btn btn--ghost" href="#what" data-i18n="cta.whatwedo">What we do</a>
       </div>
+      <!-- pricing:pill:start -->
+      <a class="offer-pill offer-only" href="#prices"><span class="lbl" data-i18n="prices.offer.name">October offer</span><span class="offer-pill__head" data-i18n="prices.offer.headline">50% off all websites</span><span class="offer-pill__until" data-i18n="prices.until">until 31 October 2026</span></a>
+      <!-- pricing:pill:end -->
     </div>
     <div class="hero__meta">
       <div class="wrap">
@@ -199,98 +204,53 @@
         <div class="svc-group__head"><span class="force__num">I</span><span class="serif">Blüte</span><p class="lbl" data-i18n="force.1.lbl">Brand &amp; Creative</p></div>
         <div class="svc-list">
           <details class="svc" id="svc-brand-strategy">
-            <summary><span class="svc__n">01</span><span><span class="svc__name" data-i18n="svc.brand-strategy.name">Brand Strategy</span><span class="svc__tagline" data-i18n="svc.brand-strategy.tagline">Positioning that survives the boardroom</span></span><span class="svc__from"><span data-i18n="pkg.from">from</span><b data-price="6500">€6,500</b><small data-i18n="pkg.unit.pr">per project</small></span><span class="svc__toggle" aria-hidden="true"></span></summary>
+            <summary><span class="svc__n">01</span><span><span class="svc__name" data-i18n="svc.brand-strategy.name">Brand Strategy</span><span class="svc__tagline" data-i18n="svc.brand-strategy.tagline">Positioning that survives the boardroom</span></span><span class="svc__toggle" aria-hidden="true"></span></summary>
             <div class="svc__body">
               <div class="stack gap-16">
                 <p class="svc__desc" data-i18n="svc.brand-strategy.desc">Category and competitor analysis, brand architecture, naming, and the verbal and visual system that carries it.</p>
                 <ul class="svc__scope"><li class="tag" data-i18n="svc.brand-strategy.s1">Market and category analysis</li><li class="tag" data-i18n="svc.brand-strategy.s2">Brand architecture</li><li class="tag" data-i18n="svc.brand-strategy.s3">Naming and verbal identity</li><li class="tag" data-i18n="svc.brand-strategy.s4">Visual identity systems</li></ul>
               </div>
-              <div class="pkg" data-tilt>
-                <div class="pkg__head"><span class="lbl" data-i18n="pkg.normal">Normal</span><span class="pkg__price"><span class="pkg__from" data-i18n="pkg.from">from</span><span data-price="6500">€6,500</span><small data-i18n="pkg.unit.pr">per project</small></span></div>
-                <ul class="pkg__items"><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.brand-strategy.n1">Positioning sprint, two workshops</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.brand-strategy.n2">Competitor and category map</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.brand-strategy.n3">Messaging house and tone of voice</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.brand-strategy.n4">Brand guidelines, 20 pages</span></li></ul>
-                <a class="tlink" href="#contact" data-package="Brand strategy — Normal (from €6,500 per project)" data-interest="Brand strategy" data-i18n="pkg.req.normal">Request Normal</a>
-              </div>
-              <div class="pkg pkg--premium" data-tilt>
-                <div class="pkg__head"><span class="lbl" data-i18n="pkg.premium">Premium</span><span class="pkg__price"><span class="pkg__from" data-i18n="pkg.from">from</span><span data-price="18000">€18,000</span><small data-i18n="pkg.unit.pr">per project</small></span></div>
-                <ul class="pkg__items"><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.everything">Everything in Normal</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.brand-strategy.p2">Brand architecture and naming</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.brand-strategy.p3">Full visual identity system</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.brand-strategy.p4">Rollout playbook and internal launch</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.brand-strategy.p5">Six months of stewardship</span></li></ul>
-                <a class="tlink" href="#contact" data-package="Brand strategy — Premium (from €18,000 per project)" data-interest="Brand strategy" data-i18n="pkg.req.premium">Request Premium</a>
-              </div>
+              <div class="svc__cta"><a class="btn btn--ghost btn--sm" href="#contact" data-interest="Brand strategy" data-i18n="svc.req">Request this service</a><a class="tlink" href="#price-branding" data-i18n="prices.see">See prices</a></div>
             </div>
           </details>
           <details class="svc" id="svc-creative-services">
-            <summary><span class="svc__n">02</span><span><span class="svc__name" data-i18n="svc.creative-services.name">Creative Services</span><span class="svc__tagline" data-i18n="svc.creative-services.tagline">Ideas that survive the pitch</span></span><span class="svc__from"><span data-i18n="pkg.from">from</span><b data-price="3900">€3,900</b><small data-i18n="pkg.unit.pr">per project</small></span><span class="svc__toggle" aria-hidden="true"></span></summary>
+            <summary><span class="svc__n">02</span><span><span class="svc__name" data-i18n="svc.creative-services.name">Creative Services</span><span class="svc__tagline" data-i18n="svc.creative-services.tagline">Ideas that survive the pitch</span></span><span class="svc__toggle" aria-hidden="true"></span></summary>
             <div class="svc__body">
               <div class="stack gap-16">
                 <p class="svc__desc" data-i18n="svc.creative-services.desc">Concept, art direction and campaign platforms built to run across markets without losing their edge.</p>
                 <ul class="svc__scope"><li class="tag" data-i18n="svc.creative-services.s1">Campaign platforms</li><li class="tag" data-i18n="svc.creative-services.s2">Art direction</li><li class="tag" data-i18n="svc.creative-services.s3">Copy and concept</li></ul>
               </div>
-              <div class="pkg" data-tilt>
-                <div class="pkg__head"><span class="lbl" data-i18n="pkg.normal">Normal</span><span class="pkg__price"><span class="pkg__from" data-i18n="pkg.from">from</span><span data-price="3900">€3,900</span><small data-i18n="pkg.unit.pr">per project</small></span></div>
-                <ul class="pkg__items"><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.creative-services.n1">One campaign route</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.creative-services.n2">Key visual and headline system</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.creative-services.n3">Art direction for three formats</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.creative-services.n4">Two revision rounds</span></li></ul>
-                <a class="tlink" href="#contact" data-package="Creative services — Normal (from €3,900 per project)" data-interest="Creative services" data-i18n="pkg.req.normal">Request Normal</a>
-              </div>
-              <div class="pkg pkg--premium" data-tilt>
-                <div class="pkg__head"><span class="lbl" data-i18n="pkg.premium">Premium</span><span class="pkg__price"><span class="pkg__from" data-i18n="pkg.from">from</span><span data-price="14000">€14,000</span><small data-i18n="pkg.unit.pr">per project</small></span></div>
-                <ul class="pkg__items"><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.everything">Everything in Normal</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.creative-services.p2">Three competing routes</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.creative-services.p3">Full campaign platform</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.creative-services.p4">Asset kit across all channels</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.creative-services.p5">Market adaptation for DACH</span></li></ul>
-                <a class="tlink" href="#contact" data-package="Creative services — Premium (from €14,000 per project)" data-interest="Creative services" data-i18n="pkg.req.premium">Request Premium</a>
-              </div>
+              <div class="svc__cta"><a class="btn btn--ghost btn--sm" href="#contact" data-interest="Creative services" data-i18n="svc.req">Request this service</a></div>
             </div>
           </details>
           <details class="svc" id="svc-content-production">
-            <summary><span class="svc__n">03</span><span><span class="svc__name" data-i18n="svc.content-production.name">Content Production</span><span class="svc__tagline" data-i18n="svc.content-production.tagline">One roof, concept to delivery</span></span><span class="svc__from"><span data-i18n="pkg.from">from</span><b data-price="3200">€3,200</b><small data-i18n="pkg.unit.mo">per month</small></span><span class="svc__toggle" aria-hidden="true"></span></summary>
+            <summary><span class="svc__n">03</span><span><span class="svc__name" data-i18n="svc.content-production.name">Content Production</span><span class="svc__tagline" data-i18n="svc.content-production.tagline">One roof, concept to delivery</span></span><span class="svc__toggle" aria-hidden="true"></span></summary>
             <div class="svc__body">
               <div class="stack gap-16">
                 <p class="svc__desc" data-i18n="svc.content-production.desc">Film, photography, copy and design produced as one system rather than five briefs.</p>
                 <ul class="svc__scope"><li class="tag" data-i18n="svc.content-production.s1">Film and motion</li><li class="tag" data-i18n="svc.content-production.s2">Photography</li><li class="tag" data-i18n="svc.content-production.s3">Editorial and copy</li></ul>
               </div>
-              <div class="pkg" data-tilt>
-                <div class="pkg__head"><span class="lbl" data-i18n="pkg.normal">Normal</span><span class="pkg__price"><span class="pkg__from" data-i18n="pkg.from">from</span><span data-price="3200">€3,200</span><small data-i18n="pkg.unit.mo">per month</small></span></div>
-                <ul class="pkg__items"><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.content-production.n1">One shoot day a month</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.content-production.n2">Editorial and copy</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.content-production.n3">Photo and short-form edit</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.content-production.n4">Asset library handover</span></li></ul>
-                <a class="tlink" href="#contact" data-package="Content production — Normal (from €3,200 per month)" data-interest="Content production" data-i18n="pkg.req.normal">Request Normal</a>
-              </div>
-              <div class="pkg pkg--premium" data-tilt>
-                <div class="pkg__head"><span class="lbl" data-i18n="pkg.premium">Premium</span><span class="pkg__price"><span class="pkg__from" data-i18n="pkg.from">from</span><span data-price="8500">€8,500</span><small data-i18n="pkg.unit.mo">per month</small></span></div>
-                <ul class="pkg__items"><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.everything">Everything in Normal</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.content-production.p2">Three shoot days a month</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.content-production.p3">Film, motion and photography</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.content-production.p4">Bilingual editorial desk</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.content-production.p5">Always-on content pipeline</span></li></ul>
-                <a class="tlink" href="#contact" data-package="Content production — Premium (from €8,500 per month)" data-interest="Content production" data-i18n="pkg.req.premium">Request Premium</a>
-              </div>
+              <div class="svc__cta"><a class="btn btn--ghost btn--sm" href="#contact" data-interest="Content production" data-i18n="svc.req">Request this service</a><a class="tlink" href="#prices-social" data-i18n="prices.see">See prices</a></div>
             </div>
           </details>
           <details class="svc" id="svc-video-multimedia">
-            <summary><span class="svc__n">04</span><span><span class="svc__name" data-i18n="svc.video-multimedia.name">Video &amp; Multimedia</span><span class="svc__tagline" data-i18n="svc.video-multimedia.tagline">Motion that carries the idea</span></span><span class="svc__from"><span data-i18n="pkg.from">from</span><b data-price="4500">€4,500</b><small data-i18n="pkg.unit.pr">per project</small></span><span class="svc__toggle" aria-hidden="true"></span></summary>
+            <summary><span class="svc__n">04</span><span><span class="svc__name" data-i18n="svc.video-multimedia.name">Video &amp; Multimedia</span><span class="svc__tagline" data-i18n="svc.video-multimedia.tagline">Motion that carries the idea</span></span><span class="svc__toggle" aria-hidden="true"></span></summary>
             <div class="svc__body">
               <div class="stack gap-16">
                 <p class="svc__desc" data-i18n="svc.video-multimedia.desc">Brand films, product video and motion design, produced in-house.</p>
                 <ul class="svc__scope"><li class="tag" data-i18n="svc.video-multimedia.s1">Brand film</li><li class="tag" data-i18n="svc.video-multimedia.s2">Product video</li><li class="tag" data-i18n="svc.video-multimedia.s3">Motion design</li></ul>
               </div>
-              <div class="pkg" data-tilt>
-                <div class="pkg__head"><span class="lbl" data-i18n="pkg.normal">Normal</span><span class="pkg__price"><span class="pkg__from" data-i18n="pkg.from">from</span><span data-price="4500">€4,500</span><small data-i18n="pkg.unit.pr">per project</small></span></div>
-                <ul class="pkg__items"><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.video-multimedia.n1">One shoot day, two-person crew</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.video-multimedia.n2">Brand film up to 90 seconds</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.video-multimedia.n3">Three social cutdowns</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.video-multimedia.n4">Licensed music and grade</span></li></ul>
-                <a class="tlink" href="#contact" data-package="Video &amp; multimedia — Normal (from €4,500 per project)" data-interest="Video &amp; multimedia" data-i18n="pkg.req.normal">Request Normal</a>
-              </div>
-              <div class="pkg pkg--premium" data-tilt>
-                <div class="pkg__head"><span class="lbl" data-i18n="pkg.premium">Premium</span><span class="pkg__price"><span class="pkg__from" data-i18n="pkg.from">from</span><span data-price="14500">€14,500</span><small data-i18n="pkg.unit.pr">per project</small></span></div>
-                <ul class="pkg__items"><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.everything">Everything in Normal</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.video-multimedia.p2">Three shoot days, full crew</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.video-multimedia.p3">Director, cast and location scouting</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.video-multimedia.p4">Motion design and 3D inserts</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.video-multimedia.p5">Ten cutdowns and versioning</span></li></ul>
-                <a class="tlink" href="#contact" data-package="Video &amp; multimedia — Premium (from €14,500 per project)" data-interest="Video &amp; multimedia" data-i18n="pkg.req.premium">Request Premium</a>
-              </div>
+              <div class="svc__cta"><a class="btn btn--ghost btn--sm" href="#contact" data-interest="Video &amp; multimedia" data-i18n="svc.req">Request this service</a></div>
             </div>
           </details>
           <details class="svc" id="svc-website-digital-experience">
-            <summary><span class="svc__n">05</span><span><span class="svc__name" data-i18n="svc.website-digital-experience.name">Website &amp; Digital Experience</span><span class="svc__tagline" data-i18n="svc.website-digital-experience.tagline">Built, not just designed</span></span><span class="svc__from"><span data-i18n="pkg.from">from</span><b data-price="8500">€8,500</b><small data-i18n="pkg.unit.pr">per project</small></span><span class="svc__toggle" aria-hidden="true"></span></summary>
+            <summary><span class="svc__n">05</span><span><span class="svc__name" data-i18n="svc.website-digital-experience.name">Website &amp; Digital Experience</span><span class="svc__tagline" data-i18n="svc.website-digital-experience.tagline">Built, not just designed</span></span><span class="svc__toggle" aria-hidden="true"></span></summary>
             <div class="svc__body">
               <div class="stack gap-16">
                 <p class="svc__desc" data-i18n="svc.website-digital-experience.desc">Sites and products that load fast, rank, and feel deliberate on every device.</p>
                 <ul class="svc__scope"><li class="tag" data-i18n="svc.website-digital-experience.s1">Design and build</li><li class="tag" data-i18n="svc.website-digital-experience.s2">Performance and SEO</li><li class="tag" data-i18n="svc.website-digital-experience.s3">Accessibility</li></ul>
               </div>
-              <div class="pkg" data-tilt>
-                <div class="pkg__head"><span class="lbl" data-i18n="pkg.normal">Normal</span><span class="pkg__price"><span class="pkg__from" data-i18n="pkg.from">from</span><span data-price="8500">€8,500</span><small data-i18n="pkg.unit.pr">per project</small></span></div>
-                <ul class="pkg__items"><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.website-digital-experience.n1">Up to 10 pages, custom design</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.website-digital-experience.n2">CMS and content migration</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.website-digital-experience.n3">Core Web Vitals pass</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.website-digital-experience.n4">Accessibility baseline</span></li></ul>
-                <a class="tlink" href="#contact" data-package="Website &amp; digital experience — Normal (from €8,500 per project)" data-interest="Website &amp; digital experience" data-i18n="pkg.req.normal">Request Normal</a>
-              </div>
-              <div class="pkg pkg--premium" data-tilt>
-                <div class="pkg__head"><span class="lbl" data-i18n="pkg.premium">Premium</span><span class="pkg__price"><span class="pkg__from" data-i18n="pkg.from">from</span><span data-price="24000">€24,000</span><small data-i18n="pkg.unit.pr">per project</small></span></div>
-                <ul class="pkg__items"><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.everything">Everything in Normal</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.website-digital-experience.p2">Multilingual, up to 40 pages</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.website-digital-experience.p3">Design system and component library</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.website-digital-experience.p4">Integrations and custom features</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.website-digital-experience.p5">Twelve months of care and CRO</span></li></ul>
-                <a class="tlink" href="#contact" data-package="Website &amp; digital experience — Premium (from €24,000 per project)" data-interest="Website &amp; digital experience" data-i18n="pkg.req.premium">Request Premium</a>
-              </div>
+              <div class="svc__cta"><a class="btn btn--ghost btn--sm" href="#contact" data-interest="Website &amp; digital experience" data-i18n="svc.req">Request this service</a><a class="tlink" href="#prices-websites" data-i18n="prices.see">See prices</a></div>
             </div>
           </details>
         </div>
@@ -299,155 +259,83 @@
         <div class="svc-group__head"><span class="force__num">II</span><span class="serif">Sturm</span><p class="lbl" data-i18n="force.2.lbl">Marketing &amp; Reach</p></div>
         <div class="svc-list">
           <details class="svc" id="svc-marketing-strategy">
-            <summary><span class="svc__n">06</span><span><span class="svc__name" data-i18n="svc.marketing-strategy.name">Marketing Strategy</span><span class="svc__tagline" data-i18n="svc.marketing-strategy.tagline">A plan measured against pipeline</span></span><span class="svc__from"><span data-i18n="pkg.from">from</span><b data-price="4800">€4,800</b><small data-i18n="pkg.unit.pr">per project</small></span><span class="svc__toggle" aria-hidden="true"></span></summary>
+            <summary><span class="svc__n">06</span><span><span class="svc__name" data-i18n="svc.marketing-strategy.name">Marketing Strategy</span><span class="svc__tagline" data-i18n="svc.marketing-strategy.tagline">A plan measured against pipeline</span></span><span class="svc__toggle" aria-hidden="true"></span></summary>
             <div class="svc__body">
               <div class="stack gap-16">
                 <p class="svc__desc" data-i18n="svc.marketing-strategy.desc">Channel strategy, funnel design and budget allocation, tied to commercial outcomes rather than impressions.</p>
                 <ul class="svc__scope"><li class="tag" data-i18n="svc.marketing-strategy.s1">Channel and funnel strategy</li><li class="tag" data-i18n="svc.marketing-strategy.s2">Budget allocation</li><li class="tag" data-i18n="svc.marketing-strategy.s3">Measurement frameworks</li></ul>
               </div>
-              <div class="pkg" data-tilt>
-                <div class="pkg__head"><span class="lbl" data-i18n="pkg.normal">Normal</span><span class="pkg__price"><span class="pkg__from" data-i18n="pkg.from">from</span><span data-price="4800">€4,800</span><small data-i18n="pkg.unit.pr">per project</small></span></div>
-                <ul class="pkg__items"><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.marketing-strategy.n1">Channel and funnel audit</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.marketing-strategy.n2">12-month channel plan</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.marketing-strategy.n3">Budget allocation model</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.marketing-strategy.n4">KPI framework</span></li></ul>
-                <a class="tlink" href="#contact" data-package="Marketing strategy — Normal (from €4,800 per project)" data-interest="Marketing strategy" data-i18n="pkg.req.normal">Request Normal</a>
-              </div>
-              <div class="pkg pkg--premium" data-tilt>
-                <div class="pkg__head"><span class="lbl" data-i18n="pkg.premium">Premium</span><span class="pkg__price"><span class="pkg__from" data-i18n="pkg.from">from</span><span data-price="12000">€12,000</span><small data-i18n="pkg.unit.pr">per project</small></span></div>
-                <ul class="pkg__items"><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.everything">Everything in Normal</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.marketing-strategy.p2">Segment and persona research</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.marketing-strategy.p3">Media mix modelling</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.marketing-strategy.p4">Quarterly steering with your board</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.marketing-strategy.p5">Attribution setup</span></li></ul>
-                <a class="tlink" href="#contact" data-package="Marketing strategy — Premium (from €12,000 per project)" data-interest="Marketing strategy" data-i18n="pkg.req.premium">Request Premium</a>
-              </div>
+              <div class="svc__cta"><a class="btn btn--ghost btn--sm" href="#contact" data-interest="Marketing strategy" data-i18n="svc.req">Request this service</a></div>
             </div>
           </details>
           <details class="svc" id="svc-digital-marketing">
-            <summary><span class="svc__n">07</span><span><span class="svc__name" data-i18n="svc.digital-marketing.name">Digital Marketing</span><span class="svc__tagline" data-i18n="svc.digital-marketing.tagline">Performance without the vanity metrics</span></span><span class="svc__from"><span data-i18n="pkg.from">from</span><b data-price="2400">€2,400</b><small data-i18n="pkg.unit.mo">per month</small></span><span class="svc__toggle" aria-hidden="true"></span></summary>
+            <summary><span class="svc__n">07</span><span><span class="svc__name" data-i18n="svc.digital-marketing.name">Digital Marketing</span><span class="svc__tagline" data-i18n="svc.digital-marketing.tagline">Performance without the vanity metrics</span></span><span class="svc__toggle" aria-hidden="true"></span></summary>
             <div class="svc__body">
               <div class="stack gap-16">
                 <p class="svc__desc" data-i18n="svc.digital-marketing.desc">Paid media, SEO, CRM and automation, reported against revenue.</p>
                 <ul class="svc__scope"><li class="tag" data-i18n="svc.digital-marketing.s1">Paid media</li><li class="tag" data-i18n="svc.digital-marketing.s2">SEO and content</li><li class="tag" data-i18n="svc.digital-marketing.s3">CRM and automation</li></ul>
               </div>
-              <div class="pkg" data-tilt>
-                <div class="pkg__head"><span class="lbl" data-i18n="pkg.normal">Normal</span><span class="pkg__price"><span class="pkg__from" data-i18n="pkg.from">from</span><span data-price="2400">€2,400</span><small data-i18n="pkg.unit.mo">per month</small></span></div>
-                <ul class="pkg__items"><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.digital-marketing.n1">SEO and content optimisation</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.digital-marketing.n2">One paid channel managed</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.digital-marketing.n3">Monthly performance report</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.digital-marketing.n4">Up to 12 hours of senior time</span></li></ul>
-                <a class="tlink" href="#contact" data-package="Digital marketing — Normal (from €2,400 per month)" data-interest="Digital marketing" data-i18n="pkg.req.normal">Request Normal</a>
-              </div>
-              <div class="pkg pkg--premium" data-tilt>
-                <div class="pkg__head"><span class="lbl" data-i18n="pkg.premium">Premium</span><span class="pkg__price"><span class="pkg__from" data-i18n="pkg.from">from</span><span data-price="6500">€6,500</span><small data-i18n="pkg.unit.mo">per month</small></span></div>
-                <ul class="pkg__items"><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.everything">Everything in Normal</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.digital-marketing.p2">Three paid channels managed</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.digital-marketing.p3">CRM and marketing automation</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.digital-marketing.p4">Landing page CRO programme</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.digital-marketing.p5">Weekly reporting, revenue attribution</span></li></ul>
-                <a class="tlink" href="#contact" data-package="Digital marketing — Premium (from €6,500 per month)" data-interest="Digital marketing" data-i18n="pkg.req.premium">Request Premium</a>
-              </div>
+              <div class="svc__cta"><a class="btn btn--ghost btn--sm" href="#contact" data-interest="Digital marketing" data-i18n="svc.req">Request this service</a><a class="tlink" href="#price-ads" data-i18n="prices.see">See prices</a></div>
             </div>
           </details>
           <details class="svc" id="svc-social-media-management">
-            <summary><span class="svc__n">08</span><span><span class="svc__name" data-i18n="svc.social-media-management.name">Social Media Management</span><span class="svc__tagline" data-i18n="svc.social-media-management.tagline">Always-on, never generic</span></span><span class="svc__from"><span data-i18n="pkg.from">from</span><b data-price="1900">€1,900</b><small data-i18n="pkg.unit.mo">per month</small></span><span class="svc__toggle" aria-hidden="true"></span></summary>
+            <summary><span class="svc__n">08</span><span><span class="svc__name" data-i18n="svc.social-media-management.name">Social Media Management</span><span class="svc__tagline" data-i18n="svc.social-media-management.tagline">Always-on, never generic</span></span><span class="svc__toggle" aria-hidden="true"></span></summary>
             <div class="svc__body">
               <div class="stack gap-16">
                 <p class="svc__desc" data-i18n="svc.social-media-management.desc">Editorial calendars, community management and native creative for German and EU-wide audiences.</p>
                 <ul class="svc__scope"><li class="tag" data-i18n="svc.social-media-management.s1">Editorial planning</li><li class="tag" data-i18n="svc.social-media-management.s2">Community management</li><li class="tag" data-i18n="svc.social-media-management.s3">Native creative</li></ul>
               </div>
-              <div class="pkg" data-tilt>
-                <div class="pkg__head"><span class="lbl" data-i18n="pkg.normal">Normal</span><span class="pkg__price"><span class="pkg__from" data-i18n="pkg.from">from</span><span data-price="1900">€1,900</span><small data-i18n="pkg.unit.mo">per month</small></span></div>
-                <ul class="pkg__items"><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.social-media-management.n1">Two channels, 12 posts a month</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.social-media-management.n2">Editorial calendar</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.social-media-management.n3">Community management, weekdays</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.social-media-management.n4">Monthly report</span></li></ul>
-                <a class="tlink" href="#contact" data-package="Social media management — Normal (from €1,900 per month)" data-interest="Social media management" data-i18n="pkg.req.normal">Request Normal</a>
-              </div>
-              <div class="pkg pkg--premium" data-tilt>
-                <div class="pkg__head"><span class="lbl" data-i18n="pkg.premium">Premium</span><span class="pkg__price"><span class="pkg__from" data-i18n="pkg.from">from</span><span data-price="4900">€4,900</span><small data-i18n="pkg.unit.mo">per month</small></span></div>
-                <ul class="pkg__items"><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.everything">Everything in Normal</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.social-media-management.p2">Four channels, 24 posts a month</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.social-media-management.p3">Native video and reels production</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.social-media-management.p4">Paid social budget management</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.social-media-management.p5">Influencer and creator liaison</span></li></ul>
-                <a class="tlink" href="#contact" data-package="Social media management — Premium (from €4,900 per month)" data-interest="Social media management" data-i18n="pkg.req.premium">Request Premium</a>
-              </div>
+              <div class="svc__cta"><a class="btn btn--ghost btn--sm" href="#contact" data-interest="Social media management" data-i18n="svc.req">Request this service</a><a class="tlink" href="#prices-social" data-i18n="prices.see">See prices</a></div>
             </div>
           </details>
           <details class="svc" id="svc-advertising">
-            <summary><span class="svc__n">09</span><span><span class="svc__name" data-i18n="svc.advertising.name">Advertising</span><span class="svc__tagline" data-i18n="svc.advertising.tagline">Work people remember</span></span><span class="svc__from"><span data-i18n="pkg.from">from</span><b data-price="5500">€5,500</b><small data-i18n="pkg.unit.pr">per project</small></span><span class="svc__toggle" aria-hidden="true"></span></summary>
+            <summary><span class="svc__n">09</span><span><span class="svc__name" data-i18n="svc.advertising.name">Advertising</span><span class="svc__tagline" data-i18n="svc.advertising.tagline">Work people remember</span></span><span class="svc__toggle" aria-hidden="true"></span></summary>
             <div class="svc__body">
               <div class="stack gap-16">
                 <p class="svc__desc" data-i18n="svc.advertising.desc">Above and below the line, from concept through to production and placement.</p>
                 <ul class="svc__scope"><li class="tag" data-i18n="svc.advertising.s1">Campaign concept</li><li class="tag" data-i18n="svc.advertising.s2">Production</li><li class="tag" data-i18n="svc.advertising.s3">Media placement</li></ul>
               </div>
-              <div class="pkg" data-tilt>
-                <div class="pkg__head"><span class="lbl" data-i18n="pkg.normal">Normal</span><span class="pkg__price"><span class="pkg__from" data-i18n="pkg.from">from</span><span data-price="5500">€5,500</span><small data-i18n="pkg.unit.pr">per project</small></span></div>
-                <ul class="pkg__items"><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.advertising.n1">One campaign concept</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.advertising.n2">Production of three assets</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.advertising.n3">Media plan</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.advertising.n4">Placement and trafficking</span></li></ul>
-                <a class="tlink" href="#contact" data-package="Advertising — Normal (from €5,500 per project)" data-interest="Advertising" data-i18n="pkg.req.normal">Request Normal</a>
-              </div>
-              <div class="pkg pkg--premium" data-tilt>
-                <div class="pkg__head"><span class="lbl" data-i18n="pkg.premium">Premium</span><span class="pkg__price"><span class="pkg__from" data-i18n="pkg.from">from</span><span data-price="16000">€16,000</span><small data-i18n="pkg.unit.pr">per project</small></span></div>
-                <ul class="pkg__items"><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.everything">Everything in Normal</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.advertising.p2">ATL and BTL platform</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.advertising.p3">Full production, film included</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.advertising.p4">Multi-market media buying</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.advertising.p5">Post-campaign effectiveness study</span></li></ul>
-                <a class="tlink" href="#contact" data-package="Advertising — Premium (from €16,000 per project)" data-interest="Advertising" data-i18n="pkg.req.premium">Request Premium</a>
-              </div>
+              <div class="svc__cta"><a class="btn btn--ghost btn--sm" href="#contact" data-interest="Advertising" data-i18n="svc.req">Request this service</a><a class="tlink" href="#price-ads" data-i18n="prices.see">See prices</a></div>
             </div>
           </details>
           <details class="svc" id="svc-pr">
-            <summary><span class="svc__n">10</span><span><span class="svc__name" data-i18n="svc.pr.name">PR</span><span class="svc__tagline" data-i18n="svc.pr.tagline">Earned attention</span></span><span class="svc__from"><span data-i18n="pkg.from">from</span><b data-price="2200">€2,200</b><small data-i18n="pkg.unit.mo">per month</small></span><span class="svc__toggle" aria-hidden="true"></span></summary>
+            <summary><span class="svc__n">10</span><span><span class="svc__name" data-i18n="svc.pr.name">PR</span><span class="svc__tagline" data-i18n="svc.pr.tagline">Earned attention</span></span><span class="svc__toggle" aria-hidden="true"></span></summary>
             <div class="svc__body">
               <div class="stack gap-16">
                 <p class="svc__desc" data-i18n="svc.pr.desc">Press relations, thought leadership and crisis communication across DACH and the EU.</p>
                 <ul class="svc__scope"><li class="tag" data-i18n="svc.pr.s1">Press relations</li><li class="tag" data-i18n="svc.pr.s2">Thought leadership</li><li class="tag" data-i18n="svc.pr.s3">Crisis communication</li></ul>
               </div>
-              <div class="pkg" data-tilt>
-                <div class="pkg__head"><span class="lbl" data-i18n="pkg.normal">Normal</span><span class="pkg__price"><span class="pkg__from" data-i18n="pkg.from">from</span><span data-price="2200">€2,200</span><small data-i18n="pkg.unit.mo">per month</small></span></div>
-                <ul class="pkg__items"><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.pr.n1">Two press releases a month</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.pr.n2">DACH media list and outreach</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.pr.n3">Coverage report</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.pr.n4">Spokesperson briefing</span></li></ul>
-                <a class="tlink" href="#contact" data-package="PR — Normal (from €2,200 per month)" data-interest="PR" data-i18n="pkg.req.normal">Request Normal</a>
-              </div>
-              <div class="pkg pkg--premium" data-tilt>
-                <div class="pkg__head"><span class="lbl" data-i18n="pkg.premium">Premium</span><span class="pkg__price"><span class="pkg__from" data-i18n="pkg.from">from</span><span data-price="5800">€5,800</span><small data-i18n="pkg.unit.mo">per month</small></span></div>
-                <ul class="pkg__items"><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.everything">Everything in Normal</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.pr.p2">Thought leadership programme</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.pr.p3">EU-wide media relations</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.pr.p4">Crisis communication retainer</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.pr.p5">Executive media training</span></li></ul>
-                <a class="tlink" href="#contact" data-package="PR — Premium (from €5,800 per month)" data-interest="PR" data-i18n="pkg.req.premium">Request Premium</a>
-              </div>
+              <div class="svc__cta"><a class="btn btn--ghost btn--sm" href="#contact" data-interest="PR" data-i18n="svc.req">Request this service</a></div>
             </div>
           </details>
           <details class="svc" id="svc-event-marketing-promotions">
-            <summary><span class="svc__n">11</span><span><span class="svc__name" data-i18n="svc.event-marketing-promotions.name">Event Marketing &amp; Promotions</span><span class="svc__tagline" data-i18n="svc.event-marketing-promotions.tagline">Where the brand meets the room</span></span><span class="svc__from"><span data-i18n="pkg.from">from</span><b data-price="7500">€7,500</b><small data-i18n="pkg.unit.pr">per project</small></span><span class="svc__toggle" aria-hidden="true"></span></summary>
+            <summary><span class="svc__n">11</span><span><span class="svc__name" data-i18n="svc.event-marketing-promotions.name">Event Marketing &amp; Promotions</span><span class="svc__tagline" data-i18n="svc.event-marketing-promotions.tagline">Where the brand meets the room</span></span><span class="svc__toggle" aria-hidden="true"></span></summary>
             <div class="svc__body">
               <div class="stack gap-16">
                 <p class="svc__desc" data-i18n="svc.event-marketing-promotions.desc">Launches, trade fairs and in-store activation: concept, production and on-site direction.</p>
                 <ul class="svc__scope"><li class="tag" data-i18n="svc.event-marketing-promotions.s1">Trade fairs and launches</li><li class="tag" data-i18n="svc.event-marketing-promotions.s2">In-store activation</li><li class="tag" data-i18n="svc.event-marketing-promotions.s3">On-site direction</li></ul>
               </div>
-              <div class="pkg" data-tilt>
-                <div class="pkg__head"><span class="lbl" data-i18n="pkg.normal">Normal</span><span class="pkg__price"><span class="pkg__from" data-i18n="pkg.from">from</span><span data-price="7500">€7,500</span><small data-i18n="pkg.unit.pr">per project</small></span></div>
-                <ul class="pkg__items"><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.event-marketing-promotions.n1">Concept and run of show</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.event-marketing-promotions.n2">Supplier coordination</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.event-marketing-promotions.n3">On-site direction, one day</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.event-marketing-promotions.n4">Recap film and photo set</span></li></ul>
-                <a class="tlink" href="#contact" data-package="Event marketing &amp; promotions — Normal (from €7,500 per project)" data-interest="Event marketing &amp; promotions" data-i18n="pkg.req.normal">Request Normal</a>
-              </div>
-              <div class="pkg pkg--premium" data-tilt>
-                <div class="pkg__head"><span class="lbl" data-i18n="pkg.premium">Premium</span><span class="pkg__price"><span class="pkg__from" data-i18n="pkg.from">from</span><span data-price="22000">€22,000</span><small data-i18n="pkg.unit.pr">per project</small></span></div>
-                <ul class="pkg__items"><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.everything">Everything in Normal</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.event-marketing-promotions.p2">Full creative build and set design</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.event-marketing-promotions.p3">Multi-day production</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.event-marketing-promotions.p4">Guest journey and invitation campaign</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.event-marketing-promotions.p5">Live content and post-event amplification</span></li></ul>
-                <a class="tlink" href="#contact" data-package="Event marketing &amp; promotions — Premium (from €22,000 per project)" data-interest="Event marketing &amp; promotions" data-i18n="pkg.req.premium">Request Premium</a>
-              </div>
+              <div class="svc__cta"><a class="btn btn--ghost btn--sm" href="#contact" data-interest="Event marketing &amp; promotions" data-i18n="svc.req">Request this service</a><a class="tlink" href="#prices-retail" data-i18n="prices.see">See prices</a></div>
             </div>
           </details>
           <details class="svc" id="svc-analytics">
-            <summary><span class="svc__n">12</span><span><span class="svc__name" data-i18n="svc.analytics.name">Analytics</span><span class="svc__tagline" data-i18n="svc.analytics.tagline">The numbers behind the work</span></span><span class="svc__from"><span data-i18n="pkg.from">from</span><b data-price="3400">€3,400</b><small data-i18n="pkg.unit.pr">per project</small></span><span class="svc__toggle" aria-hidden="true"></span></summary>
+            <summary><span class="svc__n">12</span><span><span class="svc__name" data-i18n="svc.analytics.name">Analytics</span><span class="svc__tagline" data-i18n="svc.analytics.tagline">The numbers behind the work</span></span><span class="svc__toggle" aria-hidden="true"></span></summary>
             <div class="svc__body">
               <div class="stack gap-16">
                 <p class="svc__desc" data-i18n="svc.analytics.desc">Attribution, dashboards and reporting your board can actually read.</p>
                 <ul class="svc__scope"><li class="tag" data-i18n="svc.analytics.s1">Attribution modelling</li><li class="tag" data-i18n="svc.analytics.s2">Dashboards</li><li class="tag" data-i18n="svc.analytics.s3">Reporting</li></ul>
               </div>
-              <div class="pkg" data-tilt>
-                <div class="pkg__head"><span class="lbl" data-i18n="pkg.normal">Normal</span><span class="pkg__price"><span class="pkg__from" data-i18n="pkg.from">from</span><span data-price="3400">€3,400</span><small data-i18n="pkg.unit.pr">per project</small></span></div>
-                <ul class="pkg__items"><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.analytics.n1">Tracking and consent audit</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.analytics.n2">GA4 and server-side setup</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.analytics.n3">One executive dashboard</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.analytics.n4">Handover documentation</span></li></ul>
-                <a class="tlink" href="#contact" data-package="Analytics — Normal (from €3,400 per project)" data-interest="Analytics" data-i18n="pkg.req.normal">Request Normal</a>
-              </div>
-              <div class="pkg pkg--premium" data-tilt>
-                <div class="pkg__head"><span class="lbl" data-i18n="pkg.premium">Premium</span><span class="pkg__price"><span class="pkg__from" data-i18n="pkg.from">from</span><span data-price="1900">€1,900</span><small data-i18n="pkg.unit.mo">per month</small></span></div>
-                <ul class="pkg__items"><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.analytics.p1">Everything in Normal, plus retained</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.analytics.p2">Attribution modelling</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.analytics.p3">Monthly insight readout</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.analytics.p4">Experiment programme</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.analytics.p5">Board-ready quarterly review</span></li></ul>
-                <a class="tlink" href="#contact" data-package="Analytics — Premium (from €1,900 per month)" data-interest="Analytics" data-i18n="pkg.req.premium">Request Premium</a>
-              </div>
+              <div class="svc__cta"><a class="btn btn--ghost btn--sm" href="#contact" data-interest="Analytics" data-i18n="svc.req">Request this service</a></div>
             </div>
           </details>
           <details class="svc" id="svc-ai-innovation">
-            <summary><span class="svc__n">13</span><span><span class="svc__name" data-i18n="svc.ai-innovation.name">AI &amp; Innovation</span><span class="svc__tagline" data-i18n="svc.ai-innovation.tagline">Applied, not ornamental</span></span><span class="svc__from"><span data-i18n="pkg.from">from</span><b data-price="4200">€4,200</b><small data-i18n="pkg.unit.pr">per project</small></span><span class="svc__toggle" aria-hidden="true"></span></summary>
+            <summary><span class="svc__n">13</span><span><span class="svc__name" data-i18n="svc.ai-innovation.name">AI &amp; Innovation</span><span class="svc__tagline" data-i18n="svc.ai-innovation.tagline">Applied, not ornamental</span></span><span class="svc__toggle" aria-hidden="true"></span></summary>
             <div class="svc__body">
               <div class="stack gap-16">
                 <p class="svc__desc" data-i18n="svc.ai-innovation.desc">Automation and AI woven into marketing operations where it genuinely saves time.</p>
                 <ul class="svc__scope"><li class="tag" data-i18n="svc.ai-innovation.s1">Marketing automation</li><li class="tag" data-i18n="svc.ai-innovation.s2">Applied AI</li><li class="tag" data-i18n="svc.ai-innovation.s3">Process design</li></ul>
               </div>
-              <div class="pkg" data-tilt>
-                <div class="pkg__head"><span class="lbl" data-i18n="pkg.normal">Normal</span><span class="pkg__price"><span class="pkg__from" data-i18n="pkg.from">from</span><span data-price="4200">€4,200</span><small data-i18n="pkg.unit.pr">per project</small></span></div>
-                <ul class="pkg__items"><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.ai-innovation.n1">Use-case audit and shortlist</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.ai-innovation.n2">One workflow automated</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.ai-innovation.n3">Tooling recommendation</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.ai-innovation.n4">Team enablement session</span></li></ul>
-                <a class="tlink" href="#contact" data-package="AI &amp; innovation — Normal (from €4,200 per project)" data-interest="AI &amp; innovation" data-i18n="pkg.req.normal">Request Normal</a>
-              </div>
-              <div class="pkg pkg--premium" data-tilt>
-                <div class="pkg__head"><span class="lbl" data-i18n="pkg.premium">Premium</span><span class="pkg__price"><span class="pkg__from" data-i18n="pkg.from">from</span><span data-price="11000">€11,000</span><small data-i18n="pkg.unit.pr">per project</small></span></div>
-                <ul class="pkg__items"><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.everything">Everything in Normal</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.ai-innovation.p2">Three workflows automated</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.ai-innovation.p3">Custom prompt and content system</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.ai-innovation.p4">Governance and compliance guardrails</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.ai-innovation.p5">Quarterly iteration</span></li></ul>
-                <a class="tlink" href="#contact" data-package="AI &amp; innovation — Premium (from €11,000 per project)" data-interest="AI &amp; innovation" data-i18n="pkg.req.premium">Request Premium</a>
-              </div>
+              <div class="svc__cta"><a class="btn btn--ghost btn--sm" href="#contact" data-interest="AI &amp; innovation" data-i18n="svc.req">Request this service</a></div>
             </div>
           </details>
         </div>
@@ -456,104 +344,59 @@
         <div class="svc-group__head"><span class="force__num">III</span><span class="serif">Wurzel</span><p class="lbl" data-i18n="force.3.lbl">People &amp; Leadership</p></div>
         <div class="svc-list">
           <details class="svc" id="svc-corporate-training">
-            <summary><span class="svc__n">14</span><span><span class="svc__name" data-i18n="svc.corporate-training.name">Corporate Training &amp; Organizational Development</span><span class="svc__tagline" data-i18n="svc.corporate-training.tagline">Capability that outlives the campaign</span></span><span class="svc__from"><span data-i18n="pkg.from">from</span><b data-price="2400">€2,400</b><small data-i18n="pkg.unit.day">per day</small></span><span class="svc__toggle" aria-hidden="true"></span></summary>
+            <summary><span class="svc__n">14</span><span><span class="svc__name" data-i18n="svc.corporate-training.name">Corporate Training &amp; Organizational Development</span><span class="svc__tagline" data-i18n="svc.corporate-training.tagline">Capability that outlives the campaign</span></span><span class="svc__toggle" aria-hidden="true"></span></summary>
             <div class="svc__body">
               <div class="stack gap-16">
                 <p class="svc__desc" data-i18n="svc.corporate-training.desc">Leadership, communication, customer care and sales enablement — certified, bilingual, in-house or off-site.</p>
                 <ul class="svc__scope"><li class="tag" data-i18n="svc.corporate-training.s1">Leadership development</li><li class="tag" data-i18n="svc.corporate-training.s2">Executive communication</li><li class="tag" data-i18n="svc.corporate-training.s3">Sales enablement</li></ul>
               </div>
-              <div class="pkg" data-tilt>
-                <div class="pkg__head"><span class="lbl" data-i18n="pkg.normal">Normal</span><span class="pkg__price"><span class="pkg__from" data-i18n="pkg.from">from</span><span data-price="2400">€2,400</span><small data-i18n="pkg.unit.day">per day</small></span></div>
-                <ul class="pkg__items"><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.corporate-training.n1">One training day, up to 12 people</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.corporate-training.n2">German or English</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.corporate-training.n3">Workbook and materials</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.corporate-training.n4">On your site or in Würzburg</span></li></ul>
-                <a class="tlink" href="#contact" data-package="Corporate training &amp; organisational development — Normal (from €2,400 per day)" data-interest="Corporate training &amp; organisational development" data-i18n="pkg.req.normal">Request Normal</a>
-              </div>
-              <div class="pkg pkg--premium" data-tilt>
-                <div class="pkg__head"><span class="lbl" data-i18n="pkg.premium">Premium</span><span class="pkg__price"><span class="pkg__from" data-i18n="pkg.from">from</span><span data-price="3900">€3,900</span><small data-i18n="pkg.unit.day">per day</small></span></div>
-                <ul class="pkg__items"><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.everything">Everything in Normal</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.corporate-training.p2">Programme design across modules</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.corporate-training.p3">1:1 coaching for participants</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.corporate-training.p4">Certification and transfer tasks</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.corporate-training.p5">90-day follow-up session</span></li></ul>
-                <a class="tlink" href="#contact" data-package="Corporate training &amp; organisational development — Premium (from €3,900 per day)" data-interest="Corporate training &amp; organisational development" data-i18n="pkg.req.premium">Request Premium</a>
-              </div>
+              <div class="svc__cta"><a class="btn btn--ghost btn--sm" href="#contact" data-interest="Corporate training &amp; organisational development" data-i18n="svc.req">Request this service</a><a class="tlink" href="#price-academy-30" data-i18n="prices.see">See prices</a></div>
             </div>
           </details>
           <details class="svc" id="svc-employer-branding">
-            <summary><span class="svc__n">15</span><span><span class="svc__name" data-i18n="svc.employer-branding.name">Employer Branding</span><span class="svc__tagline" data-i18n="svc.employer-branding.tagline">Talent storytelling that lands</span></span><span class="svc__from"><span data-i18n="pkg.from">from</span><b data-price="5400">€5,400</b><small data-i18n="pkg.unit.pr">per project</small></span><span class="svc__toggle" aria-hidden="true"></span></summary>
+            <summary><span class="svc__n">15</span><span><span class="svc__name" data-i18n="svc.employer-branding.name">Employer Branding</span><span class="svc__tagline" data-i18n="svc.employer-branding.tagline">Talent storytelling that lands</span></span><span class="svc__toggle" aria-hidden="true"></span></summary>
             <div class="svc__body">
               <div class="stack gap-16">
                 <p class="svc__desc" data-i18n="svc.employer-branding.desc">Employer positioning, careers content and recruitment campaigns.</p>
                 <ul class="svc__scope"><li class="tag" data-i18n="svc.employer-branding.s1">Employer positioning</li><li class="tag" data-i18n="svc.employer-branding.s2">Careers content</li><li class="tag" data-i18n="svc.employer-branding.s3">Recruitment campaigns</li></ul>
               </div>
-              <div class="pkg" data-tilt>
-                <div class="pkg__head"><span class="lbl" data-i18n="pkg.normal">Normal</span><span class="pkg__price"><span class="pkg__from" data-i18n="pkg.from">from</span><span data-price="5400">€5,400</span><small data-i18n="pkg.unit.pr">per project</small></span></div>
-                <ul class="pkg__items"><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.employer-branding.n1">Employer positioning workshop</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.employer-branding.n2">EVP and messaging</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.employer-branding.n3">Careers page copy and design</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.employer-branding.n4">Three recruitment ad sets</span></li></ul>
-                <a class="tlink" href="#contact" data-package="Employer branding — Normal (from €5,400 per project)" data-interest="Employer branding" data-i18n="pkg.req.normal">Request Normal</a>
-              </div>
-              <div class="pkg pkg--premium" data-tilt>
-                <div class="pkg__head"><span class="lbl" data-i18n="pkg.premium">Premium</span><span class="pkg__price"><span class="pkg__from" data-i18n="pkg.from">from</span><span data-price="15000">€15,000</span><small data-i18n="pkg.unit.pr">per project</small></span></div>
-                <ul class="pkg__items"><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.everything">Everything in Normal</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.employer-branding.p2">Employee research and interviews</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.employer-branding.p3">Careers film and photography</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.employer-branding.p4">Always-on recruitment campaign</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.employer-branding.p5">Onboarding and culture toolkit</span></li></ul>
-                <a class="tlink" href="#contact" data-package="Employer branding — Premium (from €15,000 per project)" data-interest="Employer branding" data-i18n="pkg.req.premium">Request Premium</a>
-              </div>
+              <div class="svc__cta"><a class="btn btn--ghost btn--sm" href="#contact" data-interest="Employer branding" data-i18n="svc.req">Request this service</a></div>
             </div>
           </details>
           <details class="svc" id="svc-consulting">
-            <summary><span class="svc__n">16</span><span><span class="svc__name" data-i18n="svc.consulting.name">Consulting</span><span class="svc__tagline" data-i18n="svc.consulting.tagline">Sparring for marketing leaders</span></span><span class="svc__from"><span data-i18n="pkg.from">from</span><b data-price="1850">€1,850</b><small data-i18n="pkg.unit.day">per day</small></span><span class="svc__toggle" aria-hidden="true"></span></summary>
+            <summary><span class="svc__n">16</span><span><span class="svc__name" data-i18n="svc.consulting.name">Consulting</span><span class="svc__tagline" data-i18n="svc.consulting.tagline">Sparring for marketing leaders</span></span><span class="svc__toggle" aria-hidden="true"></span></summary>
             <div class="svc__body">
               <div class="stack gap-16">
                 <p class="svc__desc" data-i18n="svc.consulting.desc">Audits, workshops and interim support for teams carrying more than they have capacity for.</p>
                 <ul class="svc__scope"><li class="tag" data-i18n="svc.consulting.s1">Marketing audits</li><li class="tag" data-i18n="svc.consulting.s2">Workshops</li><li class="tag" data-i18n="svc.consulting.s3">Interim support</li></ul>
               </div>
-              <div class="pkg" data-tilt>
-                <div class="pkg__head"><span class="lbl" data-i18n="pkg.normal">Normal</span><span class="pkg__price"><span class="pkg__from" data-i18n="pkg.from">from</span><span data-price="1850">€1,850</span><small data-i18n="pkg.unit.day">per day</small></span></div>
-                <ul class="pkg__items"><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.consulting.n1">One workshop or audit day</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.consulting.n2">Written findings and next steps</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.consulting.n3">Two weeks of follow-up questions</span></li></ul>
-                <a class="tlink" href="#contact" data-package="Consulting — Normal (from €1,850 per day)" data-interest="Consulting" data-i18n="pkg.req.normal">Request Normal</a>
-              </div>
-              <div class="pkg pkg--premium" data-tilt>
-                <div class="pkg__head"><span class="lbl" data-i18n="pkg.premium">Premium</span><span class="pkg__price"><span class="pkg__from" data-i18n="pkg.from">from</span><span data-price="4500">€4,500</span><small data-i18n="pkg.unit.mo">per month</small></span></div>
-                <ul class="pkg__items"><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.consulting.p1">Everything in Normal, retained</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.consulting.p2">Two days a month on your side</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.consulting.p3">Interim marketing leadership</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.consulting.p4">Agency and supplier management</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.consulting.p5">Direct line, same-day response</span></li></ul>
-                <a class="tlink" href="#contact" data-package="Consulting — Premium (from €4,500 per month)" data-interest="Consulting" data-i18n="pkg.req.premium">Request Premium</a>
-              </div>
+              <div class="svc__cta"><a class="btn btn--ghost btn--sm" href="#contact" data-interest="Consulting" data-i18n="svc.req">Request this service</a></div>
             </div>
           </details>
           <details class="svc" id="svc-business-development-support">
-            <summary><span class="svc__n">17</span><span><span class="svc__name" data-i18n="svc.business-development-support.name">Business Development Support</span><span class="svc__tagline" data-i18n="svc.business-development-support.tagline">Growth beyond the campaign</span></span><span class="svc__from"><span data-i18n="pkg.from">from</span><b data-price="3600">€3,600</b><small data-i18n="pkg.unit.mo">per month</small></span><span class="svc__toggle" aria-hidden="true"></span></summary>
+            <summary><span class="svc__n">17</span><span><span class="svc__name" data-i18n="svc.business-development-support.name">Business Development Support</span><span class="svc__tagline" data-i18n="svc.business-development-support.tagline">Growth beyond the campaign</span></span><span class="svc__toggle" aria-hidden="true"></span></summary>
             <div class="svc__body">
               <div class="stack gap-16">
                 <p class="svc__desc" data-i18n="svc.business-development-support.desc">Partnership development, pitch support and go-to-market planning for new territories.</p>
                 <ul class="svc__scope"><li class="tag" data-i18n="svc.business-development-support.s1">Go-to-market planning</li><li class="tag" data-i18n="svc.business-development-support.s2">Pitch support</li><li class="tag" data-i18n="svc.business-development-support.s3">Partnerships</li></ul>
               </div>
-              <div class="pkg" data-tilt>
-                <div class="pkg__head"><span class="lbl" data-i18n="pkg.normal">Normal</span><span class="pkg__price"><span class="pkg__from" data-i18n="pkg.from">from</span><span data-price="3600">€3,600</span><small data-i18n="pkg.unit.mo">per month</small></span></div>
-                <ul class="pkg__items"><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.business-development-support.n1">Go-to-market plan for one market</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.business-development-support.n2">Pitch deck and one-pager</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.business-development-support.n3">Lead qualification framework</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.business-development-support.n4">Monthly sparring</span></li></ul>
-                <a class="tlink" href="#contact" data-package="Business development support — Normal (from €3,600 per month)" data-interest="Business development support" data-i18n="pkg.req.normal">Request Normal</a>
-              </div>
-              <div class="pkg pkg--premium" data-tilt>
-                <div class="pkg__head"><span class="lbl" data-i18n="pkg.premium">Premium</span><span class="pkg__price"><span class="pkg__from" data-i18n="pkg.from">from</span><span data-price="9000">€9,000</span><small data-i18n="pkg.unit.mo">per month</small></span></div>
-                <ul class="pkg__items"><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.everything">Everything in Normal</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.business-development-support.p2">Three markets in parallel</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.business-development-support.p3">Partner scouting and introductions</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.business-development-support.p4">Pitch coaching for the team</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.business-development-support.p5">Sales enablement library</span></li></ul>
-                <a class="tlink" href="#contact" data-package="Business development support — Premium (from €9,000 per month)" data-interest="Business development support" data-i18n="pkg.req.premium">Request Premium</a>
-              </div>
+              <div class="svc__cta"><a class="btn btn--ghost btn--sm" href="#contact" data-interest="Business development support" data-i18n="svc.req">Request this service</a></div>
             </div>
           </details>
           <details class="svc" id="svc-ongoing-client-services">
-            <summary><span class="svc__n">18</span><span><span class="svc__name" data-i18n="svc.ongoing-client-services.name">Ongoing Client Services</span><span class="svc__tagline" data-i18n="svc.ongoing-client-services.tagline">A team that stays</span></span><span class="svc__from"><span data-i18n="pkg.from">from</span><b data-price="2900">€2,900</b><small data-i18n="pkg.unit.mo">per month</small></span><span class="svc__toggle" aria-hidden="true"></span></summary>
+            <summary><span class="svc__n">18</span><span><span class="svc__name" data-i18n="svc.ongoing-client-services.name">Ongoing Client Services</span><span class="svc__tagline" data-i18n="svc.ongoing-client-services.tagline">A team that stays</span></span><span class="svc__toggle" aria-hidden="true"></span></summary>
             <div class="svc__body">
               <div class="stack gap-16">
                 <p class="svc__desc" data-i18n="svc.ongoing-client-services.desc">Retained support across strategy, creative and performance with senior people on the work.</p>
                 <ul class="svc__scope"><li class="tag" data-i18n="svc.ongoing-client-services.s1">Retained strategy</li><li class="tag" data-i18n="svc.ongoing-client-services.s2">Ongoing creative</li><li class="tag" data-i18n="svc.ongoing-client-services.s3">Performance management</li></ul>
               </div>
-              <div class="pkg" data-tilt>
-                <div class="pkg__head"><span class="lbl" data-i18n="pkg.normal">Normal</span><span class="pkg__price"><span class="pkg__from" data-i18n="pkg.from">from</span><span data-price="2900">€2,900</span><small data-i18n="pkg.unit.mo">per month</small></span></div>
-                <ul class="pkg__items"><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.ongoing-client-services.n1">20 senior hours a month</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.ongoing-client-services.n2">One discipline of your choice</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.ongoing-client-services.n3">Monthly planning call</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.ongoing-client-services.n4">Shared board and reporting</span></li></ul>
-                <a class="tlink" href="#contact" data-package="Ongoing client services — Normal (from €2,900 per month)" data-interest="Ongoing client services" data-i18n="pkg.req.normal">Request Normal</a>
-              </div>
-              <div class="pkg pkg--premium" data-tilt>
-                <div class="pkg__head"><span class="lbl" data-i18n="pkg.premium">Premium</span><span class="pkg__price"><span class="pkg__from" data-i18n="pkg.from">from</span><span data-price="7900">€7,900</span><small data-i18n="pkg.unit.mo">per month</small></span></div>
-                <ul class="pkg__items"><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.everything">Everything in Normal</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.ongoing-client-services.p2">55 senior hours a month</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.ongoing-client-services.p3">Strategy, creative and performance</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.ongoing-client-services.p4">Named team, no junior handover</span></li><li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="pkg.ongoing-client-services.p5">Priority turnaround</span></li></ul>
-                <a class="tlink" href="#contact" data-package="Ongoing client services — Premium (from €7,900 per month)" data-interest="Ongoing client services" data-i18n="pkg.req.premium">Request Premium</a>
-              </div>
+              <div class="svc__cta"><a class="btn btn--ghost btn--sm" href="#contact" data-interest="Ongoing client services" data-i18n="svc.req">Request this service</a></div>
             </div>
           </details>
         </div>
       </div>
 
-      <p class="price-note" data-i18n="svc.pricenote">Indicative from-prices for the Bavarian market, net of VAT. Our offers are for businesses only. Final scope is quoted against your brief.</p>
+      <p class="price-note"><span data-i18n="prices.vat">All prices are final prices.</span> <a class="tlink" href="#prices" data-i18n="prices.lbl">Prices &amp; offers</a></p>
       </div>
     </div>
   </section>
@@ -609,7 +452,7 @@
           <p class="lead" data-i18n="services.lead">Engage one. Or let us run the whole stack — from positioning workshop to performance dashboard.</p>
         </div>
       </div>
-      <p class="lbl disc-note mt-72" data-i18n="svc.note">Open any card for scope and packages</p>
+      <p class="lbl disc-note mt-72" data-i18n="svc.note">Open any card for the full scope</p>
       <div class="discs mt-24">
         <article class="disc reveal" data-tilt>
           <img class="disc__img" src="/assets/img/force-bluete-800.webp" srcset="/assets/img/force-bluete-800.webp 800w, /assets/img/force-bluete-1400.webp 1400w" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1080px) 46vw, 640px" alt="" width="800" height="598" loading="lazy" decoding="async">
@@ -618,8 +461,7 @@
             <h3 class="disc__title" data-i18n="disc.1.t">Brand strategy &amp; positioning</h3>
             <p data-i18n="disc.1.p">Market and category analysis, brand architecture, naming, verbal and visual identity systems. We find the sharp edge, then build everything around it.</p>
             <ul class="disc__tags"><li class="tag" data-i18n="disc.1.tag1">Positioning</li><li class="tag" data-i18n="disc.1.tag2">Identity systems</li><li class="tag" data-i18n="disc.1.tag3">Naming</li></ul>
-            <p class="disc__from"><span data-i18n="pkg.from">from</span> <b data-price="6500">€6,500</b> <small data-i18n="pkg.unit.pr">per project</small></p>
-            <a class="tlink" href="#svc-brand-strategy" data-svc-open="brand-strategy" data-i18n="disc.cta">Packages &amp; scope</a>
+            <a class="tlink" href="#svc-brand-strategy" data-svc-open="brand-strategy" data-i18n="disc.cta">Scope &amp; details</a>
           </div>
         </article>
         <article class="disc reveal" data-tilt>
@@ -628,8 +470,7 @@
             <span class="disc__n">02</span>
             <h3 class="disc__title" data-i18n="disc.2.t">Digital marketing</h3>
             <p data-i18n="disc.2.p">Performance media, SEO, CRM and marketing automation — measured against pipeline, not impressions.</p>
-            <p class="disc__from"><span data-i18n="pkg.from">from</span> <b data-price="2400">€2,400</b> <small data-i18n="pkg.unit.mo">per month</small></p>
-            <a class="tlink" href="#svc-digital-marketing" data-svc-open="digital-marketing" data-i18n="disc.cta">Packages &amp; scope</a>
+            <a class="tlink" href="#svc-digital-marketing" data-svc-open="digital-marketing" data-i18n="disc.cta">Scope &amp; details</a>
           </div>
         </article>
         <article class="disc reveal" data-tilt>
@@ -638,8 +479,7 @@
             <span class="disc__n">03</span>
             <h3 class="disc__title" data-i18n="disc.3.t">Content &amp; social</h3>
             <p data-i18n="disc.3.p">Editorial systems, film, photography and always-on social built for German and EU-wide audiences.</p>
-            <p class="disc__from"><span data-i18n="pkg.from">from</span> <b data-price="3200">€3,200</b> <small data-i18n="pkg.unit.mo">per month</small></p>
-            <a class="tlink" href="#svc-content-production" data-svc-open="content-production" data-i18n="disc.cta">Packages &amp; scope</a>
+            <a class="tlink" href="#svc-content-production" data-svc-open="content-production" data-i18n="disc.cta">Scope &amp; details</a>
           </div>
         </article>
         <article class="disc reveal" data-tilt>
@@ -648,8 +488,7 @@
             <span class="disc__n">04</span>
             <h3 class="disc__title" data-i18n="disc.4.t">Events &amp; experience</h3>
             <p data-i18n="disc.4.p">Launches, trade fairs and internal summits — concept, production and on-site direction.</p>
-            <p class="disc__from"><span data-i18n="pkg.from">from</span> <b data-price="7500">€7,500</b> <small data-i18n="pkg.unit.pr">per project</small></p>
-            <a class="tlink" href="#svc-event-marketing-promotions" data-svc-open="event-marketing-promotions" data-i18n="disc.cta">Packages &amp; scope</a>
+            <a class="tlink" href="#svc-event-marketing-promotions" data-svc-open="event-marketing-promotions" data-i18n="disc.cta">Scope &amp; details</a>
           </div>
         </article>
         <article class="disc reveal" data-tilt>
@@ -658,13 +497,253 @@
             <span class="disc__n">05</span>
             <h3 class="disc__title" data-i18n="disc.5.t">Corporate training</h3>
             <p data-i18n="disc.5.p">Leadership development, communication, customer care and sales enablement — certified, bilingual, in-house or off-site.</p>
-            <p class="disc__from"><span data-i18n="pkg.from">from</span> <b data-price="2400">€2,400</b> <small data-i18n="pkg.unit.day">per day</small></p>
-            <a class="tlink" href="#svc-corporate-training" data-svc-open="corporate-training" data-i18n="disc.cta">Packages &amp; scope</a>
+            <a class="tlink" href="#svc-corporate-training" data-svc-open="corporate-training" data-i18n="disc.cta">Scope &amp; details</a>
           </div>
         </article>
       </div>
     </div>
   </section>
+
+  <!-- Prices & offers (unnumbered). Rendered from /data/pricing.json by tools/pricing.py: edit the JSON, run the tool, never edit by hand. -->
+  <!-- pricing:start -->
+  <section class="section prices" id="prices" aria-labelledby="prices-title">
+    <div class="wrap">
+      <div class="split split--end">
+        <p class="lbl" data-rule data-i18n="prices.lbl">Prices &amp; offers</p>
+        <div class="stack gap-24">
+          <h2 class="h-l reveal" id="prices-title" data-i18n-html="prices.title">What it costs. <em>Plainly.</em></h2>
+          <p class="lead" data-i18n="prices.vat">All prices are final prices.</p>
+          <p class="lbl" data-i18n="prices.asof">As of 17 October 2026</p>
+        </div>
+      </div>
+
+      <aside class="offer offer-only mt-72" aria-labelledby="offer-title">
+        <img class="offer__petal" src="/assets/img/petal-pollen.svg" alt="" width="120" height="178" loading="lazy" decoding="async">
+        <div class="offer__text">
+          <p class="lbl"><span data-i18n="prices.offer.name">October offer</span> · <span data-i18n="prices.until">until 31 October 2026</span></p>
+          <p class="offer__title" id="offer-title" data-i18n="prices.offer.headline">50% off all websites</p>
+          <p class="offer__terms" data-i18n="prices.offer.terms">Applies to orders signed by 31 October 2026. Social media: 50% off the first month with a three-month minimum term. From 1 November the regular prices apply.</p>
+        </div>
+      </aside>
+
+      <div class="price-group mt-96" id="prices-websites">
+        <div class="price-group__head">
+          <h3 class="h-s" data-i18n="prices.web.t">Websites</h3>
+          <p class="lbl" data-i18n="prices.web.sub">Fixed prices</p>
+        </div>
+        <div class="tiers">
+          <article class="tier" id="price-web-start" data-pick data-tilt>
+            <h4 class="tier__name" data-pick-name data-i18n="prices.web.start.name">Website Start</h4>
+            <div class="tier__price">
+              <p class="tier__now offer-off" data-pick-reg><span data-price="1200">€1,200</span></p>
+              <p class="tier__now offer-only"><span class="sr-only" data-i18n="prices.regular">Regular price</span> <s><span data-price="1200">€1,200</span></s> <span data-pick-offer><span class="sr-only" data-i18n="prices.offer.name">October offer</span> <b data-price="600">€600</b></span></p>
+              <p class="lbl tier__deal offer-only" aria-hidden="true" data-i18n="prices.offer.name">October offer</p>
+            </div>
+            <ul class="tier__items">
+              <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="prices.web.start.f1">One-page site</span></li>
+              <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="prices.web.start.f2">Optimised for mobile</span></li>
+              <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="prices.web.start.f3">Legal notice &amp; privacy policy</span></li>
+              <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="prices.web.start.f4">Google Business Profile set up</span></li>
+            </ul>
+            <a class="tlink tier__req" href="#contact" data-interest="Website &amp; digital experience" data-package="Website Start — 1.200 €" data-package-offer="Website Start — Oktober-Aktion: 600 € statt 1.200 €" aria-label="Request Website Start" data-i18n-attr="aria-label:prices.web.start.req" data-i18n="prices.req">Request</a>
+          </article>
+          <article class="tier" id="price-web-business" data-pick data-tilt>
+            <h4 class="tier__name" data-pick-name data-i18n="prices.web.business.name">Website Business</h4>
+            <div class="tier__price">
+              <p class="tier__now offer-off" data-pick-reg><span data-price="2400">€2,400</span></p>
+              <p class="tier__now offer-only"><span class="sr-only" data-i18n="prices.regular">Regular price</span> <s><span data-price="2400">€2,400</span></s> <span data-pick-offer><span class="sr-only" data-i18n="prices.offer.name">October offer</span> <b data-price="1200">€1,200</b></span></p>
+              <p class="lbl tier__deal offer-only" aria-hidden="true" data-i18n="prices.offer.name">October offer</p>
+            </div>
+            <ul class="tier__items">
+              <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="prices.web.business.f1">Up to 5 pages</span></li>
+              <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="prices.web.business.f2">Contact or booking form</span></li>
+              <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="prices.web.business.f3">SEO basics</span></li>
+              <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="prices.web.business.f4">Google profile</span></li>
+            </ul>
+            <a class="tlink tier__req" href="#contact" data-interest="Website &amp; digital experience" data-package="Website Business — 2.400 €" data-package-offer="Website Business — Oktober-Aktion: 1.200 € statt 2.400 €" aria-label="Request Website Business" data-i18n-attr="aria-label:prices.web.business.req" data-i18n="prices.req">Request</a>
+          </article>
+          <article class="tier" id="price-web-premium" data-pick data-tilt>
+            <h4 class="tier__name" data-pick-name data-i18n="prices.web.premium.name">Website Premium</h4>
+            <div class="tier__price">
+              <p class="tier__now offer-off" data-pick-reg><span data-price="4800">€4,800</span></p>
+              <p class="tier__now offer-only"><span class="sr-only" data-i18n="prices.regular">Regular price</span> <s><span data-price="4800">€4,800</span></s> <span data-pick-offer><span class="sr-only" data-i18n="prices.offer.name">October offer</span> <b data-price="2400">€2,400</b></span></p>
+              <p class="lbl tier__deal offer-only" aria-hidden="true" data-i18n="prices.offer.name">October offer</p>
+            </div>
+            <ul class="tier__items">
+              <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="prices.web.premium.f1">Animated or 3D</span></li>
+              <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="prices.web.premium.f2">Custom design</span></li>
+              <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="prices.web.premium.f3">Up to 10 pages</span></li>
+            </ul>
+            <p class="tier__ex" data-i18n="prices.web.premium.ex">(like restauranthole19.de)</p>
+            <a class="tlink tier__req" href="#contact" data-interest="Website &amp; digital experience" data-package="Website Premium — 4.800 €" data-package-offer="Website Premium — Oktober-Aktion: 2.400 € statt 4.800 €" aria-label="Request Website Premium" data-i18n-attr="aria-label:prices.web.premium.req" data-i18n="prices.req">Request</a>
+          </article>
+          <div class="tier tier--wide" id="price-web-care" data-pick>
+            <h4 class="tier__name"><span data-pick-name data-i18n="prices.web.care.name">Website care</span> <span class="lbl" data-i18n="prices.optional">optional</span></h4>
+            <ul class="tier__items tier__items--inline">
+              <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="prices.web.care.f1">Updates</span></li>
+              <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="prices.web.care.f2">Small changes</span></li>
+            </ul>
+            <p class="tier__now"><span data-pick-reg><span data-price="49">€49</span> <small data-i18n="prices.month">/ month</small></span> <small class="offer-only" data-i18n="prices.nodiscount">(not discounted)</small></p>
+            <a class="tlink tier__req" href="#contact" data-interest="Website &amp; digital experience" data-package="Website-Pflege (optional) — 49 € / Monat" aria-label="Request Website care" data-i18n-attr="aria-label:prices.web.care.req" data-i18n="prices.req">Request</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="price-group mt-96" id="prices-social">
+        <div class="price-group__head">
+          <h3 class="h-s" data-i18n="prices.social.t">Social media</h3>
+          <p class="lbl" data-i18n="prices.social.sub">monthly, 3-month minimum term</p>
+        </div>
+        <div class="tiers">
+          <article class="tier" id="price-social-start" data-pick data-pick-group data-tilt>
+            <h4 class="tier__name" data-pick-name data-i18n="prices.social.start.name">Start</h4>
+            <div class="tier__price">
+              <p class="tier__now" data-pick-reg><span data-price="990">€990</span> <small data-i18n="prices.month">/ month</small></p>
+              <p class="tier__first offer-only"><span data-i18n="prices.first">First month if ordered by 31 October 2026:</span> <span class="sr-only" data-i18n="prices.regular">Regular price</span> <s><span data-price="990">€990</span></s> <span data-pick-offer data-pick-add><span class="sr-only" data-i18n="prices.firstdeal">October offer, first month</span> <b data-price="495">€495</b></span></p>
+            </div>
+            <ul class="tier__items">
+              <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="prices.social.start.f1">1 channel</span></li>
+              <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="prices.social.start.f2">12 posts</span></li>
+              <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="prices.social.start.f3">Stories</span></li>
+              <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="prices.social.start.f4">Monthly report</span></li>
+            </ul>
+            <a class="tlink tier__req" href="#contact" data-interest="Social media management" data-package="Social Media Start — 990 € / Monat, 3 Monate Mindestlaufzeit" data-package-offer="Social Media Start — 990 € / Monat, 3 Monate Mindestlaufzeit; Oktober-Aktion: 1. Monat 495 €" aria-label="Request Start" data-i18n-attr="aria-label:prices.social.start.req" data-i18n="prices.req">Request</a>
+          </article>
+          <article class="tier" id="price-social-wachstum" data-pick data-pick-group data-tilt>
+            <h4 class="tier__name" data-pick-name data-i18n="prices.social.wachstum.name">Growth</h4>
+            <div class="tier__price">
+              <p class="tier__now" data-pick-reg><span data-price="1490">€1,490</span> <small data-i18n="prices.month">/ month</small></p>
+              <p class="tier__first offer-only"><span data-i18n="prices.first">First month if ordered by 31 October 2026:</span> <span class="sr-only" data-i18n="prices.regular">Regular price</span> <s><span data-price="1490">€1,490</span></s> <span data-pick-offer data-pick-add><span class="sr-only" data-i18n="prices.firstdeal">October offer, first month</span> <b data-price="745">€745</b></span></p>
+            </div>
+            <ul class="tier__items">
+              <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="prices.social.wachstum.f1">2 channels</span></li>
+              <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="prices.social.wachstum.f2">16 posts</span></li>
+              <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="prices.social.wachstum.f3">4 reels</span></li>
+              <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="prices.social.wachstum.f4">Stories</span></li>
+              <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="prices.social.wachstum.f5">Community management</span></li>
+            </ul>
+            <a class="tlink tier__req" href="#contact" data-interest="Social media management" data-package="Social Media Wachstum — 1.490 € / Monat, 3 Monate Mindestlaufzeit" data-package-offer="Social Media Wachstum — 1.490 € / Monat, 3 Monate Mindestlaufzeit; Oktober-Aktion: 1. Monat 745 €" aria-label="Request Growth" data-i18n-attr="aria-label:prices.social.wachstum.req" data-i18n="prices.req">Request</a>
+          </article>
+          <article class="tier" id="price-social-premium" data-pick data-pick-group data-tilt>
+            <h4 class="tier__name" data-pick-name data-i18n="prices.social.premium.name">Premium</h4>
+            <div class="tier__price">
+              <p class="tier__now" data-pick-reg><span data-price="2290">€2,290</span> <small data-i18n="prices.month">/ month</small></p>
+              <p class="tier__first offer-only"><span data-i18n="prices.first">First month if ordered by 31 October 2026:</span> <span class="sr-only" data-i18n="prices.regular">Regular price</span> <s><span data-price="2290">€2,290</span></s> <span data-pick-offer data-pick-add><span class="sr-only" data-i18n="prices.firstdeal">October offer, first month</span> <b data-price="1145">€1,145</b></span></p>
+            </div>
+            <ul class="tier__items">
+              <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="prices.social.premium.f1">Everything in Growth</span></li>
+              <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="prices.social.premium.f2">Photo and video shoot</span></li>
+              <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="prices.social.premium.f3">Ad management</span></li>
+            </ul>
+            <a class="tlink tier__req" href="#contact" data-interest="Social media management" data-package="Social Media Premium — 2.290 € / Monat, 3 Monate Mindestlaufzeit" data-package-offer="Social Media Premium — 2.290 € / Monat, 3 Monate Mindestlaufzeit; Oktober-Aktion: 1. Monat 1.145 €" aria-label="Request Premium" data-i18n-attr="aria-label:prices.social.premium.req" data-i18n="prices.req">Request</a>
+          </article>
+        </div>
+        <p class="price-group__note" data-i18n="prices.social.note">The client pays the ad budget directly to Meta.</p>
+      </div>
+
+      <div class="price-group mt-96" id="prices-more">
+        <div class="price-group__head">
+          <h3 class="h-s" data-i18n="prices.more.t">More services</h3>
+        </div>
+        <ul class="price-list">
+          <li class="price-row" id="price-branding" data-pick>
+            <h4 class="price-row__name" data-pick-name data-i18n="prices.more.branding.name">Branding</h4>
+            <p class="price-row__desc" data-i18n="prices.more.branding.desc">Logo, colours, typefaces, brand book</p>
+            <p class="price-row__price" data-pick-reg><small class="price-from" data-i18n="prices.from">from</small> <span data-price="1500">€1,500</span></p>
+            <a class="tlink tier__req" href="#contact" data-interest="Brand strategy" data-package="Branding — ab 1.500 €" aria-label="Request Branding" data-i18n-attr="aria-label:prices.more.branding.req" data-i18n="prices.req">Request</a>
+          </li>
+          <li class="price-row" id="price-ads" data-pick>
+            <h4 class="price-row__name" data-pick-name data-i18n="prices.more.ads.name">Ad management</h4>
+            <p class="price-row__desc" data-i18n="prices.more.ads.desc">Instagram and Facebook ads, planning and management</p>
+            <p class="price-row__price" data-pick-reg><small class="price-from" data-i18n="prices.from">from</small> <span data-price="390">€390</span> <small data-i18n="prices.month">/ month</small> <small data-i18n="prices.more.ads.note">plus ad budget</small></p>
+            <a class="tlink tier__req" href="#contact" data-interest="Advertising" data-package="Werbeanzeigen-Betreuung — ab 390 € / Monat zzgl. Werbebudget" aria-label="Request Ad management" data-i18n-attr="aria-label:prices.more.ads.req" data-i18n="prices.req">Request</a>
+          </li>
+          <li class="price-row" id="price-events" data-pick>
+            <h4 class="price-row__name" data-pick-name data-i18n="prices.more.events.name">Events</h4>
+            <p class="price-row__desc" data-i18n="prices.more.events.desc">Celebrations, promotions, press relations</p>
+            <p class="price-row__price" data-pick-reg><span data-i18n="prices.more.events.price">on request</span></p>
+            <a class="tlink tier__req" href="#contact" data-interest="Event marketing &amp; promotions" data-package="Events — auf Anfrage" aria-label="Request Events" data-i18n-attr="aria-label:prices.more.events.req" data-i18n="prices.req">Request</a>
+          </li>
+          <li class="price-row" id="price-academy-30" data-pick>
+            <h4 class="price-row__name" data-pick-name data-i18n="prices.more.academy-30.name">Academy, up to about 30 people</h4>
+            <p class="price-row__desc" data-i18n="prices.more.academy-30.desc">3–4 training sessions a month: leadership, team, service</p>
+            <p class="price-row__price" data-pick-reg><span data-price-range="2000-4000">€2,000–€4,000</span> <small data-i18n="prices.month">/ month</small></p>
+            <a class="tlink tier__req" href="#contact" data-interest="Academy programme" data-package="Academy bis ca. 30 Personen — 2.000–4.000 € / Monat" aria-label="Request Academy, up to about 30 people" data-i18n-attr="aria-label:prices.more.academy-30.req" data-i18n="prices.req">Request</a>
+          </li>
+          <li class="price-row" id="price-academy-100" data-pick>
+            <h4 class="price-row__name" data-pick-name data-i18n="prices.more.academy-100.name">Academy, 50–100 people</h4>
+            <p class="price-row__desc" data-i18n="prices.more.academy-100.desc">Training programme for larger teams</p>
+            <p class="price-row__price" data-pick-reg><span data-price="5000">€5,000</span> <small data-i18n="prices.month">/ month</small></p>
+            <a class="tlink tier__req" href="#contact" data-interest="Academy programme" data-package="Academy 50–100 Personen — 5.000 € / Monat" aria-label="Request Academy, 50–100 people" data-i18n-attr="aria-label:prices.more.academy-100.req" data-i18n="prices.req">Request</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="price-group mt-96" id="prices-retail">
+        <div class="price-group__head">
+          <h3 class="h-s" data-i18n="prices.retail.t">In-store promotion</h3>
+          <p class="lbl" data-i18n="prices.retail.sub">for brands, e.g. in EDEKA stores</p>
+        </div>
+        <div class="tiers tiers--4">
+          <article class="tier" id="price-retail-brand-game" data-pick data-tilt>
+            <h4 class="tier__name" data-pick-name data-i18n="prices.retail.brand-game.name">Brand game (one-off)</h4>
+            <div class="tier__price">
+              <p class="tier__now" data-pick-reg><span data-price="2000">€2,000</span></p>
+              <p class="lbl tier__by" data-i18n="prices.paidby">paid by the brand</p>
+            </div>
+            <ul class="tier__items">
+              <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="prices.retail.brand-game.f1">Concept and build of the 60-second game in the brand’s design</span></li>
+            </ul>
+            <a class="tlink tier__req" href="#contact" data-interest="BlütenSturm Live — in-store games" data-package="Marken-Spiel (einmalig) — 2.000 € (zahlt die Marke)" aria-label="Request Brand game (one-off)" data-i18n-attr="aria-label:prices.retail.brand-game.req" data-i18n="prices.req">Request</a>
+          </article>
+          <article class="tier" id="price-retail-probier-moment" data-pick data-tilt>
+            <h4 class="tier__name" data-pick-name data-i18n="prices.retail.probier-moment.name">Tasting moment</h4>
+            <div class="tier__price">
+              <p class="tier__now" data-pick-reg><span data-price="1290">€1,290</span></p>
+              <p class="lbl tier__by" data-i18n="prices.paidby">paid by the brand</p>
+            </div>
+            <ul class="tier__items">
+              <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="prices.retail.probier-moment.f1">1 store</span></li>
+              <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="prices.retail.probier-moment.f2">1 day (8 hours)</span></li>
+              <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="prices.retail.probier-moment.f3">2 promoters</span></li>
+              <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="prices.retail.probier-moment.f4">Tasting</span></li>
+              <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="prices.retail.probier-moment.f5">1 game</span></li>
+              <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="prices.retail.probier-moment.f6">Short report</span></li>
+            </ul>
+            <a class="tlink tier__req" href="#contact" data-interest="BlütenSturm Live — in-store games" data-package="Probier-Moment — 1.290 € (zahlt die Marke)" aria-label="Request Tasting moment" data-i18n-attr="aria-label:prices.retail.probier-moment.req" data-i18n="prices.req">Request</a>
+          </article>
+          <article class="tier" id="price-retail-liebe-teilen-tag" data-pick data-tilt>
+            <h4 class="tier__name" data-pick-name data-i18n="prices.retail.liebe-teilen-tag.name">Share-the-love day</h4>
+            <div class="tier__price">
+              <p class="tier__now" data-pick-reg><span data-price="1990">€1,990</span></p>
+              <p class="lbl tier__by" data-i18n="prices.paidby">paid by the brand</p>
+            </div>
+            <ul class="tier__items">
+              <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="prices.retail.liebe-teilen-tag.f1">Tasting moment + vox pops</span></li>
+              <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="prices.retail.liebe-teilen-tag.f2">3–5 short videos</span></li>
+              <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="prices.retail.liebe-teilen-tag.f3">Recap video</span></li>
+            </ul>
+            <a class="tlink tier__req" href="#contact" data-interest="BlütenSturm Live — in-store games" data-package="Liebe-teilen-Tag — 1.990 € (zahlt die Marke)" aria-label="Request Share-the-love day" data-i18n-attr="aria-label:prices.retail.liebe-teilen-tag.req" data-i18n="prices.req">Request</a>
+          </article>
+          <article class="tier" id="price-retail-franken-tour" data-pick data-tilt>
+            <h4 class="tier__name" data-pick-name data-i18n="prices.retail.franken-tour.name">Franconia tour</h4>
+            <div class="tier__price">
+              <p class="tier__now" data-pick-reg><span data-price="8500">€8,500</span></p>
+              <p class="lbl tier__by" data-i18n="prices.paidby">paid by the brand</p>
+            </div>
+            <ul class="tier__items">
+              <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="prices.retail.franken-tour.f1">5 promotion days in 5 stores</span></li>
+              <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="prices.retail.franken-tour.f2">All videos</span></li>
+              <li><span class="petal-mark" aria-hidden="true"></span><span data-i18n="prices.retail.franken-tour.f3">Final report with sales comparison</span></li>
+            </ul>
+            <a class="tlink tier__req" href="#contact" data-interest="BlütenSturm Live — in-store games" data-package="Franken-Tour — 8.500 € (zahlt die Marke)" aria-label="Request Franconia tour" data-i18n-attr="aria-label:prices.retail.franken-tour.req" data-i18n="prices.req">Request</a>
+          </article>
+        </div>
+        <p class="price-group__note" data-i18n="prices.retail.note">The brand provides the goods, prizes and donations. The store (e.g. EDEKA) pays nothing.</p>
+      </div>
+    </div>
+  </section>
+  <!-- pricing:end -->
 
   <!-- The full package (unnumbered: not on the previous site) -->
   <section class="section" id="package" aria-labelledby="package-title">
@@ -874,7 +953,7 @@
         <img class="house-logo" src="/assets/img/live.svg" alt="BlütenSturm Live" width="300" height="55" loading="lazy">
         <h2 class="h-l reveal" id="live-title" data-i18n-html="live.title">In-store games. <em>Sampling, reinvented.</em></h2>
         <p class="lead" data-i18n="live.text">We turn supermarket aisles into small arenas: brand-sponsored games where shoppers play, taste and remember the product. Concept, team, materials and reporting from one hand.</p>
-        <div><a class="btn btn--ghost" href="#contact" data-package="BlütenSturm Live — demo day" data-interest="BlütenSturm Live — in-store games" data-i18n="live.cta">Book a demo day</a></div>
+        <div class="cta-row"><a class="btn btn--ghost" href="#contact" data-package="BlütenSturm Live — demo day" data-interest="BlütenSturm Live — in-store games" data-i18n="live.cta">Book a demo day</a><a class="tlink" href="#prices-retail" data-i18n="prices.see">See prices</a></div>
       </div>
     </div>
   </section>
@@ -896,7 +975,7 @@
           <li class="tag" data-i18n="chip.care">Customer care</li>
           <li class="tag" data-i18n="chip.change">Change &amp; culture</li>
         </ul>
-        <div><a class="btn" href="#contact" data-package="Academy — curriculum request" data-interest="Academy programme" data-i18n="academy.cta">Request the curriculum</a></div>
+        <div class="cta-row"><a class="btn" href="#contact" data-package="Academy — curriculum request" data-interest="Academy programme" data-i18n="academy.cta">Request the curriculum</a><a class="tlink" href="#price-academy-30" data-i18n="prices.see">See prices</a></div>
       </div>
       <div>
         <div class="module reveal">
@@ -1059,6 +1138,7 @@
         <div class="contact__aside">
           <a class="mail" href="mailto:info@bluetensturm.com">info@bluetensturm.com</a>
           <p class="soft" data-i18n="contact.place">BlütenSturm · Würzburg, Deutschland</p>
+          <p class="soft">Kirchstraße 8 · 97209 Veitshöchheim</p>
           <a class="plain-link self-start" href="https://www.instagram.com/bluetensturmcreative" rel="noopener" target="_blank">Instagram · @bluetensturmcreative</a>
           <div class="qcard" data-tilt>
             <p class="lbl" data-i18n="contact.q.lbl">Prefer the full questionnaire?</p>
@@ -1078,7 +1158,7 @@
       <h3 class="dlg__title" id="svc-dialog-title" data-dlg-title></h3>
       <div class="dlg__tagline" data-dlg-tagline></div>
       <div class="dlg__body" data-dlg-body></div>
-      <p class="dlg__foot" data-i18n="svc.pricenote">Indicative from-prices for the Bavarian market, net of VAT. Our offers are for businesses only. Final scope is quoted against your brief.</p>
+      <p class="dlg__foot"><span data-i18n="prices.vat">All prices are final prices.</span> <a class="tlink" href="#prices" data-i18n="prices.lbl">Prices &amp; offers</a></p>
     </div>
   </dialog>
 
@@ -1110,7 +1190,7 @@
   <div class="wrap">
     <div class="fcols">
       <div><span class="lbl" data-i18n="foot.studio">Studio</span><p data-i18n="facts.based.d">Würzburg, Bavaria</p><p data-i18n="foot.europe">Working across Europe</p></div>
-      <div><span class="lbl" data-i18n="foot.write">Write</span><a href="mailto:info@bluetensturm.com">info@bluetensturm.com</a><a href="#contact" data-i18n="cta.start">Start a project</a><a href="/questionnaire" data-i18n="foot.questionnaire">Questionnaire</a></div>
+      <div><span class="lbl" data-i18n="foot.write">Write</span><a href="mailto:info@bluetensturm.com">info@bluetensturm.com</a><a href="#contact" data-i18n="cta.start">Start a project</a><a href="/questionnaire" data-i18n="foot.questionnaire">Questionnaire</a><a href="#prices" data-i18n="prices.lbl">Prices &amp; offers</a></div>
       <div><span class="lbl" data-i18n="foot.follow">Follow</span><a href="https://www.instagram.com/bluetensturmcreative" rel="noopener" target="_blank">Instagram · @bluetensturmcreative</a></div>
       <div><span class="lbl" data-i18n="foot.houses">Houses</span><a href="#services">BlütenSturm Creative</a><a href="#academy">BlütenSturm Academy</a><a href="#live">BlütenSturm Live</a></div>
     </div>
@@ -1118,6 +1198,7 @@
     <div class="legal">
       <p class="legal__line"><span>© <span data-year>2026</span> Blüten Sturm GmbH —</span><span data-i18n="foot.line">Where brands bloom and ideas storm.</span></p>
       <nav aria-label="Legal" data-i18n-attr="aria-label:a11y.legal"><a href="/impressum" data-i18n="foot.imprint">Impressum</a><a href="/datenschutz" data-i18n="foot.privacy">Datenschutz</a></nav>
+      <p data-i18n="prices.vat">All prices are final prices.</p>
       <p>Nezir Shinik &amp; Dijan Cika</p>
     </div>
   </div>

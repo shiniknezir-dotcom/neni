@@ -44,3 +44,15 @@
     }
   } catch (e) {}
 })();
+
+/* Offer (tools/pricing.py writes offer.valid_until from /data/pricing.json into <meta name="bs-offer-until">):
+   html.offer-on shows the offer and the struck regular prices, set here so nothing shifts after the first
+   paint. Valid through the last second named, so it ends at the next full second. main.js ends it on time
+   while the page stays open. Without JavaScript only the regular prices show. */
+(function () {
+  try {
+    var m = document.querySelector('meta[name="bs-offer-until"]');
+    var end = m ? Date.parse(m.getAttribute('content')) + 1000 : NaN;
+    if (end > Date.now()) document.documentElement.classList.add('offer-on');
+  } catch (e) {}
+})();
