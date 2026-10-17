@@ -326,8 +326,10 @@ for name in pages:
             errors.append(f'[legal] {name}: the footer has no {need} link')
     if 'data-i18n="prices.vat"' not in foot and 'data-vat-de' not in foot:
         errors.append(f'[prices] {name}: the footer has no price note ("Alle Preise sind Endpreise.")')
-old_price = re.compile(r'(?<!\d[.,\u00a0\u202f ])(?<!\d)500[ \u00a0\u202f]?(?:[.,](?:00|-|–))?[ \u00a0\u202f]?(?:€|euros?\b|EUR\b)'
-                       r'|(?:€|\bEUR)[ \u00a0\u202f]?500(?:[.,](?:00|-|–))?(?!\d|[.,]\d)|data-price="500"', re.I)
+_SP = '[ \u00a0\u202f\u2009]'
+old_price = re.compile(r'(?<!\d[.,\u00a0\u202f\u2009 ])(?<!\d)500' + _SP + r'?(?:[.,](?:00|-|–))?' + _SP + r'?(?:€|euros?\b|EUR\b)'
+                       r'|(?:€|\bEUR)' + _SP + r'?500(?:[.,](?:00|-|–))?(?!\d|[.,]\d|' + _SP + r'?\d{3}\b|' + _SP + r'?(?:k|m|mio|million|bn)\b)'
+                       r'|data-price=["\']?500\b', re.I)
 def _prices(v):
     """Every price number in the price list (fields whose name starts with "price" or "offer_")."""
     if isinstance(v, list):
@@ -335,12 +337,14 @@ def _prices(v):
     if not isinstance(v, dict):
         return []
     out = [x for k, x in v.items() if (k.startswith('price') or k.startswith('offer_')) and isinstance(x, int)]
-    out += [500 for k, x in v.items() if k.startswith('price') and isinstance(x, str) and old_price.search(x)]   # "ab 500 € pro Tag"
+    out += [500 for x in v.values() if isinstance(x, str) and old_price.search(x)]   # the owner's own words: "ab 500 € pro Tag"
+    out += [500 for x in v.values() if isinstance(x, list) and any(isinstance(y, str) and old_price.search(y) for y in x)]
     return out + [a for x in v.values() for a in _prices(x)]
 if 500 in _prices(price_list):   # a 500 € price that the owner's list itself names is allowed again
     old_price = re.compile(r'(?!)')
 def _plain(src):
-    return html.unescape(src)   # 500&nbsp;€, &euro;500, 500&#160;€ read as they render
+    text = html.unescape(src)   # 500&nbsp;€, &euro;500, 500&#160;€ read as they render
+    return text + '\n' + re.sub(r'<[^>]+>', '', text)   # and once without tags: <b>500</b>&nbsp;€
 for name in pages:
     if old_price.search(_plain(open(os.path.join(SITE, name), encoding='utf-8').read())):
         errors.append(f'[prices] {name}: a 500 € price is still on the page (the old website price was withdrawn)')

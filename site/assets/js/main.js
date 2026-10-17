@@ -412,7 +412,7 @@
   var offerEnd = offerMeta ? Date.parse(offerMeta.getAttribute('content')) + 1000 : NaN;   // valid through its last second
   var behind = 0;   // ms the device clock is behind the server's, never negative
   var offerOver = !(offerEnd > Date.now()), offerTimer = 0, pendingAsk = null;   // after the deadline nothing is asked
-  var askedMono = -6e4, askedWall = 0;
+  var askedMono = -6e4, askedWall = 0, askFailed = false;
   function offerNow() { return Date.now() + behind; }
   function offerOn() { return d.classList.contains('offer-on'); }
   function checkOffer() {
@@ -425,17 +425,22 @@
     if (was !== offerOn()) syncPick();
   }
   // Returns the check in flight (a promise that always settles within 5 s), or null.
-  function askServer() {
+  // urgent (a request click, a submission): retry at once if the last check got no answer.
+  function askServer(urgent) {
     var mono = window.performance && performance.now ? performance.now() : Date.now(), wall = Date.now();
     if (offerOver || !window.fetch || !window.Promise) return null;
     if (pendingAsk) return pendingAsk;
     // at most once a minute; either clock jumping (a sleeping laptop, a clock set back) allows a new check
-    if (mono - askedMono < 6e4 && wall - askedWall >= 0 && wall - askedWall < 6e4) return null;
-    askedMono = mono; askedWall = wall;
+    if (!(urgent && askFailed) && mono - askedMono < 6e4 && wall - askedWall >= 0 && wall - askedWall < 6e4) return null;
+    askedMono = mono; askedWall = wall; askFailed = true;
     var ctl = window.AbortController ? new AbortController() : null;
-    var ask = fetch('/data/pricing.json', { cache: 'no-store', signal: ctl ? ctl.signal : undefined }).then(function (r) {
-      var server = Date.parse(r.headers.get('Date') || '');
-      if (server > 0) behind = Math.max(behind, server - Date.now());   // whole seconds: never reads a correct clock as ahead
+    var ask = fetch('/data/pricing.json', { cache: 'no-store', headers: { 'Cache-Control': 'no-cache' }, signal: ctl ? ctl.signal : undefined }).then(function (r) {
+      askFailed = false;
+      // The latest the server's clock can have read: Date is cut to whole seconds, a cache adds Age,
+      // and it is set against the moment the request left. Reads a correct clock as up to ~1 s behind
+      // (the offer then ends that much early, never late).
+      var server = Date.parse(r.headers.get('Date') || '') + 1000 + (parseInt(r.headers.get('Age'), 10) || 0) * 1000;
+      if (server > 0) behind = Math.max(behind, server - wall);
       return r.ok ? r.json().then(function (data) {
         var o = data && data.offer, end = o ? Date.parse(o.valid_until) + 1000 : 0;
         if (end < offerEnd) offerEnd = end;
@@ -489,7 +494,7 @@
     var a = e.target.closest ? e.target.closest('[data-package], [data-interest]') : null;
     if (!a || !form) return;
     checkOffer();   // a laptop that slept past the deadline must not hand out the offer price
-    askServer();
+    askServer(true);
     var field = form.querySelector('[data-package-field]');
     if (field) field.value = packageOf(a);
     var want = a.getAttribute('data-interest');
@@ -592,11 +597,16 @@
       // While the offer shows, the server's clock is asked first (or the check in flight is used) and
       // waited for at most 1.5 s, so the Package field is read after it: a device clock that is
       // behind cannot post an offer that has ended.
-      Promise.race([(offerOn() && askServer()) || Promise.resolve(), new Promise(function (r) { window.setTimeout(r, 1500); })])
+      Promise.race([(offerOn() && askServer(true)) || Promise.resolve(), new Promise(function (r) { window.setTimeout(r, 1500); })])
         .then(function () {
           checkOffer();
           data = new FormData(f);
-          return window.fetch(f.action, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
+          // Formspree gets 20 s; then the mail fallback below takes over instead of an endless "Sending…".
+          var ctl = window.AbortController ? new AbortController() : null;
+          var post = window.fetch(f.action, { method: 'POST', body: data, headers: { Accept: 'application/json' }, signal: ctl ? ctl.signal : undefined });
+          return Promise.race([post, new Promise(function (ok, no) {
+            window.setTimeout(function () { if (ctl) ctl.abort(); no(new Error('timeout')); }, 20000);
+          })]);
         })
         .then(function (res) {
           if (!res.ok) throw new Error('HTTP ' + res.status);
