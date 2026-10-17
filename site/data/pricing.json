@@ -1,0 +1,181 @@
+{
+  "updated": "2026-10-17",
+  "currency": "EUR",
+  "vat_note": "Alle Preise sind Endpreise.",
+  "offer": {
+    "name": "Oktober-Aktion",
+    "headline": "50 % auf alle Websites",
+    "valid_until": "2026-10-31T23:59:59+01:00",
+    "applies_to": [
+      "websites",
+      "social_media_first_month"
+    ],
+    "terms": "Gilt für Aufträge, die bis zum 31.10.2026 unterschrieben sind. Social Media: 50 % auf den ersten Monat bei 3 Monaten Mindestlaufzeit. Ab dem 1. November gelten die regulären Preise."
+  },
+  "websites": [
+    {
+      "id": "start",
+      "name": "Website Start",
+      "features": [
+        "Onepager",
+        "Mobil optimiert",
+        "Impressum & Datenschutz",
+        "Google-Unternehmensprofil eingerichtet"
+      ],
+      "price": 1200,
+      "offer_price": 600
+    },
+    {
+      "id": "business",
+      "name": "Website Business",
+      "features": [
+        "Bis 5 Seiten",
+        "Kontakt- oder Reservierungsformular",
+        "SEO-Grundlagen",
+        "Google-Profil"
+      ],
+      "price": 2400,
+      "offer_price": 1200
+    },
+    {
+      "id": "premium",
+      "name": "Website Premium",
+      "features": [
+        "Animiert oder 3D",
+        "Individuelles Design",
+        "Bis 10 Seiten"
+      ],
+      "price": 4800,
+      "offer_price": 2400,
+      "reference": "restauranthole19.de"
+    },
+    {
+      "id": "care",
+      "name": "Website-Pflege",
+      "features": [
+        "Updates",
+        "Kleine Änderungen"
+      ],
+      "price_monthly": 49,
+      "optional": true,
+      "offer_note": "nicht rabattiert"
+    }
+  ],
+  "social_media": {
+    "min_term_months": 3,
+    "packages": [
+      {
+        "id": "start",
+        "name": "Start",
+        "features": [
+          "1 Kanal",
+          "12 Posts",
+          "Stories",
+          "Monatsbericht"
+        ],
+        "price_monthly": 990,
+        "offer_first_month": 495
+      },
+      {
+        "id": "wachstum",
+        "name": "Wachstum",
+        "features": [
+          "2 Kanäle",
+          "16 Posts",
+          "4 Reels",
+          "Stories",
+          "Community"
+        ],
+        "price_monthly": 1490,
+        "offer_first_month": 745
+      },
+      {
+        "id": "premium",
+        "name": "Premium",
+        "features": [
+          "Wie Wachstum",
+          "Foto-/Video-Shooting",
+          "Werbeanzeigen-Betreuung"
+        ],
+        "price_monthly": 2290,
+        "offer_first_month": 1145
+      }
+    ],
+    "note": "Werbebudget für Anzeigen zahlt der Kunde direkt an Meta."
+  },
+  "other_services": [
+    {
+      "id": "branding",
+      "name": "Branding",
+      "features": [
+        "Logo",
+        "Farben",
+        "Schriften",
+        "Brand Book"
+      ],
+      "price_from": 1500
+    },
+    {
+      "id": "ads",
+      "name": "Werbeanzeigen-Betreuung",
+      "price_from_monthly": 390,
+      "note": "zzgl. Werbebudget",
+      "description": "Instagram- & Facebook-Ads, Planung und Betreuung"
+    },
+    {
+      "id": "events",
+      "name": "Events",
+      "price": "auf Anfrage",
+      "description": "Feiern, Aktionen, Pressearbeit"
+    },
+    {
+      "id": "academy_30",
+      "name": "Academy bis ca. 30 Personen",
+      "price_monthly_min": 2000,
+      "price_monthly_max": 4000,
+      "description": "3–4 Trainings im Monat: Führung, Team, Service"
+    },
+    {
+      "id": "academy_100",
+      "name": "Academy 50–100 Personen",
+      "price_monthly": 5000,
+      "description": "Trainingsprogramm für größere Teams"
+    }
+  ],
+  "retail_promotion": [
+    {
+      "id": "brand_game",
+      "name": "Marken-Spiel (einmalig)",
+      "price": 2000,
+      "paid_by": "Marke",
+      "description": "Konzept und Bau des 60-Sekunden-Spiels im Design der Marke"
+    },
+    {
+      "id": "probier_moment",
+      "name": "Probier-Moment",
+      "price": 1290,
+      "paid_by": "Marke",
+      "description": "1 Markt, 1 Tag (8 Std.), 2 Promoter, Verkostung, 1 Spiel, Kurzbericht"
+    },
+    {
+      "id": "liebe_teilen_tag",
+      "name": "Liebe-teilen-Tag",
+      "price": 1990,
+      "paid_by": "Marke",
+      "description": "Probier-Moment + Vox Pops, 3–5 Kurzvideos, Recap-Video"
+    },
+    {
+      "id": "franken_tour",
+      "name": "Franken-Tour",
+      "price": 8500,
+      "paid_by": "Marke",
+      "description": "5 Aktionstage in 5 Märkten, alle Videos, Abschlussbericht mit Absatzvergleich"
+    }
+  ],
+  "retail_promotion_note": "Ware, Preise und Spenden stellt die Marke. Für den Markt (z. B. EDEKA) entstehen keine Kosten.",
+  "contact": {
+    "email": "info@bluetensturm.com",
+    "instagram": "@bluetensturmcreative",
+    "address": "Kirchstraße 8, 97209 Veitshöchheim"
+  }
+}

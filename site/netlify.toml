@@ -175,3 +175,9 @@
   for = "/css/*"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
+# prices and the October offer: a change (or the offer's end) must reach every
+# visitor at once, never a cached copy
+[[headers]]
+  for = "/data/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"

@@ -80,7 +80,7 @@
   "image": "https://bluetensturm.com/media/og-image.jpg",
   "logo": "https://bluetensturm.com/assets/icon-512.png",
   "description": "Marketing, creative and corporate training from Würzburg — built with the rigour of consultants and the nerve of artists.",
-  "address": { "@type": "PostalAddress", "addressLocality": "Würzburg", "addressRegion": "Bavaria", "addressCountry": "DE" },
+  "address": { "@type": "PostalAddress", "streetAddress": "Kirchstraße 8", "postalCode": "97209", "addressLocality": "Veitshöchheim", "addressRegion": "Bavaria", "addressCountry": "DE" },
   "areaServed": ["DE", "AT", "CH", "IT", "FR", "ES", "AL", "XK"],
   "knowsLanguage": ["de", "en", "fr", "es", "it"],
   "sameAs": ["https://www.instagram.com/bluetensturmcreative"]
@@ -136,6 +136,7 @@
         <a href="#about" data-i18n="nav.about">About</a>
         <a href="#services" data-i18n="nav.services">Services</a>
         <a href="#work" data-i18n="nav.work">Work</a>
+        <a href="#pricing" data-i18n="nav.pricing">Prices</a>
         <a href="#portfolio" data-i18n="nav.portfolio">Portfolio</a>
         <a href="#training" data-i18n="nav.academy">Academy</a>
       </div>
@@ -286,7 +287,7 @@
           <p class="svc__text" data-i18n="services.c1p">Market and category analysis, brand architecture, naming, verbal and visual identity systems. We find the sharp edge, then build everything around it.</p>
           <div class="svc__tags"><span data-i18n="services.tag1">Positioning</span><span data-i18n="services.tag2">Identity systems</span><span data-i18n="services.tag3">Naming</span></div>
         </div>
-        <p class="svc__from"><span data-i18n="panel.from">from</span> <b>6.500 €</b> <em data-i18n="panel.unit.pr">per project</em></p>
+        <p class="svc__from" data-card-price="brand-strategy"><span>from</span> <b>€1,500</b></p>
         <button class="svc__open" type="button" data-service-open="brand-strategy" aria-describedby="svc-t1"><span data-i18n="services.open">Packages &amp; scope</span><i aria-hidden="true"></i></button>
       </article>
       <article class="svc reveal" data-delay="1" data-tilt>
@@ -296,7 +297,7 @@
           <h3 class="svc__title" id="svc-t2" data-i18n="services.c2t">Digital marketing</h3>
           <p class="svc__text" data-i18n="services.c2p">Performance media, SEO, CRM and marketing automation — measured against pipeline, not impressions.</p>
         </div>
-        <p class="svc__from"><span data-i18n="panel.from">from</span> <b>2.400 €</b> <em data-i18n="panel.unit.mo">per month</em></p>
+        <p class="svc__from" data-card-price="digital-marketing"><span>from</span> <b>€390</b> <em>/ month</em> <em>plus ad budget</em></p>
         <button class="svc__open" type="button" data-service-open="digital-marketing" aria-describedby="svc-t2"><span data-i18n="services.open">Packages &amp; scope</span><i aria-hidden="true"></i></button>
       </article>
       <article class="svc reveal" data-delay="2" data-tilt>
@@ -306,7 +307,7 @@
           <h3 class="svc__title" id="svc-t3" data-i18n="services.c3t">Content &amp; social</h3>
           <p class="svc__text" data-i18n="services.c3p">Editorial systems, film, photography and always-on social built for German and EU-wide audiences.</p>
         </div>
-        <p class="svc__from"><span data-i18n="panel.from">from</span> <b>3.200 €</b> <em data-i18n="panel.unit.mo">per month</em></p>
+        <p class="svc__from" data-card-price="content-production"><span>from</span> <b>€990</b> <em>/ month</em></p>
         <button class="svc__open" type="button" data-service-open="content-production" aria-describedby="svc-t3"><span data-i18n="services.open">Packages &amp; scope</span><i aria-hidden="true"></i></button>
       </article>
       <article class="svc reveal" data-delay="0" data-tilt>
@@ -316,7 +317,7 @@
           <h3 class="svc__title" id="svc-t4" data-i18n="services.c4t">Events &amp; experience</h3>
           <p class="svc__text" data-i18n="services.c4p">Launches, trade fairs and internal summits — concept, production and on-site direction.</p>
         </div>
-        <p class="svc__from"><span data-i18n="panel.from">from</span> <b>7.500 €</b> <em data-i18n="panel.unit.pr">per project</em></p>
+        <p class="svc__from" data-card-price="event-marketing-promotions"><b>on request</b></p>
         <button class="svc__open" type="button" data-service-open="event-marketing-promotions" aria-describedby="svc-t4"><span data-i18n="services.open">Packages &amp; scope</span><i aria-hidden="true"></i></button>
       </article>
       <article class="svc svc--accent reveal" data-delay="1" data-tilt>
@@ -326,10 +327,111 @@
           <h3 class="svc__title" id="svc-t5" data-i18n="services.c5t">Corporate training</h3>
           <p class="svc__text" data-i18n="services.c5p">Leadership development, communication, customer care and sales enablement — certified, bilingual, in-house or off-site.</p>
         </div>
-        <p class="svc__from"><span data-i18n="panel.from">from</span> <b>2.400 €</b> <em data-i18n="panel.unit.day">per day</em></p>
+        <p class="svc__from" data-card-price="corporate-training"><span>from</span> <b>€2,000</b> <em>/ month</em></p>
         <button class="svc__open" type="button" data-service-open="corporate-training" aria-describedby="svc-t5"><span data-i18n="services.open">Packages &amp; scope</span><i aria-hidden="true"></i></button>
       </article>
 <!--/@CARDS-->
+    </div>
+
+    <!-- Prices & offers, rendered from /data/pricing.json by js/pricing.js.
+         The block between the markers is the no-JavaScript fallback (regular
+         prices only), regenerated by tools/render-pricing.mjs. -->
+    <div class="pricing" id="pricing" data-pricing aria-labelledby="pricing-title">
+<!--@PRICING-->
+      <div class="pricing__head">
+            <h3 class="pricing__title" id="pricing-title">Prices &amp; offers</h3>
+            <p class="pricing__updated">As of 17/10/2026</p>
+          </div>
+          
+          <section class="pricing__group" aria-label="Websites (fixed prices)">
+            <h4 class="pricing__gtitle">Websites (fixed prices)</h4>
+            <div class="pgrid pgrid--web"><article class="pkg">
+          <h5 class="pkg__name">Website Start</h5>
+          <p class="price"><b>€1,200</b></p>
+          <ul class="pkg__list"><li>One-pager</li><li>Mobile-optimised</li><li>Imprint &amp; privacy policy</li><li>Google Business Profile set up</li></ul>
+          <a class="pkg__cta" href="#contact" data-pkg="websites:start">Request this package<i aria-hidden="true"></i></a>
+        </article><article class="pkg">
+          <h5 class="pkg__name">Website Business</h5>
+          <p class="price"><b>€2,400</b></p>
+          <ul class="pkg__list"><li>Up to 5 pages</li><li>Contact or reservation form</li><li>SEO basics</li><li>Google profile</li></ul>
+          <a class="pkg__cta" href="#contact" data-pkg="websites:business">Request this package<i aria-hidden="true"></i></a>
+        </article><article class="pkg pkg--dark">
+          <h5 class="pkg__name">Website Premium</h5>
+          <p class="price"><b>€4,800</b></p>
+          <ul class="pkg__list"><li>Animated or 3D</li><li>Custom design</li><li>Up to 10 pages</li></ul><p class="pkg__ref">like restauranthole19.de</p>
+          <a class="pkg__cta" href="#contact" data-pkg="websites:premium">Request this package<i aria-hidden="true"></i></a>
+        </article></div><article class="pkg pkg--slim">
+          <h5 class="pkg__name">Website care <small>(optional)</small></h5>
+          <p class="price"><b>€49</b> <span class="price__unit">/ month</span></p>
+          <ul class="pkg__list"><li>Updates</li><li>Small changes</li></ul>
+          <a class="pkg__cta" href="#contact" data-pkg="websites:care">Request this package<i aria-hidden="true"></i></a>
+        </article>
+          </section><section class="pricing__group" aria-label="Social media (monthly, 3-month minimum term)">
+            <h4 class="pricing__gtitle">Social media (monthly, 3-month minimum term)</h4>
+            <div class="pgrid"><article class="pkg">
+          <h5 class="pkg__name">Start</h5>
+          <p class="price"><b>€990</b> <span class="price__unit">/ month</span></p>
+          <ul class="pkg__list"><li>1 channel</li><li>12 posts</li><li>Stories</li><li>Monthly report</li></ul>
+          <a class="pkg__cta" href="#contact" data-pkg="social:start">Request this package<i aria-hidden="true"></i></a>
+        </article><article class="pkg">
+          <h5 class="pkg__name">Growth</h5>
+          <p class="price"><b>€1,490</b> <span class="price__unit">/ month</span></p>
+          <ul class="pkg__list"><li>2 channels</li><li>16 posts</li><li>4 reels</li><li>Stories</li><li>Community</li></ul>
+          <a class="pkg__cta" href="#contact" data-pkg="social:wachstum">Request this package<i aria-hidden="true"></i></a>
+        </article><article class="pkg pkg--dark">
+          <h5 class="pkg__name">Premium</h5>
+          <p class="price"><b>€2,290</b> <span class="price__unit">/ month</span></p>
+          <ul class="pkg__list"><li>Everything in Growth</li><li>Photo/video shoot</li><li>Ad management</li></ul>
+          <a class="pkg__cta" href="#contact" data-pkg="social:premium">Request this package<i aria-hidden="true"></i></a>
+        </article></div><p class="pricing__note">The client pays the ad budget directly to Meta.</p>
+          </section><section class="pricing__group" aria-label="Further services">
+            <h4 class="pricing__gtitle">Further services</h4>
+            <ul class="prows"><li class="prow">
+          <div class="prow__main"><h5 class="prow__name">Branding</h5><ul class="pkg__list"><li>Logo</li><li>Colours</li><li>Typefaces</li><li>Brand book</li></ul></div>
+          <p class="prow__price"><b>from €1,500</b></p>
+          <a class="pkg__cta" href="#contact" data-pkg="other:branding">Request this package<i aria-hidden="true"></i></a>
+        </li><li class="prow">
+          <div class="prow__main"><h5 class="prow__name">Ad management</h5><p class="pkg__desc">Instagram &amp; Facebook ads, planning and management</p></div>
+          <p class="prow__price"><b>from €390 / month</b><span>plus ad budget</span></p>
+          <a class="pkg__cta" href="#contact" data-pkg="other:ads">Request this package<i aria-hidden="true"></i></a>
+        </li><li class="prow">
+          <div class="prow__main"><h5 class="prow__name">Events</h5><p class="pkg__desc">Celebrations, promotions, press work</p></div>
+          <p class="prow__price"><b>on request</b></p>
+          <a class="pkg__cta" href="#contact" data-pkg="other:events">Request this package<i aria-hidden="true"></i></a>
+        </li><li class="prow">
+          <div class="prow__main"><h5 class="prow__name">Academy up to approx. 30 people</h5><p class="pkg__desc">3–4 trainings a month: leadership, team, service</p></div>
+          <p class="prow__price"><b>€2,000 – €4,000 / month</b></p>
+          <a class="pkg__cta" href="#contact" data-pkg="other:academy_30">Request this package<i aria-hidden="true"></i></a>
+        </li><li class="prow">
+          <div class="prow__main"><h5 class="prow__name">Academy 50–100 people</h5><p class="pkg__desc">Training programme for larger teams</p></div>
+          <p class="prow__price"><b>€5,000 / month</b></p>
+          <a class="pkg__cta" href="#contact" data-pkg="other:academy_100">Request this package<i aria-hidden="true"></i></a>
+        </li></ul>
+          </section><section class="pricing__group" aria-label="In-store promotion (for brands, e.g. in EDEKA stores)">
+            <h4 class="pricing__gtitle">In-store promotion (for brands, e.g. in EDEKA stores)</h4>
+            <ul class="prows"><li class="prow">
+          <div class="prow__main"><h5 class="prow__name">Brand game (one-off)</h5><p class="pkg__desc">Concept and build of the 60-second game in the brand's design</p></div>
+          <p class="prow__price"><b>€2,000</b><span>paid by the brand</span></p>
+          <a class="pkg__cta" href="#contact" data-pkg="retail:brand_game">Request this package<i aria-hidden="true"></i></a>
+        </li><li class="prow">
+          <div class="prow__main"><h5 class="prow__name">Tasting Moment</h5><p class="pkg__desc">1 store, 1 day (8 hrs), 2 promoters, tasting, 1 game, short report</p></div>
+          <p class="prow__price"><b>€1,290</b><span>paid by the brand</span></p>
+          <a class="pkg__cta" href="#contact" data-pkg="retail:probier_moment">Request this package<i aria-hidden="true"></i></a>
+        </li><li class="prow">
+          <div class="prow__main"><h5 class="prow__name">Share-the-Love Day</h5><p class="pkg__desc">Tasting Moment + vox pops, 3–5 short videos, recap video</p></div>
+          <p class="prow__price"><b>€1,990</b><span>paid by the brand</span></p>
+          <a class="pkg__cta" href="#contact" data-pkg="retail:liebe_teilen_tag">Request this package<i aria-hidden="true"></i></a>
+        </li><li class="prow">
+          <div class="prow__main"><h5 class="prow__name">Franconia Tour</h5><p class="pkg__desc">5 promotion days in 5 stores, all videos, final report with sales comparison</p></div>
+          <p class="prow__price"><b>€8,500</b><span>paid by the brand</span></p>
+          <a class="pkg__cta" href="#contact" data-pkg="retail:franken_tour">Request this package<i aria-hidden="true"></i></a>
+        </li></ul><p class="pricing__note">The brand provides the goods, prizes and donations. The store (e.g. EDEKA) pays nothing.</p>
+          </section>
+          <div class="pricing__foot">
+            <p class="pricing__vat">All prices are final prices.</p>
+            <p class="pricing__contact"><span>Questions about the packages?</span> <a href="mailto:info@bluetensturm.com">info@bluetensturm.com</a> · <a href="https://www.instagram.com/bluetensturmcreative" target="_blank" rel="noopener noreferrer">@bluetensturmcreative</a> · Kirchstraße 8, 97209 Veitshöchheim</p>
+          </div>
+<!--/@PRICING-->
     </div>
   </div>
 </section>
@@ -659,7 +761,10 @@
       <svg class="brand__mark" viewBox="0 0 733.3 1000" aria-hidden="true" focusable="false"><use href="#bs-mono"></use></svg>
       <span class="brand__word">Blüten Sturm</span>
     </a>
-    <p class="site-footer__copy" data-i18n="footer.copy">© 2026 Blüten Sturm GmbH — Where brands bloom and ideas storm.</p>
+    <div class="site-footer__copy">
+      <p data-i18n="footer.copy">© 2026 Blüten Sturm GmbH — Where brands bloom and ideas storm.</p>
+      <p class="site-footer__vat" data-i18n="pricing.vat">All prices are final prices.</p>
+    </div>
     <nav class="site-footer__links" aria-label="Legal" data-i18n-aria="a11y.legal">
       <a href="/impressum/" data-i18n="footer.imprint">Impressum</a>
       <a href="/datenschutz/" data-i18n="footer.privacy">Datenschutz</a>
@@ -672,6 +777,10 @@
   </div>
   <div class="site-footer__giant" aria-hidden="true">Blüten Sturm</div>
 </footer>
+
+<!-- October offer: shown by js/site.js only while pricing.json's offer is
+     valid; hidden by default so it can never outlive the offer. -->
+<aside class="offer-pill" data-offer-pill hidden></aside>
 
 <!-- =====================================================================
      Detail panel: services and partners share one dialog
@@ -689,7 +798,7 @@
     <p class="panel__body" data-panel-body></p>
     <ul class="panel__list" data-panel-list></ul>
     <div class="packs" data-panel-packs></div>
-    <p class="panel__foot" data-panel-foot data-i18n="panel.foot">Indicative from-prices for the Bavarian market, net of VAT. Final scope is quoted against your brief.</p>
+    <p class="panel__foot" data-panel-foot data-i18n="pricing.vat">All prices are final prices.</p>
   </div>
 </dialog>
 

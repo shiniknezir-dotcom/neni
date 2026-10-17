@@ -20,6 +20,7 @@
     "about": "À propos",
     "services": "Services",
     "work": "Réalisations",
+    "pricing": "Tarifs",
     "portfolio": "Portfolio",
     "academy": "Académie",
     "talk": "Parlons-en"
@@ -49,19 +50,6 @@
         "Architecture de marque",
         "Naming et identité verbale",
         "Systèmes d'identité visuelle"
-      ],
-      "normal": [
-        "Sprint de positionnement, deux ateliers",
-        "Cartographie de la concurrence et de la catégorie",
-        "Plateforme de messages et ton de marque",
-        "Charte de marque, 20 pages"
-      ],
-      "premium": [
-        "Toute la formule Essentiel",
-        "Architecture de marque et naming",
-        "Système d'identité visuelle complet",
-        "Guide de déploiement et lancement interne",
-        "Six mois d'accompagnement de la marque"
       ]
     },
     "marketing-strategy": {
@@ -72,19 +60,6 @@
         "Stratégie de canaux et tunnel de conversion",
         "Allocation budgétaire",
         "Cadres de mesure"
-      ],
-      "normal": [
-        "Audit des canaux et du tunnel de conversion",
-        "Plan de canaux sur 12 mois",
-        "Modèle d'allocation budgétaire",
-        "Cadre de KPI"
-      ],
-      "premium": [
-        "Toute la formule Essentiel",
-        "Études de segments et de personas",
-        "Modélisation du mix média",
-        "Pilotage trimestriel avec votre direction",
-        "Mise en place de l'attribution"
       ]
     },
     "creative-services": {
@@ -95,19 +70,6 @@
         "Plateformes de campagne",
         "Direction artistique",
         "Rédaction et concept"
-      ],
-      "normal": [
-        "Une piste de campagne",
-        "Key visual et système d'accroches",
-        "Direction artistique pour trois formats",
-        "Deux tours de révision"
-      ],
-      "premium": [
-        "Toute la formule Essentiel",
-        "Trois pistes concurrentes",
-        "Plateforme de campagne complète",
-        "Kit de déclinaisons tous canaux",
-        "Adaptation aux marchés DACH"
       ]
     },
     "digital-marketing": {
@@ -118,19 +80,6 @@
         "Médias payants",
         "SEO et contenu",
         "CRM et automatisation"
-      ],
-      "normal": [
-        "Optimisation SEO et contenu",
-        "Un canal payant géré",
-        "Rapport de performance mensuel",
-        "Jusqu'à 12 heures senior"
-      ],
-      "premium": [
-        "Toute la formule Essentiel",
-        "Trois canaux payants gérés",
-        "CRM et marketing automation",
-        "Programme CRO des pages d'atterrissage",
-        "Reporting hebdomadaire, attribution du chiffre d'affaires"
       ]
     },
     "social-media-management": {
@@ -141,19 +90,6 @@
         "Planification éditoriale",
         "Animation de communauté",
         "Créations natives"
-      ],
-      "normal": [
-        "Deux canaux, 12 publications par mois",
-        "Calendrier éditorial",
-        "Animation de communauté, en semaine",
-        "Rapport mensuel"
-      ],
-      "premium": [
-        "Toute la formule Essentiel",
-        "Quatre canaux, 24 publications par mois",
-        "Production vidéo native et reels",
-        "Gestion du budget publicitaire social",
-        "Relations influenceurs et créateurs"
       ]
     },
     "content-production": {
@@ -164,19 +100,6 @@
         "Film et motion design",
         "Photographie",
         "Éditorial et rédaction"
-      ],
-      "normal": [
-        "Un jour de tournage par mois",
-        "Éditorial et rédaction",
-        "Retouche photo et montage de formats courts",
-        "Remise de la médiathèque"
-      ],
-      "premium": [
-        "Toute la formule Essentiel",
-        "Trois jours de tournage par mois",
-        "Film, motion design et photographie",
-        "Cellule éditoriale bilingue",
-        "Flux de contenus en continu"
       ]
     },
     "website-digital-experience": {
@@ -187,19 +110,6 @@
         "Design et développement",
         "Performance et SEO",
         "Accessibilité"
-      ],
-      "normal": [
-        "Jusqu'à 10 pages, design sur mesure",
-        "CMS et migration des contenus",
-        "Validation Core Web Vitals",
-        "Socle d'accessibilité"
-      ],
-      "premium": [
-        "Toute la formule Essentiel",
-        "Multilingue, jusqu'à 40 pages",
-        "Design system et bibliothèque de composants",
-        "Intégrations et fonctionnalités sur mesure",
-        "Douze mois de maintenance et de CRO"
       ]
     },
     "advertising": {
@@ -210,19 +120,6 @@
         "Concept de campagne",
         "Production",
         "Diffusion média"
-      ],
-      "normal": [
-        "Un concept de campagne",
-        "Production de trois supports",
-        "Plan média",
-        "Diffusion et mise en ligne"
-      ],
-      "premium": [
-        "Toute la formule Essentiel",
-        "Plateforme ATL et BTL",
-        "Production complète, film compris",
-        "Achat média multi-marchés",
-        "Étude d'efficacité post-campagne"
       ]
     },
     "pr": {
@@ -233,19 +130,6 @@
         "Relations presse",
         "Leadership d'opinion",
         "Communication de crise"
-      ],
-      "normal": [
-        "Deux communiqués de presse par mois",
-        "Fichier médias DACH et prise de contact",
-        "Rapport de retombées",
-        "Briefing du porte-parole"
-      ],
-      "premium": [
-        "Toute la formule Essentiel",
-        "Programme de leadership d'opinion",
-        "Relations médias dans toute l'UE",
-        "Communication de crise au forfait",
-        "Media training des dirigeants"
       ]
     },
     "business-development-support": {
@@ -256,19 +140,6 @@
         "Planification go-to-market",
         "Appui aux pitchs",
         "Partenariats"
-      ],
-      "normal": [
-        "Plan go-to-market pour un marché",
-        "Pitch deck et fiche de synthèse",
-        "Grille de qualification des leads",
-        "Point stratégique mensuel"
-      ],
-      "premium": [
-        "Toute la formule Essentiel",
-        "Trois marchés en parallèle",
-        "Recherche de partenaires et mises en relation",
-        "Coaching de pitch pour l'équipe",
-        "Bibliothèque de supports de vente"
       ]
     },
     "event-marketing-promotions": {
@@ -279,19 +150,6 @@
         "Salons et lancements",
         "Activation en magasin",
         "Direction sur place"
-      ],
-      "normal": [
-        "Concept et conducteur",
-        "Coordination des prestataires",
-        "Direction sur place, une journée",
-        "Film récapitulatif et reportage photo"
-      ],
-      "premium": [
-        "Toute la formule Essentiel",
-        "Conception créative et scénographie complètes",
-        "Production sur plusieurs jours",
-        "Parcours invités et campagne d'invitation",
-        "Contenus live et amplification post-événement"
       ]
     },
     "video-multimedia": {
@@ -302,19 +160,6 @@
         "Film de marque",
         "Vidéo produit",
         "Motion design"
-      ],
-      "normal": [
-        "Un jour de tournage, équipe de deux",
-        "Film de marque jusqu'à 90 secondes",
-        "Trois formats courts pour les réseaux",
-        "Musique sous licence et étalonnage"
-      ],
-      "premium": [
-        "Toute la formule Essentiel",
-        "Trois jours de tournage, équipe complète",
-        "Réalisateur, casting et repérages",
-        "Motion design et inserts 3D",
-        "Dix formats courts et déclinaisons"
       ]
     },
     "analytics": {
@@ -325,19 +170,6 @@
         "Modélisation de l'attribution",
         "Tableaux de bord",
         "Reporting"
-      ],
-      "normal": [
-        "Audit du tracking et du consentement",
-        "Mise en place GA4 et tracking côté serveur",
-        "Un tableau de bord de direction",
-        "Documentation de passation"
-      ],
-      "premium": [
-        "Toute la formule Essentiel, plus un suivi au forfait",
-        "Modélisation de l'attribution",
-        "Restitution mensuelle des insights",
-        "Programme d'expérimentation",
-        "Revue trimestrielle prête pour la direction"
       ]
     },
     "ai-innovation": {
@@ -348,19 +180,6 @@
         "Marketing automation",
         "IA appliquée",
         "Conception de processus"
-      ],
-      "normal": [
-        "Audit et sélection des cas d'usage",
-        "Un processus automatisé",
-        "Recommandation d'outils",
-        "Session de prise en main pour l'équipe"
-      ],
-      "premium": [
-        "Toute la formule Essentiel",
-        "Trois processus automatisés",
-        "Système de prompts et de contenus sur mesure",
-        "Garde-fous de gouvernance et de conformité",
-        "Itération trimestrielle"
       ]
     },
     "consulting": {
@@ -371,18 +190,6 @@
         "Audits marketing",
         "Ateliers",
         "Missions de transition"
-      ],
-      "normal": [
-        "Une journée d'atelier ou d'audit",
-        "Conclusions écrites et prochaines étapes",
-        "Deux semaines de questions de suivi"
-      ],
-      "premium": [
-        "Toute la formule Essentiel, au forfait",
-        "Deux jours par mois à vos côtés",
-        "Direction marketing de transition",
-        "Pilotage des agences et des prestataires",
-        "Ligne directe, réponse le jour même"
       ]
     },
     "employer-branding": {
@@ -393,19 +200,6 @@
         "Positionnement employeur",
         "Contenus carrières",
         "Campagnes de recrutement"
-      ],
-      "normal": [
-        "Atelier de positionnement employeur",
-        "EVP et messages clés",
-        "Page carrières, textes et design",
-        "Trois séries d'annonces de recrutement"
-      ],
-      "premium": [
-        "Toute la formule Essentiel",
-        "Études et entretiens collaborateurs",
-        "Film et photographie carrières",
-        "Campagne de recrutement en continu",
-        "Kit d'intégration et de culture"
       ]
     },
     "ongoing-client-services": {
@@ -416,19 +210,6 @@
         "Stratégie au forfait",
         "Création en continu",
         "Pilotage de la performance"
-      ],
-      "normal": [
-        "20 heures senior par mois",
-        "Une discipline au choix",
-        "Point de planification mensuel",
-        "Tableau de suivi partagé et reporting"
-      ],
-      "premium": [
-        "Toute la formule Essentiel",
-        "55 heures senior par mois",
-        "Stratégie, création et performance",
-        "Équipe attitrée, aucun transfert aux juniors",
-        "Traitement prioritaire"
       ]
     },
     "corporate-training": {
@@ -439,36 +220,12 @@
         "Développement du leadership",
         "Communication des dirigeants",
         "Sales enablement"
-      ],
-      "normal": [
-        "Une journée de formation, jusqu'à 12 personnes",
-        "En allemand ou en anglais",
-        "Cahier d'exercices et supports",
-        "Chez vous ou à Wurtzbourg"
-      ],
-      "premium": [
-        "Toute la formule Essentiel",
-        "Conception d'un programme en plusieurs modules",
-        "Coaching individuel des participants",
-        "Certification et exercices de mise en pratique",
-        "Session de suivi à 90 jours"
       ]
     }
   },
   "panel": {
     "service": "Prestation",
-    "partner": "Partenaire",
-    "normal": "Essentiel",
-    "premium": "Premium",
-    "from": "à partir de",
-    "unit": {
-      "mo": "par mois",
-      "pr": "par projet",
-      "day": "par jour"
-    },
-    "reqNormal": "Demander Essentiel",
-    "reqPremium": "Demander Premium",
-    "foot": "Prix indicatifs « à partir de » pour le marché bavarois, hors TVA. Le périmètre définitif est chiffré sur la base de votre brief."
+    "partner": "Partenaire"
   },
   "marquee": [
     "Stratégie de marque",
@@ -741,5 +498,158 @@
   },
   "intro": {
     "loading": "Chargement"
+  },
+  "pricing": {
+    "title": "Tarifs & offres",
+    "updated": "Mise à jour : {date}",
+    "groups": {
+      "websites": "Sites web (prix forfaitaires)",
+      "social": "Réseaux sociaux (forfaits mensuels, engagement minimum de {n} mois)",
+      "other": "Autres prestations",
+      "retail": "Promotion en magasin (pour les marques, p. ex. dans les magasins EDEKA)"
+    },
+    "regular": "Prix habituel",
+    "offerPrice": "Prix promotionnel",
+    "perMonth": "/ mois",
+    "from": "à partir de",
+    "onRequest": "sur demande",
+    "firstMonth": "1er mois pour toute commande jusqu’au {date}",
+    "then": "puis {price} / mois",
+    "optional": "en option",
+    "paidBy": "à la charge de la marque",
+    "request": "Demander cette formule",
+    "reference": "comme {site}",
+    "contactQ": "Des questions sur les formules ?",
+    "panelOnRequest": "Prix sur demande",
+    "panelCta": "Demander un devis",
+    "vat": "Tous les prix indiqués sont des prix finaux.",
+    "socialShort": "Réseaux sociaux",
+    "offer": {
+      "name": "Offre d’octobre",
+      "headline": "50 % de réduction sur tous les sites web",
+      "terms": "Offre valable pour toute commande signée au plus tard le 31 octobre 2026. Réseaux sociaux : 50 % de réduction sur le premier mois, avec un engagement minimum de 3 mois. Les prix habituels s’appliquent à partir du 1er novembre.",
+      "until": "jusqu’au {date}",
+      "daysLeft": "encore {n} jours",
+      "oneDay": "encore 1 jour",
+      "lastDay": "dernier jour",
+      "cta": "Voir les tarifs",
+      "close": "Fermer"
+    },
+    "items": {
+      "websites": {
+        "start": {
+          "name": "Site web Démarrage",
+          "features": [
+            "Site monopage",
+            "Optimisé pour mobile",
+            "Mentions légales & politique de confidentialité",
+            "Fiche d’établissement Google configurée"
+          ]
+        },
+        "business": {
+          "name": "Site web Business",
+          "features": [
+            "Jusqu’à 5 pages",
+            "Formulaire de contact ou de réservation",
+            "SEO de base",
+            "Fiche Google"
+          ]
+        },
+        "premium": {
+          "name": "Site web Premium",
+          "features": [
+            "Animé ou en 3D",
+            "Design sur mesure",
+            "Jusqu’à 10 pages"
+          ]
+        },
+        "care": {
+          "name": "Maintenance du site web",
+          "features": [
+            "Mises à jour",
+            "Petites modifications"
+          ],
+          "offer_note": "sans réduction"
+        }
+      },
+      "social": {
+        "start": {
+          "name": "Démarrage",
+          "features": [
+            "1 réseau social",
+            "12 publications",
+            "Stories",
+            "Rapport mensuel"
+          ]
+        },
+        "wachstum": {
+          "name": "Croissance",
+          "features": [
+            "2 réseaux sociaux",
+            "16 publications",
+            "4 Reels",
+            "Stories",
+            "Gestion de la communauté"
+          ]
+        },
+        "premium": {
+          "name": "Premium",
+          "features": [
+            "Tout le contenu de la formule Croissance",
+            "Shooting photo/vidéo",
+            "Gestion des publicités"
+          ]
+        },
+        "note": "Le client paie le budget publicitaire directement à Meta."
+      },
+      "other": {
+        "branding": {
+          "name": "Identité de marque",
+          "features": [
+            "Logo",
+            "Couleurs",
+            "Typographies",
+            "Charte de marque"
+          ]
+        },
+        "ads": {
+          "name": "Gestion des publicités",
+          "description": "Publicités Instagram & Facebook, planification et gestion",
+          "note": "hors budget publicitaire"
+        },
+        "events": {
+          "name": "Événements",
+          "description": "Fêtes, opérations promotionnelles, relations presse",
+          "price": "sur demande"
+        },
+        "academy_30": {
+          "name": "Académie (jusqu’à 30 personnes environ)",
+          "description": "3 à 4 formations par mois : leadership, équipe, service"
+        },
+        "academy_100": {
+          "name": "Académie (50 à 100 personnes)",
+          "description": "Programme de formation pour les grandes équipes"
+        }
+      },
+      "retail": {
+        "brand_game": {
+          "name": "Jeu de marque (forfait unique)",
+          "description": "Conception et réalisation du jeu de 60 secondes aux couleurs de la marque"
+        },
+        "probier_moment": {
+          "name": "Moment dégustation",
+          "description": "1 magasin, 1 jour (8 h), 2 animateurs, dégustation, 1 jeu, rapport succinct"
+        },
+        "liebe_teilen_tag": {
+          "name": "Journée Partagez l’amour",
+          "description": "Moment dégustation + micros-trottoirs, 3 à 5 vidéos courtes, vidéo récapitulative"
+        },
+        "franken_tour": {
+          "name": "Tournée de Franconie",
+          "description": "5 journées d’animation dans 5 magasins, toutes les vidéos, rapport final avec comparatif des ventes"
+        },
+        "note": "La marque fournit les produits, les lots et les dons. Aucun coût n’est à la charge du magasin (p. ex. EDEKA)."
+      }
+    }
   }
 }

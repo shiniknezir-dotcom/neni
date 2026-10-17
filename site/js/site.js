@@ -7,6 +7,7 @@
 
 import { SERVICES, BRAND_CATEGORIES, COMPANY } from './data.js';
 import { sendEnquiry, fallbackHref } from './form-send.js';
+import * as P from './pricing.js';
 
 const LANGS = ['en', 'de', 'fr', 'es', 'it'];
 const LOCALES = { en: 'en-GB', de: 'de-DE', fr: 'fr-FR', es: 'es-ES', it: 'it-IT' };
@@ -102,6 +103,7 @@ function applyDict() {
   const bc = $('[data-brand-count]');
   if (bc) bc.innerHTML = esc(t('stage.brandsCount', '{n} brands and counting')).replace('{n}', `<b>${bc.dataset.n || $$('[data-brand]').length}</b>`);
   if (panel && panel.open && panelState) fillPanel(panelState);
+  renderPrices();
   window.dispatchEvent(new CustomEvent('bs:lang', { detail: lang }));
 }
 
@@ -245,17 +247,6 @@ let brands = [];
 function list(items) {
   return (Array.isArray(items) ? items : []).map((i) => `<li>${esc(i)}</li>`).join('');
 }
-function pack(tier, s) {
-  const [price, unit] = s[tier];
-  const cta = t(tier === 'premium' ? 'panel.reqPremium' : 'panel.reqNormal');
-  return `<div class="pack${tier === 'premium' ? ' pack--premium' : ''}">
-    <p class="pack__tier">${esc(t(`panel.${tier}`))}</p>
-    <p class="pack__price"><span>${esc(t('panel.from'))}</span> <b>${esc(price)}</b> <em>${esc(t(`panel.unit.${unit}`))}</em></p>
-    <ul class="pack__list">${list(t(`svc.${s.id}.${tier}`, []))}</ul>
-    <a class="btn btn--sm${tier === 'premium' ? ' btn--lime' : ''}" href="#contact" data-panel-cta data-tier="${tier}" data-service="${s.id}">${esc(cta)}<i class="dot" aria-hidden="true"></i></a>
-  </div>`;
-}
-
 function fillPanel(state) {
   const media = $('[data-panel-media]', panel);
   const img = $('[data-panel-img]', panel);
@@ -273,8 +264,12 @@ function fillPanel(state) {
     $('[data-panel-tagline]', panel).textContent = t(`svc.${s.id}.tagline`);
     $('[data-panel-body]', panel).textContent = t(`svc.${s.id}.desc`);
     $('[data-panel-list]', panel).innerHTML = list(t(`svc.${s.id}.items`, []));
-    $('[data-panel-packs]', panel).innerHTML = pack('normal', s) + pack('premium', s);
-    $('[data-panel-foot]', panel).hidden = false;
+    $('[data-panel-packs]', panel).innerHTML = pricing
+      ? P.servicePricing(s.id, pricing, priceCtx())
+      : `<div class="pricing__onrequest"><a class="pkg__cta" href="#contact" data-pkg="service:${s.id}">${esc(t('pricing.panelCta', 'Request an offer'))}<i aria-hidden="true"></i></a></div>`;
+    const foot = $('[data-panel-foot]', panel);
+    foot.textContent = pricing ? (lang === 'de' ? pricing.vat_note : t('pricing.vat', pricing.vat_note)) : t('pricing.vat');
+    foot.hidden = false;
   } else {
     const b = brandAt(state.index);
     if (!b) return false;
@@ -322,7 +317,7 @@ function closePanel() {
   else { panel.removeAttribute('open'); panel.dispatchEvent(new Event('close')); }
 }
 
-/* A tier request carries its context into the contact form. */
+/* A package or service request carries its context into the contact form. */
 const DISCIPLINE_OF = {
   'brand-strategy': 'Brand strategy', 'marketing-strategy': 'Brand strategy', 'creative-services': 'Brand strategy',
   'digital-marketing': 'Digital marketing', 'website-digital-experience': 'Digital marketing', 'analytics': 'Digital marketing',
@@ -333,16 +328,26 @@ const DISCIPLINE_OF = {
   'business-development-support': 'Brand strategy', 'consulting': 'Brand strategy',
   'employer-branding': 'Brand strategy', 'ongoing-client-services': 'Brand strategy'
 };
-function prefillContact(serviceId, tier) {
+function prefillContact(ref) {
   const form = $('#contact form');
-  if (!form) return;
+  if (!form) return null;
+  let label = '', discipline = '';
+  if (ref.startsWith('service:')) {
+    const id = ref.slice(8);
+    label = t(`svc.${id}.name`);
+    discipline = DISCIPLINE_OF[id];
+  } else {
+    const info = pricing && P.packageLabel(ref, pricing, priceCtx());
+    if (!info) return null;
+    label = (info.group === 'social' ? `${t('pricing.socialShort', 'Social Media')} ` : '') + info.name + (info.offer ? ` — ${info.offer}` : '');
+    discipline = P.DISCIPLINE_OF_GROUP[ref] || P.DISCIPLINE_OF_GROUP[info.group];
+  }
   const sel = form.querySelector('[name="Service"]');
-  const want = DISCIPLINE_OF[serviceId];
-  if (sel && want) sel.value = want;
+  if (sel && discipline) sel.value = discipline;
   const ta = form.querySelector('[name="Project"]');
   /* replace an earlier prefill, never the visitor's own words */
   if (ta && (!ta.value.trim() || ta.value === ta.dataset.prefill)) {
-    ta.value = `${t(`svc.${serviceId}.name`)} — ${t(`panel.${tier}`)}: `;
+    ta.value = `${label}: `;
     ta.dataset.prefill = ta.value;
   }
   return ta;
@@ -365,15 +370,17 @@ if (panel) {
   panel.addEventListener('click', (e) => {
     if (e.target === panel) { closePanel(); return; }       // backdrop
     if (e.target.closest('[data-panel-close]')) { closePanel(); return; }
-    const cta = e.target.closest('[data-panel-cta]');
-    if (cta) {
-      lastFocus = prefillContact(cta.dataset.service, cta.dataset.tier) || null;
-      closePanel();
-    }
   });
   panel.addEventListener('cancel', (e) => { e.preventDefault(); closePanel(); });
 }
 document.addEventListener('click', (e) => {
+  const pkg = e.target.closest('[data-pkg]');
+  if (pkg) {
+    const field = prefillContact(pkg.dataset.pkg);
+    if (panel && panel.open && panel.contains(pkg)) { lastFocus = field; closePanel(); }
+    else if (field) setTimeout(() => field.focus({ preventScroll: true }), 700);
+    return;                                   // the #contact link does the scrolling
+  }
   const svc = e.target.closest('[data-service-open]');
   if (svc) { e.preventDefault(); openPanel({ type: 'service', id: svc.dataset.serviceOpen }); return; }
   const br = e.target.closest('[data-brand]');
@@ -393,6 +400,89 @@ async function loadBrands() {
     brands = list.map((b) => ({ ...b, logo: '/' + String(b.logo || '').replace(/^\/+/, '') }));
   } catch (e) { brands = []; }
 }
+
+/* --------------------------------------------------------------------------
+   Prices and the October offer, from /data/pricing.json (js/pricing.js)
+   -------------------------------------------------------------------------- */
+let pricing = null;
+let serverSkew = 0;       // how far the server clock is ahead of this device
+let expiryTimer = 0;
+/* The offer ends by the later of the device clock and the server clock, so a
+   device set back in time cannot keep showing an offer that has ended. */
+const nowMs = () => Date.now() + Math.max(0, serverSkew);
+const priceCtx = () => P.makeContext({ lang, t: (k, f) => t(k, f), now: nowMs() });
+
+async function loadPricing() {
+  try {
+    const res = await fetch('/data/pricing.json', { cache: 'no-cache' });
+    if (!res.ok) throw new Error(`pricing: ${res.status}`);
+    const server = Date.parse(res.headers.get('date') || '');
+    if (Number.isFinite(server)) serverSkew = server - Date.now();
+    pricing = await res.json();
+  } catch (e) {
+    console.warn('[pricing]', e);       // the regular-price fallback in the markup stays
+    pricing = null;
+  }
+}
+
+function renderPrices() {
+  if (!pricing) return;
+  const ctx = priceCtx();
+  const box = $('[data-pricing]');
+  if (box) box.innerHTML = P.renderPricing(pricing, ctx);
+  $$('[data-card-price]').forEach((el) => { el.innerHTML = P.cardPrice(el.dataset.cardPrice, pricing, ctx); });
+  renderOfferPill(ctx);
+  if (panel && panel.open && panelState) fillPanel(panelState);
+  /* the moment the offer ends, everything is drawn again without it */
+  clearTimeout(expiryTimer);
+  const left = P.offerEnd(pricing) - ctx.now;
+  if (left > 0 && left < 2147000000) expiryTimer = setTimeout(renderPrices, left + 1000);
+}
+
+const pill = $('[data-offer-pill]');
+const pillKey = () => `bs-offer-x:${pricing && pricing.offer ? pricing.offer.valid_until : ''}`;
+function renderOfferPill(ctx) {
+  if (!pill) return;
+  let dismissed = false;
+  try { dismissed = sessionStorage.getItem(pillKey()) === '1'; } catch (e) { /* ignore */ }
+  if (!pricing || !P.offerActive(pricing, ctx.now) || dismissed) {
+    pill.hidden = true;
+    pill.innerHTML = '';
+    return;
+  }
+  const o = P.offerTexts(pricing, ctx);
+  const href = $('[data-pricing]') ? '#pricing' : '/#pricing';
+  pill.setAttribute('aria-label', o.name);
+  pill.innerHTML = `<a class="offer-pill__link" href="${href}">
+      <b class="offer-pill__name">${esc(o.name)}</b>
+      <span class="offer-pill__text">
+        <span class="offer-pill__headline">${esc(o.headline)}</span>
+        <span class="offer-pill__meta"><span class="offer-pill__until">${esc(o.until)} · ${esc(o.left)}</span>
+          <span class="offer-pill__cta">${esc(o.cta)}<i aria-hidden="true"></i></span></span>
+      </span>
+    </a>
+    <button class="offer-pill__close" type="button" data-offer-close aria-label="${esc(t('pricing.offer.close', 'Close'))}"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>`;
+  pill.hidden = false;
+}
+if (pill) {
+  pill.addEventListener('click', (e) => {
+    if (!e.target.closest('[data-offer-close]')) return;
+    try { sessionStorage.setItem(pillKey(), '1'); } catch (err) { /* ignore */ }
+    pill.hidden = true;
+  });
+  /* out of the way where the prices or the form are already on screen */
+  if ('IntersectionObserver' in window) {
+    const seen = new Set();
+    const pio = new IntersectionObserver((es) => {
+      es.forEach((en) => { if (en.isIntersecting) seen.add(en.target); else seen.delete(en.target); });
+      pill.classList.toggle('is-tucked', seen.size > 0);
+    }, { threshold: 0.15 });
+    ['#pricing', '#contact', '.site-footer'].forEach((sel) => { const el = $(sel); if (el) pio.observe(el); });
+  }
+}
+/* a tab left open over the deadline, or restored from the cache */
+document.addEventListener('visibilitychange', () => { if (!document.hidden && pricing) renderPrices(); });
+window.addEventListener('pageshow', (e) => { if (e.persisted && pricing) renderPrices(); });
 
 /* --------------------------------------------------------------------------
    Header: scrolled state, tone underneath, drawer, language buttons,
@@ -895,6 +985,7 @@ $$('[data-reply-lang]').forEach((sel) => sel.addEventListener('change', () => { 
   else window.addEventListener('bs:ready', () => setTimeout(mountHero3D, 650), { once: true });
   /* a partner click waits for the manifest, but never for long */
   brandsReady = Promise.race([loadBrands(), new Promise((r) => setTimeout(r, 1500))]);
+  if (pill || $('[data-pricing]') || $('[data-card-price]')) loadPricing().then(renderPrices);
   if (fixedLang) {
     /* German-only pages: keep the markup's language and never relabel it */
     lang = fixedLang;

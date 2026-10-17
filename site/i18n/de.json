@@ -20,6 +20,7 @@
     "about": "Über uns",
     "services": "Leistungen",
     "work": "Arbeiten",
+    "pricing": "Preise",
     "portfolio": "Portfolio",
     "academy": "Akademie",
     "talk": "Gespräch starten"
@@ -49,19 +50,6 @@
         "Markenarchitektur",
         "Naming und verbale Identität",
         "Visuelle Identitätssysteme"
-      ],
-      "normal": [
-        "Positionierungssprint, zwei Workshops",
-        "Wettbewerbs- und Kategorielandkarte",
-        "Messaging-House und Tonalität",
-        "Markenhandbuch, 20 Seiten"
-      ],
-      "premium": [
-        "Alles aus Standard",
-        "Markenarchitektur und Naming",
-        "Vollständiges visuelles Identitätssystem",
-        "Rollout-Playbook und interner Launch",
-        "Sechs Monate Markenbegleitung"
       ]
     },
     "marketing-strategy": {
@@ -72,19 +60,6 @@
         "Kanal- und Funnel-Strategie",
         "Budgetallokation",
         "Messkonzepte"
-      ],
-      "normal": [
-        "Kanal- und Funnel-Audit",
-        "Kanalplan für 12 Monate",
-        "Modell zur Budgetallokation",
-        "KPI-Framework"
-      ],
-      "premium": [
-        "Alles aus Standard",
-        "Segment- und Persona-Analyse",
-        "Media-Mix-Modellierung",
-        "Quartalssteuerung mit Ihrem Vorstand",
-        "Attributions-Setup"
       ]
     },
     "creative-services": {
@@ -95,19 +70,6 @@
         "Kampagnenplattformen",
         "Art Direction",
         "Text und Konzept"
-      ],
-      "normal": [
-        "Eine Kampagnenroute",
-        "Key Visual und Headline-System",
-        "Art Direction für drei Formate",
-        "Zwei Korrekturschleifen"
-      ],
-      "premium": [
-        "Alles aus Standard",
-        "Drei konkurrierende Routen",
-        "Vollständige Kampagnenplattform",
-        "Asset-Kit für alle Kanäle",
-        "Marktadaption für DACH"
       ]
     },
     "digital-marketing": {
@@ -118,19 +80,6 @@
         "Paid Media",
         "SEO und Content",
         "CRM und Automation"
-      ],
-      "normal": [
-        "SEO- und Content-Optimierung",
-        "Ein Paid-Kanal betreut",
-        "Monatlicher Performance-Bericht",
-        "Bis zu 12 Senior-Stunden"
-      ],
-      "premium": [
-        "Alles aus Standard",
-        "Drei Paid-Kanäle betreut",
-        "CRM und Marketing-Automation",
-        "CRO-Programm für Landingpages",
-        "Wöchentliches Reporting, Umsatzattribution"
       ]
     },
     "social-media-management": {
@@ -141,19 +90,6 @@
         "Redaktionsplanung",
         "Community-Management",
         "Native Kreation"
-      ],
-      "normal": [
-        "Zwei Kanäle, 12 Posts pro Monat",
-        "Redaktionsplan",
-        "Community-Management, werktags",
-        "Monatlicher Bericht"
-      ],
-      "premium": [
-        "Alles aus Standard",
-        "Vier Kanäle, 24 Posts pro Monat",
-        "Native Video- und Reels-Produktion",
-        "Budgetsteuerung für Paid Social",
-        "Influencer- und Creator-Betreuung"
       ]
     },
     "content-production": {
@@ -164,19 +100,6 @@
         "Film und Motion",
         "Fotografie",
         "Redaktion und Text"
-      ],
-      "normal": [
-        "Ein Drehtag pro Monat",
-        "Redaktion und Text",
-        "Fotobearbeitung und Kurzvideo-Schnitt",
-        "Übergabe der Asset-Bibliothek"
-      ],
-      "premium": [
-        "Alles aus Standard",
-        "Drei Drehtage pro Monat",
-        "Film, Motion und Fotografie",
-        "Zweisprachige Redaktion",
-        "Kontinuierliche Content-Pipeline"
       ]
     },
     "website-digital-experience": {
@@ -187,19 +110,6 @@
         "Design und Entwicklung",
         "Performance und SEO",
         "Barrierefreiheit"
-      ],
-      "normal": [
-        "Bis zu 10 Seiten, individuelles Design",
-        "CMS und Content-Migration",
-        "Core Web Vitals bestanden",
-        "Barrierefreiheit auf Basisniveau"
-      ],
-      "premium": [
-        "Alles aus Standard",
-        "Mehrsprachig, bis zu 40 Seiten",
-        "Designsystem und Komponentenbibliothek",
-        "Integrationen und individuelle Funktionen",
-        "Zwölf Monate Betreuung und CRO"
       ]
     },
     "advertising": {
@@ -210,19 +120,6 @@
         "Kampagnenkonzept",
         "Produktion",
         "Mediaschaltung"
-      ],
-      "normal": [
-        "Ein Kampagnenkonzept",
-        "Produktion von drei Assets",
-        "Mediaplan",
-        "Schaltung und Trafficking"
-      ],
-      "premium": [
-        "Alles aus Standard",
-        "ATL- und BTL-Plattform",
-        "Vollständige Produktion inklusive Film",
-        "Mediaeinkauf in mehreren Märkten",
-        "Wirkungsstudie nach der Kampagne"
       ]
     },
     "pr": {
@@ -233,19 +130,6 @@
         "Pressearbeit",
         "Thought Leadership",
         "Krisenkommunikation"
-      ],
-      "normal": [
-        "Zwei Pressemitteilungen pro Monat",
-        "DACH-Presseverteiler und Medienansprache",
-        "Resonanzbericht",
-        "Sprecher-Briefing"
-      ],
-      "premium": [
-        "Alles aus Standard",
-        "Thought-Leadership-Programm",
-        "EU-weite Medienarbeit",
-        "Krisenkommunikation auf Abruf",
-        "Medientraining für Führungskräfte"
       ]
     },
     "business-development-support": {
@@ -256,19 +140,6 @@
         "Go-to-Market-Planung",
         "Pitch-Unterstützung",
         "Partnerschaften"
-      ],
-      "normal": [
-        "Go-to-Market-Plan für einen Markt",
-        "Pitch-Deck und One-Pager",
-        "Framework zur Lead-Qualifizierung",
-        "Monatliches Sparring"
-      ],
-      "premium": [
-        "Alles aus Standard",
-        "Drei Märkte parallel",
-        "Partnersuche und Vermittlung",
-        "Pitch-Coaching für das Team",
-        "Sales-Enablement-Bibliothek"
       ]
     },
     "event-marketing-promotions": {
@@ -279,19 +150,6 @@
         "Messen und Launches",
         "In-Store-Aktivierung",
         "Regie vor Ort"
-      ],
-      "normal": [
-        "Konzept und Ablaufplan",
-        "Koordination der Dienstleister",
-        "Regie vor Ort, ein Tag",
-        "Recap-Film und Fotoset"
-      ],
-      "premium": [
-        "Alles aus Standard",
-        "Vollständige kreative Umsetzung und Bühnenbild",
-        "Mehrtägige Produktion",
-        "Gästemanagement und Einladungskampagne",
-        "Live-Content und Verlängerung nach dem Event"
       ]
     },
     "video-multimedia": {
@@ -302,19 +160,6 @@
         "Markenfilm",
         "Produktvideo",
         "Motion Design"
-      ],
-      "normal": [
-        "Ein Drehtag, Zwei-Personen-Team",
-        "Markenfilm bis 90 Sekunden",
-        "Drei Social-Cutdowns",
-        "Lizenzierte Musik und Color Grading"
-      ],
-      "premium": [
-        "Alles aus Standard",
-        "Drei Drehtage, volles Team",
-        "Regie, Casting und Location-Scouting",
-        "Motion Design und 3D-Elemente",
-        "Zehn Cutdowns und Versionierung"
       ]
     },
     "analytics": {
@@ -325,19 +170,6 @@
         "Attributionsmodellierung",
         "Dashboards",
         "Reporting"
-      ],
-      "normal": [
-        "Tracking- und Consent-Audit",
-        "GA4- und Server-Side-Setup",
-        "Ein Dashboard für die Geschäftsleitung",
-        "Übergabedokumentation"
-      ],
-      "premium": [
-        "Alles aus Standard, plus laufende Betreuung",
-        "Attributionsmodellierung",
-        "Monatliche Insight-Auswertung",
-        "Test- und Experimentprogramm",
-        "Vorstandstaugliches Quartalsreview"
       ]
     },
     "ai-innovation": {
@@ -348,19 +180,6 @@
         "Marketing-Automation",
         "Angewandte KI",
         "Prozessdesign"
-      ],
-      "normal": [
-        "Use-Case-Audit und Shortlist",
-        "Ein Workflow automatisiert",
-        "Tool-Empfehlung",
-        "Enablement-Session für das Team"
-      ],
-      "premium": [
-        "Alles aus Standard",
-        "Drei Workflows automatisiert",
-        "Individuelles Prompt- und Content-System",
-        "Leitplanken für Governance und Compliance",
-        "Quartalsweise Iteration"
       ]
     },
     "consulting": {
@@ -371,18 +190,6 @@
         "Marketing-Audits",
         "Workshops",
         "Interim-Unterstützung"
-      ],
-      "normal": [
-        "Ein Workshop- oder Audit-Tag",
-        "Schriftliche Ergebnisse und nächste Schritte",
-        "Zwei Wochen für Rückfragen"
-      ],
-      "premium": [
-        "Alles aus Standard, als laufende Betreuung",
-        "Zwei Tage pro Monat an Ihrer Seite",
-        "Interim-Marketingleitung",
-        "Steuerung von Agenturen und Dienstleistern",
-        "Direkter Draht, Antwort am selben Tag"
       ]
     },
     "employer-branding": {
@@ -393,19 +200,6 @@
         "Arbeitgeberpositionierung",
         "Karriere-Content",
         "Recruiting-Kampagnen"
-      ],
-      "normal": [
-        "Workshop zur Arbeitgeberpositionierung",
-        "EVP und Messaging",
-        "Text und Design der Karriereseite",
-        "Drei Recruiting-Anzeigensets"
-      ],
-      "premium": [
-        "Alles aus Standard",
-        "Mitarbeiterbefragung und Interviews",
-        "Karrierefilm und Fotografie",
-        "Kontinuierliche Recruiting-Kampagne",
-        "Onboarding- und Kultur-Toolkit"
       ]
     },
     "ongoing-client-services": {
@@ -416,19 +210,6 @@
         "Laufende Strategiebegleitung",
         "Laufende Kreation",
         "Performance-Management"
-      ],
-      "normal": [
-        "20 Senior-Stunden pro Monat",
-        "Eine Disziplin Ihrer Wahl",
-        "Monatliches Planungsgespräch",
-        "Gemeinsames Projektboard und Reporting"
-      ],
-      "premium": [
-        "Alles aus Standard",
-        "55 Senior-Stunden pro Monat",
-        "Strategie, Kreation und Performance",
-        "Festes Team, keine Übergabe an Junioren",
-        "Priorisierte Bearbeitung"
       ]
     },
     "corporate-training": {
@@ -439,36 +220,12 @@
         "Führungskräfteentwicklung",
         "Executive Kommunikation",
         "Sales Enablement"
-      ],
-      "normal": [
-        "Ein Trainingstag, bis zu 12 Personen",
-        "Deutsch oder Englisch",
-        "Arbeitsbuch und Unterlagen",
-        "Bei Ihnen vor Ort oder in Würzburg"
-      ],
-      "premium": [
-        "Alles aus Standard",
-        "Modulübergreifendes Programmdesign",
-        "1:1-Coaching für Teilnehmende",
-        "Zertifizierung und Transferaufgaben",
-        "Follow-up-Termin nach 90 Tagen"
       ]
     }
   },
   "panel": {
     "service": "Leistung",
-    "partner": "Partner",
-    "normal": "Standard",
-    "premium": "Premium",
-    "from": "ab",
-    "unit": {
-      "mo": "pro Monat",
-      "pr": "pro Projekt",
-      "day": "pro Tag"
-    },
-    "reqNormal": "Standard anfragen",
-    "reqPremium": "Premium anfragen",
-    "foot": "Richtwerte als Ab-Preise für den bayerischen Markt, zzgl. MwSt. Der endgültige Umfang wird auf Basis Ihres Briefings angeboten."
+    "partner": "Partner"
   },
   "marquee": [
     "Markenstrategie",
@@ -741,5 +498,39 @@
   },
   "intro": {
     "loading": "Wird geladen"
+  },
+  "pricing": {
+    "title": "Preise & Angebote",
+    "updated": "Stand: {date}",
+    "groups": {
+      "websites": "Websites (Festpreise)",
+      "social": "Social Media (monatlich, {n} Monate Mindestlaufzeit)",
+      "other": "Weitere Leistungen",
+      "retail": "Promotion im Handel (für Marken, z. B. in EDEKA-Märkten)"
+    },
+    "regular": "Regulär",
+    "offerPrice": "Aktionspreis",
+    "perMonth": "/ Monat",
+    "from": "ab",
+    "onRequest": "auf Anfrage",
+    "firstMonth": "1. Monat bei Auftrag bis {date}",
+    "then": "danach {price} / Monat",
+    "optional": "optional",
+    "paidBy": "zahlt die Marke",
+    "request": "Paket anfragen",
+    "reference": "wie {site}",
+    "contactQ": "Fragen zu den Paketen?",
+    "panelOnRequest": "Preis auf Anfrage",
+    "panelCta": "Angebot anfragen",
+    "vat": "Alle Preise sind Endpreise.",
+    "socialShort": "Social Media",
+    "offer": {
+      "until": "bis {date}",
+      "daysLeft": "noch {n} Tage",
+      "oneDay": "noch 1 Tag",
+      "lastDay": "nur noch heute",
+      "cta": "Zu den Preisen",
+      "close": "Hinweis schließen"
+    }
   }
 }

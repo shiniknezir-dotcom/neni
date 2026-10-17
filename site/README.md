@@ -1,9 +1,10 @@
 # Blüten Sturm — bluetensturm.com (Lime Bloom)
 
 The live bluetensturm.com, rebuilt one to one in the **01 Lime Bloom** brand
-direction: the same pages, sections, numbering, copy, prices, 18 service
-panels, 44 partner panels, forms and field names as the live site, in five
-languages, with a new opening sequence and a 3D hero.
+direction: the same pages, sections, numbering, copy, 18 service panels, 44
+partner panels, forms and field names as the live site, in five languages,
+with a new opening sequence and a 3D hero. Prices and offers follow the price
+sheet of 17.10.2026 (`data/pricing.json`, see "Prices and offers" below).
 
 No build step. Everything in this folder is the finished site.
 
@@ -27,9 +28,11 @@ After the first deploy:
    Forms → Enable form detection*, then redeploy. Both forms (`contact`,
    `questionnaire`) then appear under *Forms*. Add an e-mail notification under
    *Forms → Settings*. Visitors without JavaScript post straight to Netlify.
-3. **Legal:** fill the `TODO` fields in `impressum/index.html` and
-   `datenschutz/index.html` (address, managing director, register, VAT ID).
-   They are the same blanks the live site shows today.
+3. **Legal:** fill the remaining `TODO` fields in `impressum/index.html`
+   (managing director, phone, register, VAT ID, person responsible for
+   content). They are the same blanks the live site shows today. The address
+   (Kirchstraße 8, 97209 Veitshöchheim) comes from the price sheet and is
+   already filled in on both legal pages.
 4. **Conversion tracking (optional):** the thank-you page already pushes
    `enquiry_submitted` to `window.dataLayer` and fires the Google Ads conversion
    once `gtag` is on the page. Replace `AW-XXXXXXXXX/YYYYYYYY` in `js/site.js`
@@ -58,7 +61,9 @@ css/site.css          the Lime Bloom design system
 css/fonts.css         self-hosted Unbounded + Manrope (no Google Fonts request)
 js/site.js            behaviour: i18n, opening, runway, panels, forms, reveals
 js/hero3d.js          the 3D B (Three.js, ES modules, loaded after the opening)
-js/data.js            service ids, prices and units, partner categories
+js/data.js            service ids, partner categories
+js/pricing.js         renders the price list, panel prices and offer texts
+data/pricing.json     every price, package and offer (the single source)
 js/form-send.js       Formspree + Netlify Forms delivery, mailto fallback
 i18n/*.json           en (the live site's default and source), de, fr, es, it
 media/services/       18 Higgsfield service visuals (WebP, 640 and 1280 px)
@@ -83,10 +88,10 @@ Datenschutz stay German, as on the live site.
 * **Copy:** edit `i18n/en.json` and mirror the change in the other four
   files. The English text in the HTML is the no-JavaScript fallback; keep it in
   sync. `data-i18n="key"` on each element names the dictionary key.
-* **Services and prices:** the 18 services live in `js/data.js` (prices,
-  units, order) and in `i18n/<lang>.json → svc.<id>` (name, tagline, scope,
-  package items). The petals in the hero and the five cards in section 02 are
-  plain HTML in `index.html`.
+* **Services:** the 18 services live in `js/data.js` (order) and in
+  `i18n/<lang>.json → svc.<id>` (name, tagline, scope). The petals in the hero
+  and the five cards in section 02 are plain HTML in `index.html`.
+* **Prices:** only in `data/pricing.json`; see below.
 * **Partners:** add a row to `media/brands/manifest.json`, drop the PNG in
   `media/brands/` and add a matching tile in `index.html` under
   `data-brands` (the `data-brand` number is the row's position). As on the
@@ -94,6 +99,44 @@ Datenschutz stay German, as on the live site.
   line; those live in `i18n/<lang>.json → brands`, so they are translated.
 * **Case studies:** the four cards in `index.html` under `#work`. Images
   sit in `media/gen/` as JPEG + WebP in two sizes.
+
+## Prices and offers
+
+`data/pricing.json` holds every price on the site, taken unchanged from the
+price sheet "Preise & Angebote (Stand: 17.10.2026)". The page reads it and
+renders the price list under section 02 ("Preise & Angebote", linked as
+"Preise" in the navigation), the price lines on the five service cards and the
+prices inside the service panels. Services the sheet does not price show
+"Preis auf Anfrage" with a request button. No price is written anywhere else.
+
+* **German texts** come straight from the JSON. The other languages use
+  `i18n/<lang>.json → pricing` (labels and translated package names);
+  anything missing there falls back to the German text.
+* **Fields added to the sheet's JSON** (all taken from the sheet's tables,
+  none of them a price): `reference` on Website Premium
+  ("restauranthole19.de"), `offer_note` on Website-Pflege ("nicht
+  rabattiert"), a `description` on the other services and the in-store
+  packages, and `retail_promotion_note`. Every value from the sheet is
+  unchanged.
+* **The October offer** (`offer`) runs until `offer.valid_until`
+  (2026-10-31T23:59:59+01:00, i.e. 31.10.2026 23:59 in Berlin). While it runs,
+  the regular price is shown struck through next to the offer price, the
+  offer terms sit above the list and a small "Oktober-Aktion" pill floats at
+  the bottom left (visitors can close it for the session). From
+  01.11.2026 00:00 everything disappears on its own: the page compares the
+  deadline with the later of the device clock and the server clock (the
+  `Date` header of `pricing.json`, so a device set to the wrong date cannot
+  keep the offer alive), and a page left open switches at the deadline itself.
+  `/data/*` is served with `must-revalidate`, so a change reaches every visitor
+  at once.
+* **Changing a price or the next offer:** edit `data/pricing.json` (keep the
+  ids; set a new `offer` with its own `valid_until`, or remove `offer` to show
+  regular prices only), then run `node tools/render-pricing.mjs` from the
+  repository root. It rewrites the no-JavaScript copy of the price list in
+  `index.html` (regular prices only, so it can never advertise an offer that
+  has ended).
+* **Footer note:** "Alle Preise sind Endpreise." (`vat_note`) sits under the
+  price list, under every panel's prices and in the footer.
 
 ## Motion and accessibility
 

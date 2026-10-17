@@ -1,16 +1,17 @@
 # **bluetensturm.com — Lime Bloom website**
 
 The agency website lives in [`site/`](site/): a one-to-one rebuild of the live
-bluetensturm.com (same pages, sections, copy, prices, panels and forms) in the
+bluetensturm.com (same pages, sections, copy, panels and forms) in the
 **01 Lime Bloom** brand direction, with an opening sequence, a 3D hero whose
 petals become the eighteen services, five languages and Higgsfield-generated
-imagery.
+imagery. Prices and offers, including the Oktober-Aktion that ends on its own
+after 31.10.2026, come from [`site/data/pricing.json`](site/data/pricing.json).
 
 **Deploy:** drop [`dist/bluetensturm-netlify.zip`](dist/bluetensturm-netlify.zip)
 (or the `site` folder) on <https://app.netlify.com/drop>, or connect this
 repository (the root `netlify.toml` points Netlify at `site/`). See
-[`site/README.md`](site/README.md) for forms, legal blanks, languages and
-content editing.
+[`site/README.md`](site/README.md) for forms, legal blanks, languages, prices
+and content editing.
 
 ---
 
