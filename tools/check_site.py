@@ -26,7 +26,7 @@ Checks:
      passed, a warning asks to remove it from the JSON.
 Exits with status 1 if anything is missing, so it can gate a deploy.
 """
-import datetime, importlib.util, io, contextlib, json, os, re, sys
+import datetime, html, importlib.util, io, contextlib, json, os, re, sys
 from html.parser import HTMLParser
 
 BASE = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
@@ -326,8 +326,8 @@ for name in pages:
             errors.append(f'[legal] {name}: the footer has no {need} link')
     if 'data-i18n="prices.vat"' not in foot and 'data-vat-de' not in foot:
         errors.append(f'[prices] {name}: the footer has no price note ("Alle Preise sind Endpreise.")')
-old_price = re.compile(r'(?<!\d[.,\u00a0\u202f ])(?<!\d)500[ \u00a0\u202f]?(?:,(?:00|-|–))?[ \u00a0\u202f]?(?:€|euros?\b|EUR\b)'
-                       r'|(?:€|\bEUR)[ \u00a0\u202f]?500(?![\d.,]\d)|data-price="500"', re.I)
+old_price = re.compile(r'(?<!\d[.,\u00a0\u202f ])(?<!\d)500[ \u00a0\u202f]?(?:[.,](?:00|-|–))?[ \u00a0\u202f]?(?:€|euros?\b|EUR\b)'
+                       r'|(?:€|\bEUR)[ \u00a0\u202f]?500(?:[.,](?:00|-|–))?(?!\d|[.,]\d)|data-price="500"', re.I)
 def _prices(v):
     """Every price number in the price list (fields whose name starts with "price" or "offer_")."""
     if isinstance(v, list):
@@ -335,17 +335,18 @@ def _prices(v):
     if not isinstance(v, dict):
         return []
     out = [x for k, x in v.items() if (k.startswith('price') or k.startswith('offer_')) and isinstance(x, int)]
+    out += [500 for k, x in v.items() if k.startswith('price') and isinstance(x, str) and old_price.search(x)]   # "ab 500 € pro Tag"
     return out + [a for x in v.values() for a in _prices(x)]
 if 500 in _prices(price_list):   # a 500 € price that the owner's list itself names is allowed again
     old_price = re.compile(r'(?!)')
 def _plain(src):
-    return src.replace('&nbsp;', '\u00a0').replace('&euro;', '€').replace('&#8364;', '€')
+    return html.unescape(src)   # 500&nbsp;€, &euro;500, 500&#160;€ read as they render
 for name in pages:
     if old_price.search(_plain(open(os.path.join(SITE, name), encoding='utf-8').read())):
         errors.append(f'[prices] {name}: a 500 € price is still on the page (the old website price was withdrawn)')
 for l in LANGS:
     for k, v in D.get(l, {}).items():
-        if isinstance(v, str) and old_price.search(v):
+        if isinstance(v, str) and old_price.search(_plain(v)):
             errors.append(f'[prices] i18n.js {l.upper()} "{k}": a 500 € price (the old website price was withdrawn)')
 
 css_dir = os.path.join(SITE, 'assets', 'css')

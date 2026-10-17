@@ -110,6 +110,8 @@ def validate(d):
         return isinstance(v, int) and not isinstance(v, bool) and v >= 0
 
     seen = {}
+    anchors = set()   # every card and row id on the page: price-web-…, price-social-…, price-…, price-retail-…
+    ANCHOR = {'websites': 'price-web-', 'social_media': 'price-social-', 'other_services': 'price-', 'retail_promotion': 'price-retail-'}
 
     def group(where, v):
         need(isinstance(v, list), f'"{where}" must be a list [ … ] of entries')
@@ -122,6 +124,9 @@ def validate(d):
         need(slug(x['id']) != '', f'{label}: the id needs letters a–z or digits (it becomes part of the page address)')
         need(slug(x['id']) not in seen.setdefault(where, set()), f'{label}: the id is used twice in "{where}"')
         seen[where].add(slug(x['id']))
+        anchor = ANCHOR[where] + slug(x['id'])
+        need(anchor not in anchors, f'{label}: its page address #{anchor} is already taken by another entry; choose another id')
+        anchors.add(anchor)
         need(isinstance(x.get('features', []), list) and all(text(f) for f in x.get('features', [])),
              f'{label}: "features" must be a list of texts')
         found = [k for k in kinds if k in x]
@@ -167,7 +172,8 @@ def validate(d):
         need(isinstance(o, dict), '"offer" must be an object { … } (delete it once the offer has ended)')
         need(all(text(o.get(k)) for k in ('name', 'headline', 'terms')), 'offer: needs "name", "headline" and "terms"')
         known = {'websites', 'social_media_first_month'}
-        need(isinstance(o.get('applies_to', []), list) and set(o.get('applies_to', [])) <= known,
+        need(isinstance(o.get('applies_to', []), list) and all(isinstance(a, str) for a in o.get('applies_to', []))
+             and set(o.get('applies_to', [])) <= known,
              'offer.applies_to may only list "websites" and "social_media_first_month"')
         until = o.get('valid_until', '')
         need(isinstance(until, str) and re.fullmatch(r'\d{4}-\d\d-\d\dT23:59:59[+-]\d\d:\d\d', until),

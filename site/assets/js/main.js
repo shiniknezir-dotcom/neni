@@ -400,41 +400,54 @@
 
   // The October offer runs through offer.valid_until (/data/pricing.json, written into
   // <meta name="bs-offer-until"> by tools/pricing.py). boot.js sets html.offer-on before the
-  // first paint; this ends it on time: at the deadline while the page stays open (checked at
-  // least once a minute, since timers stop while a laptop sleeps), when the tab or window comes
-  // back, before every request click and form submission, and by the server's clock when the
-  // device's clock is behind (the live JSON can only end it sooner, never extend it). Once
-  // over, it stays over for this page view.
+  // first paint; this ends it on time:
+  // - at the deadline while the page stays open (checked at least once a minute: timers stop
+  //   while a laptop sleeps), when the tab or window comes back, and right before every request
+  //   click, language switch and form submission;
+  // - by the server's clock: the live price list is fetched at load, on wake and before a form is
+  //   sent (at most once a minute). Its Date header tells how far the device clock is behind, and
+  //   from then on the deadline is measured in server time; its own valid_until can only end the
+  //   offer sooner. Nothing here can extend the offer, and once over it stays over for this page view.
   var offerMeta = document.querySelector('meta[name="bs-offer-until"]');
   var offerEnd = offerMeta ? Date.parse(offerMeta.getAttribute('content')) + 1000 : NaN;   // valid through its last second
+  var behind = 0;   // ms the device clock is behind the server's, never negative
   var offerOver = !(offerEnd > Date.now()), offerTimer = 0, pendingAsk = null;   // after the deadline nothing is asked
+  var askedMono = -6e4, askedWall = 0;
+  function offerNow() { return Date.now() + behind; }
   function offerOn() { return d.classList.contains('offer-on'); }
   function checkOffer() {
-    if (!offerOver && Date.now() >= offerEnd) offerOver = true;
+    if (!offerOver && !(offerNow() < offerEnd)) offerOver = true;   // missing or unreadable values count as over
     var was = offerOn();
     d.classList.toggle('offer-on', !offerOver);
     clearTimeout(offerTimer);
     // at the deadline, or in a minute if that is sooner
-    if (!offerOver) offerTimer = setTimeout(checkOffer, Math.min(offerEnd - Date.now() + 50, 6e4));
+    if (!offerOver) offerTimer = setTimeout(checkOffer, Math.min(offerEnd - offerNow() + 50, 6e4));
     if (was !== offerOn()) syncPick();
   }
+  // Returns the check in flight (a promise that always settles within 5 s), or null.
+  function askServer() {
+    var mono = window.performance && performance.now ? performance.now() : Date.now(), wall = Date.now();
+    if (offerOver || !window.fetch || !window.Promise) return null;
+    if (pendingAsk) return pendingAsk;
+    // at most once a minute; either clock jumping (a sleeping laptop, a clock set back) allows a new check
+    if (mono - askedMono < 6e4 && wall - askedWall >= 0 && wall - askedWall < 6e4) return null;
+    askedMono = mono; askedWall = wall;
+    var ctl = window.AbortController ? new AbortController() : null;
+    var ask = fetch('/data/pricing.json', { cache: 'no-store', signal: ctl ? ctl.signal : undefined }).then(function (r) {
+      var server = Date.parse(r.headers.get('Date') || '');
+      if (server > 0) behind = Math.max(behind, server - Date.now());   // whole seconds: never reads a correct clock as ahead
+      return r.ok ? r.json().then(function (data) {
+        var o = data && data.offer, end = o ? Date.parse(o.valid_until) + 1000 : 0;
+        if (end < offerEnd) offerEnd = end;
+        if (!(offerEnd > 0)) offerOver = true;
+        checkOffer();
+      }) : checkOffer();
+    });
+    var stop = new Promise(function (ok) { setTimeout(function () { if (ctl) ctl.abort(); ok(); }, 5000); });   // a stalled connection ends here
+    pendingAsk = Promise.race([ask, stop]).catch(function () {}).then(function () { pendingAsk = null; });
+    return pendingAsk;
+  }
   if (!offerOver) {
-    // The live price list, fresh: its server date, and its own valid_until (no offer there: over).
-    var asked = -6e4;
-    var askServer = function () {
-      var t0 = window.performance && performance.now ? performance.now() : Date.now();   // not the wall clock: it may be set back
-      if (offerOver || !window.fetch || pendingAsk || t0 - asked < 6e4) return;   // at most once a minute
-      asked = t0;
-      pendingAsk = fetch('/data/pricing.json', { cache: 'no-store' }).then(function (r) {
-        var now = Date.parse(r.headers.get('Date') || '');
-        return r.ok ? r.json().then(function (data) {
-          var o = data && data.offer, end = o ? Date.parse(o.valid_until) + 1000 : 0;
-          if (end < offerEnd) offerEnd = end;
-          if (now >= offerEnd || !(offerEnd > 0)) offerOver = true;
-          checkOffer();
-        }) : null;
-      }).catch(function () {}).then(function () { pendingAsk = null; });
-    };
     var wake = function () { checkOffer(); askServer(); };
     document.addEventListener('visibilitychange', function () { if (!document.hidden) wake(); });
     window.addEventListener('pageshow', wake);
@@ -476,6 +489,7 @@
     var a = e.target.closest ? e.target.closest('[data-package], [data-interest]') : null;
     if (!a || !form) return;
     checkOffer();   // a laptop that slept past the deadline must not hand out the offer price
+    askServer();
     var field = form.querySelector('[data-package-field]');
     if (field) field.value = packageOf(a);
     var want = a.getAttribute('data-interest');
@@ -575,9 +589,10 @@
         status.focus();
       }
 
-      // A server check of the offer still in flight is waited for (at most 1.5 s), so the Package
-      // field is read after it: a device clock that is behind cannot post an offer that has ended.
-      Promise.race([pendingAsk || Promise.resolve(), new Promise(function (r) { window.setTimeout(r, 1500); })])
+      // While the offer shows, the server's clock is asked first (or the check in flight is used) and
+      // waited for at most 1.5 s, so the Package field is read after it: a device clock that is
+      // behind cannot post an offer that has ended.
+      Promise.race([(offerOn() && askServer()) || Promise.resolve(), new Promise(function (r) { window.setTimeout(r, 1500); })])
         .then(function () {
           checkOffer();
           data = new FormData(f);
