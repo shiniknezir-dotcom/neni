@@ -848,7 +848,7 @@ window.BS_I18N = {
   "prices.social.wachstum.req": "Demander : Réseaux sociaux Croissance",
   "prices.title": "Ce que cela coûte. <em>Clairement.</em>",
   "prices.until": "jusqu’au 31 octobre 2026",
-  "prices.vat": "Tous les prix sont des prix finaux, tout compris.",
+  "prices.vat": "Tous les prix sont des prix finaux.",
   "prices.web.business.f1": "Jusqu’à 5 pages",
   "prices.web.business.f2": "Formulaire de contact ou de réservation",
   "prices.web.business.f3": "Bases du référencement",

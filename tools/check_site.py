@@ -309,13 +309,15 @@ if stale:
     for line in (said.getvalue() + err.getvalue()).strip().splitlines():
         errors.append('[prices] ' + line.replace('pricing: ', '', 1))
 try:
-    offer = json.load(open(os.path.join(SITE, 'data', 'pricing.json'), encoding='utf-8')).get('offer') or {}
-    until = datetime.datetime.fromisoformat(offer['valid_until']) if offer.get('valid_until') else None
-    if until and datetime.datetime.now(datetime.timezone.utc) > until:
+    price_list = json.load(open(os.path.join(SITE, 'data', 'pricing.json'), encoding='utf-8-sig'))
+except (ValueError, OSError):
+    price_list = None   # pricing.py --check above has already said what is wrong
+if not stale and isinstance(price_list, dict) and isinstance(price_list.get('offer'), dict):
+    offer = price_list['offer']
+    until = datetime.datetime.fromisoformat(offer['valid_until'])   # validated by pricing.py: has an offset
+    if datetime.datetime.now(datetime.timezone.utc) > until:
         warnings.append(f'[prices] the offer "{offer.get("name")}" ended {offer["valid_until"]}: the site already hides it; '
                         'remove "offer" from site/data/pricing.json and run python3 tools/pricing.py')
-except (ValueError, OSError) as e:
-    errors.append(f'[prices] site/data/pricing.json: {e}')
 for name in pages:
     src = open(os.path.join(SITE, name), encoding='utf-8').read()
     foot = src[src.rfind('<footer'):] if '<footer' in src else ''
@@ -324,20 +326,22 @@ for name in pages:
             errors.append(f'[legal] {name}: the footer has no {need} link')
     if 'data-i18n="prices.vat"' not in foot and 'data-vat-de' not in foot:
         errors.append(f'[prices] {name}: the footer has no price note ("Alle Preise sind Endpreise.")')
-old_price = re.compile(r'(?<!\d[.,\u00a0\u202f ])(?<!\d)500[\u00a0\u202f ]?(?:€|Euro\b|EUR\b)|€[\u00a0 ]?500(?!\d|[.,]\d)|data-price="500"')
-def _amounts(v):
-    if isinstance(v, dict):
-        return [a for x in v.values() for a in _amounts(x)]
+old_price = re.compile(r'(?<!\d[.,\u00a0\u202f ])(?<!\d)500[ \u00a0\u202f]?(?:,(?:00|-|–))?[ \u00a0\u202f]?(?:€|euros?\b|EUR\b)'
+                       r'|(?:€|\bEUR)[ \u00a0\u202f]?500(?![\d.,]\d)|data-price="500"', re.I)
+def _prices(v):
+    """Every price number in the price list (fields whose name starts with "price" or "offer_")."""
     if isinstance(v, list):
-        return [a for x in v for a in _amounts(x)]
-    return [v] if isinstance(v, int) and not isinstance(v, bool) else []
-try:   # a 500 € price that the owner's list itself names is allowed again
-    if 500 in _amounts(json.load(open(os.path.join(SITE, 'data', 'pricing.json'), encoding='utf-8'))):
-        old_price = re.compile(r'(?!)')
-except (ValueError, OSError):
-    pass
+        return [a for x in v for a in _prices(x)]
+    if not isinstance(v, dict):
+        return []
+    out = [x for k, x in v.items() if (k.startswith('price') or k.startswith('offer_')) and isinstance(x, int)]
+    return out + [a for x in v.values() for a in _prices(x)]
+if 500 in _prices(price_list):   # a 500 € price that the owner's list itself names is allowed again
+    old_price = re.compile(r'(?!)')
+def _plain(src):
+    return src.replace('&nbsp;', '\u00a0').replace('&euro;', '€').replace('&#8364;', '€')
 for name in pages:
-    if old_price.search(open(os.path.join(SITE, name), encoding='utf-8').read()):
+    if old_price.search(_plain(open(os.path.join(SITE, name), encoding='utf-8').read())):
         errors.append(f'[prices] {name}: a 500 € price is still on the page (the old website price was withdrawn)')
 for l in LANGS:
     for k, v in D.get(l, {}).items():

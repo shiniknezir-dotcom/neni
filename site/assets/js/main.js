@@ -129,7 +129,7 @@
 
   document.addEventListener('click', function (e) {
     var b = e.target.closest ? e.target.closest('button[data-lang]') : null;
-    if (b) applyLang(b.getAttribute('data-lang'), true);
+    if (b) { checkOffer(); applyLang(b.getAttribute('data-lang'), true); }   // never re-render an offer that has ended
   });
   each('[data-reply-lang]', function (sel) {
     sel.addEventListener('change', function () { sel.setAttribute('data-touched', '1'); });
@@ -330,8 +330,8 @@
     svcDlg.addEventListener('close', function () { if (moved.length) closeSvc('ui'); });
     svcDlg.addEventListener('click', function (e) {
       if (svcBackdrop(e) || (e.target.closest && e.target.closest('[data-dlg-close]'))) { closeSvc('ui'); return; }
-      // A link inside (a package button to #contact): put the service back first,
-      // so the package handler below finds it, then let the link do its job.
+      // A link inside ("Request this service", "See prices", the prices link in the foot):
+      // put the service back and close the dialog first, then let the link do its job.
       var a = e.target.closest ? e.target.closest('a[href^="#"]') : null;
       if (a) closeSvc('link');
     });
@@ -407,7 +407,7 @@
   // over, it stays over for this page view.
   var offerMeta = document.querySelector('meta[name="bs-offer-until"]');
   var offerEnd = offerMeta ? Date.parse(offerMeta.getAttribute('content')) + 1000 : NaN;   // valid through its last second
-  var offerOver = !(offerEnd > 0), offerTimer = 0;
+  var offerOver = !(offerEnd > Date.now()), offerTimer = 0, pendingAsk = null;   // after the deadline nothing is asked
   function offerOn() { return d.classList.contains('offer-on'); }
   function checkOffer() {
     if (!offerOver && Date.now() >= offerEnd) offerOver = true;
@@ -420,11 +420,12 @@
   }
   if (!offerOver) {
     // The live price list, fresh: its server date, and its own valid_until (no offer there: over).
-    var asked = 0;
+    var asked = -6e4;
     var askServer = function () {
-      if (offerOver || !window.fetch || Date.now() - asked < 6e4) return;   // at most once a minute
-      asked = Date.now();
-      fetch('/data/pricing.json', { cache: 'no-store' }).then(function (r) {
+      var t0 = window.performance && performance.now ? performance.now() : Date.now();   // not the wall clock: it may be set back
+      if (offerOver || !window.fetch || pendingAsk || t0 - asked < 6e4) return;   // at most once a minute
+      asked = t0;
+      pendingAsk = fetch('/data/pricing.json', { cache: 'no-store' }).then(function (r) {
         var now = Date.parse(r.headers.get('Date') || '');
         return r.ok ? r.json().then(function (data) {
           var o = data && data.offer, end = o ? Date.parse(o.valid_until) + 1000 : 0;
@@ -432,7 +433,7 @@
           if (now >= offerEnd || !(offerEnd > 0)) offerOver = true;
           checkOffer();
         }) : null;
-      }).catch(function () {});
+      }).catch(function () {}).then(function () { pendingAsk = null; });
     };
     var wake = function () { checkOffer(); askServer(); };
     document.addEventListener('visibilitychange', function () { if (!document.hidden) wake(); });
@@ -446,7 +447,7 @@
   // data-interest="…" preselects "Interested in"; the anchor then scrolls to #contact as usual.
   var form = document.getElementById('enquiry');
   var pick = null, pickBtn = null;   // the price card (data-pick) and the button it was asked from
-  function txt(n) { return n ? n.textContent.replace(/\s+/g, ' ').trim() : ''; }
+  function txt(n) { return n ? n.textContent.replace(/[ \t\n\r\f]+/g, ' ').trim() : ''; }   // keeps the no-break spaces in "1 145 €"
   function packageOf(a) { return (offerOn() && a.getAttribute('data-package-offer')) || a.getAttribute('data-package') || ''; }
   function renderPick() {
     if (!form) return;
@@ -537,7 +538,7 @@
       var btn = f.querySelector('button[type="submit"]');
       var status = f.querySelector('[data-status]');
       var label = btn ? btn.textContent : '';
-      var data = new FormData(f);
+      var data = null;
       var subject = (f.querySelector('[name="_subject"]') || {}).value || 'Anfrage über bluetensturm.com';
       f.__sending = true;
       // aria-disabled instead of disabled: the button keeps focus, so a keyboard user is not dropped to <body>.
@@ -556,6 +557,7 @@
 
       function fail() {
         f.__reset();
+        if (!data) data = new FormData(f);
         if (!status) { window.location.href = mailtoFrom(data, subject); return; }
         status.textContent = '';
         var p = document.createElement('p');
@@ -573,7 +575,14 @@
         status.focus();
       }
 
-      window.fetch(f.action, { method: 'POST', body: data, headers: { Accept: 'application/json' } })
+      // A server check of the offer still in flight is waited for (at most 1.5 s), so the Package
+      // field is read after it: a device clock that is behind cannot post an offer that has ended.
+      Promise.race([pendingAsk || Promise.resolve(), new Promise(function (r) { window.setTimeout(r, 1500); })])
+        .then(function () {
+          checkOffer();
+          data = new FormData(f);
+          return window.fetch(f.action, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
+        })
         .then(function (res) {
           if (!res.ok) throw new Error('HTTP ' + res.status);
           try { window.sessionStorage.setItem('bs-sent', f.getAttribute('data-form')); } catch (err) {}

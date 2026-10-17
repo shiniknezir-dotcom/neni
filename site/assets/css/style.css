@@ -754,7 +754,7 @@ html.svc-dlg .svc-index { display: none; }
 .disc__title { font-family: var(--serif); font-size: 34px; line-height: 1.05; overflow-wrap: break-word; -webkit-hyphens: auto; hyphens: auto; }
 .disc__body > p { font-size: 15px; color: var(--nebel); }
 .disc__tags { display: flex; flex-wrap: wrap; gap: 8px; }
-.disc .tlink { align-self: flex-start; }
+.disc .tlink { align-self: flex-start; margin-top: auto; }   /* the links line up at the card bottom */
 /* the whole card opens its service (one link per card for assistive technology) */
 .disc { position: relative; }
 .disc .tlink::after { content: ""; position: absolute; inset: 0; }
@@ -907,10 +907,17 @@ html.offer-on .offer-off { display: none; }
   .tier--wide { grid-template-columns: minmax(0, 1fr); padding: 22px; }
   .tier--wide .tier__items { grid-row: auto; }
   .tier--wide .tier__req { justify-self: start; }
+  .tier--wide .tier__now { white-space: normal; }
   .price-row { grid-template-columns: minmax(0, 1fr); gap: 8px; }
   .price-row__desc, .price-row .tier__req { grid-row: auto; }
   .price-row__price { text-align: left; }
   .offer { grid-template-columns: minmax(0, 1fr); gap: 18px; padding: 26px 22px; }
   .offer__petal { width: 38px; }
   .offer-pill { padding: 10px 18px; font-size: 13px; }
+}
+/* short phones while the offer runs: the hero keeps its bottom row on the first screen */
+@media (max-width: 760px) and (max-height: 800px) {
+  html.offer-on .hero__copy { gap: 14px; padding-top: 80px; padding-bottom: 104px; }
+  html.offer-on .offer-pill { margin-top: 0; padding: 8px 16px; gap: 2px 10px; font-size: 12.5px; }
+  html.offer-on .offer-pill .lbl { letter-spacing: .2em; }
 }

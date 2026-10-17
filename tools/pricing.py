@@ -109,10 +109,19 @@ def validate(d):
     def euros(v):
         return isinstance(v, int) and not isinstance(v, bool) and v >= 0
 
+    seen = {}
+
+    def group(where, v):
+        need(isinstance(v, list), f'"{where}" must be a list [ … ] of entries')
+        return v
+
     def item(where, x, kinds):
         need(isinstance(x, dict), f'{where}: each entry must be an object {{…}}')
         need(text(x.get('id')) and text(x.get('name')), f'{where}: every entry needs an "id" and a "name"')
         label = f'{where} "{x["id"]}"'
+        need(slug(x['id']) != '', f'{label}: the id needs letters a–z or digits (it becomes part of the page address)')
+        need(slug(x['id']) not in seen.setdefault(where, set()), f'{label}: the id is used twice in "{where}"')
+        seen[where].add(slug(x['id']))
         need(isinstance(x.get('features', []), list) and all(text(f) for f in x.get('features', [])),
              f'{label}: "features" must be a list of texts')
         found = [k for k in kinds if k in x]
@@ -125,34 +134,48 @@ def validate(d):
         return label
 
     need(isinstance(d, dict), 'the file must be one JSON object')
-    need(isinstance(d.get('updated'), str) and re.match(r'^\d{4}-\d\d-\d\d$', d['updated']),
-         '"updated" must be a date like "2026-10-17"')
+    try:
+        datetime.date.fromisoformat(d.get('updated') if isinstance(d.get('updated'), str) and re.fullmatch(r'\d{4}-\d\d-\d\d', d['updated']) else '')
+    except ValueError:
+        need(False, '"updated" must be a real date like "2026-10-17"')
     need(text(d.get('vat_note')), '"vat_note" is missing ("Alle Preise sind Endpreise.")')
-    for w in d.get('websites', []):
+    for w in group('websites', d.get('websites', [])):
         label = item('websites', w, ['price', 'price_monthly'])
         if 'offer_price' in w:
-            need('price' in w and euros(w['offer_price']), f'{label}: "offer_price" needs "price" and a whole number of euros')
+            need('price' in w and euros(w['offer_price']) and 0 < w['offer_price'] < w['price'],
+                 f'{label}: "offer_price" must be a whole number of euros below "price"')
     sm = d.get('social_media')
-    if sm:
+    if sm is not None:
+        need(isinstance(sm, dict), '"social_media" must be an object { … }')
         need(euros(sm.get('min_term_months')) and sm['min_term_months'] > 0, 'social_media: "min_term_months" must be a number')
-        for x in sm.get('packages', []):
+        for x in group('social_media.packages', sm.get('packages', [])):
             label = item('social_media', x, ['price_monthly'])
             if 'offer_first_month' in x:
-                need(euros(x['offer_first_month']), f'{label}: "offer_first_month" must be a whole number of euros')
-    for x in d.get('other_services', []):
+                need(euros(x['offer_first_month']) and 0 < x['offer_first_month'] < x['price_monthly'],
+                     f'{label}: "offer_first_month" must be a whole number of euros below "price_monthly"')
+        need(sm.get('note') is None or text(sm['note']), 'social_media: "note" must be a text')
+    for x in group('other_services', d.get('other_services', [])):
         label = item('other_services', x, ['price_from', 'price_from_monthly', 'price_monthly_min', 'price_monthly', 'price'])
         if 'price_monthly_min' in x:
             need(euros(x.get('price_monthly_max')) and x['price_monthly_max'] > x['price_monthly_min'],
                  f'{label}: "price_monthly_max" must be a number above "price_monthly_min"')
-    for x in d.get('retail_promotion', []):
+    for x in group('retail_promotion', d.get('retail_promotion', [])):
         item('retail_promotion', x, ['price'])
+    need(d.get('retail_promotion_note') is None or text(d['retail_promotion_note']), '"retail_promotion_note" must be a text')
     o = d.get('offer')
-    if o:
+    if o is not None:
+        need(isinstance(o, dict), '"offer" must be an object { … } (delete it once the offer has ended)')
         need(all(text(o.get(k)) for k in ('name', 'headline', 'terms')), 'offer: needs "name", "headline" and "terms"')
+        known = {'websites', 'social_media_first_month'}
+        need(isinstance(o.get('applies_to', []), list) and set(o.get('applies_to', [])) <= known,
+             'offer.applies_to may only list "websites" and "social_media_first_month"')
         until = o.get('valid_until', '')
-        need(isinstance(until, str) and re.match(r'^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d([+-]\d\d:\d\d)$', until),
-             'offer.valid_until must be Berlin time with seconds and offset, like 2026-10-31T23:59:59+01:00')
-        at = datetime.datetime.fromisoformat(until)
+        need(isinstance(until, str) and re.fullmatch(r'\d{4}-\d\d-\d\dT23:59:59[+-]\d\d:\d\d', until),
+             'offer.valid_until must be the last second of the last day, Berlin time, like 2026-10-31T23:59:59+01:00')
+        try:
+            at = datetime.datetime.fromisoformat(until)
+        except ValueError:
+            need(False, f'offer.valid_until: {until} is not a real date')
         try:
             from zoneinfo import ZoneInfo
             berlin = at.astimezone(ZoneInfo('Europe/Berlin')).utcoffset()
@@ -350,7 +373,7 @@ class Builder:
 
         # 2. Social media
         sm = d.get('social_media')
-        if sm:
+        if sm and sm.get('packages'):
             a('')
             a(f'{P}    <div class="price-group mt-96" id="prices-social">')
             a(f'{P}      <div class="price-group__head">')
@@ -470,7 +493,7 @@ class Builder:
 
 
 def read(path):
-    with open(path, encoding='utf-8') as f:
+    with open(path, encoding='utf-8-sig') as f:   # a BOM (Windows Notepad) is fine
         return f.read()
 
 
@@ -544,8 +567,11 @@ def main(argv):
     check = '--check' in argv
     try:
         files = render()
-    except (Out, ValueError, KeyError, OSError) as e:
-        print('pricing:', e if isinstance(e, Out) else f'{type(e).__name__}: {e}', file=sys.stderr)
+    except Out as e:
+        print('pricing:', e, file=sys.stderr)
+        return 1
+    except Exception as e:   # anything validate() did not foresee: one line, never a traceback
+        print(f'pricing: site/data/pricing.json could not be rendered ({type(e).__name__}: {e})', file=sys.stderr)
         return 1
     # i18n.js counts as stale only when its prices.* entries differ: other edits (and key order) are not ours to judge.
     stale = [p for p, text in files.items()
