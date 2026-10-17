@@ -423,18 +423,20 @@ const priceCtx = () => P.makeContext({ lang, t: (k, f) => t(k, f), now: nowMs() 
 /* besides the language, the drawn prices depend on whether the offer runs
    and, for its countdown, on the calendar day in Berlin */
 const priceKey = (now) => (P.offerActive(pricing, now) ? `on|${P.berlinDay(now)}` : 'off');
-/* the copy tools/render-pricing.mjs writes into the page, for when the file
-   cannot be fetched (or has not arrived yet) */
+/* The copy tools/render-pricing.mjs writes into the page, used while the file
+   is on its way or when it cannot be fetched: regular prices only, so it
+   fails closed like the markup fallback (no server clock to check an offer
+   against, and a copy that went stale cannot revive a withdrawn offer). */
 function embeddedPricing() {
-  try { return JSON.parse($('#pricing-data').textContent); } catch (e) { return null; }
+  try { const d = JSON.parse($('#pricing-data').textContent); delete d.offer; return d; } catch (e) { return null; }
 }
 
 async function loadPricing() {
   try {
     const res = await fetch('/data/pricing.json', { cache: 'no-cache' });
-    if (!res.ok) throw new Error(`pricing: ${res.status}`);
     const server = Date.parse(res.headers.get('date') || '');
     if (Number.isFinite(server)) serverSkew = server - Date.now();
+    if (!res.ok) throw new Error(`pricing: ${res.status}`);
     pricing = await res.json();
   } catch (e) {
     console.warn('[pricing]', e);
@@ -442,15 +444,32 @@ async function loadPricing() {
   }
 }
 
+/* A redraw (midnight, the deadline, the file arriving) puts keyboard focus
+   back on the same control, or inside the open panel if that control went. */
+function focusAnchor() {
+  const el = document.activeElement;
+  const scope = el && el.closest && el.closest('[data-pricing], [data-offer-pill], [data-panel-packs]');
+  if (!scope) return null;
+  const sel = el.dataset.pkg ? `[data-pkg="${el.dataset.pkg}"]` : el.matches('[data-offer-close]') ? '[data-offer-close]' : el.matches('.offer-pill__link') ? '.offer-pill__link' : null;
+  return { scope, sel };
+}
+function restoreFocus(a) {
+  if (!a || (document.activeElement && document.activeElement !== document.body)) return;
+  const el = (a.sel && a.scope.querySelector(a.sel)) || (panel && panel.open && panel.contains(a.scope) ? $('[data-panel-close]', panel) : null);
+  if (el && el.getClientRects().length) el.focus({ preventScroll: true });
+}
+
 function renderPrices() {
   if (!pricing) return;
   const ctx = priceCtx();
   shownKey = priceKey(ctx.now);
+  const anchor = focusAnchor();
   const box = $('[data-pricing]');
   if (box) box.innerHTML = P.renderPricing(pricing, ctx);
   $$('[data-card-price]').forEach((el) => { el.innerHTML = P.cardPrice(el.dataset.cardPrice, pricing, ctx); });
   renderOfferPill(ctx);
   if (panel && panel.open && panelState) fillPanel(panelState);
+  restoreFocus(anchor);
   /* the moment the offer ends, everything is drawn again without it */
   clearTimeout(expiryTimer);
   const left = P.offerEnd(pricing) - ctx.now;
@@ -506,7 +525,11 @@ if (pill) {
 /* a tab left open over midnight or the deadline, woken from sleep, or
    restored from the cache */
 document.addEventListener('visibilitychange', () => { if (!document.hidden) checkPrices(); });
-window.addEventListener('pageshow', (e) => { if (e.persisted) checkPrices(); });
+window.addEventListener('pageshow', (e) => {
+  if (!e.persisted || !pricing) return;
+  renderOfferPill(priceCtx());          // closed on another page in the meantime?
+  checkPrices();
+});
 window.addEventListener('focus', checkPrices);
 
 /* --------------------------------------------------------------------------
@@ -1014,6 +1037,7 @@ $$('[data-reply-lang]').forEach((sel) => sel.addEventListener('change', () => { 
   /* a partner click waits for the manifest, but never for long */
   brandsReady = Promise.race([loadBrands(), new Promise((r) => setTimeout(r, 1500))]);
   if (pill || $('[data-pricing]') || $('[data-card-price]')) {
+    pricing = embeddedPricing();        // drawn in the visitor's language until the file arrives
     loadPricing().then(() => {
       renderPrices();
       /* while an offer runs: the wall-clock check behind its countdown and end */

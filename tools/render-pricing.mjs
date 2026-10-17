@@ -3,8 +3,9 @@
 // (site/js/pricing.js). The fallback always shows the regular prices only, so
 // it can never advertise an offer after it has ended; with JavaScript the page
 // renders the live prices (and the October offer while it runs) itself.
-// It also embeds a copy of the JSON, which the page uses (in the visitor's
-// language, with the same offer dates) if /data/pricing.json cannot be fetched.
+// It also embeds a copy of the JSON without the offer, which the page draws in
+// the visitor's language until /data/pricing.json arrives, or instead of it
+// if the file cannot be fetched (regular prices only, like this fallback).
 //
 //   node tools/render-pricing.mjs
 //
@@ -31,7 +32,8 @@ html = html.replace(block, (m, open, close) => `${open}\n${renderPricing(data, c
 const embed = /(<!--@PRICING-DATA-->)[\s\S]*?(<!--\/@PRICING-DATA-->)/;
 if (!embed.test(html)) throw new Error('index.html: <!--@PRICING-DATA--> markers missing');
 /* "<" escaped, so no text in the data can close the script element */
-html = html.replace(embed, (m, open, close) => `${open}<script type="application/json" id="pricing-data">${JSON.stringify(data).replace(/</g, '\\u003c')}</script>${close}`);
+const { offer, ...regular } = data;
+html = html.replace(embed, (m, open, close) => `${open}<script type="application/json" id="pricing-data">${JSON.stringify(regular).replace(/</g, '\\u003c')}</script>${close}`);
 let cards = 0;
 html = html.replace(/(<p class="svc__from" data-card-price="([\w-]+)">)[\s\S]*?(<\/p>)/g, (m, open, id, close) => { cards++; return open + cardPrice(id, data, ctx) + close; });
 fs.writeFileSync(path.join(root, 'index.html'), html);

@@ -136,8 +136,10 @@ prices inside the service panels. Services the sheet does not price show
   regular prices only), then run `node tools/render-pricing.mjs` from the
   repository root. It rewrites the no-JavaScript copy of the price list in
   `index.html` (regular prices only, so it can never advertise an offer that
-  has ended) and the copy of the JSON embedded there, which the page uses
-  (same dates, visitor's language) if `/data/pricing.json` cannot be loaded.
+  has ended) and a copy of the JSON without the offer embedded there, which
+  the page draws in the visitor's language until `/data/pricing.json` arrives,
+  or instead of it if the file cannot be loaded. Both fallbacks show regular
+  prices only, so the offer is never shown without the live file.
 * **Footer note:** "Alle Preise sind Endpreise." (`vat_note`) sits under the
   price list, under every panel's prices and in the footer.
 
