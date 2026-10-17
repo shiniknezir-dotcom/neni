@@ -337,7 +337,8 @@ function prefillContact(ref) {
     label = t(`svc.${id}.name`);
     discipline = DISCIPLINE_OF[id];
   } else {
-    const info = pricing && P.packageLabel(ref, pricing, priceCtx());
+    const data = pricing || embeddedPricing();
+    const info = data && P.packageLabel(ref, data, priceCtx());
     if (!info) return null;
     label = (info.group === 'social' ? `${t('pricing.socialShort', 'Social Media')} ` : '') + info.name + (info.offer ? ` — ${info.offer}` : '');
     discipline = P.DISCIPLINE_OF_GROUP[ref] || P.DISCIPLINE_OF_GROUP[info.group];
@@ -378,8 +379,14 @@ document.addEventListener('click', (e) => {
   if (pkg) {
     const field = prefillContact(pkg.dataset.pkg);
     if (panel && panel.open && panel.contains(pkg)) { lastFocus = field; closePanel(); }
-    else if (field) setTimeout(() => field.focus({ preventScroll: true }), 700);
-    return;                                   // the #contact link does the scrolling
+    else if (field) {
+      /* the #contact link scrolls to the section; then the filled field itself */
+      setTimeout(() => {
+        field.focus({ preventScroll: true });
+        field.scrollIntoView({ block: 'center', behavior: reduceMotion ? 'auto' : 'smooth' });
+      }, 700);
+    }
+    return;
   }
   const svc = e.target.closest('[data-service-open]');
   if (svc) { e.preventDefault(); openPanel({ type: 'service', id: svc.dataset.serviceOpen }); return; }
@@ -407,10 +414,20 @@ async function loadBrands() {
 let pricing = null;
 let serverSkew = 0;       // how far the server clock is ahead of this device
 let expiryTimer = 0;
+let shownKey = '';        // the offer state and Berlin day the prices were drawn for
+let pillClosed = false;   // a closed pill stays closed even where storage is blocked
 /* The offer ends by the later of the device clock and the server clock, so a
    device set back in time cannot keep showing an offer that has ended. */
 const nowMs = () => Date.now() + Math.max(0, serverSkew);
 const priceCtx = () => P.makeContext({ lang, t: (k, f) => t(k, f), now: nowMs() });
+/* besides the language, the drawn prices depend on whether the offer runs
+   and, for its countdown, on the calendar day in Berlin */
+const priceKey = (now) => (P.offerActive(pricing, now) ? `on|${P.berlinDay(now)}` : 'off');
+/* the copy tools/render-pricing.mjs writes into the page, for when the file
+   cannot be fetched (or has not arrived yet) */
+function embeddedPricing() {
+  try { return JSON.parse($('#pricing-data').textContent); } catch (e) { return null; }
+}
 
 async function loadPricing() {
   try {
@@ -420,14 +437,15 @@ async function loadPricing() {
     if (Number.isFinite(server)) serverSkew = server - Date.now();
     pricing = await res.json();
   } catch (e) {
-    console.warn('[pricing]', e);       // the regular-price fallback in the markup stays
-    pricing = null;
+    console.warn('[pricing]', e);
+    pricing = embeddedPricing();        // without it, the regular-price markup stays
   }
 }
 
 function renderPrices() {
   if (!pricing) return;
   const ctx = priceCtx();
+  shownKey = priceKey(ctx.now);
   const box = $('[data-pricing]');
   if (box) box.innerHTML = P.renderPricing(pricing, ctx);
   $$('[data-card-price]').forEach((el) => { el.innerHTML = P.cardPrice(el.dataset.cardPrice, pricing, ctx); });
@@ -436,15 +454,19 @@ function renderPrices() {
   /* the moment the offer ends, everything is drawn again without it */
   clearTimeout(expiryTimer);
   const left = P.offerEnd(pricing) - ctx.now;
-  if (left > 0 && left < 2147000000) expiryTimer = setTimeout(renderPrices, left + 1000);
+  if (left >= 0 && left < 2147000000) expiryTimer = setTimeout(renderPrices, left + 1000);
 }
+/* Timers stand still while a device sleeps, so the wall clock is checked too:
+   once the day changes or the offer ends, the prices are drawn again (and
+   only then, so a return to the tab keeps the visitor's focus). */
+function checkPrices() { if (pricing && priceKey(nowMs()) !== shownKey) renderPrices(); }
 
 const pill = $('[data-offer-pill]');
 const pillKey = () => `bs-offer-x:${pricing && pricing.offer ? pricing.offer.valid_until : ''}`;
 function renderOfferPill(ctx) {
   if (!pill) return;
-  let dismissed = false;
-  try { dismissed = sessionStorage.getItem(pillKey()) === '1'; } catch (e) { /* ignore */ }
+  let dismissed = pillClosed;
+  try { dismissed = dismissed || sessionStorage.getItem(pillKey()) === '1'; } catch (e) { /* ignore */ }
   if (!pricing || !P.offerActive(pricing, ctx.now) || dismissed) {
     pill.hidden = true;
     pill.innerHTML = '';
@@ -467,6 +489,7 @@ function renderOfferPill(ctx) {
 if (pill) {
   pill.addEventListener('click', (e) => {
     if (!e.target.closest('[data-offer-close]')) return;
+    pillClosed = true;
     try { sessionStorage.setItem(pillKey(), '1'); } catch (err) { /* ignore */ }
     pill.hidden = true;
   });
@@ -476,13 +499,15 @@ if (pill) {
     const pio = new IntersectionObserver((es) => {
       es.forEach((en) => { if (en.isIntersecting) seen.add(en.target); else seen.delete(en.target); });
       pill.classList.toggle('is-tucked', seen.size > 0);
-    }, { threshold: 0.15 });
-    ['#pricing', '#contact', '.site-footer'].forEach((sel) => { const el = $(sel); if (el) pio.observe(el); });
+    }, { threshold: 0 });
+    ['#pricing', '#contact', '.site-footer', '.mini-footer'].forEach((sel) => { const el = $(sel); if (el) pio.observe(el); });
   }
 }
-/* a tab left open over the deadline, or restored from the cache */
-document.addEventListener('visibilitychange', () => { if (!document.hidden && pricing) renderPrices(); });
-window.addEventListener('pageshow', (e) => { if (e.persisted && pricing) renderPrices(); });
+/* a tab left open over midnight or the deadline, woken from sleep, or
+   restored from the cache */
+document.addEventListener('visibilitychange', () => { if (!document.hidden) checkPrices(); });
+window.addEventListener('pageshow', (e) => { if (e.persisted) checkPrices(); });
+window.addEventListener('focus', checkPrices);
 
 /* --------------------------------------------------------------------------
    Header: scrolled state, tone underneath, drawer, language buttons,
@@ -497,7 +522,7 @@ function setDrawer(open) {
   /* an open panel keeps its own scroll lock */
   root.classList.toggle('is-locked', open || !!(panel && panel.open));
   /* keyboard focus stays inside the open menu */
-  ['#main', '.site-footer', '.skip', '.site-header .brand'].forEach((sel) => { const el = $(sel); if (el) el.inert = open; });
+  ['#main', '.site-footer', '.skip', '.site-header .brand', '[data-offer-pill]'].forEach((sel) => { const el = $(sel); if (el) el.inert = open; });
   if (open) $('.nav__links a', header)?.focus();
 }
 burger?.addEventListener('click', () => setDrawer(!header.classList.contains('is-open')));
@@ -538,12 +563,15 @@ window.addEventListener('resize', onScrollUi);
   const links = $$('.nav__links a[href^="#"]');
   if (!links.length || !('IntersectionObserver' in window)) return;
   const byId = new Map(links.map((a) => [a.getAttribute('href').slice(1), a]));
+  /* the last section in document order that crosses the middle band wins,
+     so the price list (inside services) hands back to services above it */
+  const live = new Set();
   const spy = new IntersectionObserver((entries) => {
-    entries.forEach((en) => {
-      if (!en.isIntersecting) return;
-      links.forEach((a) => a.removeAttribute('aria-current'));
-      byId.get(en.target.id)?.setAttribute('aria-current', 'true');
-    });
+    entries.forEach((en) => { if (en.isIntersecting) live.add(en.target); else live.delete(en.target); });
+    if (!live.size) return;
+    const cur = [...live].sort((a, b) => (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1)).pop();
+    links.forEach((a) => a.removeAttribute('aria-current'));
+    byId.get(cur.id)?.setAttribute('aria-current', 'true');
   }, { rootMargin: '-45% 0px -50% 0px' });
   byId.forEach((_, id) => { const s = document.getElementById(id); if (s) spy.observe(s); });
   /* back at the top, no section is current */
@@ -985,7 +1013,13 @@ $$('[data-reply-lang]').forEach((sel) => sel.addEventListener('change', () => { 
   else window.addEventListener('bs:ready', () => setTimeout(mountHero3D, 650), { once: true });
   /* a partner click waits for the manifest, but never for long */
   brandsReady = Promise.race([loadBrands(), new Promise((r) => setTimeout(r, 1500))]);
-  if (pill || $('[data-pricing]') || $('[data-card-price]')) loadPricing().then(renderPrices);
+  if (pill || $('[data-pricing]') || $('[data-card-price]')) {
+    loadPricing().then(() => {
+      renderPrices();
+      /* while an offer runs: the wall-clock check behind its countdown and end */
+      if (pricing && P.offerActive(pricing, nowMs())) setInterval(checkPrices, 15000);
+    });
+  }
   if (fixedLang) {
     /* German-only pages: keep the markup's language and never relabel it */
     lang = fixedLang;

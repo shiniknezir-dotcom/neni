@@ -126,7 +126,9 @@ prices inside the service panels. Services the sheet does not price show
   01.11.2026 00:00 everything disappears on its own: the page compares the
   deadline with the later of the device clock and the server clock (the
   `Date` header of `pricing.json`, so a device set to the wrong date cannot
-  keep the offer alive), and a page left open switches at the deadline itself.
+  keep the offer alive). A page left open switches at the deadline itself,
+  and a wall-clock check every 15 seconds also catches a device that slept
+  through it and moves the "noch N Tage" countdown on at midnight.
   `/data/*` is served with `must-revalidate`, so a change reaches every visitor
   at once.
 * **Changing a price or the next offer:** edit `data/pricing.json` (keep the
@@ -134,7 +136,8 @@ prices inside the service panels. Services the sheet does not price show
   regular prices only), then run `node tools/render-pricing.mjs` from the
   repository root. It rewrites the no-JavaScript copy of the price list in
   `index.html` (regular prices only, so it can never advertise an offer that
-  has ended).
+  has ended) and the copy of the JSON embedded there, which the page uses
+  (same dates, visitor's language) if `/data/pricing.json` cannot be loaded.
 * **Footer note:** "Alle Preise sind Endpreise." (`vat_note`) sits under the
   price list, under every panel's prices and in the footer.
 

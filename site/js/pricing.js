@@ -59,9 +59,13 @@ const L = (ctx, key, de, vars) => ctx.fill(ctx.t(`pricing.${key}`, de), vars || 
 
 export function itemName(ctx, group, item) { return tx(ctx, `pricing.items.${group}.${item.id}.name`, item.name); }
 
+/* the calendar day in Berlin, as YYYY-MM-DD */
+const berlinDate = new Intl.DateTimeFormat('en-CA', { timeZone: TZ, year: 'numeric', month: '2-digit', day: '2-digit' });
+export const berlinDay = (ms) => berlinDate.format(new Date(ms));
+
 /* Berlin calendar days left until the offer ends (0 = last day) */
 function daysLeft(ctx, end) {
-  const d = (ms) => { const p = new Intl.DateTimeFormat('en-CA', { timeZone: TZ, year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(ms)); return Date.parse(p + 'T00:00:00Z'); };
+  const d = (ms) => Date.parse(berlinDay(ms) + 'T00:00:00Z');
   return Math.round((d(end) - d(ctx.now)) / 86400000);
 }
 

@@ -515,7 +515,7 @@
     "onRequest": "su richiesta",
     "firstMonth": "Primo mese per ordini entro il {date}",
     "then": "poi {price} / mese",
-    "optional": "facoltativo",
+    "optional": "opzionale",
     "paidBy": "a carico del brand",
     "request": "Richiedi questo pacchetto",
     "reference": "come {site}",

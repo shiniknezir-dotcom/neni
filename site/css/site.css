@@ -72,7 +72,7 @@ dl, dd { margin: 0; }
 [hidden] { display: none !important; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 :focus-visible { outline: 3px solid var(--leaf); outline-offset: 3px; border-radius: 4px; }
-.tone-forest :focus-visible, .cta-band :focus-visible, .pack--premium :focus-visible, .svc--accent :focus-visible,
+.tone-forest :focus-visible, .cta-band :focus-visible, .pkg--dark :focus-visible, .offer-card :focus-visible, .offer-pill :focus-visible, .svc--accent :focus-visible,
 .site-header.on-forest:not(.is-open) :focus-visible, .intro :focus-visible { outline-color: var(--lime); }
 .tone-forest .form :focus-visible { outline-color: var(--leaf); }
 .skip { position: absolute; left: 16px; top: -60px; z-index: 1100; padding: 12px 18px; background: var(--forest); color: var(--lime); border-radius: var(--pill); font-weight: 700; transition: top .2s; }
@@ -607,8 +607,9 @@ html.runway:has(.offer-pill:not([hidden]):not(.is-tucked)) .hero__cue { opacity:
 .panel .pkg { box-shadow: inset 0 0 0 1px var(--ink-12); }
 
 /* the October banner: a pill that floats over the page, never shifting it */
-.offer-pill { position: fixed; left: var(--gutter); bottom: max(18px, env(safe-area-inset-bottom)); z-index: 85; display: flex; align-items: center; gap: 4px; max-width: calc(100% - 2 * var(--gutter)); padding: 6px; background: var(--forest); color: var(--on-forest); border-radius: var(--pill); box-shadow: 0 20px 50px rgba(0, 0, 0, .32), 0 0 0 1px rgba(211, 245, 67, .25); animation: pill-in .7s var(--ease-out) .5s both; transition: transform .45s var(--ease), opacity .3s; }
-.offer-pill.is-tucked { transform: translateY(160%); opacity: 0; pointer-events: none; }
+.offer-pill { position: fixed; left: var(--gutter); bottom: max(18px, env(safe-area-inset-bottom)); z-index: 85; display: flex; align-items: center; gap: 4px; max-width: calc(100% - 2 * var(--gutter)); padding: 6px; background: var(--forest); color: var(--on-forest); border-radius: var(--pill); box-shadow: 0 20px 50px rgba(0, 0, 0, .32), 0 0 0 1px rgba(211, 245, 67, .25); animation: pill-in .7s var(--ease-out) .5s backwards; transition: transform .45s var(--ease), opacity .3s, visibility 0s; }
+/* tucked away it also leaves the tab order, once it has slid out */
+.offer-pill.is-tucked { transform: translateY(160%); opacity: 0; pointer-events: none; visibility: hidden; transition: transform .45s var(--ease), opacity .3s, visibility 0s .45s; }
 html.has-intro .offer-pill { display: none; }
 @keyframes pill-in { from { transform: translateY(160%); opacity: 0; } to { transform: none; opacity: 1; } }
 .offer-pill__link { display: flex; align-items: center; gap: 12px; min-width: 0; padding: 4px 8px 4px 4px; font-size: 14px; }
@@ -645,7 +646,7 @@ html.has-intro .offer-pill { display: none; }
   .pkg--slim { grid-template-columns: minmax(0, 1fr); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .offer-pill { animation: none; transition: none; }
+  .offer-pill, .offer-pill.is-tucked { animation: none; transition: none; }
   .pkg { transition: none; }
 }
 @media print { .offer-pill { display: none !important; } }
@@ -851,6 +852,9 @@ html:not(.js) .petal-btn, html:not(.js) .brand-tile { pointer-events: none; curs
   .reveal { opacity: 1 !important; transform: none !important; }
   .tone-forest, .site-footer, .case, .svc--accent, .cta-band, .clients { background: #fff !important; color: #000 !important; }
   .tone-forest .lead, .case__text, .work-note, .site-footer__copy, .steps__p { color: #333 !important; }
+  .pkg--dark, .offer-card { background: #fff !important; color: #000 !important; box-shadow: inset 0 0 0 1px #000 !important; }
+  .pkg--dark .price b, .pkg--dark .price s, .pkg--dark .price__note, .pkg--dark .price__then, .pkg--dark .pkg__ref, .pkg--dark .pkg__cta,
+  .offer-card__tag span:last-child, .offer-card__headline, .offer-card__terms, .site-footer__vat { color: #000 !important; }
   .about__lead, .academy__copy, .contact__intro { position: static; }
   html.js .hero__copy > * { animation: none; }
 }
