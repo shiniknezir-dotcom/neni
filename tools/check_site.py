@@ -324,7 +324,18 @@ for name in pages:
             errors.append(f'[legal] {name}: the footer has no {need} link')
     if 'data-i18n="prices.vat"' not in foot and 'data-vat-de' not in foot:
         errors.append(f'[prices] {name}: the footer has no price note ("Alle Preise sind Endpreise.")')
-old_price = re.compile(r'(?<!\d[.,\u00a0\u202f ])(?<!\d)500[\u00a0\u202f ]?€|€[\u00a0 ]?500(?!\d|[.,]\d)|data-price="500"')
+old_price = re.compile(r'(?<!\d[.,\u00a0\u202f ])(?<!\d)500[\u00a0\u202f ]?(?:€|Euro\b|EUR\b)|€[\u00a0 ]?500(?!\d|[.,]\d)|data-price="500"')
+def _amounts(v):
+    if isinstance(v, dict):
+        return [a for x in v.values() for a in _amounts(x)]
+    if isinstance(v, list):
+        return [a for x in v for a in _amounts(x)]
+    return [v] if isinstance(v, int) and not isinstance(v, bool) else []
+try:   # a 500 € price that the owner's list itself names is allowed again
+    if 500 in _amounts(json.load(open(os.path.join(SITE, 'data', 'pricing.json'), encoding='utf-8'))):
+        old_price = re.compile(r'(?!)')
+except (ValueError, OSError):
+    pass
 for name in pages:
     if old_price.search(open(os.path.join(SITE, name), encoding='utf-8').read()):
         errors.append(f'[prices] {name}: a 500 € price is still on the page (the old website price was withdrawn)')

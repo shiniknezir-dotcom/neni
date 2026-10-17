@@ -400,10 +400,11 @@
 
   // The October offer runs through offer.valid_until (/data/pricing.json, written into
   // <meta name="bs-offer-until"> by tools/pricing.py). boot.js sets html.offer-on before the
-  // first paint; this ends it on time: at the deadline while the page stays open, after a
-  // sleeping laptop or a background tab wakes, and by the server's clock when the device's
-  // clock is behind (the live JSON can only end it sooner, never extend it). Once over, it
-  // stays over for this page view.
+  // first paint; this ends it on time: at the deadline while the page stays open (checked at
+  // least once a minute, since timers stop while a laptop sleeps), when the tab or window comes
+  // back, before every request click and form submission, and by the server's clock when the
+  // device's clock is behind (the live JSON can only end it sooner, never extend it). Once
+  // over, it stays over for this page view.
   var offerMeta = document.querySelector('meta[name="bs-offer-until"]');
   var offerEnd = offerMeta ? Date.parse(offerMeta.getAttribute('content')) + 1000 : NaN;   // valid through its last second
   var offerOver = !(offerEnd > 0), offerTimer = 0;
@@ -413,16 +414,16 @@
     var was = offerOn();
     d.classList.toggle('offer-on', !offerOver);
     clearTimeout(offerTimer);
-    // at the deadline, or in an hour if that is sooner (timers longer than ~24 days fire at once)
-    if (!offerOver) offerTimer = setTimeout(checkOffer, Math.min(offerEnd - Date.now() + 50, 36e5));
+    // at the deadline, or in a minute if that is sooner
+    if (!offerOver) offerTimer = setTimeout(checkOffer, Math.min(offerEnd - Date.now() + 50, 6e4));
     if (was !== offerOn()) syncPick();
   }
   if (!offerOver) {
-    document.addEventListener('visibilitychange', function () { if (!document.hidden) checkOffer(); });
-    window.addEventListener('pageshow', checkOffer);
     // The live price list, fresh: its server date, and its own valid_until (no offer there: over).
+    var asked = 0;
     var askServer = function () {
-      if (offerOver || !window.fetch) return;
+      if (offerOver || !window.fetch || Date.now() - asked < 6e4) return;   // at most once a minute
+      asked = Date.now();
       fetch('/data/pricing.json', { cache: 'no-store' }).then(function (r) {
         var now = Date.parse(r.headers.get('Date') || '');
         return r.ok ? r.json().then(function (data) {
@@ -433,7 +434,11 @@
         }) : null;
       }).catch(function () {});
     };
-    if (document.readyState === 'complete') askServer(); else window.addEventListener('load', askServer);
+    var wake = function () { checkOffer(); askServer(); };
+    document.addEventListener('visibilitychange', function () { if (!document.hidden) wake(); });
+    window.addEventListener('pageshow', wake);
+    window.addEventListener('focus', wake);
+    askServer();   // main.js is deferred: the page is parsed, the request does not wait for images
   }
 
   // Request buttons: data-package="…" (price cards, Live, Academy, the full package) writes that
@@ -469,6 +474,7 @@
   document.addEventListener('click', function (e) {
     var a = e.target.closest ? e.target.closest('[data-package], [data-interest]') : null;
     if (!a || !form) return;
+    checkOffer();   // a laptop that slept past the deadline must not hand out the offer price
     var field = form.querySelector('[data-package-field]');
     if (field) field.value = packageOf(a);
     var want = a.getAttribute('data-interest');
@@ -524,6 +530,7 @@
 
   each('form[data-form]', function (f) {
     f.addEventListener('submit', function (e) {
+      checkOffer();   // the Package field names the price that applies now
       if (!window.fetch || !window.FormData) return; // let the browser post it
       e.preventDefault();
       if (f.__sending) return;

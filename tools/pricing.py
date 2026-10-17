@@ -24,6 +24,7 @@ first paint while the time is before offer.valid_until (html.offer-on), main.js
 ends it on time. Without JavaScript only the regular prices show. Remove
 "offer" from the JSON once it has ended and run the tool, so the markup goes too.
 """
+import datetime
 import html
 import json
 import os
@@ -94,6 +95,71 @@ def eur_en(n):
 
 def eur_de(n):
     return '{:,}'.format(n).replace(',', '.') + ' €'
+
+
+def validate(d):
+    """Clear messages for the edits the owner is likely to make, before anything is rendered."""
+    def need(ok, msg):
+        if not ok:
+            raise Out('pricing.json: ' + msg)
+
+    def text(v):
+        return isinstance(v, str) and v.strip() != ''
+
+    def euros(v):
+        return isinstance(v, int) and not isinstance(v, bool) and v >= 0
+
+    def item(where, x, kinds):
+        need(isinstance(x, dict), f'{where}: each entry must be an object {{…}}')
+        need(text(x.get('id')) and text(x.get('name')), f'{where}: every entry needs an "id" and a "name"')
+        label = f'{where} "{x["id"]}"'
+        need(isinstance(x.get('features', []), list) and all(text(f) for f in x.get('features', [])),
+             f'{label}: "features" must be a list of texts')
+        found = [k for k in kinds if k in x]
+        need(len(found) == 1 or (set(found) == {'price_monthly_min', 'price_monthly_max'}),
+             f'{label}: needs exactly one price, one of {", ".join(kinds)}')
+        for k in found:
+            v = x[k]
+            need(euros(v) or (k == 'price' and where == 'other_services' and text(v)),
+                 f'{label}: "{k}" must be a whole number of euros, like 1200 (found {v!r})')
+        return label
+
+    need(isinstance(d, dict), 'the file must be one JSON object')
+    need(isinstance(d.get('updated'), str) and re.match(r'^\d{4}-\d\d-\d\d$', d['updated']),
+         '"updated" must be a date like "2026-10-17"')
+    need(text(d.get('vat_note')), '"vat_note" is missing ("Alle Preise sind Endpreise.")')
+    for w in d.get('websites', []):
+        label = item('websites', w, ['price', 'price_monthly'])
+        if 'offer_price' in w:
+            need('price' in w and euros(w['offer_price']), f'{label}: "offer_price" needs "price" and a whole number of euros')
+    sm = d.get('social_media')
+    if sm:
+        need(euros(sm.get('min_term_months')) and sm['min_term_months'] > 0, 'social_media: "min_term_months" must be a number')
+        for x in sm.get('packages', []):
+            label = item('social_media', x, ['price_monthly'])
+            if 'offer_first_month' in x:
+                need(euros(x['offer_first_month']), f'{label}: "offer_first_month" must be a whole number of euros')
+    for x in d.get('other_services', []):
+        label = item('other_services', x, ['price_from', 'price_from_monthly', 'price_monthly_min', 'price_monthly', 'price'])
+        if 'price_monthly_min' in x:
+            need(euros(x.get('price_monthly_max')) and x['price_monthly_max'] > x['price_monthly_min'],
+                 f'{label}: "price_monthly_max" must be a number above "price_monthly_min"')
+    for x in d.get('retail_promotion', []):
+        item('retail_promotion', x, ['price'])
+    o = d.get('offer')
+    if o:
+        need(all(text(o.get(k)) for k in ('name', 'headline', 'terms')), 'offer: needs "name", "headline" and "terms"')
+        until = o.get('valid_until', '')
+        need(isinstance(until, str) and re.match(r'^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d([+-]\d\d:\d\d)$', until),
+             'offer.valid_until must be Berlin time with seconds and offset, like 2026-10-31T23:59:59+01:00')
+        at = datetime.datetime.fromisoformat(until)
+        try:
+            from zoneinfo import ZoneInfo
+            berlin = at.astimezone(ZoneInfo('Europe/Berlin')).utcoffset()
+        except Exception:   # no time zone data on this computer: skip this one check
+            berlin = at.utcoffset()
+        need(berlin == at.utcoffset(), f'offer.valid_until: on that date Berlin is UTC{"+" if berlin >= datetime.timedelta(0) else "-"}'
+             f'{abs(int(berlin.total_seconds())) // 3600:02d}:00, not {until[-6:]}')
 
 
 class Builder:
@@ -185,10 +251,7 @@ class Builder:
         o = self.data.get('offer')
         if not o:
             return None
-        until = o.get('valid_until', '')
-        if not re.match(r'^\d{4}-\d\d-\d\dT\d\d:\d\d(:\d\d)?([+-]\d\d:\d\d|Z)$', until):
-            raise Out('pricing.json: offer.valid_until must look like 2026-10-31T23:59:59+01:00')
-        return o
+        return o   # checked in validate()
 
     def pill(self):
         o = self.offer()
@@ -236,53 +299,54 @@ class Builder:
         on_social = bool(o) and 'social_media_first_month' in o.get('applies_to', [])
 
         # 1. Websites
-        a('')
-        a(f'{P}    <div class="price-group mt-96" id="prices-websites">')
-        a(f'{P}      <div class="price-group__head">')
-        a(f'{P}        ' + self.el('h3', 'web.t', self.ui('web.t'), 'h-s'))
-        a(f'{P}        ' + self.el('p', 'web.sub', self.ui('web.sub'), 'lbl'))
-        a(f'{P}      </div>')
-        a(f'{P}      <div class="tiers">')
-        for w in d.get('websites', []):
-            pre = f'web.{slug(w["id"])}'
-            name = self.tr(w['name'])
-            q = f'{P}        '
-            if 'price' in w:
-                n = w['price']
-                a(f'{q}<article class="tier" id="price-web-{slug(w["id"])}" data-pick data-tilt>')
-                a(f'{q}  ' + self.el('h4', f'{pre}.name', name, 'tier__name', ' data-pick-name'))
-                a(f'{q}  <div class="tier__price">')
-                deal = on_web and w.get('offer_price') is not None
-                if deal:
-                    a(f'{q}    <p class="tier__now offer-off" data-pick-reg>{self.money(n)}</p>')
-                    a(f'{q}    <p class="tier__now offer-only">{self.struck(n)} <span data-pick-offer>'
-                      + self.el('span', 'offer.name', self.tr(o['name']), 'sr-only') + f' <b data-price="{w["offer_price"]}">{esc(eur_en(w["offer_price"]))}</b></span></p>')
-                    a(f'{q}    ' + self.el('p', 'offer.name', self.tr(o['name']), 'lbl tier__deal offer-only', ' aria-hidden="true"'))
+        if d.get('websites'):
+            a('')
+            a(f'{P}    <div class="price-group mt-96" id="prices-websites">')
+            a(f'{P}      <div class="price-group__head">')
+            a(f'{P}        ' + self.el('h3', 'web.t', self.ui('web.t'), 'h-s'))
+            a(f'{P}        ' + self.el('p', 'web.sub', self.ui('web.sub'), 'lbl'))
+            a(f'{P}      </div>')
+            a(f'{P}      <div class="tiers">')
+            for w in d.get('websites', []):
+                pre = f'web.{slug(w["id"])}'
+                name = self.tr(w['name'])
+                q = f'{P}        '
+                if 'price' in w:
+                    n = w['price']
+                    a(f'{q}<article class="tier" id="price-web-{slug(w["id"])}" data-pick data-tilt>')
+                    a(f'{q}  ' + self.el('h4', f'{pre}.name', name, 'tier__name', ' data-pick-name'))
+                    a(f'{q}  <div class="tier__price">')
+                    deal = on_web and w.get('offer_price') is not None
+                    if deal:
+                        a(f'{q}    <p class="tier__now offer-off" data-pick-reg>{self.money(n)}</p>')
+                        a(f'{q}    <p class="tier__now offer-only">{self.struck(n)} <span data-pick-offer>'
+                          + self.el('span', 'offer.name', self.tr(o['name']), 'sr-only') + f' <b data-price="{w["offer_price"]}">{esc(eur_en(w["offer_price"]))}</b></span></p>')
+                        a(f'{q}    ' + self.el('p', 'offer.name', self.tr(o['name']), 'lbl tier__deal offer-only', ' aria-hidden="true"'))
+                    else:
+                        a(f'{q}    <p class="tier__now" data-pick-reg>{self.money(n)}</p>')
+                    a(f'{q}  </div>')
+                    L.extend(self.items(pre, w.get('features', []), q + '  '))
+                    if w.get('example'):
+                        a(f'{q}  ' + self.el('p', f'{pre}.ex', self.ui('example', text=self.tr(w['example'])), 'tier__ex'))
+                    package = f'{w["name"]} — {eur_de(n)}'
+                    offer_package = f'{w["name"]} — {o["name"]}: {eur_de(w["offer_price"])} statt {eur_de(n)}' if deal else None
+                    a(f'{q}  ' + self.request(pre, name, package, offer_package, INTEREST['websites']))
+                    a(f'{q}</article>')
+                elif 'price_monthly' in w:
+                    n = w['price_monthly']
+                    a(f'{q}<div class="tier tier--wide" id="price-web-{slug(w["id"])}" data-pick>')
+                    opt = (' ' + self.el('span', 'optional', self.ui('optional'), 'lbl')) if w.get('optional') else ''
+                    a(f'{q}  <h4 class="tier__name">' + self.el('span', f'{pre}.name', name, '', ' data-pick-name') + opt + '</h4>')
+                    L.extend(self.items(pre, w.get('features', []), q + '  ', 'tier__items tier__items--inline'))
+                    nod = (' ' + self.el('small', 'nodiscount', self.ui('nodiscount'), 'offer-only')) if on_web else ''
+                    a(f'{q}  <p class="tier__now"><span data-pick-reg>{self.money(n)} {self.month()}</span>{nod}</p>')
+                    package = f'{w["name"]}{" (optional)" if w.get("optional") else ""} — {eur_de(n)} / Monat'
+                    a(f'{q}  ' + self.request(pre, name, package, None, INTEREST['websites']))
+                    a(f'{q}</div>')
                 else:
-                    a(f'{q}    <p class="tier__now" data-pick-reg>{self.money(n)}</p>')
-                a(f'{q}  </div>')
-                L.extend(self.items(pre, w.get('features', []), q + '  '))
-                if w.get('example'):
-                    a(f'{q}  ' + self.el('p', f'{pre}.ex', self.ui('example', text=self.tr(w['example'])), 'tier__ex'))
-                package = f'{w["name"]} — {eur_de(n)}'
-                offer_package = f'{w["name"]} — {o["name"]}: {eur_de(w["offer_price"])} statt {eur_de(n)}' if deal else None
-                a(f'{q}  ' + self.request(pre, name, package, offer_package, INTEREST['websites']))
-                a(f'{q}</article>')
-            elif 'price_monthly' in w:
-                n = w['price_monthly']
-                a(f'{q}<div class="tier tier--wide" id="price-web-{slug(w["id"])}" data-pick>')
-                opt = (' ' + self.el('span', 'optional', self.ui('optional'), 'lbl')) if w.get('optional') else ''
-                a(f'{q}  <h4 class="tier__name">' + self.el('span', f'{pre}.name', name, '', ' data-pick-name') + opt + '</h4>')
-                L.extend(self.items(pre, w.get('features', []), q + '  ', 'tier__items tier__items--inline'))
-                nod = (' ' + self.el('small', 'nodiscount', self.ui('nodiscount'), 'offer-only')) if on_web else ''
-                a(f'{q}  <p class="tier__now"><span data-pick-reg>{self.money(n)} {self.month()}</span>{nod}</p>')
-                package = f'{w["name"]}{" (optional)" if w.get("optional") else ""} — {eur_de(n)} / Monat'
-                a(f'{q}  ' + self.request(pre, name, package, None, INTEREST['websites']))
-                a(f'{q}</div>')
-            else:
-                raise Out(f'pricing.json: website "{w.get("id")}" has no price or price_monthly')
-        a(f'{P}      </div>')
-        a(f'{P}    </div>')
+                    raise Out(f'pricing.json: website "{w.get("id")}" has no price or price_monthly')
+            a(f'{P}      </div>')
+            a(f'{P}    </div>')
 
         # 2. Social media
         sm = d.get('social_media')
@@ -311,10 +375,12 @@ class Builder:
                       + f' <b data-price="{f1}">{esc(eur_en(f1))}</b></span></p>')
                 a(f'{q}  </div>')
                 L.extend(self.items(pre, s.get('features', []), q + '  '))
+                group = self.ui('social.t')
+                aria = {l: group[l] + ' ' + name[l] for l in ALL}
                 term = f'{sm["min_term_months"]} Monate Mindestlaufzeit'
                 package = f'Social Media {s["name"]} — {eur_de(n)} / Monat, {term}'
                 offer_package = (package + f'; {o["name"]}: 1. Monat {eur_de(s["offer_first_month"])}') if deal else None
-                a(f'{q}  ' + self.request(pre, name, package, offer_package, INTEREST['social_media']))
+                a(f'{q}  ' + self.request(pre, aria, package, offer_package, INTEREST['social_media']))
                 a(f'{q}</article>')
             a(f'{P}      </div>')
             if sm.get('note'):
@@ -419,6 +485,7 @@ def render():
     """Return {path: expected content} for every file the tool owns."""
     data = json.loads(read(DATA))
     table = json.loads(read(TABLE))
+    validate(data)
     b = Builder(data, table)
     section = b.section()
     pill = b.pill()
@@ -463,6 +530,16 @@ def render():
     return out
 
 
+def own_keys(i18n_source):
+    """The prices.* entries per language of an i18n.js text (None if it does not parse)."""
+    try:
+        body = i18n_source[i18n_source.index('window.BS_I18N = {') + len('window.BS_I18N = '):]
+        D = json.loads(body[:body.rindex('}') + 1])
+    except ValueError:
+        return None
+    return {l: {k: v for k, v in D.get(l, {}).items() if k.startswith(PREFIX)} for l in LANGS}
+
+
 def main(argv):
     check = '--check' in argv
     try:
@@ -470,7 +547,9 @@ def main(argv):
     except (Out, ValueError, KeyError, OSError) as e:
         print('pricing:', e if isinstance(e, Out) else f'{type(e).__name__}: {e}', file=sys.stderr)
         return 1
-    stale = [p for p, text in files.items() if read(p) != text]
+    # i18n.js counts as stale only when its prices.* entries differ: other edits (and key order) are not ours to judge.
+    stale = [p for p, text in files.items()
+             if (own_keys(read(p)) != own_keys(text) if p == I18N else read(p) != text)]
     if check:
         for p in stale:
             print(f'pricing: {os.path.relpath(p, BASE)} is out of step with site/data/pricing.json — run python3 tools/pricing.py')

@@ -26,7 +26,7 @@
   "example": {"de": "({text})", "en": "({text})", "fr": "({text})", "es": "({text})", "it": "({text})"}
  },
  "text": {
-  "Alle Preise sind Endpreise.": {"en": "All prices are final prices.", "fr": "Tous les prix sont des prix définitifs.", "es": "Todos los precios son precios finales.", "it": "Tutti i prezzi sono prezzi finali."},
+  "Alle Preise sind Endpreise.": {"en": "All prices are final prices.", "fr": "Tous les prix sont des prix finaux, tout compris.", "es": "Todos los precios son precios finales.", "it": "Tutti i prezzi sono prezzi finali."},
   "Oktober-Aktion": {"en": "October offer", "fr": "Offre d’octobre", "es": "Oferta de octubre", "it": "Offerta di ottobre"},
   "50 % auf alle Websites": {"en": "50% off all websites", "fr": "50 % sur tous les sites web", "es": "50 % en todos los sitios web", "it": "50% su tutti i siti web"},
   "Gilt für Aufträge, die bis zum 31.10.2026 unterschrieben sind. Social Media: 50 % auf den ersten Monat bei 3 Monaten Mindestlaufzeit. Ab dem 1. November gelten die regulären Preise.": {"en": "Applies to orders signed by 31 October 2026. Social media: 50% off the first month with a three-month minimum term. From 1 November the regular prices apply.", "fr": "Valable pour les commandes signées au plus tard le 31 octobre 2026. Réseaux sociaux : 50 % sur le premier mois, avec un engagement minimum de trois mois. À partir du 1er novembre, les prix habituels s’appliquent.", "es": "Válido para encargos firmados hasta el 31 de octubre de 2026. Redes sociales: 50 % en el primer mes, con una permanencia mínima de tres meses. A partir del 1 de noviembre se aplican los precios habituales.", "it": "Valida per gli ordini firmati entro il 31 ottobre 2026. Social media: 50% sul primo mese, con una durata minima di tre mesi. Dal 1° novembre valgono i prezzi regolari."},
@@ -78,7 +78,7 @@
   "Academy 50–100 Personen": {"en": "Academy, 50–100 people", "fr": "Academy, 50 à 100 personnes", "es": "Academy, 50–100 personas", "it": "Academy, 50–100 persone"},
   "Trainingsprogramm für größere Teams": {"en": "Training programme for larger teams", "fr": "Programme de formation pour les grandes équipes", "es": "Programa de formación para equipos grandes", "it": "Programma di formazione per team più grandi"},
 
-  "Marken-Spiel (einmalig)": {"en": "Brand game (one-off)", "fr": "Jeu de marque (unique)", "es": "Juego de marca (pago único)", "it": "Gioco di marca (una tantum)"},
+  "Marken-Spiel (einmalig)": {"en": "Brand game (one-off)", "fr": "Jeu de marque (forfait unique)", "es": "Juego de marca (pago único)", "it": "Gioco di marca (una tantum)"},
   "Konzept und Bau des 60-Sekunden-Spiels im Design der Marke": {"en": "Concept and build of the 60-second game in the brand’s design", "fr": "Conception et réalisation du jeu de 60 secondes aux couleurs de la marque", "es": "Concepto y desarrollo del juego de 60 segundos con el diseño de la marca", "it": "Ideazione e realizzazione del gioco da 60 secondi nel design del marchio"},
   "Probier-Moment": {"en": "Tasting moment", "fr": "Moment dégustation", "es": "Momento degustación", "it": "Momento assaggio"},
   "1 Markt": {"en": "1 store", "fr": "1 magasin", "es": "1 supermercado", "it": "1 punto vendita"},
@@ -95,6 +95,6 @@
   "5 Aktionstage in 5 Märkten": {"en": "5 promotion days in 5 stores", "fr": "5 journées d’animation dans 5 magasins", "es": "5 días de promoción en 5 supermercados", "it": "5 giornate promozionali in 5 punti vendita"},
   "Alle Videos": {"en": "All videos", "fr": "Toutes les vidéos", "es": "Todos los vídeos", "it": "Tutti i video"},
   "Abschlussbericht mit Absatzvergleich": {"en": "Final report with sales comparison", "fr": "Rapport final avec comparaison des ventes", "es": "Informe final con comparación de ventas", "it": "Report finale con confronto delle vendite"},
-  "Ware, Preise und Spenden stellt die Marke. Für den Markt (z. B. EDEKA) entstehen keine Kosten.": {"en": "The brand provides the goods, prizes and donations. The store (e.g. EDEKA) pays nothing.", "fr": "La marque fournit la marchandise, les lots et les dons. Le magasin (par ex. EDEKA) n’a aucun frais.", "es": "La marca aporta la mercancía, los premios y las donaciones. Para el supermercado (p. ej. EDEKA) no hay ningún coste.", "it": "Merce, premi e donazioni li mette a disposizione il marchio. Per il punto vendita (ad es. EDEKA) non ci sono costi."}
+  "Ware, Preise und Spenden stellt die Marke. Für den Markt (z. B. EDEKA) entstehen keine Kosten.": {"en": "The brand provides the goods, prizes and donations. The store (e.g. EDEKA) pays nothing.", "fr": "La marque fournit la marchandise, les lots et les dons. Aucun coût pour le magasin (par ex. EDEKA).", "es": "La marca aporta la mercancía, los premios y las donaciones. Para el supermercado (p. ej. EDEKA) no hay ningún coste.", "it": "Merce, premi e donazioni li mette a disposizione il marchio. Per il punto vendita (ad es. EDEKA) non ci sono costi."}
  }
 }

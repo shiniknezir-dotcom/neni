@@ -25,5 +25,9 @@
 /assets/video/*
   Cache-Control: public, max-age=604800
 
+# The price list is data for the page, not a page: keep it out of search results.
+/data/*
+  X-Robots-Tag: noindex
+
 # HTML, CSS and JS keep Netlify's default (revalidate on every visit), so a
 # new deploy is visible immediately without renaming files.

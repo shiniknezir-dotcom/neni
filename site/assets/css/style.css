@@ -838,10 +838,10 @@ html.offer-on .offer-off { display: none; }
 .offer__terms { font-size: 14px; line-height: 1.6; color: var(--nebel); max-width: 62em; }
 
 /* the hero link to it: white on black, the hero's spark stays the storm's petal */
-.offer-pill { display: inline-flex; flex-wrap: wrap; align-items: baseline; justify-content: center; gap: 4px 14px; max-width: 100%; margin-top: 4px; padding: 11px 22px; border: 1px solid var(--line-strong); border-radius: 999px; background: rgba(10, 10, 10, .62); color: var(--weiss); text-decoration: none; font-size: 14px; line-height: 1.4; transition: border-color .25s ease; }
+.offer-pill { display: inline-flex; flex-wrap: wrap; align-items: baseline; justify-content: center; gap: 4px 14px; max-width: 100%; margin-top: 4px; padding: 11px 22px; border: 1px solid var(--line-strong); border-radius: 999px; background: rgba(10, 10, 10, .8); color: var(--weiss); text-decoration: none; font-size: 14px; line-height: 1.4; transition: border-color .25s ease; }
 .offer-pill .lbl { color: var(--nebel); letter-spacing: .26em; }
 .offer-pill__head { font-weight: 500; }
-.offer-pill__until { font-size: 12px; color: var(--asche); }
+.offer-pill__until { font-size: 12px; color: var(--nebel); }
 .offer-pill:hover, .offer-pill:focus-visible { border-color: var(--pollen); }
 
 .price-group__head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 28px; padding-bottom: 22px; margin-bottom: 28px; border-bottom: 1px solid var(--rauch); }
@@ -874,7 +874,7 @@ html.offer-on .offer-off { display: none; }
 .tier__items--inline li { padding: 0; border-top: 0; }
 .tier--wide .tier__now { font-size: 32px; white-space: nowrap; }
 .tier--wide .tier__now small { margin-left: 2px; }
-.tier--wide .tier__req { margin-top: 0; align-self: center; }
+.tier--wide .tier__req { margin-top: 0; align-self: center; justify-self: start; }
 
 /* more services: a price list */
 .price-row { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.3fr) minmax(0, 1fr) auto; align-items: baseline; gap: 10px 36px; padding: 22px 0; border-bottom: 1px solid var(--rauch); }
