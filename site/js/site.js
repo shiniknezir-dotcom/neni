@@ -333,20 +333,33 @@ const DISCIPLINE_OF = {
 /* Once the jump to #contact has come to rest (the scroll position unchanged
    for a few frames; at most about 3 s), bring the filled field into view if
    it is not already fully visible. Measured by layout position, so the
-   form's reveal animation does not count as being out of view. If the
-   visitor scrolls or types meanwhile, they lead: nothing moves. */
+   form's reveal animation does not count as being out of view. The visitor
+   leads: Tab or Escape meanwhile, or scrolling that took the page away from
+   the form, and nothing moves. */
 function revealField(field, before) {
-  let last = NaN, still = 0, frames = 0, theirs = false;
-  const input = ['wheel', 'touchmove', 'keydown'];
-  const mine = () => { theirs = true; };
-  input.forEach((k) => window.addEventListener(k, mine, { capture: true, passive: true }));
+  let last = NaN, still = 0, frames = 0, scrolled = false, away = false;
+  const onScroll = () => { scrolled = true; };
+  const onKey = (e) => { if (e.repeat) return; if (e.key === 'Tab' || e.key === 'Escape') away = true; else scrolled = true; };
+  const opts = { capture: true, passive: true };
+  window.addEventListener('wheel', onScroll, opts);
+  window.addEventListener('touchmove', onScroll, opts);
+  window.addEventListener('keydown', onKey, opts);
+  /* where the jump to #contact comes to rest */
+  const target = () => {
+    const to = $('#contact');
+    if (!to) return NaN;
+    const pad = parseFloat(getComputedStyle(root).scrollPaddingTop) || 0;
+    return Math.min(root.scrollHeight - innerHeight, to.getBoundingClientRect().top + window.scrollY - pad);
+  };
   const tick = () => {
     const y0 = window.scrollY;
     still = y0 === last ? still + 1 : 0;
     last = y0;
-    if (!theirs && still < 8 && ++frames < 180) { requestAnimationFrame(tick); return; }
-    input.forEach((k) => window.removeEventListener(k, mine, { capture: true }));
-    if (theirs) return;
+    if (!away && still < 8 && ++frames < 180) { requestAnimationFrame(tick); return; }
+    window.removeEventListener('wheel', onScroll, opts);
+    window.removeEventListener('touchmove', onScroll, opts);
+    window.removeEventListener('keydown', onKey, opts);
+    if (away || (scrolled && !(Math.abs(window.scrollY - target()) <= 2))) return;
     if (before) before();
     let y = 0;
     for (let n = field; n; n = n.offsetParent) y += n.offsetTop;
