@@ -308,6 +308,8 @@ html:has(.offer-pill:not([hidden]):not(.is-tucked)) { scroll-padding-bottom: 96p
 /* not for the pinned hero copy: scrolling it into the padded band would
    run the runway on and hide the very button that has focus */
 html.runway:has(.hero__copy :focus) { scroll-padding-bottom: 0; }
+/* ...so the pill steps aside while a hero button has keyboard focus */
+html:has(.hero__copy :focus-visible) .offer-pill { transform: translateY(160%); opacity: 0; pointer-events: none; visibility: hidden; transition: transform .45s var(--ease), opacity .3s, visibility 0s .45s; }
 
 /* --------------------------------------------------------------------------
    Marquee
@@ -652,7 +654,7 @@ html.has-intro .offer-pill { display: none; }
   .pkg--slim { grid-template-columns: minmax(0, 1fr); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .offer-pill, .offer-pill.is-tucked { animation: none; transition: none; }
+  .offer-pill, .offer-pill.is-tucked, html:has(.hero__copy :focus-visible) .offer-pill { animation: none; transition: none; }
   .pkg { transition: none; }
 }
 @media print { .offer-pill { display: none !important; } }

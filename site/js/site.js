@@ -333,14 +333,20 @@ const DISCIPLINE_OF = {
 /* Once the jump to #contact has come to rest (the scroll position unchanged
    for a few frames; at most about 3 s), bring the filled field into view if
    it is not already fully visible. Measured by layout position, so the
-   form's reveal animation does not count as being out of view. */
+   form's reveal animation does not count as being out of view. If the
+   visitor scrolls or types meanwhile, they lead: nothing moves. */
 function revealField(field, before) {
-  let last = NaN, still = 0, frames = 0;
+  let last = NaN, still = 0, frames = 0, theirs = false;
+  const input = ['wheel', 'touchmove', 'keydown'];
+  const mine = () => { theirs = true; };
+  input.forEach((k) => window.addEventListener(k, mine, { capture: true, passive: true }));
   const tick = () => {
     const y0 = window.scrollY;
     still = y0 === last ? still + 1 : 0;
     last = y0;
-    if (still < 8 && ++frames < 180) { requestAnimationFrame(tick); return; }
+    if (!theirs && still < 8 && ++frames < 180) { requestAnimationFrame(tick); return; }
+    input.forEach((k) => window.removeEventListener(k, mine, { capture: true }));
+    if (theirs) return;
     if (before) before();
     let y = 0;
     for (let n = field; n; n = n.offsetParent) y += n.offsetTop;
