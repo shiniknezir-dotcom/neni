@@ -353,9 +353,17 @@ function revealField(field, before) {
   window.addEventListener('keyup', onUp, opts);
   /* and on every path (the panel focuses the field at once; with reduced
      motion the reveal is done before the first repeat) the repeats of a
-     held Enter are swallowed until it is released; a fresh Enter typed in
-     the field is the visitor's own and ends this */
-  const guard = (e) => { if (e.key !== 'Enter') return; if (e.repeat) e.preventDefault(); else if (e.target === field) unguard(); };
+     held Enter are swallowed until it is released. A fresh Enter in the
+     field is the visitor's own and ends this once it repeats after a real
+     key-repeat delay; one a screen reader passes through from a key still
+     held repeats at once, and stays swallowed. */
+  let fresh = -1;
+  const guard = (e) => {
+    if (e.key !== 'Enter') return;
+    if (!e.repeat) { fresh = e.target === field ? e.timeStamp : -1; return; }
+    if (fresh >= 0) { const own = e.timeStamp - fresh > 150; fresh = -1; if (own) { unguard(); return; } }
+    e.preventDefault();
+  };
   const unguard = () => { window.removeEventListener('keydown', guard, true); window.removeEventListener('keyup', unguard, true); };
   window.addEventListener('keydown', guard, true);
   window.addEventListener('keyup', unguard, true);
