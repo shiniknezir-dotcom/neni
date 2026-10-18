@@ -330,6 +330,26 @@ const DISCIPLINE_OF = {
   'business-development-support': 'Brand strategy', 'consulting': 'Brand strategy',
   'employer-branding': 'Brand strategy', 'ongoing-client-services': 'Brand strategy'
 };
+/* Once the jump to #contact has come to rest (the scroll position unchanged
+   for a few frames; at most about 3 s), bring the filled field into view if
+   it is not already fully visible. Measured by layout position, so the
+   form's reveal animation does not count as being out of view. */
+function revealField(field, before) {
+  let last = NaN, still = 0, frames = 0;
+  const tick = () => {
+    const y0 = window.scrollY;
+    still = y0 === last ? still + 1 : 0;
+    last = y0;
+    if (still < 8 && ++frames < 180) { requestAnimationFrame(tick); return; }
+    if (before) before();
+    let y = 0;
+    for (let n = field; n; n = n.offsetParent) y += n.offsetTop;
+    const top = y - window.scrollY, bottom = top + field.offsetHeight;
+    const clear = header ? header.getBoundingClientRect().bottom : 0;
+    if (top < clear || bottom > innerHeight) field.scrollIntoView({ block: 'center', behavior: reduceMotion ? 'auto' : 'smooth' });
+  };
+  setTimeout(() => requestAnimationFrame(tick), 100);
+}
 function prefillContact(ref) {
   const form = $('#contact form');
   if (!form) return null;
@@ -364,10 +384,7 @@ if (panel) {
     if (lastFocus && lastFocus.focus) {
       lastFocus.focus({ preventScroll: true });
       if (lastFocus.setSelectionRange && lastFocus.value) lastFocus.setSelectionRange(lastFocus.value.length, lastFocus.value.length);
-      if (lastFocus.tagName === 'TEXTAREA') {
-        const field = lastFocus;
-        setTimeout(() => field.scrollIntoView({ block: 'center', behavior: reduceMotion ? 'auto' : 'smooth' }), 60);
-      }
+      if (lastFocus.tagName === 'TEXTAREA') revealField(lastFocus);
     }
   });
   panel.addEventListener('click', (e) => {
@@ -381,15 +398,8 @@ document.addEventListener('click', (e) => {
   if (pkg) {
     const field = prefillContact(pkg.dataset.pkg);
     if (panel && panel.open && panel.contains(pkg)) { lastFocus = field; closePanel(); }
-    else if (field) {
-      /* the #contact link scrolls to the section; then the filled field itself */
-      setTimeout(() => {
-        field.focus({ preventScroll: true });
-        const r = field.getBoundingClientRect();
-        const top = header ? header.getBoundingClientRect().bottom : 0;
-        if (r.top < top || r.bottom > innerHeight) field.scrollIntoView({ block: 'center', behavior: reduceMotion ? 'auto' : 'smooth' });
-      }, 700);
-    }
+    /* the #contact link scrolls to the section; then the filled field itself */
+    else if (field) revealField(field, () => field.focus({ preventScroll: true }));
     return;
   }
   const svc = e.target.closest('[data-service-open]');

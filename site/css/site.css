@@ -305,6 +305,9 @@ html.runway:has(.offer-pill:not([hidden]):not(.is-tucked)) .hero__cue { opacity:
 /* while the pill shows, keyboard focus scrolls controls clear of it */
 html:has(.offer-pill:not([hidden]):not(.is-tucked)) { scroll-padding-bottom: 96px; }
 @media (max-width: 720px) { html:has(.offer-pill:not([hidden]):not(.is-tucked)) { scroll-padding-bottom: 150px; } }
+/* not for the pinned hero copy: scrolling it into the padded band would
+   run the runway on and hide the very button that has focus */
+html.runway:has(.hero__copy :focus) { scroll-padding-bottom: 0; }
 
 /* --------------------------------------------------------------------------
    Marquee
