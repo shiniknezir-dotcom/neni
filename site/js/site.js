@@ -315,6 +315,9 @@ function openPanel(state) {
 }
 function closePanel() {
   if (!panel) return;
+  /* unlock the page now, not in the later 'close' event, so a jump started by
+     the same click (a request link to #contact) measures the final layout */
+  if (!header || !header.classList.contains('is-open')) root.classList.remove('is-locked');
   if (panel.open && typeof panel.close === 'function') panel.close();
   else { panel.removeAttribute('open'); panel.dispatchEvent(new Event('close')); }
 }
@@ -348,6 +351,14 @@ function revealField(field, before) {
   window.addEventListener('touchmove', onScroll, opts);
   window.addEventListener('keydown', onKey, opts);
   window.addEventListener('keyup', onUp, opts);
+  /* and on every path (the panel focuses the field at once; with reduced
+     motion the reveal is done before the first repeat) the repeats of a
+     held Enter are swallowed until it is released */
+  const guard = (e) => { if (e.repeat && e.key === 'Enter') e.preventDefault(); };
+  const unguard = () => { window.removeEventListener('keydown', guard, true); window.removeEventListener('keyup', unguard, true); };
+  window.addEventListener('keydown', guard, true);
+  window.addEventListener('keyup', unguard, true);
+  setTimeout(unguard, 5000);
   /* where the jump to #contact comes to rest */
   const target = () => {
     const to = $('#contact');
@@ -364,7 +375,7 @@ function revealField(field, before) {
     window.removeEventListener('touchmove', onScroll, opts);
     window.removeEventListener('keydown', onKey, opts);
     window.removeEventListener('keyup', onUp, opts);
-    if (away || (scrolled && !(Math.abs(window.scrollY - target()) <= 2))) return;
+    if (away || held || (scrolled && !(Math.abs(window.scrollY - target()) <= 2))) return;
     if (before) before();
     let y = 0;
     for (let n = field; n; n = n.offsetParent) y += n.offsetTop;
