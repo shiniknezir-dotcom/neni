@@ -302,6 +302,9 @@ html.runway .hero__cue { transition: opacity .4s; }
 html.runway .hero.is-past-copy .hero__cue { opacity: 0; }
 /* the October pill sits where the cue would be */
 html.runway:has(.offer-pill:not([hidden]):not(.is-tucked)) .hero__cue { opacity: 0; }
+/* while the pill shows, keyboard focus scrolls controls clear of it */
+html:has(.offer-pill:not([hidden]):not(.is-tucked)) { scroll-padding-bottom: 96px; }
+@media (max-width: 720px) { html:has(.offer-pill:not([hidden]):not(.is-tucked)) { scroll-padding-bottom: 150px; } }
 
 /* --------------------------------------------------------------------------
    Marquee
@@ -853,8 +856,12 @@ html:not(.js) .petal-btn, html:not(.js) .brand-tile { pointer-events: none; curs
   .tone-forest, .site-footer, .case, .svc--accent, .cta-band, .clients { background: #fff !important; color: #000 !important; }
   .tone-forest .lead, .case__text, .work-note, .site-footer__copy, .steps__p { color: #333 !important; }
   .pkg--dark, .offer-card { background: #fff !important; color: #000 !important; box-shadow: inset 0 0 0 1px #000 !important; }
-  .pkg--dark .price b, .pkg--dark .price s, .pkg--dark .price__note, .pkg--dark .price__then, .pkg--dark .pkg__ref, .pkg--dark .pkg__cta,
+  .pkg--dark .price b, .pkg--dark .price__note, .pkg--dark .price__then, .pkg--dark .pkg__ref, .pkg--dark .pkg__cta,
   .offer-card__tag span:last-child, .offer-card__headline, .offer-card__terms, .site-footer__vat { color: #000 !important; }
+  /* the regular price stays visibly struck through, as on the light cards */
+  .pkg--dark .price s { color: var(--ink-55) !important; text-decoration-color: rgba(15, 42, 29, .6) !important; }
+  .svc--accent .svc__title, .svc--accent .svc__from, .svc--accent .svc__from b, .svc--accent .svc__open { color: #000 !important; }
+  .svc--accent .svc__text { color: #333 !important; }
   .about__lead, .academy__copy, .contact__intro { position: static; }
   html.js .hero__copy > * { animation: none; }
 }

@@ -102,8 +102,10 @@ function applyDict() {
   });
   const bc = $('[data-brand-count]');
   if (bc) bc.innerHTML = esc(t('stage.brandsCount', '{n} brands and counting')).replace('{n}', `<b>${bc.dataset.n || $$('[data-brand]').length}</b>`);
+  const anchor = focusAnchor();          // the panel redraw below would drop it
   if (panel && panel.open && panelState) fillPanel(panelState);
   renderPrices();
+  restoreFocus(anchor);
   window.dispatchEvent(new CustomEvent('bs:lang', { detail: lang }));
 }
 
@@ -383,7 +385,9 @@ document.addEventListener('click', (e) => {
       /* the #contact link scrolls to the section; then the filled field itself */
       setTimeout(() => {
         field.focus({ preventScroll: true });
-        field.scrollIntoView({ block: 'center', behavior: reduceMotion ? 'auto' : 'smooth' });
+        const r = field.getBoundingClientRect();
+        const top = header ? header.getBoundingClientRect().bottom : 0;
+        if (r.top < top || r.bottom > innerHeight) field.scrollIntoView({ block: 'center', behavior: reduceMotion ? 'auto' : 'smooth' });
       }, 700);
     }
     return;
@@ -450,13 +454,26 @@ function focusAnchor() {
   const el = document.activeElement;
   const scope = el && el.closest && el.closest('[data-pricing], [data-offer-pill], [data-panel-packs]');
   if (!scope) return null;
-  const sel = el.dataset.pkg ? `[data-pkg="${el.dataset.pkg}"]` : el.matches('[data-offer-close]') ? '[data-offer-close]' : el.matches('.offer-pill__link') ? '.offer-pill__link' : null;
-  return { scope, sel };
+  const href = el.getAttribute('href');
+  const sel = el.dataset.pkg ? `[data-pkg="${el.dataset.pkg}"]`
+    : el.matches('[data-offer-close]') ? '[data-offer-close]'
+    : el.matches('.offer-pill__link') ? '.offer-pill__link'
+    : href ? `a[href="${CSS.escape(href)}"]` : null;
+  /* where it sat on screen, so a redraw that adds or removes the offer card
+     above it does not carry it out of view */
+  const r = el.getBoundingClientRect();
+  const port = el.closest('.panel__inner');
+  const v = port ? port.getBoundingClientRect() : { top: 0, bottom: innerHeight };
+  return { scope, sel, top: r.top, seen: !el.closest('[data-offer-pill]') && r.bottom > v.top && r.top < v.bottom };
 }
 function restoreFocus(a) {
   if (!a || (document.activeElement && document.activeElement !== document.body)) return;
-  const el = (a.sel && a.scope.querySelector(a.sel)) || (panel && panel.open && panel.contains(a.scope) ? $('[data-panel-close]', panel) : null);
-  if (el && el.getClientRects().length) el.focus({ preventScroll: true });
+  const hit = a.sel && a.scope.querySelector(a.sel);
+  const el = hit || (panel && panel.open && panel.contains(a.scope) ? $('[data-panel-close]', panel) : null);
+  if (!el || !el.getClientRects().length) return;
+  el.focus({ preventScroll: true });
+  const d = hit && a.seen ? el.getBoundingClientRect().top - a.top : 0;
+  if (Math.abs(d) > 1) (el.closest('.panel__inner') || document.scrollingElement).scrollBy({ top: d, behavior: 'instant' });
 }
 
 function renderPrices() {

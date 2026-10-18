@@ -152,6 +152,11 @@
   </div>
 </header>
 
+<!-- October offer: shown by js/site.js only while pricing.json's offer is
+     valid; hidden by default so it can never outlive the offer. Placed after
+     the header so keyboard users reach (and can close) it early. -->
+<aside class="offer-pill" data-offer-pill hidden></aside>
+
 <main id="main">
 
 <!-- =====================================================================
@@ -778,10 +783,6 @@
   </div>
   <div class="site-footer__giant" aria-hidden="true">Blüten Sturm</div>
 </footer>
-
-<!-- October offer: shown by js/site.js only while pricing.json's offer is
-     valid; hidden by default so it can never outlive the offer. -->
-<aside class="offer-pill" data-offer-pill hidden></aside>
 
 <!-- =====================================================================
      Detail panel: services and partners share one dialog
