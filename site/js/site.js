@@ -337,13 +337,17 @@ const DISCIPLINE_OF = {
    leads: Tab or Escape meanwhile, or scrolling that took the page away from
    the form, and nothing moves. */
 function revealField(field, before) {
-  let last = NaN, still = 0, frames = 0, scrolled = false, away = false;
+  let last = NaN, still = 0, frames = 0, scrolled = false, away = false, held = false;
   const onScroll = () => { scrolled = true; };
-  const onKey = (e) => { if (e.repeat) return; if (e.key === 'Tab' || e.key === 'Escape') away = true; else scrolled = true; };
+  /* a key still held (e.g. the Enter that opened the link) would type into
+     the field once it has focus, so its repeats make the reveal wait */
+  const onKey = (e) => { if (e.repeat) { held = true; return; } if (e.key === 'Tab' || e.key === 'Escape') away = true; else scrolled = true; };
+  const onUp = () => { held = false; };
   const opts = { capture: true, passive: true };
   window.addEventListener('wheel', onScroll, opts);
   window.addEventListener('touchmove', onScroll, opts);
   window.addEventListener('keydown', onKey, opts);
+  window.addEventListener('keyup', onUp, opts);
   /* where the jump to #contact comes to rest */
   const target = () => {
     const to = $('#contact');
@@ -355,10 +359,11 @@ function revealField(field, before) {
     const y0 = window.scrollY;
     still = y0 === last ? still + 1 : 0;
     last = y0;
-    if (!away && still < 8 && ++frames < 180) { requestAnimationFrame(tick); return; }
+    if (!away && (held || still < 8) && ++frames < 180) { requestAnimationFrame(tick); return; }
     window.removeEventListener('wheel', onScroll, opts);
     window.removeEventListener('touchmove', onScroll, opts);
     window.removeEventListener('keydown', onKey, opts);
+    window.removeEventListener('keyup', onUp, opts);
     if (away || (scrolled && !(Math.abs(window.scrollY - target()) <= 2))) return;
     if (before) before();
     let y = 0;
