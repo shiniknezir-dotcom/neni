@@ -353,8 +353,9 @@ function revealField(field, before) {
   window.addEventListener('keyup', onUp, opts);
   /* and on every path (the panel focuses the field at once; with reduced
      motion the reveal is done before the first repeat) the repeats of a
-     held Enter are swallowed until it is released */
-  const guard = (e) => { if (e.repeat && e.key === 'Enter') e.preventDefault(); };
+     held Enter are swallowed until it is released; a fresh Enter typed in
+     the field is the visitor's own and ends this */
+  const guard = (e) => { if (e.key !== 'Enter') return; if (e.repeat) e.preventDefault(); else if (e.target === field) unguard(); };
   const unguard = () => { window.removeEventListener('keydown', guard, true); window.removeEventListener('keyup', unguard, true); };
   window.addEventListener('keydown', guard, true);
   window.addEventListener('keyup', unguard, true);
@@ -375,7 +376,7 @@ function revealField(field, before) {
     window.removeEventListener('touchmove', onScroll, opts);
     window.removeEventListener('keydown', onKey, opts);
     window.removeEventListener('keyup', onUp, opts);
-    if (away || held || (scrolled && !(Math.abs(window.scrollY - target()) <= 2))) return;
+    if (away || (held && document.activeElement !== field) || (scrolled && !(Math.abs(window.scrollY - target()) <= 2))) return;
     if (before) before();
     let y = 0;
     for (let n = field; n; n = n.offsetParent) y += n.offsetTop;
