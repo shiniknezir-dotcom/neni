@@ -914,7 +914,9 @@ html:not(.js) .stunt__toggle, html:not(.js) .pcard__copy { display: none; }   /*
 /* without scripting, and when the module never arrived (the failsafe's state),
    the light header scrolls away with the hero and the script-only parts hide */
 html:not(.js) body[data-prompt-page] .site-header, html.reveal-off:not(.reveal-on) body[data-prompt-page] .site-header { position: absolute; }
-html.reveal-off:not(.reveal-on) .pcard__copy, html.reveal-off:not(.reveal-on) .stunt__frame::after { display: none; }
+html.reveal-off:not(.reveal-on) .stunt__frame::after { display: none; }
+/* visibility, not display: a module arriving late must not shift the page */
+html.reveal-off:not(.reveal-on) .pcard__copy, html.reveal-off:not(.reveal-on) body[data-prompt-page] .lang { visibility: hidden; }
 /* while paused, a quiet cue in the middle of the poster */
 :where(.js) .stunt__frame::after { content: ''; position: absolute; left: 50%; top: 50%; width: 84px; height: 84px; margin: -42px 0 0 -42px; border-radius: 50%; border: 2px solid rgba(244, 247, 234, .75); background: rgba(15, 42, 29, .38) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23F4F7EA' d='M8 5v14l12-7z'/%3E%3C/svg%3E") center / 34px no-repeat; pointer-events: none; transition: opacity .3s; }
 :where(.js) .stunt.is-playing .stunt__frame::after { opacity: 0; }
@@ -972,7 +974,7 @@ html.reveal-off:not(.reveal-on) .pcard__copy, html.reveal-off:not(.reveal-on) .s
   .stunt__frame { width: min(100%, 360px); }
 }
 @media (max-width: 350px) { .prompt-hero__title { font-size: 32px; } }   /* "Burger-Stunt" stays one pill, with its period */
-@media (min-width: 521px) and (max-width: 1006px) { .ptiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } }   /* tablets: 2×2, never 3+1 */
+@media (min-width: 521px) and (max-width: 1026px) { .ptiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } }   /* tablets: 2×2, never 3+1 (four 220px columns need 922px of wrap, which a classic scrollbar leaves only from 1027px) */
 @media (max-width: 720px) {
   .prompt-hero { padding-top: calc(var(--header-h) + 26px); }
   .ptip { grid-template-columns: minmax(0, 1fr); gap: 8px; }
