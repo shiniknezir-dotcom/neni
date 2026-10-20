@@ -1117,9 +1117,11 @@ $$('[data-reply-lang]').forEach((sel) => sel.addEventListener('change', () => { 
     /* the markup's German labels are the fallback, not the site's English ones */
     const fb = { play: toggle.dataset.labelPlay || 'Play video', pause: toggle.getAttribute('aria-label') || 'Pause video' };
     if (reduceMotion || motionOverride() === 'reduced') {
+      /* only what autoplay started is stopped: a video the visitor began
+         with the browser's controls while the module was late keeps going */
+      if (video.autoplay) video.pause();
       video.removeAttribute('autoplay');
       video.autoplay = false;
-      video.pause();
     }
     const state = () => {
       const playing = !video.paused && !video.ended;
