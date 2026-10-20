@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="de" data-langs="de,en" data-lang-default="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Der Mozart-Style Burger-Stunt — der komplette Prompt | Blüten Sturm</title>
+<meta name="description" content="Ein Burger, eine Rampe, Raketenantrieb — kein Drehtag. So haben wir das Café-Mozart-Video mit Higgsfield, Nano Banana 2.1 und Kling 3.0 gebaut: Schritt für Schritt, mit allen Prompts zum Kopieren.">
+<meta name="theme-color" content="#D3F543">
+<link rel="canonical" href="https://bluetensturm.com/prompt/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Blüten Sturm">
+<meta property="og:title" content="Der Mozart-Style Burger-Stunt — so haben wir das Video gemacht">
+<meta property="og:description" content="Alle Prompts, alle Schritte, gratis. Von Blüten Sturm für Café Mozart Würzburg.">
+<meta property="og:url" content="https://bluetensturm.com/prompt/">
+<meta property="og:image" content="https://bluetensturm.com/media/prompt/mozart-burger-stunt-og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Mozart-Style Burger mit Spieß und Pommes-Korb im Rauch einer Stunt-Arena">
+<meta property="og:locale" content="de_DE">
+<meta property="og:locale:alternate" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Der Mozart-Style Burger-Stunt — so haben wir das Video gemacht">
+<meta name="twitter:description" content="Alle Prompts, alle Schritte, gratis. Von Blüten Sturm für Café Mozart Würzburg.">
+<meta name="twitter:image" content="https://bluetensturm.com/media/prompt/mozart-burger-stunt-og.jpg">
+<link rel="icon" href="/assets/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preload" href="/fonts/unbounded-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
+<script>
+(function () {
+  var d = document.documentElement;
+  d.classList.add('js', 'is-ready');
+  /* the visitor's language (DE or EN here) starts loading with the page */
+  try {
+    var L = (/[?&]lang=(en|de)\b/.exec(location.search) || [])[1] || localStorage.getItem('bs-lang');
+    if (!/^(de|en)$/.test(L)) L = 'de';
+    if (window.fetch) window.__bsDict = { code: L, p: fetch('/i18n/' + L + '.json').then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }) };
+  } catch (e) {}
+  /* failsafe: if the module cannot run, nothing stays hidden */
+  window.__bsFailsafe = setTimeout(function () {
+    if (d.classList.contains('reveal-on')) return;
+    d.classList.add('reveal-off');
+    /* ...and the video goes back to the browser's own controls */
+    var v = document.querySelector('[data-stunt-video]'), b = document.querySelector('[data-stunt-toggle]');
+    if (v) v.setAttribute('controls', '');
+    if (b) b.hidden = true;
+  }, 2500);
+})();
+</script>
+<link rel="stylesheet" href="/css/fonts.css">
+<link rel="stylesheet" href="/css/site.css">
+</head>
+<body data-i18n-title="prompt.meta.title" data-i18n-description="prompt.meta.description" data-prompt-page>
+<a class="skip" href="#main" data-i18n="a11y.skip">Zum Inhalt springen</a>
+<div class="progress" aria-hidden="true"><i data-progress></i></div>
+<header class="site-header site-header--sub on-forest" data-header>
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="Blüten Sturm — Startseite" data-i18n-aria="a11y.home">
+      <svg class="brand__mark" viewBox="0 0 733.3 1000" aria-hidden="true" focusable="false"><use href="#bs-mono"></use></svg>
+      <span class="brand__word">Blüten Sturm</span>
+    </a>
+    <div class="header-tools">
+      <div class="lang" role="group" aria-label="Sprache" data-i18n-aria="a11y.lang" data-lang-switch>
+        <button type="button" data-lang="de" aria-pressed="true" lang="de">DE</button>
+        <button type="button" data-lang="en" aria-pressed="false" lang="en">EN</button>
+      </div>
+      <a class="back-link" href="/" data-i18n="prompt.back">← Zurück zur Startseite</a>
+    </div>
+  </div>
+</header>
+
+<main id="main" class="prompt-page">
+
+  <!-- Hero: the finished stunt video next to the headline -->
+  <section class="prompt-hero tone-forest" aria-labelledby="prompt-title">
+    <div class="wrap prompt-hero__grid">
+      <div class="prompt-hero__copy">
+        <p class="eyebrow hero__eyebrow reveal" data-i18n="prompt.hero.eyebrow">Gratis Prompt · Café Mozart × Blüten Sturm</p>
+        <h1 class="prompt-hero__title reveal" id="prompt-title" data-i18n-html="prompt.hero.title">Der Mozart-Style <span class="pill">Burger-Stunt</span>.</h1>
+        <p class="lead reveal" data-delay="1" data-i18n="prompt.hero.lead">Ein Burger, eine Rampe, Raketenantrieb — und kein einziger Drehtag. So haben wir das Video gebaut: Schritt für Schritt, mit allen Prompts zum Kopieren.</p>
+        <div class="hero__actions reveal" data-delay="2">
+          <a class="btn btn--lime" href="#steps"><span data-i18n="prompt.hero.primary">Zu den Prompts</span><i class="dot" aria-hidden="true"></i></a>
+          <a class="btn btn--ghost" href="/#contact" data-i18n="prompt.hero.secondary">So ein Video für mein Business</a>
+        </div>
+      </div>
+      <figure class="stunt reveal" data-delay="1" data-stunt>
+        <div class="stunt__frame">
+          <video class="stunt__video" data-stunt-video src="/media/prompt/mozart-burger-stunt.mp4" poster="/media/prompt/mozart-burger-stunt-poster.jpg" width="720" height="1280" autoplay muted loop playsinline preload="metadata" controls>
+            <p data-i18n="prompt.ui.noVideo">Dein Browser kann das Video nicht abspielen.</p>
+          </video>
+          <script>
+          /* before any data loads: no autoplay for visitors who asked for less motion;
+             with scripting the page provides its own control */
+          (function () {
+            var s = document.currentScript, v = s && s.previousElementSibling;
+            if (!v || v.tagName !== 'VIDEO') return;
+            v.removeAttribute('controls');
+            /* (pause too: a cached video can reach canplay before the stylesheets let this script run) */
+            if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) { v.removeAttribute('autoplay'); v.autoplay = false; v.pause(); }
+          })();
+          </script>
+          <button class="stunt__toggle" type="button" data-stunt-toggle aria-label="Video pausieren" data-label-play="Video abspielen">
+            <svg class="stunt__icon stunt__icon--play" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 5v14l12-7z"/></svg>
+            <svg class="stunt__icon stunt__icon--pause" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 5h4v14H7zm6 0h4v14h-4z"/></svg>
+          </button>
+        </div>
+        <p class="stunt__facts" data-i18n="prompt.hero.facts">Higgsfield · Nano Banana 2.1 · Kling 3.0 Pro · 15 Sek. · 9:16 · ca. 2 Std. Arbeit</p>
+        <figcaption class="stunt__caption" data-i18n="prompt.hero.caption">Das fertige Video, wie es auf @cafemozartwuerzburg läuft.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 01 — the setup -->
+  <section id="setup" class="section tone-paper" aria-labelledby="setup-title">
+    <div class="wrap prompt-wrap">
+      <div class="sec-head sec-head--single reveal">
+        <div>
+          <p class="eyebrow" data-i18n="prompt.setup.eyebrow">01 — Das Setup</p>
+          <h2 class="h-1" id="setup-title" data-i18n="prompt.setup.title">Was du brauchst.</h2>
+        </div>
+      </div>
+      <ol class="ptiles">
+        <li class="ptile reveal" data-delay="0"><span class="ptile__n" aria-hidden="true">01</span><p data-i18n-html="prompt.setup.i1"><b>2–3 Fotos deines Produkts.</b> Scharf, gleichmäßig belichtet, aus der Perspektive, in der es später im Video stehen soll. Wir haben den echten Mozart-Style Burger im Café fotografiert — Spieß, Spiegelei, Pommes-Korb, alles drauf.</p></li>
+        <li class="ptile reveal" data-delay="1"><span class="ptile__n" aria-hidden="true">02</span><p data-i18n-html="prompt.setup.i2"><b>Ein Referenz-Stuntvideo.</b> Ein Clip, in dem ein einzelnes Objekt über eine Rampe startet, fliegt, landet und am Ende still steht. Unser Basisclip war ein KI-Werbespot mit einem Chicken-Bucket. Keinen Clip? Prompt 0 generiert dir einen.</p></li>
+        <li class="ptile reveal" data-delay="2"><span class="ptile__n" aria-hidden="true">03</span><p data-i18n-html="prompt.setup.i3"><b>Ein Higgsfield-Account.</b> Genutzte Tools: Genjutsu „Replace Object“, Nano Banana 2.1 (Bild-Edit) und Kling 3.0 Pro (Video).</p></li>
+        <li class="ptile reveal" data-delay="3"><span class="ptile__n" aria-hidden="true">04</span><p data-i18n-html="prompt.setup.i4"><b>Ein Schnittprogramm.</b> CapCut, Premiere oder DaVinci — für Schnitt, Titel, Logo-Outro und Sound.</p></li>
+      </ol>
+      <p class="pnote reveal" data-i18n="prompt.setup.note">Zeit: ca. 2 Stunden. Kosten: ein paar Euro Credits. Drehteam: keins.</p>
+    </div>
+  </section>
+
+  <!-- 02 — step by step, with the prompt cards where they belong -->
+  <section id="steps" class="section tone-mist" aria-labelledby="steps-title">
+    <div class="wrap prompt-wrap">
+      <div class="sec-head sec-head--single reveal">
+        <div>
+          <p class="eyebrow" data-i18n="prompt.steps.eyebrow">02 — Schritt für Schritt</p>
+          <h2 class="h-1" id="steps-title" data-i18n="prompt.steps.title">So entsteht der Stunt.</h2>
+        </div>
+      </div>
+      <ol class="psteps">
+        <li class="pstep reveal" id="step-1">
+          <h3 class="pstep__t"><span class="pstep__n"><span data-i18n="prompt.steps.label">Schritt</span> 1</span> <span data-i18n="prompt.steps.s1t">Produkt fotografieren</span></h3>
+          <p class="pstep__p" data-i18n="prompt.steps.s1p">Fotografiere dein Produkt vor neutralem Hintergrund, leicht von der Seite, auf Augenhöhe des Produkts. Zwei Fotos reichen: einmal frontal-seitlich, einmal etwas höher. Regel: Alles, was du später im Prompt beschreibst, muss auf den Fotos sichtbar sein.</p>
+        </li>
+        <li class="pstep reveal" id="step-2">
+          <h3 class="pstep__t"><span class="pstep__n"><span data-i18n="prompt.steps.label">Schritt</span> 2</span> <span data-i18n="prompt.steps.s2t">Basisclip wählen (oder generieren)</span></h3>
+          <p class="pstep__p" data-i18n="prompt.steps.s2p">Je klarer die Bewegung im Basisclip, desto sauberer der Austausch. Du brauchst ein einzelnes, klar abgegrenztes Objekt, das sich als starrer Körper bewegt — keine Hände, keine Personen davor. Kein Clip zur Hand? Dann Text-zu-Video mit Prompt 0.</p>
+          <article class="pcard reveal" data-delay="1" id="prompt-p0" data-pcard="p0" aria-labelledby="prompt-p0-label">
+            <div class="pcard__head">
+              <p class="pcard__label"><span id="prompt-p0-label" data-i18n="prompt.cards.p0.label">Prompt 0</span> <span class="pcard__badge pcard__badge--opt" data-i18n="prompt.ui.optional">Optional</span></p>
+              <p class="pcard__tag" data-i18n="prompt.cards.p0.tag">Basisclip generieren</p>
+              <p class="pcard__tool" lang="en">Text-to-video (Kling 3.0 Pro or Seedance 2.5) · 9:16 · 10 s</p>
+            </div>
+            <pre class="pcard__text" lang="en" data-prompt-text>Night-time stunt arena, photorealistic commercial look. A striped paper bucket of fried chicken sits at the foot of a tall curved steel launch ramp with glowing red neon rails, a floodlight tower on steel scaffolding, wet dark asphalt. Two small rocket thrusters under the bucket ignite with blue-white flames and thick white smoke; the bucket rockets up the ramp, launches off the top, tumbles once high above the arena, and lands hard on the asphalt in a burst of sparks and smoke. The smoke clears and the bucket stands perfectly still, upright and intact, for a final low-angle hero shot. Wide static framing for the launch, a slow tilt following the flight, low eye-level framing for the landing. Cold white floodlight plus warm thruster glow, realistic motion blur, contact shadows and reflections on the asphalt. 9:16 vertical, no text, no logos, no people.</pre>
+            <div class="pcard__foot">
+              <button class="btn btn--sm pcard__copy" type="button" data-copy aria-describedby="prompt-p0-label" data-copied="Kopiert ✓" data-failed="Markieren &amp; kopieren"><span data-i18n="prompt.ui.copy" data-copy-label>Prompt kopieren</span><i class="dot" aria-hidden="true"></i></button>
+              <span class="pcard__status" role="status" aria-live="polite" data-copy-status></span>
+            </div>
+          </article>
+        </li>
+        <li class="pstep reveal" id="step-3">
+          <h3 class="pstep__t"><span class="pstep__n"><span data-i18n="prompt.steps.label">Schritt</span> 3</span> <span data-i18n="prompt.steps.s3t">Objekt austauschen</span></h3>
+          <p class="pstep__p" data-i18n="prompt.steps.s3p">Higgsfield → Genjutsu → Replace Object. Hochladen: Basisclip + deine zwei Produktfotos. Beschreibe dein Produkt so genau wie ein Food-Stylist und sag dem Modell ausdrücklich, was gleich bleiben soll: Kamera, Timing, Rampe, Licht. Ausgabe: 10 Sekunden, 720p. Lass zwei bis drei Varianten laufen und nimm die, in der das Produkt steif bleibt und nicht „schwimmt“.</p>
+          <article class="pcard reveal" data-delay="1" id="prompt-p1" data-pcard="p1" aria-labelledby="prompt-p1-label">
+            <div class="pcard__head">
+              <p class="pcard__label"><span id="prompt-p1-label" data-i18n="prompt.cards.p1.label">Prompt 1</span> <span class="pcard__badge" data-i18n="prompt.ui.used">So verwendet</span></p>
+              <p class="pcard__tag" data-i18n="prompt.cards.p1.tag">Objekt austauschen</p>
+              <p class="pcard__tool" lang="en">Higgsfield → Genjutsu → Replace Object · inputs: base video + 2 product photos · 10 s · 720p</p>
+            </div>
+            <pre class="pcard__text" lang="en" data-prompt-text>Replace the striped paper bucket of fried chicken with the exact burger from the reference photos, together with the small square stainless-steel wire fry basket filled with golden french fries standing directly behind the burger (the basket slightly taller than the burger so the fries are visible above and behind the bun). The burger is a sesame-seed brioche bun with a single wooden skewer standing upright in the top bun, a fried egg with a runny orange yolk spilling out, a thick grilled beef patty, a slice of tomato, pickle slices, fresh rocket leaves and pink burger sauce on a lightly toasted bottom bun. The burger and the fry basket move together as one rigid unit exactly where the bucket was: launching up the ramp with the rocket thrusters and smoke, tumbling through the air, landing on the asphalt with the sparks and smoke, then standing still for the final hero shot with the burger in front and the fries in the basket behind it. Keep the camera, timing, ramp, red neon rails, smoke, sparks, floodlights, shadows and background exactly as in the source video. Photorealistic food-commercial look: the burger and fries catch the same cold floodlight and warm thruster glow as the original bucket, with matching motion blur, contact shadows and ground reflections. No text, no logos, no paper bucket remaining.</pre>
+            <div class="pcard__foot">
+              <button class="btn btn--sm pcard__copy" type="button" data-copy aria-describedby="prompt-p1-label" data-copied="Kopiert ✓" data-failed="Markieren &amp; kopieren"><span data-i18n="prompt.ui.copy" data-copy-label>Prompt kopieren</span><i class="dot" aria-hidden="true"></i></button>
+              <span class="pcard__status" role="status" aria-live="polite" data-copy-status></span>
+            </div>
+          </article>
+        </li>
+        <li class="pstep reveal" id="step-4">
+          <h3 class="pstep__t"><span class="pstep__n"><span data-i18n="prompt.steps.label">Schritt</span> 4</span> <span data-i18n="prompt.steps.s4t">Hero-Standbild bauen</span></h3>
+          <p class="pstep__p" data-i18n="prompt.steps.s4p">Exportiere das letzte Frame des Videos (Screenshot oder Frame-Export). Alles, was beim Austausch verloren ging — bei uns der Pommes-Korb —, ergänzt du jetzt im Bild-Edit mit Nano Banana 2.1, mit den Produktfotos als Referenz. 9:16, 2K, Thinking auf „high“.</p>
+          <article class="pcard reveal" data-delay="1" id="prompt-p2" data-pcard="p2" aria-labelledby="prompt-p2-label">
+            <div class="pcard__head">
+              <p class="pcard__label"><span id="prompt-p2-label" data-i18n="prompt.cards.p2.label">Prompt 2</span> <span class="pcard__badge" data-i18n="prompt.ui.used">So verwendet</span></p>
+              <p class="pcard__tag" data-i18n="prompt.cards.p2.tag">Hero-Standbild</p>
+              <p class="pcard__tool" lang="en">Higgsfield → Nano Banana 2.1 (image edit) · inputs: last frame of the video + 2 product photos · 9:16 · 2K · thinking: high</p>
+            </div>
+            <pre class="pcard__text" lang="en" data-prompt-text>Edit the first image (the night-time hero shot of a burger on asphalt with smoke). Add the small square stainless-steel wire fry basket filled with golden french fries, exactly as seen in the second and third reference photos, standing on the asphalt BEHIND the burger, offset to the right so that roughly half of the basket is hidden by the burger and the other half is visible, but the whole basket stays fully inside the frame with clear dark space between its right edge and the image border. The basket is about as tall as the burger, fries sticking out above the bun line, sitting at the same ground level with its own soft contact shadow and faint reflection on the asphalt. Match the scene lighting precisely: cold white floodlight from above and behind, warm highlights on the fries, haze and drifting white smoke partly wrapping around the basket, slightly softer focus because it is further from the camera. Keep everything else pixel-identical: the burger, skewer, egg, bun, smoke, light tower, ground texture, framing and colours must not change. Photorealistic, seamless, no text, no logos.</pre>
+            <div class="pcard__foot">
+              <button class="btn btn--sm pcard__copy" type="button" data-copy aria-describedby="prompt-p2-label" data-copied="Kopiert ✓" data-failed="Markieren &amp; kopieren"><span data-i18n="prompt.ui.copy" data-copy-label>Prompt kopieren</span><i class="dot" aria-hidden="true"></i></button>
+              <span class="pcard__status" role="status" aria-live="polite" data-copy-status></span>
+            </div>
+          </article>
+        </li>
+        <li class="pstep reveal" id="step-5">
+          <h3 class="pstep__t"><span class="pstep__n"><span data-i18n="prompt.steps.label">Schritt</span> 5</span> <span data-i18n="prompt.steps.s5t">Hero-Shot animieren</span></h3>
+          <p class="pstep__p" data-i18n="prompt.steps.s5p">Kling 3.0 Pro, Startbild = dein Hero-Standbild, 4 Sekunden, Kamera fix. Die wichtigste Zeile im Prompt: Das Essen bewegt sich nicht — nur Rauch, Funken und Licht. So bleibt das Produkt knackscharf und der Shot wirkt trotzdem lebendig.</p>
+          <article class="pcard reveal" data-delay="1" id="prompt-p3" data-pcard="p3" aria-labelledby="prompt-p3-label">
+            <div class="pcard__head">
+              <p class="pcard__label"><span id="prompt-p3-label" data-i18n="prompt.cards.p3.label">Prompt 3</span> <span class="pcard__badge" data-i18n="prompt.ui.used">So verwendet</span></p>
+              <p class="pcard__tag" data-i18n="prompt.cards.p3.tag">Hero-Shot animieren</p>
+              <p class="pcard__tool" lang="en">Higgsfield → Kling 3.0 Pro · start image = hero still · 9:16 · 4 s · sound off</p>
+            </div>
+            <pre class="pcard__text" lang="en" data-prompt-text>Locked-off static camera, no camera movement at all. The burger with the wooden skewer and the wire basket of fries behind it stand perfectly still on the asphalt — the food does not move, deform or change in any way. Only the atmosphere moves: thin white smoke drifts slowly from left to right behind and around the food, a few tiny glowing embers float down and fade out, the cold floodlight beams shimmer very subtly through the haze. Photorealistic food commercial, steady exposure, no flicker, no zoom, no text.</pre>
+            <div class="pcard__foot">
+              <button class="btn btn--sm pcard__copy" type="button" data-copy aria-describedby="prompt-p3-label" data-copied="Kopiert ✓" data-failed="Markieren &amp; kopieren"><span data-i18n="prompt.ui.copy" data-copy-label>Prompt kopieren</span><i class="dot" aria-hidden="true"></i></button>
+              <span class="pcard__status" role="status" aria-live="polite" data-copy-status></span>
+            </div>
+          </article>
+          <p class="pstep__p pstep__opt" data-i18n="prompt.steps.s5opt">Optional: eine Raketenlandung als eigener Shot. Startbild = Burger in der Luft (Frame aus Schritt 3), Endbild = Hero-Standbild.</p>
+          <article class="pcard reveal" data-delay="1" id="prompt-p4" data-pcard="p4" aria-labelledby="prompt-p4-label">
+            <div class="pcard__head">
+              <p class="pcard__label"><span id="prompt-p4-label" data-i18n="prompt.cards.p4.label">Prompt 4</span> <span class="pcard__badge pcard__badge--opt" data-i18n="prompt.ui.optional">Optional</span></p>
+              <p class="pcard__tag" data-i18n="prompt.cards.p4.tag">Raketenlandung</p>
+              <p class="pcard__tool" lang="en">Higgsfield → Kling 3.0 Pro · start image = burger mid-air (frame from step 3) · end image = hero still · 9:16 · 4 s</p>
+            </div>
+            <pre class="pcard__text" lang="en" data-prompt-text>Cinematic night-time stunt commercial, photorealistic. The giant sesame burger with a wooden skewer is falling through the air above a floodlit asphalt arena. It rotates upright, then a bright blue-white rocket flame ignites underneath its bottom bun with a thick plume of white smoke, exactly like a reusable rocket booster coming in for a landing. It decelerates smoothly and descends perfectly vertically, the flame flaring and smoke billowing outward as it nears the ground, and touches down gently and precisely on the asphalt, the smoke spreading sideways in a low ring across the ground. The flame cuts off, the smoke thins and drifts, and the burger stands still, upright and intact, with the skewer vertical. The camera tilts down slowly to follow it and settles at the final low eye-level framing. Same lighting, light tower and arena as the first frame. No tumbling, no crash, no sparks, no text.</pre>
+            <div class="pcard__foot">
+              <button class="btn btn--sm pcard__copy" type="button" data-copy aria-describedby="prompt-p4-label" data-copied="Kopiert ✓" data-failed="Markieren &amp; kopieren"><span data-i18n="prompt.ui.copy" data-copy-label>Prompt kopieren</span><i class="dot" aria-hidden="true"></i></button>
+              <span class="pcard__status" role="status" aria-live="polite" data-copy-status></span>
+            </div>
+          </article>
+        </li>
+        <li class="pstep reveal" id="step-6">
+          <h3 class="pstep__t"><span class="pstep__n"><span data-i18n="prompt.steps.label">Schritt</span> 6</span> <span data-i18n="prompt.steps.s6t">Schnitt, Titel, Sound</span></h3>
+          <p class="pstep__p" data-i18n="prompt.steps.s6p">Reihenfolge: Start an der Rampe → Flug → Landung → Hero-Shot mit Atmosphäre → Titel → Logo-Outro. Titel in der Marken-Schrift, Logo auf Creme. Sound: Raketen-Rumble, Whoosh, Impact — und dann Stille für den Hero-Shot. Export: 1080 × 1920, 24 fps, 12–15 Sekunden. Tipp: Den 720p-Clip vor dem Schnitt hochskalieren (Higgsfield Upscale).</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 03 — the template for any product -->
+  <section id="template" class="section tone-paper" aria-labelledby="template-title">
+    <div class="wrap prompt-wrap">
+      <div class="sec-head sec-head--single reveal">
+        <div>
+          <p class="eyebrow" data-i18n="prompt.template.eyebrow">03 — Vorlage</p>
+          <h2 class="h-1" id="template-title" data-i18n="prompt.template.title">Jetzt dein Produkt.</h2>
+          <p class="lead" data-i18n="prompt.template.text">Burger, Pizza, Sneaker, Flasche — die Vorlage funktioniert für alles, was als starres Objekt fliegen kann. Ersetze die Platzhalter in eckigen Klammern, sonst nichts.</p>
+        </div>
+      </div>
+      <article class="pcard reveal" id="prompt-template" data-pcard="template" aria-labelledby="prompt-template-label">
+            <div class="pcard__head">
+              <p class="pcard__label"><span id="prompt-template-label" data-i18n="prompt.cards.template.label">Prompt-Vorlage</span> <span class="pcard__badge pcard__badge--opt" data-i18n="prompt.ui.template">Vorlage</span></p>
+              <p class="pcard__tag" data-i18n="prompt.cards.template.tag">Für dein eigenes Produkt — Platzhalter in [ ] ersetzen</p>
+              <p class="pcard__tool" lang="en">Higgsfield → Genjutsu → Replace Object</p>
+            </div>
+            <pre class="pcard__text" lang="en" data-prompt-text>Replace the [OBJECT IN THE BASE CLIP] with the exact [YOUR PRODUCT] from the reference photos, together with [ACCESSORY — or delete this part] standing directly behind it. The [YOUR PRODUCT] is [DESCRIBE AT LEAST 5 DETAILS: shape, materials, colours, surfaces, toppings, label, what sticks out]. The product and the accessory move together as one rigid unit exactly where the [OBJECT IN THE BASE CLIP] was: launching up the ramp with the rocket thrusters and smoke, tumbling through the air, landing on the asphalt with the sparks and smoke, then standing still for the final hero shot. Keep the camera, timing, ramp, red neon rails, smoke, sparks, floodlights, shadows and background exactly as in the source video. Photorealistic commercial look: the product catches the same cold floodlight and warm thruster glow as the original object, with matching motion blur, contact shadows and ground reflections. No text, no logos, no [OBJECT IN THE BASE CLIP] remaining.</pre>
+            <div class="pcard__foot">
+              <button class="btn btn--sm pcard__copy" type="button" data-copy aria-describedby="prompt-template-label" data-copied="Kopiert ✓" data-failed="Markieren &amp; kopieren"><span data-i18n="prompt.ui.copy" data-copy-label>Prompt kopieren</span><i class="dot" aria-hidden="true"></i></button>
+              <span class="pcard__status" role="status" aria-live="polite" data-copy-status></span>
+            </div>
+          </article>
+    </div>
+  </section>
+
+  <!-- 04 — five things -->
+  <section id="tips" class="section tone-mist" aria-labelledby="tips-title">
+    <div class="wrap prompt-wrap">
+      <div class="sec-head sec-head--single reveal">
+        <div>
+          <p class="eyebrow" data-i18n="prompt.tips.eyebrow">04 — Fünf Dinge</p>
+          <h2 class="h-1" id="tips-title" data-i18n="prompt.tips.title">Was den Unterschied macht.</h2>
+        </div>
+      </div>
+      <ol class="ptips">
+        <li class="ptip reveal" data-delay="0"><span class="ptip__n" aria-hidden="true">1</span><p data-i18n-html="prompt.tips.i1"><b>Beschreib wie ein Food-Stylist.</b> Brötchen, Sesam, Spieß, laufendes Eigelb — jedes Detail hilft dem Modell, dein Produkt zu halten.</p></li>
+        <li class="ptip reveal" data-delay="1"><span class="ptip__n" aria-hidden="true">2</span><p data-i18n-html="prompt.tips.i2"><b>„Als eine starre Einheit.“</b> Ohne diesen Satz fliegen Burger und Pommes getrennt.</p></li>
+        <li class="ptip reveal" data-delay="2"><span class="ptip__n" aria-hidden="true">3</span><p data-i18n-html="prompt.tips.i3"><b>Sag, was bleiben soll.</b> Kamera, Timing, Licht, Hintergrund — nicht nur, was sich ändert.</p></li>
+        <li class="ptip reveal" data-delay="3"><span class="ptip__n" aria-hidden="true">4</span><p data-i18n-html="prompt.tips.i4"><b>„No text, no logos.“</b> Text kommt im Schnitt. Nie aus dem Modell.</p></li>
+        <li class="ptip reveal" data-delay="3"><span class="ptip__n" aria-hidden="true">5</span><p data-i18n-html="prompt.tips.i5"><b>Immer zwei bis drei Varianten.</b> Die erste ist selten die beste.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 05 — the call to action -->
+  <section id="cta" class="section tone-forest prompt-cta" aria-labelledby="cta-title">
+    <div class="wrap">
+      <p class="eyebrow reveal" data-i18n="prompt.cta.eyebrow">05 — Dein Stunt</p>
+      <h2 class="h-1 reveal" id="cta-title" data-i18n="prompt.cta.title">Dein Produkt. Dein Stunt.</h2>
+      <p class="lead reveal" data-delay="1" data-i18n="prompt.cta.text">Wir produzieren solche Videos für Restaurants, Marken und den Mittelstand — in Tagen, nicht Wochen. Website, Social Media, Branding: alles aus einer Hand, aus Würzburg.</p>
+      <div class="hero__actions reveal" data-delay="2">
+        <a class="btn btn--lime" href="/#contact"><span data-i18n="prompt.cta.primary">Projekt anfragen</span><i class="dot" aria-hidden="true"></i></a>
+        <a class="btn btn--ghost" href="https://www.instagram.com/bluetensturmcreative" target="_blank" rel="noopener noreferrer" data-i18n="prompt.cta.secondary">@bluetensturmcreative auf Instagram</a>
+      </div>
+      <p class="pcredits reveal" data-delay="3" data-i18n="prompt.cta.credits">Konzept, Prompts &amp; Produktion: Blüten Sturm für Café Mozart Würzburg.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="mini-footer tone-forest">
+  <div class="wrap">
+    <span data-i18n="q.foot">© 2026 Blüten Sturm GmbH · Würzburg</span>
+    <span><a href="/impressum/" data-i18n="footer.imprint">Impressum</a> · <a href="/datenschutz/" data-i18n="footer.privacy">Datenschutz</a> · <a href="/">bluetensturm.com</a></span>
+  </div>
+</footer>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="bs-mono" viewBox="0 0 733.3 1000">
+    <path d="M0 0H223.8C206.3 351.2 173.5 703.2 14.0 1000.0L0 1000Z"/>
+    <path d="M255.6 0H416.7A232.5 232.5 0 0 1 416.7 465L428 463C253.9 614.0 254.2 860.0 42.0 990.0C178.4 694.2 234.2 352.0 255.6 0.0Z"/>
+    <path d="M428 463L465.8 465A267.5 267.5 0 0 1 465.8 1000H32C264.1 898.0 268.9 632.9 449 497Q447 472 428 463Z"/>
+  </symbol>
+</svg>
+<script type="module" src="/js/site.js"></script>
+</body>
+</html>

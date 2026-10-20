@@ -1,0 +1,656 @@
+{
+  "meta": {
+    "title": "Blüten Sturm — Dove i brand fioriscono e le idee esplodono.",
+    "description": "Marketing, creatività e formazione aziendale da Würzburg — con il rigore dei consulenti e il coraggio degli artisti."
+  },
+  "a11y": {
+    "skip": "Vai al contenuto",
+    "home": "Blüten Sturm — home page",
+    "nav": "Navigazione principale",
+    "lang": "Lingua",
+    "menu": "Menu",
+    "close": "Chiudi",
+    "panel": "Dettaglio del servizio",
+    "legal": "Informazioni legali",
+    "skipIntro": "Salta l'intro",
+    "instagram": "Blüten Sturm su Instagram",
+    "stage": "I diciotto servizi"
+  },
+  "nav": {
+    "about": "Chi siamo",
+    "services": "Servizi",
+    "work": "Lavori",
+    "pricing": "Prezzi",
+    "portfolio": "Portfolio",
+    "academy": "Academy",
+    "talk": "Parliamone"
+  },
+  "hero": {
+    "title": "Dove i brand fioriscono<br>e le idee <em>esplodono</em>.",
+    "sub": "Marketing, creatività e formazione aziendale da Würzburg — con il rigore dei consulenti e il coraggio degli artisti.",
+    "start": "Avvia un progetto",
+    "what": "Cosa facciamo"
+  },
+  "stage": {
+    "title": "Diciotto modi per muovere un brand.",
+    "note": "Ogni petalo si apre.",
+    "staticTitle": "Cosa facciamo",
+    "staticNote": "Diciotto servizi. Selezionane uno per i dettagli.",
+    "brandsTitle": "Leader del Mittelstand. Brand challenger. Nove mercati.",
+    "brandsNote": "Clienti selezionati.",
+    "brandsCount": "{n} brand e la lista si allunga"
+  },
+  "svc": {
+    "brand-strategy": {
+      "name": "Brand strategy",
+      "tagline": "Un posizionamento che regge in consiglio",
+      "desc": "Analisi di categoria e concorrenza, brand architecture, naming e il sistema verbale e visivo che dà voce e forma al brand.",
+      "items": [
+        "Analisi di mercato e categoria",
+        "Brand architecture",
+        "Naming e identità verbale",
+        "Sistemi di identità visiva"
+      ]
+    },
+    "marketing-strategy": {
+      "name": "Strategia di marketing",
+      "tagline": "Un piano misurato sulla pipeline",
+      "desc": "Strategia di canale, design del funnel e allocazione del budget, legati ai risultati commerciali anziché alle impression.",
+      "items": [
+        "Strategia di canale e funnel",
+        "Allocazione del budget",
+        "Framework di misurazione"
+      ]
+    },
+    "creative-services": {
+      "name": "Servizi creativi",
+      "tagline": "Idee che sopravvivono al pitch",
+      "desc": "Concept, art direction e piattaforme di campagna costruite per funzionare su più mercati senza perdere incisività.",
+      "items": [
+        "Piattaforme di campagna",
+        "Art direction",
+        "Copy e concept"
+      ]
+    },
+    "digital-marketing": {
+      "name": "Marketing digitale",
+      "tagline": "Performance senza vanity metrics",
+      "desc": "Paid media, SEO, CRM e automazione, misurati sul fatturato.",
+      "items": [
+        "Paid media",
+        "SEO e contenuti",
+        "CRM e automazione"
+      ]
+    },
+    "social-media-management": {
+      "name": "Social media management",
+      "tagline": "Sempre attivi, mai generici",
+      "desc": "Calendari editoriali, gestione della community e creatività native per pubblici tedeschi ed europei.",
+      "items": [
+        "Pianificazione editoriale",
+        "Gestione della community",
+        "Creatività native"
+      ]
+    },
+    "content-production": {
+      "name": "Produzione di contenuti",
+      "tagline": "Sotto un unico tetto, dal concept alla consegna",
+      "desc": "Video, fotografia, testi e design prodotti come un unico sistema, non come cinque brief separati.",
+      "items": [
+        "Video e motion",
+        "Fotografia",
+        "Testi editoriali e copy"
+      ]
+    },
+    "website-digital-experience": {
+      "name": "Sito web & digital experience",
+      "tagline": "Sviluppato, non solo disegnato",
+      "desc": "Siti e prodotti veloci, ben posizionati nelle ricerche e curati in ogni dettaglio, su qualsiasi dispositivo.",
+      "items": [
+        "Design e sviluppo",
+        "Performance e SEO",
+        "Accessibilità"
+      ]
+    },
+    "advertising": {
+      "name": "Pubblicità",
+      "tagline": "Lavori che restano in mente",
+      "desc": "Comunicazione above e below the line, dal concept alla produzione e alla pianificazione media.",
+      "items": [
+        "Concept di campagna",
+        "Produzione",
+        "Pianificazione media"
+      ]
+    },
+    "pr": {
+      "name": "PR",
+      "tagline": "Attenzione guadagnata",
+      "desc": "Relazioni con la stampa, thought leadership e comunicazione di crisi in area DACH e nell'UE.",
+      "items": [
+        "Relazioni con la stampa",
+        "Thought leadership",
+        "Comunicazione di crisi"
+      ]
+    },
+    "business-development-support": {
+      "name": "Supporto al business development",
+      "tagline": "Crescita oltre la campagna",
+      "desc": "Sviluppo di partnership, supporto ai pitch e pianificazione go-to-market per nuovi mercati.",
+      "items": [
+        "Pianificazione go-to-market",
+        "Supporto ai pitch",
+        "Partnership"
+      ]
+    },
+    "event-marketing-promotions": {
+      "name": "Event marketing & promozioni",
+      "tagline": "Dove il brand incontra il pubblico",
+      "desc": "Lanci, fiere e attivazioni in store: concept, produzione e regia on-site.",
+      "items": [
+        "Fiere e lanci",
+        "Attivazioni in store",
+        "Regia on-site"
+      ]
+    },
+    "video-multimedia": {
+      "name": "Video & multimedia",
+      "tagline": "Movimento al servizio dell'idea",
+      "desc": "Brand film, video di prodotto e motion design, realizzati internamente.",
+      "items": [
+        "Brand film",
+        "Video di prodotto",
+        "Motion design"
+      ]
+    },
+    "analytics": {
+      "name": "Analytics",
+      "tagline": "I numeri dietro il lavoro",
+      "desc": "Attribuzione, dashboard e report che il consiglio riesce davvero a leggere.",
+      "items": [
+        "Modelli di attribuzione",
+        "Dashboard",
+        "Reportistica"
+      ]
+    },
+    "ai-innovation": {
+      "name": "IA & innovazione",
+      "tagline": "Applicata, non decorativa",
+      "desc": "Automazione e IA integrate nelle operazioni di marketing, dove fanno davvero risparmiare tempo.",
+      "items": [
+        "Marketing automation",
+        "IA applicata",
+        "Progettazione dei processi"
+      ]
+    },
+    "consulting": {
+      "name": "Consulenza",
+      "tagline": "Sparring per chi guida il marketing",
+      "desc": "Audit, workshop e supporto ad interim per team con più carico che capacità.",
+      "items": [
+        "Audit di marketing",
+        "Workshop",
+        "Supporto ad interim"
+      ]
+    },
+    "employer-branding": {
+      "name": "Employer branding",
+      "tagline": "Storytelling che conquista i talenti",
+      "desc": "Posizionamento come datore di lavoro, contenuti per la sezione carriere e campagne di recruiting.",
+      "items": [
+        "Posizionamento come datore di lavoro",
+        "Contenuti per la sezione carriere",
+        "Campagne di recruiting"
+      ]
+    },
+    "ongoing-client-services": {
+      "name": "Servizi continuativi",
+      "tagline": "Un team che resta",
+      "desc": "Supporto continuativo su strategia, creatività e performance, con persone senior che seguono il lavoro in prima persona.",
+      "items": [
+        "Strategia continuativa",
+        "Creatività continuativa",
+        "Gestione delle performance"
+      ]
+    },
+    "corporate-training": {
+      "name": "Formazione aziendale & sviluppo organizzativo",
+      "tagline": "Competenze che sopravvivono alla campagna",
+      "desc": "Leadership, comunicazione e sales enablement — certificato, bilingue, in azienda o fuori sede.",
+      "items": [
+        "Sviluppo della leadership",
+        "Comunicazione executive",
+        "Sales enablement"
+      ]
+    }
+  },
+  "panel": {
+    "service": "Servizio",
+    "partner": "Partner"
+  },
+  "marquee": [
+    "Brand strategy",
+    "Marketing digitale",
+    "Content & social",
+    "Eventi & experience",
+    "Formazione aziendale"
+  ],
+  "about": {
+    "eyebrow": "01 — L'agenzia",
+    "title": "Radici francone.<br>Portata europea.",
+    "p1": "Blüten Sturm è nata a Würzburg — una città di vigneti, pietra barocca e artigianato ostinato. Abbiamo tenuto l'artigianato e aggiunto velocità. Oggi lavoriamo con leader del Mittelstand, brand sfidanti e istituzioni che vogliono un marketing capace di muovere i mercati e team in grado di sostenerlo.",
+    "p2": "Un team, tre discipline: creatività che si ricorda, strategia che viene approvata e formazione che la radica nell'organizzazione.",
+    "stat1": "Progetti realizzati",
+    "stat2": "Mercati",
+    "stat3": "Leader formati",
+    "stat4": "Fidelizzazione clienti",
+    "f1": "Sede",
+    "f1v": "Würzburg, Baviera",
+    "f2": "Lingue di lavoro",
+    "f2v": "Tedesco e inglese, più FR · ES · IT",
+    "f3": "Clienti",
+    "f3v": "Leader del Mittelstand, brand challenger, istituzioni",
+    "f4": "Presenza"
+  },
+  "services": {
+    "eyebrow": "02 — Servizi",
+    "title": "Cinque discipline,<br>un solo sistema.",
+    "lead": "Attivane una. O affidaci l'intero stack — dal workshop di posizionamento alla dashboard di performance.",
+    "hint": "Ogni scheda apre perimetro e pacchetti",
+    "open": "Pacchetti e perimetro",
+    "c1t": "Brand strategy & posizionamento",
+    "c1p": "Analisi di mercato e categoria, brand architecture, naming, sistemi di identità verbale e visiva. Troviamo il taglio netto e costruiamo tutto intorno.",
+    "tag1": "Posizionamento",
+    "tag2": "Sistemi di identità",
+    "tag3": "Naming",
+    "c2t": "Marketing digitale",
+    "c2p": "Performance media, SEO, CRM e marketing automation — misurati sulla pipeline, non sulle impression.",
+    "c3t": "Content & social",
+    "c3p": "Sistemi editoriali, video, fotografia e social always-on per pubblici tedeschi ed europei.",
+    "c4t": "Eventi & experience",
+    "c4p": "Lanci, fiere e convention interne — concept, produzione e regia on-site.",
+    "c5t": "Formazione aziendale",
+    "c5p": "Sviluppo della leadership, comunicazione, customer care e abilitazione alla vendita — certificato, bilingue, in azienda o fuori sede."
+  },
+  "why": {
+    "eyebrow": "03 — Perché Blüten Sturm",
+    "title": "Le agenzie presentano idee. Noi rispondiamo dei risultati.",
+    "t1": "Rigore da consulenti",
+    "p1": "Ogni rotta creativa poggia su una tesi commerciale difendibile in consiglio.",
+    "t2": "Bilingue per natura",
+    "p2": "Testi curati in tedesco e inglese, sfumature DACH, rollout europeo senza derive di traduzione.",
+    "t3": "Team solo senior",
+    "p3": "Chi presenta è chi lavora. Nessun passaggio ai junior.",
+    "t4": "Formiamo il passaggio",
+    "p4": "Le campagne finiscono. La competenza resta — il tuo team saprà farlo da solo."
+  },
+  "work": {
+    "eyebrow": "04 — Lavori selezionati",
+    "title": "Tempeste recenti.",
+    "request": "Richiedi il portfolio completo",
+    "k1": "Rebranding · Mittelstand",
+    "t1": "Produttore riposizionato per l'Europa",
+    "p1": "Un produttore familiare della Franconia con un prodotto forte e un nome che fuori dalla Germania nessuno sapeva collocare. Workshop di posizionamento, nuova architettura di marca e un sistema di identità bilingue, distribuiti in una stagione su vendite, fiera e web.",
+    "k2": "Campagna · DACH",
+    "t2": "Campagna di lancio in tre mercati",
+    "p2": "Un lancio di prodotto in Germania, Austria e Svizzera: un’idea creativa adattata per mercato anziché tradotta, con paid media, landing page e materiale di vendita misurati sulla pipeline, non sulle impression.",
+    "k3": "Formazione · Leadership",
+    "t3": "Programma di leadership, 400 manager",
+    "p3": "Moduli I e II, erogati in dodici mesi in tedesco e inglese. Leader nuovi e in crescita in piccole coorti, casi reali dal loro stesso reparto, e un passaggio di consegne perché siano le persone del cliente a condurre il ciclo successivo.",
+    "k4": "Experience · Evento",
+    "t4": "Summit di punta, Würzburg",
+    "p4": "Due giorni, tre palchi e uno streaming ibrido: concept, programma, allestimento e contenuti per il summit annuale di un cliente, prodotti dall’inizio alla fine — dal primo schizzo all’ultimo cavo.",
+    "note": "I casi sono anonimizzati qui su richiesta dei nostri clienti. Il portfolio completo — nomi, numeri e immagini — è disponibile su richiesta sotto NDA."
+  },
+  "portfolio": {
+    "eyebrow": "05 — Portfolio",
+    "title": "Brand che muoviamo.",
+    "lead": "Partnership di distribuzione nei Balcani — budget di marketing, creatività, media e sell-out, riuniti sotto un'unica regia.",
+    "hint": "Tocca un logo per vedere il lavoro",
+    "bandTitle": "Lavoriamo insieme.",
+    "bandText": "Brand, campagna, evento o programma dell'Academy — inviaci il brief e ti proponiamo un percorso, un team e una cifra.",
+    "brief": "Inviaci un brief"
+  },
+  "brands": {
+    "cat": {
+      "dairy": "Latticini e freschi",
+      "meat": "Carne e salumi",
+      "confectionery": "Dolciumi",
+      "food": "Alimentari e bevande",
+      "beverages": "Bevande",
+      "baby": "Prima infanzia",
+      "frozen": "Surgelati e verdure",
+      "bakery": "Prodotti da forno e cereali"
+    },
+    "markets": "Albania · Kosovo · Balcani",
+    "summary": "Una partnership di distribuzione con base nei Balcani: facciamo da ponte tra il brand e il distributore regionale, gestiamo il budget di marketing e veniamo misurati su ciò che esce dallo scaffale, non su ciò che viene pubblicato.",
+    "work": [
+      "Partnership di distribuzione gestite nei mercati balcanici",
+      "Budget di marketing gestiti e rendicontati per Albania e Kosovo",
+      "Contenuti creativi realizzati per i social media, in lingua locale",
+      "Pubblicità a pagamento pianificata, gestita e ottimizzata in funzione del sell-out",
+      "Promozioni in store e stagionali sviluppate con il distributore",
+      "Vendite gestite secondo il calendario delle campagne, rendicontate mese per mese"
+    ]
+  },
+  "academy": {
+    "eyebrow": "06 — Academy aziendale",
+    "title": "Formazione che sopravvive alla campagna.",
+    "p1": "La Blüten Sturm Academy propone programmi modulari per leadership, comunicazione, customer care, vendite e marketing — in tedesco o inglese, a Würzburg, nella vostra sede o in ibrido in tutta Europa.",
+    "p2": "Moduli da mezza giornata, un giorno e due giorni · piccoli gruppi · casi reali dalla vostra azienda · un attestato di partecipazione per ogni persona.",
+    "chip1": "Sviluppo della leadership",
+    "chip2": "Comunicazione executive",
+    "chip3": "Sales enablement",
+    "chip4": "Customer care",
+    "chip5": "Change & cultura",
+    "cta": "Richiedi il programma",
+    "m1n": "Modulo I",
+    "m1t": "Guidare sotto pressione",
+    "m1p": "Due giorni · decisione, delega e conflitto per leader nuovi e in crescita.",
+    "m2n": "Modulo II",
+    "m2t": "Storia & palco",
+    "m2p": "Un giorno · struttura narrativa, arte del pitch e presenza in camera e in sala.",
+    "m3n": "Modulo III",
+    "m3t": "Marketing per non addetti",
+    "m3p": "Mezza giornata · posizionamento, canali e budget per founder e responsabili di reparto.",
+    "m4n": "Modulo IV",
+    "m4t": "Customer care d'eccellenza",
+    "m4p": "Due giorni · standard di servizio, conversazioni difficili, gestione dei reclami e passaggio di consegne alle vendite."
+  },
+  "contact": {
+    "eyebrow": "07 — Contatti",
+    "title": "Facciamo il tempo.",
+    "lead": "Raccontaci cosa stai costruendo. Rispondiamo a ogni richiesta seria entro due giorni lavorativi.",
+    "questionnaire": "Preferisci il questionario completo?",
+    "s1t": "01 — Invia il brief",
+    "s1p": "Questo modulo, un’e-mail o il questionario — quello più rapido per voi.",
+    "s2t": "02 — Percorso e cifra",
+    "s2p": "Entro due giorni lavorativi ricevete una proposta di approccio, il team e un prezzo a partire da.",
+    "s3t": "03 — Kick-off",
+    "s3p": "Un workshop a Würzburg, presso di voi o online. Poi inizia il lavoro.",
+    "place": "Blüten Sturm · Würzburg, Germania"
+  },
+  "form": {
+    "name": "Il tuo nome",
+    "namePh": "Il tuo nome",
+    "business": "Nome dell'azienda",
+    "businessPh": "Il nome della tua azienda",
+    "email": "Email",
+    "emailPh": "nome@azienda.it",
+    "phone": "Telefono",
+    "optional": "(facoltativo)",
+    "interest": "Interesse per",
+    "opt": {
+      "brand": "Brand strategy",
+      "digital": "Marketing digitale",
+      "content": "Content & social",
+      "events": "Eventi & experience",
+      "training": "Formazione aziendale"
+    },
+    "size": "Dimensione aziendale",
+    "size1": "1–10 dipendenti",
+    "size2": "11–50 dipendenti",
+    "size3": "51–250 dipendenti",
+    "size4": "Oltre 250 dipendenti",
+    "budget": "Fascia di budget",
+    "budget1": "Meno di 10.000 €",
+    "budget2": "10.000–30.000 €",
+    "budget3": "30.000–75.000 €",
+    "budget4": "Oltre 75.000 €",
+    "budget5": "Ancora da definire",
+    "timeline": "Tempistiche",
+    "time1": "Il prima possibile",
+    "time2": "Entro 1–3 mesi",
+    "time3": "Entro quest'anno",
+    "time4": "Sto solo valutando",
+    "project": "Progetto",
+    "projectPh": "Cosa vuoi ottenere?",
+    "source": "Come ci hai conosciuto?",
+    "src1": "Ricerca su Google",
+    "src2": "Google Ads",
+    "src3": "Instagram",
+    "src4": "LinkedIn",
+    "src5": "Segnalazione / passaparola",
+    "src6": "Evento o fiera",
+    "src7": "Altro",
+    "send": "Invia richiesta",
+    "sending": "Invio in corso…",
+    "invalidEmail": "Inserisci un indirizzo email valido, così possiamo risponderti.",
+    "sendingMsg": "Invio della tua richiesta a info@bluetensturm.com …",
+    "fallback": "Non riusciamo a contattare il servizio email. Apriamo la tua app di posta con il messaggio già indirizzato a info@bluetensturm.com — ti basta premere Invia.",
+    "error": "Qualcosa è andato storto. Scrivici direttamente a info@bluetensturm.com.",
+    "honey": "Lascia vuoto questo campo"
+  },
+  "footer": {
+    "copy": "© 2026 Blüten Sturm GmbH — Dove i brand fioriscono e le idee esplodono.",
+    "imprint": "Note legali",
+    "privacy": "Privacy",
+    "questionnaire": "Questionario",
+    "prompt": "Prompt gratuito",
+    "email": "Email",
+    "instagram": "Instagram"
+  },
+  "q": {
+    "metaTitle": "Questionario di progetto — Blüten Sturm",
+    "metaDescription": "Dieci domande, circa quattro minuti: racconta a Blüten Sturm la tua azienda e il tuo progetto.",
+    "back": "← Torna al sito",
+    "eyebrow": "Questionario di progetto",
+    "title": "Raccontaci<br>la tua <span class=\"pill\">azienda</span>.",
+    "lead": "Dieci domande, circa quattro minuti. Tutto ciò che invii arriva direttamente ai nostri partner, all'indirizzo <a href=\"mailto:info@bluetensturm.com\">info@bluetensturm.com</a> — niente chatbot, niente call center.",
+    "g1": "01 — Su di te",
+    "name": "Il tuo nome *",
+    "namePh": "Il tuo nome",
+    "business": "Nome della tua azienda *",
+    "businessPh": "Azienda",
+    "email": "Email *",
+    "emailPh": "nome@azienda.it",
+    "phone": "Telefono",
+    "website": "Sito web",
+    "websitePh": "www…",
+    "role": "Il tuo ruolo",
+    "rolePh": "Amministratore delegato, marketing …",
+    "g2": "02 — La tua azienda",
+    "industry": "Settore",
+    "industryPh": "Settore",
+    "markets": "Mercati in cui vendi",
+    "marketsPh": "DACH, UE, globale …",
+    "team": "Hai un team marketing interno?",
+    "team1": "No — ci serve un supporto completo",
+    "team2": "Una o due persone",
+    "team3": "Un team completo, ci serve capacità in più",
+    "team4": "Un team completo, ci serve solo la strategia",
+    "g3": "03 — Il progetto",
+    "need": "Di cosa hai bisogno? *",
+    "need1": "Brand strategy & posizionamento",
+    "need2": "Marketing digitale",
+    "need3": "Content & social",
+    "need4": "Eventi & experience",
+    "need5": "Formazione aziendale & leadership",
+    "need6": "Una combinazione — parliamone",
+    "goals": "Cosa vuoi ottenere? *",
+    "goalsPh": "Cosa vuoi ottenere?",
+    "obstacles": "Cosa ti ha frenato finora?",
+    "obstaclesPh": "Budget, capacità, posizionamento poco chiaro …",
+    "replyLang": "Lingua preferita per la risposta",
+    "send": "Invia il questionario",
+    "sendingMsg": "Invio del tuo questionario a info@bluetensturm.com …",
+    "foot": "© 2026 Blüten Sturm GmbH · Würzburg"
+  },
+  "ty": {
+    "metaTitle": "Grazie — Blüten Sturm",
+    "eyebrow": "Richiesta ricevuta",
+    "title": "Grazie — la tempesta<br>sta già <span class=\"pill\">montando</span>.",
+    "lead": "La tua richiesta è arrivata al nostro team di Würzburg. Un partner senior legge personalmente ogni brief e risponde entro due giorni lavorativi — spesso prima.",
+    "s1t": "Leggiamo il brief",
+    "s1p": "Un partner esamina obiettivi, mercato e tempistiche.",
+    "s2t": "Un percorso, per iscritto",
+    "s2p": "Ricevi un approccio, un team e una cifra onesta.",
+    "s3t": "30 minuti insieme",
+    "s3p": "Una call per metterlo alla prova — niente teatrino da pitch.",
+    "follow": "Segui il nostro lavoro",
+    "see": "Guarda i nostri lavori",
+    "urgent": "Qualcosa di urgente? Scrivi direttamente a <a href=\"mailto:info@bluetensturm.com\">info@bluetensturm.com</a>"
+  },
+  "nf": {
+    "metaTitle": "Pagina non trovata — Blüten Sturm",
+    "title": "Qui non fiorisce<br>ancora <span class=\"pill\">niente</span>.",
+    "lead": "Questa pagina non esiste o l'indirizzo contiene un errore di battitura. La strada per tornare all'inizio è proprio qui.",
+    "home": "Torna all'inizio",
+    "contact": "Parliamone"
+  },
+  "intro": {
+    "loading": "Caricamento"
+  },
+  "pricing": {
+    "title": "Prezzi e offerte",
+    "updated": "Aggiornato al {date}",
+    "groups": {
+      "websites": "Siti web (prezzi fissi)",
+      "social": "Social media (canone mensile, durata minima di {n} mesi)",
+      "other": "Altri servizi",
+      "retail": "Promozione nei punti vendita (per i brand, ad es. nei supermercati EDEKA)"
+    },
+    "regular": "Prezzo di listino",
+    "offerPrice": "Prezzo promozionale",
+    "perMonth": "/ mese",
+    "from": "da",
+    "onRequest": "su richiesta",
+    "firstMonth": "Primo mese per ordini entro il {date}",
+    "then": "poi {price} / mese",
+    "optional": "opzionale",
+    "paidBy": "a carico del brand",
+    "request": "Richiedi questo pacchetto",
+    "reference": "come {site}",
+    "contactQ": "Domande sui pacchetti?",
+    "panelOnRequest": "Prezzo su richiesta",
+    "panelCta": "Richiedi un preventivo",
+    "vat": "Tutti i prezzi sono finali.",
+    "socialShort": "Social media",
+    "offer": {
+      "name": "Offerta di ottobre",
+      "headline": "50% di sconto su tutti i siti web",
+      "terms": "Offerta valida per gli ordini firmati entro il 31 ottobre 2026. Social media: 50% di sconto sul primo mese, con durata minima di 3 mesi. Dal 1° novembre si applicano i prezzi di listino.",
+      "until": "fino al {date}",
+      "daysLeft": "ancora {n} giorni",
+      "oneDay": "ancora 1 giorno",
+      "lastDay": "ultimo giorno",
+      "cta": "Vai ai prezzi",
+      "close": "Chiudi avviso"
+    },
+    "items": {
+      "websites": {
+        "start": {
+          "name": "Sito web Base",
+          "features": [
+            "Sito a pagina unica",
+            "Ottimizzato per dispositivi mobili",
+            "Note legali e informativa sulla privacy",
+            "Configurazione del Profilo dell'attività su Google"
+          ]
+        },
+        "business": {
+          "name": "Sito web Business",
+          "features": [
+            "Fino a 5 pagine",
+            "Modulo di contatto o di prenotazione",
+            "SEO di base",
+            "Profilo dell'attività su Google"
+          ]
+        },
+        "premium": {
+          "name": "Sito web Premium",
+          "features": [
+            "Animato o in 3D",
+            "Design personalizzato",
+            "Fino a 10 pagine"
+          ]
+        },
+        "care": {
+          "name": "Manutenzione del sito",
+          "features": [
+            "Aggiornamenti",
+            "Piccole modifiche"
+          ],
+          "offer_note": "senza sconto"
+        }
+      },
+      "social": {
+        "start": {
+          "name": "Base",
+          "features": [
+            "1 canale",
+            "12 post",
+            "Storie",
+            "Report mensile"
+          ]
+        },
+        "wachstum": {
+          "name": "Crescita",
+          "features": [
+            "2 canali",
+            "16 post",
+            "4 reel",
+            "Storie",
+            "Gestione della community"
+          ]
+        },
+        "premium": {
+          "name": "Premium",
+          "features": [
+            "Tutto il pacchetto Crescita",
+            "Shooting foto/video",
+            "Gestione delle inserzioni"
+          ]
+        },
+        "note": "Il cliente paga il budget pubblicitario direttamente a Meta."
+      },
+      "other": {
+        "branding": {
+          "name": "Branding",
+          "features": [
+            "Logo",
+            "Colori",
+            "Font",
+            "Brand book"
+          ]
+        },
+        "ads": {
+          "name": "Gestione delle inserzioni",
+          "description": "Inserzioni su Instagram e Facebook, pianificazione e gestione",
+          "note": "budget pubblicitario escluso"
+        },
+        "events": {
+          "name": "Eventi",
+          "description": "Feste, iniziative promozionali, ufficio stampa",
+          "price": "su richiesta"
+        },
+        "academy_30": {
+          "name": "Academy fino a circa 30 persone",
+          "description": "3–4 sessioni di formazione al mese: leadership, team, servizio"
+        },
+        "academy_100": {
+          "name": "Academy da 50 a 100 persone",
+          "description": "Programma di formazione per team più grandi"
+        }
+      },
+      "retail": {
+        "brand_game": {
+          "name": "Gioco del brand (una tantum)",
+          "description": "Ideazione e realizzazione del gioco da 60 secondi con la grafica del brand"
+        },
+        "probier_moment": {
+          "name": "Momento Assaggio",
+          "description": "1 punto vendita, 1 giorno (8 ore), 2 promoter, degustazione, 1 gioco, breve report"
+        },
+        "liebe_teilen_tag": {
+          "name": "Giornata Condividi l'amore",
+          "description": "Momento Assaggio + interviste vox pop, 3–5 brevi video, video riassuntivo"
+        },
+        "franken_tour": {
+          "name": "Tour in Franconia",
+          "description": "5 giornate promozionali in 5 punti vendita, tutti i video, report finale con confronto delle vendite"
+        },
+        "note": "Il brand fornisce merce, premi e donazioni. Per il punto vendita (ad es. EDEKA) non ci sono costi."
+      }
+    }
+  }
+}
