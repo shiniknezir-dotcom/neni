@@ -54,6 +54,8 @@ After the first deploy:
 ```
 index.html            home: opening, hero runway (18 service petals), 01–07
 questionnaire/        project questionnaire (same 17 fields as the live site)
+prompt/               /prompt/: the Café Mozart stunt walkthrough (DE/EN) with the
+                      video and the copyable prompts behind the Instagram reel
 thank-you/            form redirect target, conversion hook
 impressum/ datenschutz/  legal pages (German, as on the live site)
 404.html              not-found page (Netlify serves it automatically)
@@ -69,6 +71,7 @@ i18n/*.json           en (the live site's default and source), de, fr, es, it
 media/services/       18 Higgsfield service visuals (WebP, 640 and 1280 px)
 media/gen/            Higgsfield renders, case imagery, the petal-storm loop
 media/brands/         44 partner logos + manifest.json
+media/prompt/         the stunt video (720×1280), its poster and link-preview image
 assets/               monogram SVGs, favicons, app icons
 vendor/three/         Three.js r180 (module build + the two addons used)
 ```

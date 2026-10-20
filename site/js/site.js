@@ -32,6 +32,11 @@ let lang = 'en';
 let dict = null;
 let langSeq = 0;
 const fixedLang = root.dataset.langFixed || '';   // legal pages stay German
+/* a page may offer a subset of the languages with its own default
+   (/prompt/: German and English); the visitor's choice elsewhere is kept */
+const pageLangs = (root.dataset.langs || '').split(',').map((s) => s.trim()).filter((c) => LANGS.includes(c));
+const pageDefault = pageLangs.includes(root.dataset.langDefault) ? root.dataset.langDefault : (pageLangs[0] || 'en');
+const offered = (code) => (pageLangs.length ? pageLangs : LANGS).includes(code);
 const REPLY_LANG = { de: 'Deutsch', en: 'English', fr: 'Français', es: 'Español', it: 'Italiano' };
 
 function get(obj, key) {
@@ -110,7 +115,7 @@ function applyDict() {
 }
 
 async function setLang(code, { persist = true } = {}) {
-  if (!LANGS.includes(code)) code = 'en';
+  if (!offered(code)) code = pageDefault;
   const seq = ++langSeq;
   let d;
   try {
@@ -128,12 +133,12 @@ async function setLang(code, { persist = true } = {}) {
 
 function initialLang() {
   const q = (/[?&]lang=(en|de|fr|es|it)\b/.exec(window.location.search) || [])[1];
-  if (q) return { code: q, persist: true };
+  if (q && offered(q)) return { code: q, persist: true };
   try {
     const saved = localStorage.getItem('bs-lang');
-    if (saved && LANGS.includes(saved)) return { code: saved, persist: false };
+    if (saved && offered(saved)) return { code: saved, persist: false };
   } catch (e) { /* ignore */ }
-  return { code: 'en', persist: false };
+  return { code: pageDefault, persist: false };
 }
 
 /* --------------------------------------------------------------------------
@@ -1095,6 +1100,84 @@ $$('[data-reply-lang]').forEach((sel) => sel.addEventListener('change', () => { 
 })();
 
 /* --------------------------------------------------------------------------
+   Prompt page (/prompt/): the stunt video's play control and the copy
+   buttons of the prompt cards
+   -------------------------------------------------------------------------- */
+(function promptPage() {
+  if (!document.body.hasAttribute('data-prompt-page')) return;
+  const stunt = $('[data-stunt]');
+  const video = stunt && $('[data-stunt-video]', stunt);
+  const toggle = stunt && $('[data-stunt-toggle]', stunt);
+  if (video && toggle) {
+    video.removeAttribute('controls');               // the page has its own control
+    if (reduceMotion || motionOverride() === 'reduced') {
+      video.removeAttribute('autoplay');
+      video.autoplay = false;
+      video.pause();
+    }
+    const state = () => {
+      const playing = !video.paused && !video.ended;
+      stunt.classList.toggle('is-playing', playing);
+      toggle.setAttribute('aria-pressed', String(playing));
+      toggle.setAttribute('aria-label', t(playing ? 'prompt.ui.pause' : 'prompt.ui.play', playing ? 'Pause video' : 'Play video'));
+    };
+    const flip = () => { if (video.paused || video.ended) video.play().catch(() => {}); else video.pause(); };
+    ['play', 'playing', 'pause', 'ended'].forEach((ev) => video.addEventListener(ev, state));
+    toggle.addEventListener('click', flip);
+    video.addEventListener('click', flip);
+    window.addEventListener('bs:lang', state);
+    state();
+  }
+  /* each button copies the exact text of its card's <pre> */
+  $$('[data-pcard]').forEach((card) => {
+    const pre = $('[data-prompt-text]', card);
+    const btn = $('[data-copy]', card);
+    if (!pre || !btn) return;
+    const label = $('[data-copy-label]', btn);
+    const status = $('[data-copy-status]', card);
+    let timer = 0;
+    const say = (key, fallback, ok) => {
+      const msg = t(key, fallback);
+      if (label) label.textContent = msg;
+      if (status) status.textContent = msg;
+      card.classList.toggle('is-copied', !!ok);
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        if (label) label.textContent = t('prompt.ui.copy', 'Copy prompt');
+        if (status) status.textContent = '';
+        card.classList.remove('is-copied');
+      }, ok ? 2000 : 4000);
+    };
+    /* selecting the text is the fallback, and what is left for the visitor */
+    const select = () => {
+      try {
+        const range = document.createRange();
+        range.selectNodeContents(pre);
+        const sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+        return sel;
+      } catch (e) { return null; }
+    };
+    btn.addEventListener('click', async () => {
+      const text = pre.textContent;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        try {
+          await navigator.clipboard.writeText(text);
+          say('prompt.ui.copied', 'Copied ✓', true);
+          return;
+        } catch (e) { /* no permission: try the old way */ }
+      }
+      let done = false;
+      const sel = select();
+      try { done = !!sel && document.execCommand('copy'); } catch (e) { done = false; }
+      if (done) { say('prompt.ui.copied', 'Copied ✓', true); if (sel) sel.removeAllRanges(); }
+      else { select(); say('prompt.ui.copyFailed', 'Select & copy', false); }
+    });
+  });
+})();
+
+/* --------------------------------------------------------------------------
    Boot
    -------------------------------------------------------------------------- */
 (async function boot() {
@@ -1130,7 +1213,7 @@ $$('[data-reply-lang]').forEach((sel) => sel.addEventListener('change', () => { 
     if (!e.persisted) return;
     let saved = null;
     try { saved = localStorage.getItem('bs-lang'); } catch (err) { /* ignore */ }
-    if (saved && LANGS.includes(saved) && saved !== lang) setLang(saved, { persist: false });
+    if (saved && offered(saved) && saved !== lang) setLang(saved, { persist: false });
   });
 })();
 
