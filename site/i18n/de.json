@@ -425,6 +425,7 @@
     "imprint": "Impressum",
     "privacy": "Datenschutz",
     "questionnaire": "Fragebogen",
+    "prompt": "Gratis Prompt",
     "email": "E-Mail",
     "instagram": "Instagram"
   },
@@ -531,6 +532,108 @@
       "lastDay": "nur noch heute",
       "cta": "Zu den Preisen",
       "close": "Hinweis schließen"
+    }
+  },
+  "prompt": {
+    "meta": {
+      "title": "Der Mozart-Style Burger-Stunt — der komplette Prompt | Blüten Sturm",
+      "description": "Ein Burger, eine Rampe, Raketenantrieb — kein Drehtag. So haben wir das Café-Mozart-Video mit Higgsfield, Nano Banana 2.1 und Kling 3.0 gebaut: Schritt für Schritt, mit allen Prompts zum Kopieren."
+    },
+    "back": "← Zurück zur Startseite",
+    "hero": {
+      "eyebrow": "Gratis Prompt · Café Mozart × Blüten Sturm",
+      "title": "Der Mozart-Style <span class=\"pill\">Burger-Stunt</span>.",
+      "lead": "Ein Burger, eine Rampe, Raketenantrieb — und kein einziger Drehtag. So haben wir das Video gebaut: Schritt für Schritt, mit allen Prompts zum Kopieren.",
+      "facts": "Higgsfield · Nano Banana 2.1 · Kling 3.0 Pro · 15 Sek. · 9:16 · ca. 2 Std. Arbeit",
+      "primary": "Zu den Prompts",
+      "secondary": "So ein Video für mein Business",
+      "caption": "Das fertige Video, wie es auf @cafemozartwuerzburg läuft."
+    },
+    "setup": {
+      "eyebrow": "01 — Das Setup",
+      "title": "Was du brauchst.",
+      "i1": "<b>2–3 Fotos deines Produkts.</b> Scharf, gleichmäßig belichtet, aus der Perspektive, in der es später im Video stehen soll. Wir haben den echten Mozart-Style Burger im Café fotografiert — Spieß, Spiegelei, Pommes-Korb, alles drauf.",
+      "i2": "<b>Ein Referenz-Stuntvideo.</b> Ein Clip, in dem ein einzelnes Objekt über eine Rampe startet, fliegt, landet und am Ende still steht. Unser Basisclip war ein KI-Werbespot mit einem Chicken-Bucket. Keinen Clip? Prompt 0 generiert dir einen.",
+      "i3": "<b>Ein Higgsfield-Account.</b> Genutzte Tools: Genjutsu „Replace Object“, Nano Banana 2.1 (Bild-Edit) und Kling 3.0 Pro (Video).",
+      "i4": "<b>Ein Schnittprogramm.</b> CapCut, Premiere oder DaVinci — für Schnitt, Titel, Logo-Outro und Sound.",
+      "note": "Zeit: ca. 2 Stunden. Kosten: ein paar Euro Credits. Drehteam: keins."
+    },
+    "steps": {
+      "eyebrow": "02 — Schritt für Schritt",
+      "title": "So entsteht der Stunt.",
+      "label": "Schritt",
+      "s1t": "Produkt fotografieren",
+      "s1p": "Fotografiere dein Produkt vor neutralem Hintergrund, leicht von der Seite, auf Augenhöhe des Produkts. Zwei Fotos reichen: einmal frontal-seitlich, einmal etwas höher. Regel: Alles, was du später im Prompt beschreibst, muss auf den Fotos sichtbar sein.",
+      "s2t": "Basisclip wählen (oder generieren)",
+      "s2p": "Je klarer die Bewegung im Basisclip, desto sauberer der Austausch. Du brauchst ein einzelnes, klar abgegrenztes Objekt, das sich als starrer Körper bewegt — keine Hände, keine Personen davor. Kein Clip zur Hand? Dann Text-zu-Video mit Prompt 0.",
+      "s3t": "Objekt austauschen",
+      "s3p": "Higgsfield → Genjutsu → Replace Object. Hochladen: Basisclip + deine zwei Produktfotos. Beschreibe dein Produkt so genau wie ein Food-Stylist und sag dem Modell ausdrücklich, was gleich bleiben soll: Kamera, Timing, Rampe, Licht. Ausgabe: 10 Sekunden, 720p. Lass zwei bis drei Varianten laufen und nimm die, in der das Produkt steif bleibt und nicht „schwimmt“.",
+      "s4t": "Hero-Standbild bauen",
+      "s4p": "Exportiere das letzte Frame des Videos (Screenshot oder Frame-Export). Alles, was beim Austausch verloren ging — bei uns der Pommes-Korb —, ergänzt du jetzt im Bild-Edit mit Nano Banana 2.1, mit den Produktfotos als Referenz. 9:16, 2K, Thinking auf „high“.",
+      "s5t": "Hero-Shot animieren",
+      "s5p": "Kling 3.0 Pro, Startbild = dein Hero-Standbild, 4 Sekunden, Kamera fix. Die wichtigste Zeile im Prompt: Das Essen bewegt sich nicht — nur Rauch, Funken und Licht. So bleibt das Produkt knackscharf und der Shot wirkt trotzdem lebendig.",
+      "s5opt": "Optional: eine Raketenlandung als eigener Shot. Startbild = Burger in der Luft (Frame aus Schritt 3), Endbild = Hero-Standbild.",
+      "s6t": "Schnitt, Titel, Sound",
+      "s6p": "Reihenfolge: Start an der Rampe → Flug → Landung → Hero-Shot mit Atmosphäre → Titel → Logo-Outro. Titel in der Marken-Schrift, Logo auf Creme. Sound: Raketen-Rumble, Whoosh, Impact — und dann Stille für den Hero-Shot. Export: 1080 × 1920, 24 fps, 12–15 Sekunden. Tipp: Den 720p-Clip vor dem Schnitt hochskalieren (Higgsfield Upscale)."
+    },
+    "template": {
+      "eyebrow": "03 — Vorlage",
+      "title": "Jetzt dein Produkt.",
+      "text": "Burger, Pizza, Sneaker, Flasche — die Vorlage funktioniert für alles, was als starres Objekt fliegen kann. Ersetze die Platzhalter in eckigen Klammern, sonst nichts."
+    },
+    "tips": {
+      "eyebrow": "04 — Fünf Dinge",
+      "title": "Was den Unterschied macht.",
+      "i1": "<b>Beschreib wie ein Food-Stylist.</b> Brötchen, Sesam, Spieß, laufendes Eigelb — jedes Detail hilft dem Modell, dein Produkt zu halten.",
+      "i2": "<b>„Als eine starre Einheit.“</b> Ohne diesen Satz fliegen Burger und Pommes getrennt.",
+      "i3": "<b>Sag, was bleiben soll.</b> Kamera, Timing, Licht, Hintergrund — nicht nur, was sich ändert.",
+      "i4": "<b>„No text, no logos.“</b> Text kommt im Schnitt. Nie aus dem Modell.",
+      "i5": "<b>Immer zwei bis drei Varianten.</b> Die erste ist selten die beste."
+    },
+    "cta": {
+      "eyebrow": "05 — Dein Stunt",
+      "title": "Dein Produkt. Dein Stunt.",
+      "text": "Wir produzieren solche Videos für Restaurants, Marken und den Mittelstand — in Tagen, nicht Wochen. Website, Social Media, Branding: alles aus einer Hand, aus Würzburg.",
+      "primary": "Projekt anfragen",
+      "secondary": "@bluetensturmcreative auf Instagram",
+      "credits": "Konzept, Prompts & Produktion: Blüten Sturm für Café Mozart Würzburg."
+    },
+    "ui": {
+      "copy": "Prompt kopieren",
+      "copied": "Kopiert ✓",
+      "copyFailed": "Markieren & kopieren",
+      "used": "So verwendet",
+      "optional": "Optional",
+      "template": "Vorlage",
+      "play": "Video abspielen",
+      "pause": "Video pausieren",
+      "noVideo": "Dein Browser kann das Video nicht abspielen."
+    },
+    "cards": {
+      "p0": {
+        "label": "Prompt 0",
+        "tag": "Basisclip generieren"
+      },
+      "p1": {
+        "label": "Prompt 1",
+        "tag": "Objekt austauschen"
+      },
+      "p2": {
+        "label": "Prompt 2",
+        "tag": "Hero-Standbild"
+      },
+      "p3": {
+        "label": "Prompt 3",
+        "tag": "Hero-Shot animieren"
+      },
+      "p4": {
+        "label": "Prompt 4",
+        "tag": "Raketenlandung"
+      },
+      "template": {
+        "label": "Prompt-Vorlage",
+        "tag": "Für dein eigenes Produkt — Platzhalter in [ ] ersetzen"
+      }
     }
   }
 }

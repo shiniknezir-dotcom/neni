@@ -425,6 +425,7 @@
     "imprint": "Impressum",
     "privacy": "Datenschutz",
     "questionnaire": "Questionnaire",
+    "prompt": "Free prompt",
     "email": "Email",
     "instagram": "Instagram"
   },
@@ -649,6 +650,108 @@
           "description": "5 promotion days in 5 stores, all videos, final report with sales comparison"
         },
         "note": "The brand provides the goods, prizes and donations. The store (e.g. EDEKA) pays nothing."
+      }
+    }
+  },
+  "prompt": {
+    "meta": {
+      "title": "The Mozart-Style Burger Stunt — the complete prompt | Blüten Sturm",
+      "description": "One burger, one ramp, rocket thrusters — no shoot day. How we built the Café Mozart video with Higgsfield, Nano Banana 2.1 and Kling 3.0: step by step, every prompt ready to copy."
+    },
+    "back": "← Back to the homepage",
+    "hero": {
+      "eyebrow": "Free prompt · Café Mozart × Blüten Sturm",
+      "title": "The Mozart-Style <span class=\"pill\">Burger Stunt</span>.",
+      "lead": "One burger, one ramp, rocket thrusters — and not a single shoot day. Here is how we built the video: step by step, with every prompt ready to copy.",
+      "facts": "Higgsfield · Nano Banana 2.1 · Kling 3.0 Pro · 15 sec · 9:16 · about 2 hours of work",
+      "primary": "Jump to the prompts",
+      "secondary": "I want a video like this",
+      "caption": "The finished video, as it runs on @cafemozartwuerzburg."
+    },
+    "setup": {
+      "eyebrow": "01 — The setup",
+      "title": "What you need.",
+      "i1": "<b>2–3 photos of your product.</b> Sharp, evenly lit, shot from the angle it will have in the video. We photographed the real Mozart-Style Burger at the café — skewer, fried egg, fry basket, all of it.",
+      "i2": "<b>A reference stunt clip.</b> A clip in which one single object launches up a ramp, flies, lands and ends up standing still. Our base clip was an AI commercial with a fried-chicken bucket. No clip? Prompt 0 generates one for you.",
+      "i3": "<b>A Higgsfield account.</b> Tools used: Genjutsu “Replace Object”, Nano Banana 2.1 (image edit) and Kling 3.0 Pro (video).",
+      "i4": "<b>An editor.</b> CapCut, Premiere or DaVinci — for the cut, the title, the logo outro and the sound.",
+      "note": "Time: about 2 hours. Cost: a few euros in credits. Film crew: none."
+    },
+    "steps": {
+      "eyebrow": "02 — Step by step",
+      "title": "How the stunt comes together.",
+      "label": "Step",
+      "s1t": "Photograph the product",
+      "s1p": "Shoot your product against a neutral background, slightly from the side, at the product's eye level. Two photos are enough: one front-side view, one slightly higher. Rule: everything you describe in the prompt later must be visible in the photos.",
+      "s2t": "Pick a base clip (or generate one)",
+      "s2p": "The clearer the motion in the base clip, the cleaner the swap. You need one single, clearly separated object that moves as a rigid body — no hands, no people in front of it. No clip at hand? Text-to-video with Prompt 0.",
+      "s3t": "Replace the object",
+      "s3p": "Higgsfield → Genjutsu → Replace Object. Upload: base clip + your two product photos. Describe your product like a food stylist would, and tell the model explicitly what must stay the same: camera, timing, ramp, light. Output: 10 seconds, 720p. Run two or three variations and keep the one where the product stays rigid and doesn't “swim”.",
+      "s4t": "Build the hero still",
+      "s4p": "Export the last frame of the video (screenshot or frame export). Whatever got lost in the swap — for us, the fry basket — you add back now in an image edit with Nano Banana 2.1, using the product photos as reference. 9:16, 2K, thinking set to “high”.",
+      "s5t": "Animate the hero shot",
+      "s5p": "Kling 3.0 Pro, start image = your hero still, 4 seconds, locked camera. The most important line in the prompt: the food does not move — only smoke, embers and light. That keeps the product razor sharp while the shot still feels alive.",
+      "s5opt": "Optional: a rocket landing as a separate shot. Start image = burger mid-air (a frame from step 3), end image = hero still.",
+      "s6t": "Cut, title, sound",
+      "s6p": "Order: launch at the ramp → flight → landing → hero shot with atmosphere → title → logo outro. Title in the brand script, logo on cream. Sound: rocket rumble, whoosh, impact — then silence for the hero shot. Export: 1080 × 1920, 24 fps, 12–15 seconds. Tip: upscale the 720p clip before the edit (Higgsfield Upscale)."
+    },
+    "template": {
+      "eyebrow": "03 — Template",
+      "title": "Now your product.",
+      "text": "Burger, pizza, sneaker, bottle — the template works for anything that can fly as a rigid object. Replace the placeholders in square brackets, nothing else."
+    },
+    "tips": {
+      "eyebrow": "04 — Five things",
+      "title": "What makes the difference.",
+      "i1": "<b>Describe like a food stylist.</b> Bun, sesame, skewer, runny yolk — every detail helps the model hold on to your product.",
+      "i2": "<b>“As one rigid unit.”</b> Without that sentence, burger and fries fly separately.",
+      "i3": "<b>Say what must stay.</b> Camera, timing, light, background — not just what changes.",
+      "i4": "<b>“No text, no logos.”</b> Text comes in the edit. Never from the model.",
+      "i5": "<b>Always two or three variations.</b> The first one is rarely the best."
+    },
+    "cta": {
+      "eyebrow": "05 — Your stunt",
+      "title": "Your product. Your stunt.",
+      "text": "We produce videos like this for restaurants, brands and the Mittelstand — in days, not weeks. Website, social media, branding: all from one team, from Würzburg.",
+      "primary": "Start a project",
+      "secondary": "@bluetensturmcreative on Instagram",
+      "credits": "Concept, prompts & production: Blüten Sturm for Café Mozart Würzburg."
+    },
+    "ui": {
+      "copy": "Copy prompt",
+      "copied": "Copied ✓",
+      "copyFailed": "Select & copy",
+      "used": "As used",
+      "optional": "Optional",
+      "template": "Template",
+      "play": "Play video",
+      "pause": "Pause video",
+      "noVideo": "Your browser can't play this video."
+    },
+    "cards": {
+      "p0": {
+        "label": "Prompt 0",
+        "tag": "Generate a base clip"
+      },
+      "p1": {
+        "label": "Prompt 1",
+        "tag": "Replace the object"
+      },
+      "p2": {
+        "label": "Prompt 2",
+        "tag": "Hero still"
+      },
+      "p3": {
+        "label": "Prompt 3",
+        "tag": "Animate the hero shot"
+      },
+      "p4": {
+        "label": "Prompt 4",
+        "tag": "Rocket landing"
+      },
+      "template": {
+        "label": "Prompt template",
+        "tag": "For your own product — replace the placeholders in [ ]"
       }
     }
   }

@@ -876,3 +876,108 @@ html:not(.js) .petal-btn, html:not(.js) .brand-tile { pointer-events: none; curs
 .nf { min-height: 100svh; display: grid; align-items: center; }
 .nf__mark { width: clamp(90px, 10vw, 130px); fill: var(--forest); animation: sway 6s ease-in-out infinite; }
 @media (prefers-reduced-motion: reduce) { .nf__mark { animation: none; } }
+
+/* --------------------------------------------------------------------------
+   Prompt page (/prompt/): the Café Mozart stunt walkthrough with the video
+   and the copyable prompt cards. Only this page carries the classes below.
+   -------------------------------------------------------------------------- */
+.prompt-page { overflow-x: clip; }
+.prompt-wrap { max-width: 980px; }
+
+/* hero: dark, the night-time video beside the headline */
+.prompt-hero { position: relative; overflow: hidden; padding: calc(var(--header-h) + clamp(40px, 8vh, 96px)) 0 clamp(56px, 8vw, 110px); }
+.prompt-hero::before { content: ''; position: absolute; right: -14vw; top: -22vh; width: 62vw; height: 62vw; max-width: 780px; max-height: 780px; border-radius: 50% 50% 50% 0; background: radial-gradient(closest-side, rgba(211, 245, 67, .18), transparent 72%); pointer-events: none; }
+.prompt-hero__grid { position: relative; display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(280px, .85fr); gap: clamp(32px, 6vw, 96px); align-items: center; }
+.prompt-hero__copy { display: grid; gap: 22px; justify-items: start; }
+.prompt-hero__title { font-size: clamp(36px, 4.5vw, 66px); line-height: 1.02; letter-spacing: -.025em; font-weight: 700; text-wrap: balance; }
+.prompt-hero .pill { background: var(--lime); color: var(--forest); }
+.prompt-hero .btn--ghost, .prompt-cta .btn--ghost { color: var(--on-forest); border-color: rgba(244, 247, 234, .45); }
+.prompt-hero .btn--ghost:hover, .prompt-cta .btn--ghost:hover { background: rgba(244, 247, 234, .1); }
+
+/* the sub-page header over the dark hero: readable before it is scrolled
+   (the home page never shows the unscrolled header on forest) */
+body[data-prompt-page] .site-header.on-forest:not(.is-scrolled):not(.is-open) { color: var(--on-forest); }
+body[data-prompt-page] .site-header.on-forest:not(.is-scrolled):not(.is-open) .brand__mark { fill: var(--lime); }
+body[data-prompt-page] .site-header.on-forest:not(.is-open) .lang { border-color: rgba(244, 247, 234, .38); }
+body[data-prompt-page] .site-header.on-forest:not(.is-open) .lang button[aria-pressed="true"] { background: var(--lime); color: var(--forest); }
+
+/* the video: a 9:16 frame with petal corners and the page's own play control */
+.stunt { margin: 0; display: grid; gap: 12px; justify-items: center; }
+.stunt__frame { position: relative; width: min(100%, 390px); aspect-ratio: 9 / 16; border-radius: var(--petal) 0 var(--petal) 0; overflow: hidden; background: #0A1A12; box-shadow: 0 30px 70px rgba(0, 0, 0, .45), 0 0 0 1px rgba(211, 245, 67, .28); }
+.stunt__video { display: block; width: 100%; height: 100%; object-fit: cover; cursor: pointer; }
+.stunt__toggle { position: absolute; right: 14px; bottom: 14px; width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; background: var(--lime); color: var(--forest); box-shadow: 0 10px 24px rgba(0, 0, 0, .35); transition: transform .3s var(--ease); }
+.stunt__toggle:hover { transform: scale(1.06); }
+.stunt__icon { width: 22px; height: 22px; fill: currentColor; }
+.stunt__icon--pause, .stunt.is-playing .stunt__icon--play { display: none; }
+.stunt.is-playing .stunt__icon--pause { display: block; }
+html:not(.js) .stunt__toggle { display: none; }          /* native controls take over */
+/* while paused, a quiet cue in the middle of the poster */
+:where(.js) .stunt__frame::after { content: ''; position: absolute; left: 50%; top: 50%; width: 84px; height: 84px; margin: -42px 0 0 -42px; border-radius: 50%; border: 2px solid rgba(244, 247, 234, .75); background: rgba(15, 42, 29, .38) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23F4F7EA' d='M8 5v14l12-7z'/%3E%3C/svg%3E") center / 34px no-repeat; pointer-events: none; transition: opacity .3s; }
+:where(.js) .stunt.is-playing .stunt__frame::after { opacity: 0; }
+.stunt__facts { font-size: 13px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; color: var(--lime); text-align: center; }
+.stunt__caption { font-size: 14px; color: var(--on-forest-70); text-align: center; }
+
+/* 01 — the setup tiles */
+.ptiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 14px; }
+.ptile { display: grid; gap: 12px; padding: 26px 24px 24px; background: var(--white); border-radius: 26px 0 26px 0; box-shadow: inset 0 0 0 1px var(--ink-08); }
+.ptile__n, .ptip__n { font-family: var(--display); font-weight: 700; color: var(--leaf); }
+.ptile__n { font-size: 13px; letter-spacing: .14em; }
+.ptile p, .ptip p, .pstep__p { font-size: 16.5px; line-height: 1.62; color: var(--ink-70); }
+.ptile b, .ptip b { color: var(--forest); font-weight: 800; }
+.pnote { margin-top: 18px; padding: 16px 20px; background: var(--mist); border-left: 3px solid var(--lime-deep); border-radius: 0 16px 0 16px; font-size: 15px; font-weight: 800; color: var(--forest); }
+
+/* 02 — the numbered steps */
+.psteps { display: grid; gap: clamp(26px, 4vw, 44px); }
+.pstep { display: grid; gap: 16px; padding-top: 24px; border-top: 1px solid var(--ink-12); }
+.pstep__t { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 14px; font-size: clamp(21px, 2.3vw, 27px); line-height: 1.15; letter-spacing: -.01em; }
+.pstep__n { font-family: var(--text); font-weight: 800; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; padding: 7px 11px; border-radius: var(--pill); background: var(--forest); color: var(--lime); flex: none; }
+.pstep__p { max-width: 72ch; }
+.pstep__opt { font-weight: 700; color: var(--forest); }
+
+/* the prompt card: label, badge, tool line, the prompt, the copy button */
+.pcard { display: grid; gap: 16px; padding: clamp(20px, 2.6vw, 30px); background: var(--white); border-radius: 26px 0 26px 0; box-shadow: inset 0 0 0 1.5px var(--ink-12); }
+.tone-mist .pcard { box-shadow: 0 18px 40px rgba(15, 42, 29, .08), inset 0 0 0 1px var(--ink-08); }
+.pcard__head { display: grid; gap: 6px; }
+.pcard__label { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; font-family: var(--display); font-weight: 700; font-size: 15px; }
+.pcard__badge { font-family: var(--text); font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; padding: 6px 10px; border-radius: var(--pill); background: var(--lime); color: var(--forest); }
+.pcard__badge--opt { background: transparent; box-shadow: inset 0 0 0 1.5px var(--ink-12); color: var(--ink-70); }
+.pcard__tag { font-size: 16px; font-weight: 800; color: var(--forest); }
+.pcard__tool { font-size: 13.5px; font-weight: 700; color: var(--leaf); }
+.pcard__text { margin: 0; padding: 18px 20px; background: var(--mist); border-radius: 18px 0 18px 0; font-family: var(--text); font-size: 15px; line-height: 1.65; color: var(--ink); white-space: pre-wrap; overflow-wrap: anywhere; max-width: 100%; }
+.tone-mist .pcard__text { background: var(--paper); }
+.pcard__foot { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; }
+.pcard__copy { min-width: 190px; }
+.pcard__status { font-size: 14px; font-weight: 800; color: var(--leaf); }
+.pcard.is-copied .pcard__copy { background: var(--leaf); border-color: var(--leaf); }
+
+/* 03/04 — the template text and the five tips */
+.sec-head .lead { margin-top: 18px; }
+.ptips { display: grid; gap: 12px; }
+.ptip { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 18px; align-items: start; padding: 20px 22px; background: var(--white); border-radius: 22px 0 22px 0; box-shadow: inset 0 0 0 1px var(--ink-08); }
+.ptip__n { font-size: clamp(26px, 3vw, 40px); line-height: 1; min-width: 1.2em; }
+
+/* 05 — the call to action */
+.prompt-cta .wrap { display: grid; justify-items: center; text-align: center; gap: 22px; max-width: 820px; }
+.prompt-cta .lead { max-width: 56ch; }
+.prompt-cta .hero__actions { justify-content: center; }
+.pcredits { font-size: 14px; color: var(--on-forest-50); }
+
+@media (max-width: 900px) {
+  .prompt-hero__grid { grid-template-columns: minmax(0, 1fr); }
+  .stunt__frame { width: min(100%, 360px); }
+}
+@media (max-width: 720px) {
+  .prompt-hero { padding-top: calc(var(--header-h) + 26px); }
+  .ptip { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .pcard__copy { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .stunt__toggle, :where(.js) .stunt__frame::after { transition: none; }
+}
+@media print {
+  .stunt__toggle, .pcard__copy, .progress { display: none !important; }
+  .prompt-hero, .prompt-cta { background: #fff !important; color: #000 !important; }
+  .prompt-hero .lead, .prompt-cta .lead, .stunt__caption, .pcredits { color: #333 !important; }
+  .prompt-hero .eyebrow, .prompt-cta .eyebrow, .stunt__facts { color: #000 !important; }
+  .pcard__text { background: #f3f3f3 !important; color: #000 !important; }
+}
