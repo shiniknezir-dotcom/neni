@@ -97,7 +97,8 @@
             var s = document.currentScript, v = s && s.previousElementSibling;
             if (!v || v.tagName !== 'VIDEO') return;
             v.removeAttribute('controls');
-            if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) { v.removeAttribute('autoplay'); v.autoplay = false; }
+            /* (pause too: a cached video can reach canplay before the stylesheets let this script run) */
+            if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) { v.removeAttribute('autoplay'); v.autoplay = false; v.pause(); }
           })();
           </script>
           <button class="stunt__toggle" type="button" data-stunt-toggle aria-label="Video pausieren" data-label-play="Video abspielen">
