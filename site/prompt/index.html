@@ -39,7 +39,14 @@
     if (window.fetch) window.__bsDict = { code: L, p: fetch('/i18n/' + L + '.json').then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }) };
   } catch (e) {}
   /* failsafe: if the module cannot run, nothing stays hidden */
-  window.__bsFailsafe = setTimeout(function () { if (!d.classList.contains('reveal-on')) d.classList.add('reveal-off'); }, 2500);
+  window.__bsFailsafe = setTimeout(function () {
+    if (d.classList.contains('reveal-on')) return;
+    d.classList.add('reveal-off');
+    /* ...and the video goes back to the browser's own controls */
+    var v = document.querySelector('[data-stunt-video]'), b = document.querySelector('[data-stunt-toggle]');
+    if (v) v.setAttribute('controls', '');
+    if (b) b.hidden = true;
+  }, 2500);
 })();
 </script>
 <link rel="stylesheet" href="/css/fonts.css">
@@ -48,7 +55,7 @@
 <body data-i18n-title="prompt.meta.title" data-i18n-description="prompt.meta.description" data-prompt-page>
 <a class="skip" href="#main" data-i18n="a11y.skip">Zum Inhalt springen</a>
 <div class="progress" aria-hidden="true"><i data-progress></i></div>
-<header class="site-header site-header--sub" data-header>
+<header class="site-header site-header--sub on-forest" data-header>
   <div class="wrap">
     <a class="brand" href="/" aria-label="Blüten Sturm — Startseite" data-i18n-aria="a11y.home">
       <svg class="brand__mark" viewBox="0 0 733.3 1000" aria-hidden="true" focusable="false"><use href="#bs-mono"></use></svg>
@@ -93,12 +100,12 @@
             if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) { v.removeAttribute('autoplay'); v.autoplay = false; }
           })();
           </script>
-          <button class="stunt__toggle" type="button" data-stunt-toggle aria-pressed="true" aria-label="Video pausieren">
+          <button class="stunt__toggle" type="button" data-stunt-toggle aria-label="Video pausieren" data-label-play="Video abspielen">
             <svg class="stunt__icon stunt__icon--play" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 5v14l12-7z"/></svg>
             <svg class="stunt__icon stunt__icon--pause" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 5h4v14H7zm6 0h4v14h-4z"/></svg>
           </button>
         </div>
-        <p class="stunt__facts" data-i18n="prompt.hero.facts">Higgsfield · Nano Banana 2.1 · Kling 3.0 Pro · 15 Sek. · 9:16 · ca. 2 Std. Arbeit</p>
+        <p class="stunt__facts" data-i18n="prompt.hero.facts">Higgsfield · Nano Banana 2.1 · Kling 3.0 Pro · 15 Sek. · 9:16 · ca. 2 Std. Arbeit</p>
         <figcaption class="stunt__caption" data-i18n="prompt.hero.caption">Das fertige Video, wie es auf @cafemozartwuerzburg läuft.</figcaption>
       </figure>
     </div>
@@ -148,7 +155,7 @@
             </div>
             <pre class="pcard__text" lang="en" data-prompt-text>Night-time stunt arena, photorealistic commercial look. A striped paper bucket of fried chicken sits at the foot of a tall curved steel launch ramp with glowing red neon rails, a floodlight tower on steel scaffolding, wet dark asphalt. Two small rocket thrusters under the bucket ignite with blue-white flames and thick white smoke; the bucket rockets up the ramp, launches off the top, tumbles once high above the arena, and lands hard on the asphalt in a burst of sparks and smoke. The smoke clears and the bucket stands perfectly still, upright and intact, for a final low-angle hero shot. Wide static framing for the launch, a slow tilt following the flight, low eye-level framing for the landing. Cold white floodlight plus warm thruster glow, realistic motion blur, contact shadows and reflections on the asphalt. 9:16 vertical, no text, no logos, no people.</pre>
             <div class="pcard__foot">
-              <button class="btn btn--sm pcard__copy" type="button" data-copy><span data-i18n="prompt.ui.copy" data-copy-label>Prompt kopieren</span><i class="dot" aria-hidden="true"></i></button>
+              <button class="btn btn--sm pcard__copy" type="button" data-copy aria-describedby="prompt-p0-label" data-copied="Kopiert ✓" data-failed="Markieren &amp; kopieren"><span data-i18n="prompt.ui.copy" data-copy-label>Prompt kopieren</span><i class="dot" aria-hidden="true"></i></button>
               <span class="pcard__status" role="status" aria-live="polite" data-copy-status></span>
             </div>
           </article>
@@ -164,7 +171,7 @@
             </div>
             <pre class="pcard__text" lang="en" data-prompt-text>Replace the striped paper bucket of fried chicken with the exact burger from the reference photos, together with the small square stainless-steel wire fry basket filled with golden french fries standing directly behind the burger (the basket slightly taller than the burger so the fries are visible above and behind the bun). The burger is a sesame-seed brioche bun with a single wooden skewer standing upright in the top bun, a fried egg with a runny orange yolk spilling out, a thick grilled beef patty, a slice of tomato, pickle slices, fresh rocket leaves and pink burger sauce on a lightly toasted bottom bun. The burger and the fry basket move together as one rigid unit exactly where the bucket was: launching up the ramp with the rocket thrusters and smoke, tumbling through the air, landing on the asphalt with the sparks and smoke, then standing still for the final hero shot with the burger in front and the fries in the basket behind it. Keep the camera, timing, ramp, red neon rails, smoke, sparks, floodlights, shadows and background exactly as in the source video. Photorealistic food-commercial look: the burger and fries catch the same cold floodlight and warm thruster glow as the original bucket, with matching motion blur, contact shadows and ground reflections. No text, no logos, no paper bucket remaining.</pre>
             <div class="pcard__foot">
-              <button class="btn btn--sm pcard__copy" type="button" data-copy><span data-i18n="prompt.ui.copy" data-copy-label>Prompt kopieren</span><i class="dot" aria-hidden="true"></i></button>
+              <button class="btn btn--sm pcard__copy" type="button" data-copy aria-describedby="prompt-p1-label" data-copied="Kopiert ✓" data-failed="Markieren &amp; kopieren"><span data-i18n="prompt.ui.copy" data-copy-label>Prompt kopieren</span><i class="dot" aria-hidden="true"></i></button>
               <span class="pcard__status" role="status" aria-live="polite" data-copy-status></span>
             </div>
           </article>
@@ -180,7 +187,7 @@
             </div>
             <pre class="pcard__text" lang="en" data-prompt-text>Edit the first image (the night-time hero shot of a burger on asphalt with smoke). Add the small square stainless-steel wire fry basket filled with golden french fries, exactly as seen in the second and third reference photos, standing on the asphalt BEHIND the burger, offset to the right so that roughly half of the basket is hidden by the burger and the other half is visible, but the whole basket stays fully inside the frame with clear dark space between its right edge and the image border. The basket is about as tall as the burger, fries sticking out above the bun line, sitting at the same ground level with its own soft contact shadow and faint reflection on the asphalt. Match the scene lighting precisely: cold white floodlight from above and behind, warm highlights on the fries, haze and drifting white smoke partly wrapping around the basket, slightly softer focus because it is further from the camera. Keep everything else pixel-identical: the burger, skewer, egg, bun, smoke, light tower, ground texture, framing and colours must not change. Photorealistic, seamless, no text, no logos.</pre>
             <div class="pcard__foot">
-              <button class="btn btn--sm pcard__copy" type="button" data-copy><span data-i18n="prompt.ui.copy" data-copy-label>Prompt kopieren</span><i class="dot" aria-hidden="true"></i></button>
+              <button class="btn btn--sm pcard__copy" type="button" data-copy aria-describedby="prompt-p2-label" data-copied="Kopiert ✓" data-failed="Markieren &amp; kopieren"><span data-i18n="prompt.ui.copy" data-copy-label>Prompt kopieren</span><i class="dot" aria-hidden="true"></i></button>
               <span class="pcard__status" role="status" aria-live="polite" data-copy-status></span>
             </div>
           </article>
@@ -196,7 +203,7 @@
             </div>
             <pre class="pcard__text" lang="en" data-prompt-text>Locked-off static camera, no camera movement at all. The burger with the wooden skewer and the wire basket of fries behind it stand perfectly still on the asphalt — the food does not move, deform or change in any way. Only the atmosphere moves: thin white smoke drifts slowly from left to right behind and around the food, a few tiny glowing embers float down and fade out, the cold floodlight beams shimmer very subtly through the haze. Photorealistic food commercial, steady exposure, no flicker, no zoom, no text.</pre>
             <div class="pcard__foot">
-              <button class="btn btn--sm pcard__copy" type="button" data-copy><span data-i18n="prompt.ui.copy" data-copy-label>Prompt kopieren</span><i class="dot" aria-hidden="true"></i></button>
+              <button class="btn btn--sm pcard__copy" type="button" data-copy aria-describedby="prompt-p3-label" data-copied="Kopiert ✓" data-failed="Markieren &amp; kopieren"><span data-i18n="prompt.ui.copy" data-copy-label>Prompt kopieren</span><i class="dot" aria-hidden="true"></i></button>
               <span class="pcard__status" role="status" aria-live="polite" data-copy-status></span>
             </div>
           </article>
@@ -209,7 +216,7 @@
             </div>
             <pre class="pcard__text" lang="en" data-prompt-text>Cinematic night-time stunt commercial, photorealistic. The giant sesame burger with a wooden skewer is falling through the air above a floodlit asphalt arena. It rotates upright, then a bright blue-white rocket flame ignites underneath its bottom bun with a thick plume of white smoke, exactly like a reusable rocket booster coming in for a landing. It decelerates smoothly and descends perfectly vertically, the flame flaring and smoke billowing outward as it nears the ground, and touches down gently and precisely on the asphalt, the smoke spreading sideways in a low ring across the ground. The flame cuts off, the smoke thins and drifts, and the burger stands still, upright and intact, with the skewer vertical. The camera tilts down slowly to follow it and settles at the final low eye-level framing. Same lighting, light tower and arena as the first frame. No tumbling, no crash, no sparks, no text.</pre>
             <div class="pcard__foot">
-              <button class="btn btn--sm pcard__copy" type="button" data-copy><span data-i18n="prompt.ui.copy" data-copy-label>Prompt kopieren</span><i class="dot" aria-hidden="true"></i></button>
+              <button class="btn btn--sm pcard__copy" type="button" data-copy aria-describedby="prompt-p4-label" data-copied="Kopiert ✓" data-failed="Markieren &amp; kopieren"><span data-i18n="prompt.ui.copy" data-copy-label>Prompt kopieren</span><i class="dot" aria-hidden="true"></i></button>
               <span class="pcard__status" role="status" aria-live="polite" data-copy-status></span>
             </div>
           </article>
@@ -240,7 +247,7 @@
             </div>
             <pre class="pcard__text" lang="en" data-prompt-text>Replace the [OBJECT IN THE BASE CLIP] with the exact [YOUR PRODUCT] from the reference photos, together with [ACCESSORY — or delete this part] standing directly behind it. The [YOUR PRODUCT] is [DESCRIBE AT LEAST 5 DETAILS: shape, materials, colours, surfaces, toppings, label, what sticks out]. The product and the accessory move together as one rigid unit exactly where the [OBJECT IN THE BASE CLIP] was: launching up the ramp with the rocket thrusters and smoke, tumbling through the air, landing on the asphalt with the sparks and smoke, then standing still for the final hero shot. Keep the camera, timing, ramp, red neon rails, smoke, sparks, floodlights, shadows and background exactly as in the source video. Photorealistic commercial look: the product catches the same cold floodlight and warm thruster glow as the original object, with matching motion blur, contact shadows and ground reflections. No text, no logos, no [OBJECT IN THE BASE CLIP] remaining.</pre>
             <div class="pcard__foot">
-              <button class="btn btn--sm pcard__copy" type="button" data-copy><span data-i18n="prompt.ui.copy" data-copy-label>Prompt kopieren</span><i class="dot" aria-hidden="true"></i></button>
+              <button class="btn btn--sm pcard__copy" type="button" data-copy aria-describedby="prompt-template-label" data-copied="Kopiert ✓" data-failed="Markieren &amp; kopieren"><span data-i18n="prompt.ui.copy" data-copy-label>Prompt kopieren</span><i class="dot" aria-hidden="true"></i></button>
               <span class="pcard__status" role="status" aria-live="polite" data-copy-status></span>
             </div>
           </article>

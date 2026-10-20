@@ -1105,11 +1105,17 @@ $$('[data-reply-lang]').forEach((sel) => sel.addEventListener('change', () => { 
    -------------------------------------------------------------------------- */
 (function promptPage() {
   if (!document.body.hasAttribute('data-prompt-page')) return;
+  /* this page's markup is its own fallback: the active dictionary or the
+     markup's German, never the site's English fallback dictionary */
+  const own = (key, fallback) => { const v = get(dict, key); return typeof v === 'string' ? v : fallback; };
   const stunt = $('[data-stunt]');
   const video = stunt && $('[data-stunt-video]', stunt);
   const toggle = stunt && $('[data-stunt-toggle]', stunt);
   if (video && toggle) {
     video.removeAttribute('controls');               // the page has its own control
+    toggle.hidden = false;                           // (a late module takes over from the failsafe)
+    /* the markup's German labels are the fallback, not the site's English ones */
+    const fb = { play: toggle.dataset.labelPlay || 'Play video', pause: toggle.getAttribute('aria-label') || 'Pause video' };
     if (reduceMotion || motionOverride() === 'reduced') {
       video.removeAttribute('autoplay');
       video.autoplay = false;
@@ -1118,8 +1124,7 @@ $$('[data-reply-lang]').forEach((sel) => sel.addEventListener('change', () => { 
     const state = () => {
       const playing = !video.paused && !video.ended;
       stunt.classList.toggle('is-playing', playing);
-      toggle.setAttribute('aria-pressed', String(playing));
-      toggle.setAttribute('aria-label', t(playing ? 'prompt.ui.pause' : 'prompt.ui.play', playing ? 'Pause video' : 'Play video'));
+      toggle.setAttribute('aria-label', own(playing ? 'prompt.ui.pause' : 'prompt.ui.play', playing ? fb.pause : fb.play));
     };
     const flip = () => { if (video.paused || video.ended) video.play().catch(() => {}); else video.pause(); };
     ['play', 'playing', 'pause', 'ended'].forEach((ev) => video.addEventListener(ev, state));
@@ -1135,19 +1140,23 @@ $$('[data-reply-lang]').forEach((sel) => sel.addEventListener('change', () => { 
     if (!pre || !btn) return;
     const label = $('[data-copy-label]', btn);
     const status = $('[data-copy-status]', card);
+    const fb = { copy: label ? label.textContent : 'Copy prompt', copied: btn.dataset.copied || 'Copied ✓', failed: btn.dataset.failed || 'Select & copy' };
     let timer = 0;
+    const reset = () => {
+      clearTimeout(timer);
+      if (label) label.textContent = own('prompt.ui.copy', fb.copy);
+      if (status) status.textContent = '';
+      card.classList.remove('is-copied');
+    };
     const say = (key, fallback, ok) => {
-      const msg = t(key, fallback);
+      const msg = own(key, fallback);
       if (label) label.textContent = msg;
       if (status) status.textContent = msg;
       card.classList.toggle('is-copied', !!ok);
       clearTimeout(timer);
-      timer = setTimeout(() => {
-        if (label) label.textContent = t('prompt.ui.copy', 'Copy prompt');
-        if (status) status.textContent = '';
-        card.classList.remove('is-copied');
-      }, ok ? 2000 : 4000);
+      timer = setTimeout(reset, ok ? 2000 : 4000);
     };
+    window.addEventListener('bs:lang', reset);   // a switch mid-feedback would mix two languages
     /* selecting the text is the fallback, and what is left for the visitor */
     const select = () => {
       try {
@@ -1164,15 +1173,15 @@ $$('[data-reply-lang]').forEach((sel) => sel.addEventListener('change', () => { 
       if (navigator.clipboard && navigator.clipboard.writeText) {
         try {
           await navigator.clipboard.writeText(text);
-          say('prompt.ui.copied', 'Copied ✓', true);
+          say('prompt.ui.copied', fb.copied, true);
           return;
         } catch (e) { /* no permission: try the old way */ }
       }
       let done = false;
       const sel = select();
       try { done = !!sel && document.execCommand('copy'); } catch (e) { done = false; }
-      if (done) { say('prompt.ui.copied', 'Copied ✓', true); if (sel) sel.removeAllRanges(); }
-      else { select(); say('prompt.ui.copyFailed', 'Select & copy', false); }
+      if (done) { say('prompt.ui.copied', fb.copied, true); if (sel) sel.removeAllRanges(); }
+      else { select(); say('prompt.ui.copyFailed', fb.failed, false); }
     });
   });
 })();
