@@ -106,7 +106,7 @@ function applyDict() {
     else if (!el.dataset.started) el.textContent = '0' + (el.dataset.suffix || '');
   });
   const bc = $('[data-brand-count]');
-  if (bc) bc.innerHTML = esc(t('stage.brandsCount', '{n} brands and counting')).replace('{n}', `<b>${bc.dataset.n || $$('[data-brand]').length}</b>`);
+  if (bc) bc.innerHTML = esc(t('stage.brandsCount', '{n} brands')).replace('{n}', `<b>${bc.dataset.n || $$('[data-brand]').length}</b>`);
   const anchor = focusAnchor();          // the panel redraw below would drop it
   if (panel && panel.open && panelState) fillPanel(panelState);
   renderPrices();
