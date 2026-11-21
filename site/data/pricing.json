@@ -2,13 +2,6 @@
   "updated": "2026-10-17",
   "currency": "EUR",
   "vat_note": "Alle Preise sind Endpreise.",
-  "offer": {
-    "name": "Oktober-Aktion",
-    "headline": "50 % auf alle Websites",
-    "valid_until": "2026-10-31T23:59:59+01:00",
-    "applies_to": ["websites", "social_media_first_month"],
-    "terms": "Gilt für Aufträge, die bis zum 31.10.2026 unterschrieben sind. Social Media: 50 % auf den ersten Monat bei 3 Monaten Mindestlaufzeit. Ab dem 1. November gelten die regulären Preise."
-  },
   "websites": [
     {"id": "start", "name": "Website Start", "features": ["Onepager", "Mobil optimiert", "Impressum & Datenschutz", "Google-Unternehmensprofil eingerichtet"], "price": 1200, "offer_price": 600},
     {"id": "business", "name": "Website Business", "features": ["Bis 5 Seiten", "Kontakt- oder Reservierungsformular", "SEO-Grundlagen", "Google-Profil"], "price": 2400, "offer_price": 1200},

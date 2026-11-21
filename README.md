@@ -1,6 +1,6 @@
 # bluetensturm.com — BlütenSturm Noir
 
-The new website for BlütenSturm, built in the Noir brand (black and white, one pollen-yellow spark per surface) with all the content and the section order of the current bluetensturm.com, in all five languages: the hero, the eighteen services (each opens its detail), the five disciplines, the prices and the October offer (from your price list of 17.10.2026), why us, the work, the 44 brands (each opens its detail), the academy, the contact form and the questionnaire. Plain HTML, CSS and JavaScript: no framework, no build step, nothing to install. Ready for Netlify.
+The new website for BlütenSturm, built in the Noir brand (black and white, one pollen-yellow spark per surface) with all the content and the section order of the current bluetensturm.com, in all five languages: the hero, the eighteen services (each opens its detail), the five disciplines, the prices (from your price list of 17.10.2026), why us, the work, the 44 brands from your years as head of marketing at a distributor (each opens its detail), the academy, the contact form and the questionnaire. Plain HTML, CSS and JavaScript: no framework, no build step, nothing to install. Ready for Netlify.
 
 **Real brands. Real people.**
 
@@ -55,13 +55,13 @@ Every page except Impressum and Datenschutz is in **DE · EN · FR · ES · IT**
 
 The contact form (home page) and the questionnaire send to Formspree (`https://formspree.io/f/mvkpynzr`, the same endpoint as today), which forwards to **info@bluetensturm.com**. On success the visitor lands on `/thank-you`. If Formspree can't be reached, the visitor gets a button that opens their own e-mail app with everything they typed, so no enquiry is lost. Every "Request" button in the price list pre-fills the form with the exact package and price in German (during the October offer: the offer price and the regular one, e.g. "Website Business — Oktober-Aktion: 1.200 € statt 2.400 €"), so you see which price the visitor saw.
 
-## Prices and the October offer
+## Prices and offers
 
 All prices come from **`site/data/pricing.json`**, your price list of 17.10.2026, saved exactly as you sent it (the table texts the JSON did not carry, such as the features of the Academy and the in-store promotions, were added from the same file; no other prices exist on the site). The home page shows them in the section **Preise & Angebote**, in all five languages; the German is word for word yours. "Alle Preise sind Endpreise." stands under the prices and in the footer of every page.
 
-The **Oktober-Aktion** (banner in the price section, a link under the hero buttons, the regular price struck through next to the October price) shows only until **31.10.2026, 23:59:59** (Berlin time; on the server's clock it can end up to a second early, never late) and disappears by itself from 1 November 00:00, also on a page that is open at midnight, and also when a visitor's own clock is behind (the site checks the server's clock when the page opens, when the visitor comes back to it and before a form is sent, and from then on counts in server time). Without JavaScript only the regular prices show.
+The **Oktober-Aktion** ended on 31.10.2026 and has been removed: the site shows the regular prices only. A future offer goes into the JSON as an `"offer"` block (name, headline, terms, `valid_until` = the last second of the last day, Berlin time). The site then shows a banner in the price section, a link under the hero buttons and the regular price struck through next to the offer price, and switches it all off by itself at the deadline, by the server's clock (it can end up to a second early, never late). Without JavaScript only the regular prices show.
 
-To change a price: edit `site/data/pricing.json`, then run `python3 tools/pricing.py` (it rewrites the price section and the translations) and `python3 tools/check_site.py`. **Editing the JSON alone does not change the prices on the page** (it can only end the offer early): Netlify builds nothing, so a JSON edited (for example in GitHub's web editor) and published without running the tool leaves the old prices on the page. Ask Claude Code to change prices, or run the tool yourself before you publish. A new or changed German text needs its translations in `tools/pricing_i18n.json`; the tool tells you which. When the offer ends, delete the `"offer"` block from the JSON, run the tool again and publish, ideally right at midnight on 1 November: until then the offer is hidden, but still in the page source, and a visitor whose own clock is behind can see it for a moment before the page has checked the server's clock. The check reminds you once the date has passed.
+To change a price: edit `site/data/pricing.json`, then run `python3 tools/pricing.py` (it rewrites the price section and the translations) and `python3 tools/check_site.py`. **Editing the JSON alone does not change the prices on the page** (it can only end the offer early): Netlify builds nothing, so a JSON edited (for example in GitHub's web editor) and published without running the tool leaves the old prices on the page. Ask Claude Code to change prices, or run the tool yourself before you publish. A new or changed German text needs its translations in `tools/pricing_i18n.json`; the tool tells you which. When an offer ends, delete the `"offer"` block from the JSON, run the tool again and publish, ideally right at the deadline: until then the offer is hidden, but still in the page source, and a visitor whose own clock is behind can see it for a moment before the page has checked the server's clock. The check reminds you once the date has passed.
 
 ## Deploy
 
@@ -109,13 +109,13 @@ Things only you can confirm. Placeholders on the legal pages are shown in **yell
 
 **Content carried over from the old site that was written as placeholder text**
 - Prices: done. The old "from" prices and the Normal/Premium packages of the 18 services are gone; only your price list of 17.10.2026 is shown. The old 500 € website price appears nowhere (the check refuses it). Instagram highlights, bio and the sales agent skill are outside this website: update them yourself.
-- [ ] **The four numbers** under "Franconian roots": 120 projects, 9 markets, 2,400 leaders trained, 94 % client retention.
+- [ ] **The three numbers** under "Franconian roots": 9 markets, 2,400 leaders trained, 94 % client retention (the projects count was removed).
 - [ ] **The four anonymised case studies** (manufacturer rebrand, DACH launch, 400-manager programme, Würzburg summit). Keep them only if they are real; otherwise delete that block.
 - [ ] **"Presence: Würzburg · Berlin · Zürich · Wien · Milano"** under the facts.
 
 **New content from the brand package**
 - [ ] **Client names** in "Recent storms": Café Mozart Würzburg, Restaurant Hole 19, Linie 14, Pizza Marco Würzburg, ShiftCircle. Ask each client if they are happy to be named.
-- [ ] **The 44 brand logos** (FMCG brands from the Balkan distribution work) are the same as on the current site; make sure you are allowed to show them.
+- [ ] **The 44 brand logos** are the FMCG brands you handled as head of marketing at a distributor in Albania, Kosovo and North Macedonia; the site says so, without naming the distributor. Make sure you are allowed to show the logos.
 - [ ] **People**: Nezir's bio is written from your profile; **Dijan has no bio yet** (one sentence is enough).
 - [ ] **BlütenSturm Live** (in-store games, "Book a demo day"): remove the section if you are not offering it yet.
 

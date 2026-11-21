@@ -118,7 +118,6 @@ em { font-style: italic; }
 .sheet__top img { width: 160px; height: auto; }
 .sheet__links { margin-top: 48px; border-top: 1px solid var(--rauch); }
 .sheet__links a { display: flex; justify-content: space-between; align-items: baseline; padding: 14px 0; border-bottom: 1px solid var(--rauch); text-decoration: none; color: var(--weiss); font-family: var(--serif); font-size: 44px; line-height: 1.05; }
-.sheet__links a .n { font-style: italic; font-size: 16px; color: var(--asche); }
 .sheet__end { margin-top: auto; padding-top: 32px; display: flex; flex-direction: column; gap: 20px; }
 .sheet__end .btn { width: 100%; min-height: 52px; }
 html.is-locked, html.is-locked body { overflow: hidden; }
@@ -147,7 +146,7 @@ html.is-locked, html.is-locked body { overflow: hidden; }
 /* 01 — agency */
 .statement { font-family: var(--serif); font-size: 46px; line-height: 1.2; max-width: 21em; color: var(--weiss); }
 .about-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 64px; align-items: start; }
-.stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--rauch); }
+.stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--rauch); }
 .stat { padding: 28px 24px 0 0; }
 .stat + .stat { padding-left: 24px; border-left: 1px solid var(--rauch); }
 .stat__value { font-family: var(--serif); font-style: italic; font-size: 64px; line-height: 1; color: var(--weiss); font-variant-numeric: tabular-nums; }
