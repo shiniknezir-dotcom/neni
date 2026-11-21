@@ -37,8 +37,8 @@
     "staticTitle": "Cosa facciamo",
     "staticNote": "Diciotto servizi. Selezionane uno per i dettagli.",
     "brandsTitle": "Leader del Mittelstand. Brand challenger. Nove mercati.",
-    "brandsNote": "Clienti selezionati.",
-    "brandsCount": "{n} brand e la lista si allunga"
+    "brandsNote": "Brand con cui abbiamo lavorato.",
+    "brandsCount": "{n} brand"
   },
   "svc": {
     "brand-strategy": {
@@ -225,7 +225,7 @@
   },
   "panel": {
     "service": "Servizio",
-    "partner": "Partner"
+    "partner": "Brand"
   },
   "marquee": [
     "Brand strategy",
@@ -235,11 +235,10 @@
     "Formazione aziendale"
   ],
   "about": {
-    "eyebrow": "01 — L'agenzia",
+    "eyebrow": "L'agenzia",
     "title": "Radici francone.<br>Portata europea.",
     "p1": "Blüten Sturm è nata a Würzburg — una città di vigneti, pietra barocca e artigianato ostinato. Abbiamo tenuto l'artigianato e aggiunto velocità. Oggi lavoriamo con leader del Mittelstand, brand sfidanti e istituzioni che vogliono un marketing capace di muovere i mercati e team in grado di sostenerlo.",
     "p2": "Un team, tre discipline: creatività che si ricorda, strategia che viene approvata e formazione che la radica nell'organizzazione.",
-    "stat1": "Progetti realizzati",
     "stat2": "Mercati",
     "stat3": "Leader formati",
     "stat4": "Fidelizzazione clienti",
@@ -252,7 +251,7 @@
     "f4": "Presenza"
   },
   "services": {
-    "eyebrow": "02 — Servizi",
+    "eyebrow": "Servizi",
     "title": "Cinque discipline,<br>un solo sistema.",
     "lead": "Attivane una. O affidaci l'intero stack — dal workshop di posizionamento alla dashboard di performance.",
     "hint": "Ogni scheda apre perimetro e pacchetti",
@@ -272,7 +271,7 @@
     "c5p": "Sviluppo della leadership, comunicazione, customer care e abilitazione alla vendita — certificato, bilingue, in azienda o fuori sede."
   },
   "why": {
-    "eyebrow": "03 — Perché Blüten Sturm",
+    "eyebrow": "Perché Blüten Sturm",
     "title": "Le agenzie presentano idee. Noi rispondiamo dei risultati.",
     "t1": "Rigore da consulenti",
     "p1": "Ogni rotta creativa poggia su una tesi commerciale difendibile in consiglio.",
@@ -284,7 +283,7 @@
     "p4": "Le campagne finiscono. La competenza resta — il tuo team saprà farlo da solo."
   },
   "work": {
-    "eyebrow": "04 — Lavori selezionati",
+    "eyebrow": "Lavori selezionati",
     "title": "Tempeste recenti.",
     "request": "Richiedi il portfolio completo",
     "k1": "Rebranding · Mittelstand",
@@ -302,9 +301,9 @@
     "note": "I casi sono anonimizzati qui su richiesta dei nostri clienti. Il portfolio completo — nomi, numeri e immagini — è disponibile su richiesta sotto NDA."
   },
   "portfolio": {
-    "eyebrow": "05 — Portfolio",
-    "title": "Brand che muoviamo.",
-    "lead": "Partnership di distribuzione nei Balcani — budget di marketing, creatività, media e sell-out, riuniti sotto un'unica regia.",
+    "eyebrow": "Portfolio",
+    "title": "Brand che conosciamo dall’interno.",
+    "lead": "Prima di Blüten Sturm, chi oggi guida l’agenzia ha lavorato per anni come responsabile marketing presso il distributore di questi brand in Albania, Kosovo e Macedonia del Nord, occupandosi dei loro budget, della loro presenza sul mercato e delle loro campagne.",
     "hint": "Tocca un logo per vedere il lavoro",
     "bandTitle": "Lavoriamo insieme.",
     "bandText": "Brand, campagna, evento o programma dell'Academy — inviaci il brief e ti proponiamo un percorso, un team e una cifra.",
@@ -321,19 +320,18 @@
       "frozen": "Surgelati e verdure",
       "bakery": "Prodotti da forno e cereali"
     },
-    "markets": "Albania · Kosovo · Balcani",
-    "summary": "Una partnership di distribuzione con base nei Balcani: facciamo da ponte tra il brand e il distributore regionale, gestiamo il budget di marketing e veniamo misurati su ciò che esce dallo scaffale, non su ciò che viene pubblicato.",
+    "markets": "Albania · Kosovo · Macedonia del Nord",
+    "summary": "Chi oggi guida Blüten Sturm ha seguito questo brand per anni come responsabile marketing del suo distributore in Albania, Kosovo e Macedonia del Nord, occupandosi del budget di marketing, della presenza sul mercato, delle campagne e dei report al brand.",
     "work": [
-      "Partnership di distribuzione gestite nei mercati balcanici",
-      "Budget di marketing gestiti e rendicontati per Albania e Kosovo",
-      "Contenuti creativi realizzati per i social media, in lingua locale",
-      "Pubblicità a pagamento pianificata, gestita e ottimizzata in funzione del sell-out",
-      "Promozioni in store e stagionali sviluppate con il distributore",
-      "Vendite gestite secondo il calendario delle campagne, rendicontate mese per mese"
+      "Anni alla guida del marketing presso il distributore del brand in Albania, Kosovo e Macedonia del Nord",
+      "Budget di marketing pianificato, gestito e rendicontato al brand",
+      "Presenza sul mercato: referenziamento, spazio a scaffale e visibilità nel punto vendita, concordati con i rivenditori",
+      "Campagne, promozioni e lanci pianificati e realizzati sul territorio, in lingua locale",
+      "Risultati riportati direttamente al team del brand"
     ]
   },
   "academy": {
-    "eyebrow": "06 — Academy aziendale",
+    "eyebrow": "Academy aziendale",
     "title": "Formazione che sopravvive alla campagna.",
     "p1": "La Blüten Sturm Academy propone programmi modulari per leadership, comunicazione, customer care, vendite e marketing — in tedesco o inglese, a Würzburg, nella vostra sede o in ibrido in tutta Europa.",
     "p2": "Moduli da mezza giornata, un giorno e due giorni · piccoli gruppi · casi reali dalla vostra azienda · un attestato di partecipazione per ogni persona.",
@@ -357,7 +355,7 @@
     "m4p": "Due giorni · standard di servizio, conversazioni difficili, gestione dei reclami e passaggio di consegne alle vendite."
   },
   "contact": {
-    "eyebrow": "07 — Contatti",
+    "eyebrow": "Contatti",
     "title": "Facciamo il tempo.",
     "lead": "Raccontaci cosa stai costruendo. Rispondiamo a ogni richiesta seria entro due giorni lavorativi.",
     "questionnaire": "Preferisci il questionario completo?",

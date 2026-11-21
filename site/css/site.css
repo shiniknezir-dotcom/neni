@@ -342,7 +342,7 @@ html.runway:has(.hero__copy :focus-visible) .offer-pill { transform: translateY(
 .about__mark { position: absolute; right: -22px; bottom: -26px; width: 92px; fill: var(--lime); filter: drop-shadow(0 18px 30px rgba(15, 42, 29, .25)); animation: sway 7s ease-in-out infinite; }
 @keyframes sway { 50% { transform: rotate(-6deg) translateY(-8px); } }
 .about__copy { display: grid; gap: 26px; padding-top: clamp(0px, 7vw, 120px); }
-.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; margin-top: 10px; padding-top: 34px; border-top: 1px solid var(--ink-12); }
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 10px; padding-top: 34px; border-top: 1px solid var(--ink-12); }
 .stat b { display: block; font-family: var(--display); font-weight: 700; font-size: clamp(32px, 3.3vw, 52px); line-height: 1; letter-spacing: -.03em; color: var(--forest); font-variant-numeric: tabular-nums; }
 .stat span { display: block; margin-top: 12px; font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-55); }
 .facts { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--ink-12); }
@@ -805,6 +805,7 @@ html:not(.js) .petal-btn, html:not(.js) .brand-tile { pointer-events: none; curs
   html:not(.runway) .petal-btn { min-height: 92px; }
   .petal-btn__go { right: 12px; top: 12px; width: 9px; height: 9px; }
   .stats { grid-template-columns: repeat(2, 1fr); }
+  .stat:nth-child(3) { grid-column: 1 / -1; }   /* three stats: the last takes the full row */
   .why { grid-template-columns: 1fr; }
   .why > div, .why > div:nth-child(even), .why > div:not(:first-child) { padding: 26px 0; border-right: 0; border-bottom: 1px solid var(--ink-12); }
   .why > div:last-child { border-bottom: 0; }

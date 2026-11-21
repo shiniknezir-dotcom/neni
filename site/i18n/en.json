@@ -37,8 +37,8 @@
     "staticTitle": "What we do",
     "staticNote": "Eighteen services. Select one for detail.",
     "brandsTitle": "Mittelstand leaders. Challenger brands. Nine markets.",
-    "brandsNote": "Selected clients.",
-    "brandsCount": "{n} brands and counting"
+    "brandsNote": "Brands we have worked with.",
+    "brandsCount": "{n} brands"
   },
   "svc": {
     "brand-strategy": {
@@ -225,7 +225,7 @@
   },
   "panel": {
     "service": "Service",
-    "partner": "Partner"
+    "partner": "Brand"
   },
   "marquee": [
     "Brand Strategy",
@@ -235,11 +235,10 @@
     "Corporate Training"
   ],
   "about": {
-    "eyebrow": "01 — The agency",
+    "eyebrow": "The agency",
     "title": "Franconian roots.<br>European reach.",
     "p1": "Blüten Sturm was founded in Würzburg — a city of vineyards, baroque stone and stubborn craft. We kept the craft and added velocity. Today we work with Mittelstand leaders, challenger brands and institutions who need marketing that moves markets and teams able to carry it.",
     "p2": "One team, three disciplines: creative that gets remembered, strategy that gets signed off, and training that makes it stick inside the organisation.",
-    "stat1": "Projects shipped",
     "stat2": "Markets",
     "stat3": "Leaders trained",
     "stat4": "Client retention",
@@ -252,7 +251,7 @@
     "f4": "Presence"
   },
   "services": {
-    "eyebrow": "02 — Services",
+    "eyebrow": "Services",
     "title": "Five disciplines,<br>one operating system.",
     "lead": "Engage one. Or let us run the whole stack — from positioning workshop to performance dashboard.",
     "hint": "Open any card for scope and packages",
@@ -272,7 +271,7 @@
     "c5p": "Leadership development, communication, customer care and sales enablement — certified, bilingual, in-house or off-site."
   },
   "why": {
-    "eyebrow": "03 — Why Blüten Sturm",
+    "eyebrow": "Why Blüten Sturm",
     "title": "Agencies pitch ideas. We are accountable for outcomes.",
     "t1": "Consultant rigour",
     "p1": "Every creative route is tied to a commercial thesis you can defend to a board.",
@@ -284,7 +283,7 @@
     "p4": "Campaigns end. Capability stays — your team leaves able to run it themselves."
   },
   "work": {
-    "eyebrow": "04 — Selected work",
+    "eyebrow": "Selected work",
     "title": "Recent storms.",
     "request": "Request full portfolio",
     "k1": "Rebrand · Mittelstand",
@@ -302,9 +301,9 @@
     "note": "Case studies are anonymised here at our clients’ request. The full portfolio — names, figures and imagery — is available on request under NDA."
   },
   "portfolio": {
-    "eyebrow": "05 — Portfolio",
-    "title": "Brands we move.",
-    "lead": "Distribution partnerships across the Balkans — the marketing budget, the creative, the media and the sell-out, held in one place.",
+    "eyebrow": "Portfolio",
+    "title": "Brands we know from the inside.",
+    "lead": "Before Blüten Sturm, our co-founder spent years as head of marketing at the distributor of these brands in Albania, Kosovo and North Macedonia — responsible for their budgets, their placement in the market and their campaigns.",
     "hint": "Open any logo for the work",
     "bandTitle": "Let's work together.",
     "bandText": "Brand, campaign, event or academy programme — send us the brief and we'll come back with a route, a team and a number.",
@@ -321,19 +320,18 @@
       "frozen": "Frozen & Vegetables",
       "bakery": "Bakery & Grains"
     },
-    "markets": "Albania · Kosovo · Balkans",
-    "summary": "A distribution partnership run out of the Balkans: we sit between the brand and the regional distributor, hold the marketing budget, and are measured on what leaves the shelf rather than on what was posted.",
+    "markets": "Albania · Kosovo · North Macedonia",
+    "summary": "Our co-founder worked with this brand for years as head of marketing at its distributor in Albania, Kosovo and North Macedonia — responsible for the marketing budget, the placement in the market, the campaigns and the reporting back to the brand.",
     "work": [
-      "Distribution partnerships managed across the Balkan markets",
-      "Marketing budgets held and reported for Albania and Kosovo",
-      "Creative content produced for social media, in local language",
-      "Paid advertising planned, run and optimised against sell-out",
-      "In-store and seasonal promotions built with the distributor",
-      "Sales managed through the campaign calendar, reported month by month"
+      "Years as head of marketing at the brand’s distributor in Albania, Kosovo and North Macedonia",
+      "Marketing budget planned, managed and reported to the brand",
+      "Placement in the market: listings, shelf space and in-store presence with the retail trade",
+      "Campaigns, promotions and launches planned and run locally, in the local language",
+      "Results reported to the brand’s own team"
     ]
   },
   "academy": {
-    "eyebrow": "06 — Corporate academy",
+    "eyebrow": "Corporate academy",
     "title": "Training that outlives the campaign.",
     "p1": "The Blüten Sturm Academy runs modular programmes for leadership, communication, customer care, sales and marketing teams — delivered in German or English, in Würzburg, on your site, or hybrid across Europe.",
     "p2": "Half-day, one-day and two-day modules · small groups · real cases from your own business · a certificate of completion for every participant.",
@@ -357,7 +355,7 @@
     "m4p": "Two days · service standards, difficult conversations, complaint recovery and the handover back to sales."
   },
   "contact": {
-    "eyebrow": "07 — Contact",
+    "eyebrow": "Contact",
     "title": "Let's make weather.",
     "lead": "Tell us what you're building. We answer every serious enquiry within two working days.",
     "questionnaire": "Prefer the full questionnaire?",

@@ -37,8 +37,8 @@
     "staticTitle": "Ce que nous faisons",
     "staticNote": "Dix-huit services. Sélectionnez-en un pour en voir le détail.",
     "brandsTitle": "Leaders du Mittelstand. Marques challengers. Neuf marchés.",
-    "brandsNote": "Sélection de clients.",
-    "brandsCount": "{n} marques, et la liste s'allonge"
+    "brandsNote": "Des marques avec lesquelles nous avons travaillé.",
+    "brandsCount": "{n} marques"
   },
   "svc": {
     "brand-strategy": {
@@ -225,7 +225,7 @@
   },
   "panel": {
     "service": "Prestation",
-    "partner": "Partenaire"
+    "partner": "Marque"
   },
   "marquee": [
     "Stratégie de marque",
@@ -235,11 +235,10 @@
     "Formation en entreprise"
   ],
   "about": {
-    "eyebrow": "01 — L'agence",
+    "eyebrow": "L'agence",
     "title": "Racines franconiennes.<br>Portée européenne.",
     "p1": "Blüten Sturm est née à Wurtzbourg — une ville de vignobles, de pierre baroque et d'artisanat obstiné. Nous avons gardé l'artisanat et ajouté la vitesse. Aujourd'hui nous accompagnons des ETI, des marques challengers et des institutions qui veulent un marketing qui déplace les marchés et des équipes capables de le porter.",
     "p2": "Une équipe, trois disciplines : une création mémorable, une stratégie validée, et une formation qui l'ancre dans l'organisation.",
-    "stat1": "Projets livrés",
     "stat2": "Marchés",
     "stat3": "Dirigeants formés",
     "stat4": "Fidélisation clients",
@@ -252,7 +251,7 @@
     "f4": "Présence"
   },
   "services": {
-    "eyebrow": "02 — Services",
+    "eyebrow": "Services",
     "title": "Cinq disciplines,<br>un seul système.",
     "lead": "Choisissez-en une. Ou confiez-nous l'ensemble — de l'atelier de positionnement au tableau de bord de performance.",
     "hint": "Chaque carte ouvre le périmètre et les formules",
@@ -272,7 +271,7 @@
     "c5p": "Développement du leadership, communication, relation client et efficacité commerciale — certifié, bilingue, en interne ou hors site."
   },
   "why": {
-    "eyebrow": "03 — Pourquoi Blüten Sturm",
+    "eyebrow": "Pourquoi Blüten Sturm",
     "title": "Les agences présentent des idées. Nous répondons des résultats.",
     "t1": "Rigueur de consultant",
     "p1": "Chaque piste créative repose sur une thèse commerciale défendable devant un conseil.",
@@ -284,7 +283,7 @@
     "p4": "Les campagnes s'arrêtent. La compétence reste — votre équipe sait faire seule."
   },
   "work": {
-    "eyebrow": "04 — Réalisations choisies",
+    "eyebrow": "Réalisations choisies",
     "title": "Tempêtes récentes.",
     "request": "Demander le portfolio complet",
     "k1": "Rebranding · ETI",
@@ -302,9 +301,9 @@
     "note": "Les études de cas sont anonymisées ici à la demande de nos clients. Le portfolio complet — noms, chiffres et visuels — est disponible sur demande sous NDA."
   },
   "portfolio": {
-    "eyebrow": "05 — Portfolio",
-    "title": "Les marques que nous faisons avancer.",
-    "lead": "Des partenariats de distribution dans les Balkans — le budget marketing, la création, les médias et le sell-out, réunis entre les mêmes mains.",
+    "eyebrow": "Portfolio",
+    "title": "Des marques que nous connaissons de l’intérieur.",
+    "lead": "Avant Blüten Sturm, notre direction a dirigé pendant des années le marketing du distributeur de ces marques en Albanie, au Kosovo et en Macédoine du Nord — responsable de leurs budgets, de leur implantation sur le marché et de leurs campagnes.",
     "hint": "Cliquez sur un logo pour voir le travail",
     "bandTitle": "Travaillons ensemble.",
     "bandText": "Marque, campagne, événement ou programme de l'académie — envoyez-nous le brief, nous revenons vers vous avec une piste, une équipe et un chiffre.",
@@ -321,19 +320,18 @@
       "frozen": "Surgelés & légumes",
       "bakery": "Boulangerie & céréales"
     },
-    "markets": "Albanie · Kosovo · Balkans",
-    "summary": "Un partenariat de distribution piloté depuis les Balkans : nous faisons le lien entre la marque et le distributeur régional, gérons le budget marketing et sommes évalués sur ce qui sort du rayon, pas sur ce qui a été publié.",
+    "markets": "Albanie · Kosovo · Macédoine du Nord",
+    "summary": "Notre direction a accompagné cette marque pendant des années à la tête du marketing de son distributeur en Albanie, au Kosovo et en Macédoine du Nord — responsable du budget marketing, de l’implantation sur le marché, des campagnes et du reporting auprès de la marque.",
     "work": [
-      "Partenariats de distribution gérés sur les marchés des Balkans",
-      "Budgets marketing gérés et suivis pour l'Albanie et le Kosovo",
-      "Contenus créatifs produits pour les réseaux sociaux, en langue locale",
-      "Publicité payante planifiée, diffusée et optimisée en fonction du sell-out",
-      "Promotions en magasin et saisonnières conçues avec le distributeur",
-      "Ventes pilotées selon le calendrier de campagne, avec un reporting mensuel"
+      "Plusieurs années à la tête du marketing du distributeur de la marque en Albanie, au Kosovo et en Macédoine du Nord",
+      "Budget marketing planifié, piloté et justifié auprès de la marque",
+      "Implantation sur le marché : référencements, part de linéaire et présence en magasin, négociés avec les enseignes et les détaillants",
+      "Campagnes, promotions et lancements conçus et menés sur place, dans la langue de chaque marché",
+      "Résultats présentés directement à l’équipe de la marque"
     ]
   },
   "academy": {
-    "eyebrow": "06 — Académie d'entreprise",
+    "eyebrow": "Académie d'entreprise",
     "title": "Une formation qui survit à la campagne.",
     "p1": "La Blüten Sturm Academy propose des programmes modulaires pour le leadership, la communication, la relation client, la vente et le marketing — en allemand ou en anglais, à Wurtzbourg, chez vous ou en hybride partout en Europe.",
     "p2": "Modules d’une demi-journée, d’une journée et de deux jours · petits groupes · cas réels tirés de votre entreprise · une attestation pour chaque participant.",
@@ -357,7 +355,7 @@
     "m4p": "Deux jours · standards de service, conversations difficiles, traitement des réclamations et passage de relais au commerce."
   },
   "contact": {
-    "eyebrow": "07 — Contact",
+    "eyebrow": "Contact",
     "title": "Faisons la pluie et le beau temps.",
     "lead": "Dites-nous ce que vous construisez. Nous répondons à toute demande sérieuse en deux jours ouvrés.",
     "questionnaire": "Vous préférez le questionnaire complet ?",

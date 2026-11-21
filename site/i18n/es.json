@@ -37,8 +37,8 @@
     "staticTitle": "Qué hacemos",
     "staticNote": "Dieciocho servicios. Seleccione uno para ver el detalle.",
     "brandsTitle": "Líderes del Mittelstand. Marcas challenger. Nueve mercados.",
-    "brandsNote": "Una selección de clientes.",
-    "brandsCount": "{n} marcas y sumando"
+    "brandsNote": "Marcas con las que hemos trabajado.",
+    "brandsCount": "{n} marcas"
   },
   "svc": {
     "brand-strategy": {
@@ -225,7 +225,7 @@
   },
   "panel": {
     "service": "Servicio",
-    "partner": "Socio"
+    "partner": "Marca"
   },
   "marquee": [
     "Estrategia de marca",
@@ -235,11 +235,10 @@
     "Formación corporativa"
   ],
   "about": {
-    "eyebrow": "01 — La agencia",
+    "eyebrow": "La agencia",
     "title": "Raíces franconas.<br>Alcance europeo.",
     "p1": "Blüten Sturm nació en Wurzburgo — una ciudad de viñedos, piedra barroca y oficio tenaz. Conservamos el oficio y le añadimos velocidad. Hoy trabajamos con líderes del Mittelstand, marcas retadoras e instituciones que necesitan un marketing que mueva mercados y equipos capaces de sostenerlo.",
     "p2": "Un equipo, tres disciplinas: creatividad que se recuerda, estrategia que se aprueba y formación que la fija en la organización.",
-    "stat1": "Proyectos entregados",
     "stat2": "Mercados",
     "stat3": "Líderes formados",
     "stat4": "Retención de clientes",
@@ -252,7 +251,7 @@
     "f4": "Presencia"
   },
   "services": {
-    "eyebrow": "02 — Servicios",
+    "eyebrow": "Servicios",
     "title": "Cinco disciplinas,<br>un solo sistema.",
     "lead": "Contrate una. O déjenos el conjunto completo — del taller de posicionamiento al panel de rendimiento.",
     "hint": "Cada tarjeta abre el alcance y los paquetes",
@@ -272,7 +271,7 @@
     "c5p": "Desarrollo de liderazgo, comunicación, atención al cliente y capacitación comercial — certificado, bilingüe, in-house o externo."
   },
   "why": {
-    "eyebrow": "03 — Por qué Blüten Sturm",
+    "eyebrow": "Por qué Blüten Sturm",
     "title": "Las agencias presentan ideas. Nosotros respondemos por los resultados.",
     "t1": "Rigor de consultoría",
     "p1": "Cada ruta creativa se apoya en una tesis comercial defendible ante un consejo.",
@@ -284,7 +283,7 @@
     "p4": "Las campañas terminan. La capacidad se queda — su equipo sabe hacerlo solo."
   },
   "work": {
-    "eyebrow": "04 — Proyectos seleccionados",
+    "eyebrow": "Proyectos seleccionados",
     "title": "Tormentas recientes.",
     "request": "Solicitar el portfolio completo",
     "k1": "Rebranding · Mittelstand",
@@ -302,9 +301,9 @@
     "note": "Los casos se presentan anonimizados a petición de nuestros clientes. El portfolio completo — nombres, cifras e imágenes — está disponible bajo petición y NDA."
   },
   "portfolio": {
-    "eyebrow": "05 — Portfolio",
-    "title": "Marcas que movemos.",
-    "lead": "Alianzas de distribución en los Balcanes — el presupuesto de marketing, la creatividad, los medios y el sell-out, todo en las mismas manos.",
+    "eyebrow": "Portfolio",
+    "title": "Marcas que conocemos desde dentro.",
+    "lead": "Antes de Blüten Sturm, nuestra dirección pasó años al frente del marketing del distribuidor de estas marcas en Albania, Kosovo y Macedonia del Norte — responsable de sus presupuestos, de su implantación en el mercado y de sus campañas.",
     "hint": "Toque un logo para ver el trabajo",
     "bandTitle": "Trabajemos juntos.",
     "bandText": "Marca, campaña, evento o programa de la academia — envíenos el brief y le responderemos con una ruta, un equipo y una cifra.",
@@ -321,19 +320,18 @@
       "frozen": "Congelados y verduras",
       "bakery": "Panadería y cereales"
     },
-    "markets": "Albania · Kosovo · Balcanes",
-    "summary": "Una alianza de distribución dirigida desde los Balcanes: nos situamos entre la marca y el distribuidor regional, gestionamos el presupuesto de marketing y se nos mide por lo que sale del lineal, no por lo que se publica.",
+    "markets": "Albania · Kosovo · Macedonia del Norte",
+    "summary": "Durante años, nuestra dirección trabajó con esta marca al frente del marketing de su distribuidor en Albania, Kosovo y Macedonia del Norte — a cargo del presupuesto de marketing, de la implantación en el mercado, de las campañas y de los informes de resultados a la marca.",
     "work": [
-      "Alianzas de distribución gestionadas en los mercados de los Balcanes",
-      "Presupuestos de marketing para Albania y Kosovo, gestionados con rendición de cuentas",
-      "Contenido creativo producido para redes sociales, en el idioma local",
-      "Publicidad de pago planificada, gestionada y optimizada en función del sell-out",
-      "Promociones en el punto de venta y de temporada, diseñadas con el distribuidor",
-      "Ventas gestionadas según el calendario de campañas, con informes mensuales"
+      "Años al frente del marketing del distribuidor de la marca en Albania, Kosovo y Macedonia del Norte",
+      "Presupuesto de marketing: planificación, gestión e informes a la marca",
+      "Implantación en el mercado: referenciación, espacio en el lineal y presencia en el punto de venta, de la mano del comercio minorista",
+      "Campañas, promociones y lanzamientos planificados y ejecutados sobre el terreno, en el idioma de cada mercado",
+      "Resultados presentados al propio equipo de la marca"
     ]
   },
   "academy": {
-    "eyebrow": "06 — Academia corporativa",
+    "eyebrow": "Academia corporativa",
     "title": "Formación que sobrevive a la campaña.",
     "p1": "La Blüten Sturm Academy imparte programas modulares para liderazgo, comunicación, atención al cliente, ventas y marketing — en alemán o inglés, en Wurzburgo, en su sede o en formato híbrido por toda Europa.",
     "p2": "Módulos de medio día, un día y dos días · grupos pequeños · casos reales de su propia empresa · certificado de participación para cada persona.",
@@ -357,7 +355,7 @@
     "m4p": "Dos días · estándares de servicio, conversaciones difíciles, gestión de reclamaciones y traspaso de vuelta a ventas."
   },
   "contact": {
-    "eyebrow": "07 — Contacto",
+    "eyebrow": "Contacto",
     "title": "Hagamos que cambie el clima.",
     "lead": "Cuéntenos qué está construyendo. Respondemos a cada consulta seria en dos días laborables.",
     "questionnaire": "¿Prefiere el cuestionario completo?",
