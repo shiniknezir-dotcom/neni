@@ -1,0 +1,22 @@
+# Netlify redirects for bluetensturm.com
+# Docs: https://docs.netlify.com/routing/redirects/
+# Spaces in old file names are written as %20.
+
+# www.bluetensturm.com is answered by STRATO (it forwards to https://bluetensturm.com),
+# so there is no host rule here. Netlify already sends HTTP to HTTPS.
+
+# Pages of the previous build -> the new pages
+/Bluten%20Sturm%20v2.dc.html   /                 301
+/bluten%20sturm%20v2.dc.html   /                 301
+/Bluten%20Sturm%20v2.dc        /                 301
+/bluten%20sturm%20v2.dc        /                 301
+/questionnaire.dc              /questionnaire    301
+/questionnaire.dc.html         /questionnaire    301
+/Thank%20You.dc.html           /thank-you        301
+/thank%20you.dc.html           /thank-you        301
+/Thank%20You.dc                /thank-you        301
+/thank%20you.dc                /thank-you        301
+/thankyou                      /thank-you        301
+/thankyou.html                 /thank-you        301
+/privacy                       /datenschutz      301
+/imprint                       /impressum        301

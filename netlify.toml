@@ -1,0 +1,13 @@
+# Netlify configuration for bluetensturm.com
+#
+# Plain static site: no framework, no build step. Netlify publishes the
+# files in /site exactly as they are. The command below only overrides any
+# build command left over in the Netlify UI from earlier deploys.
+#
+# Headers (security, caching) and redirects live in site/_headers and
+# site/_redirects, so they also apply when the site folder is deployed by
+# drag-and-drop or with `netlify deploy --dir=site`.
+
+[build]
+  publish = "site"
+  command = "echo 'Static site - nothing to build, publishing site/'"

@@ -1,0 +1,58 @@
+/* BlütenSturm — home opening, only under html.intro (boot.js). CSS alone ends it at 2.4 s (phones 1.8 s).
+   <b>: one wordmark copy per 1/11 (cuts fall between letters). Burst: --a angle, --s spin, --z depth. */
+:root { --k: 1; }
+@media (max-width: 760px) { :root { --k: .75; } }
+.opening { display: none; position: fixed; inset: 0; z-index: 400; overflow: hidden; animation: intro-end 1ms calc(var(--k)*2.4s) forwards;
+  --e: cubic-bezier(.16,.84,.24,1); --wm: min(64vmin, 600px); --wh: calc(var(--wm)/8.017); --x: calc(var(--wh)*.56); --ph: min(24vmin, 170px); --i: 0; }
+@media (prefers-reduced-motion: no-preference) {
+  html.intro .opening, .opening.is-out { display: block; }
+  html.intro.i18n-pending body { opacity: 1; }
+  html.intro .hero__copy > * { animation: intro-out calc(var(--k)*.55s) ease-in calc(var(--k)*1.85s) reverse backwards; }
+}
+.opening.is-out { pointer-events: none; animation: intro-out .25s forwards; }
+
+.opening__h { position: absolute; inset: 0; background: #0A0A0A; clip-path: inset(0 0 calc(50% - var(--x)) 0); --y: calc(-50% - var(--x) - 2px);
+  animation: intro-part calc(var(--k)*.5s) cubic-bezier(.76,0,.24,1) calc(var(--k)*1.9s) forwards; }
+.opening__h--low { clip-path: inset(calc(50% + var(--x) - 2px) 0 0 0); --y: calc(50% - var(--x) + 2px); }
+.opening__mark, .opening__line { position: absolute; left: calc(50% - var(--wm)/2); width: var(--wm); }
+.opening__mark { top: calc(50% - var(--wh)*.7); height: var(--wh);
+  animation: intro-focus calc(var(--k)*.6s) var(--e) calc(var(--k)*1.28s) both, intro-out calc(var(--k)*.28s) ease-in calc(var(--k)*1.98s) forwards; }
+.opening b { position: absolute; inset: 0; background: url(/assets/img/wordmark.svg) 0 0 / 100% 100%;
+  clip-path: inset(0 calc(100% - (var(--i) + 1)*100%/11) 0 calc(var(--i)*100%/11)); animation: intro-track calc(var(--k)*.7s) var(--e) calc(var(--k)*1.18s) both; }
+.opening b:nth-child(2){--i:1} .opening b:nth-child(3){--i:2} .opening b:nth-child(4){--i:3}
+.opening b:nth-child(5){--i:4} .opening b:nth-child(6){--i:5} .opening b:nth-child(7){--i:6} .opening b:nth-child(8){--i:7}
+.opening b:nth-child(9){--i:8} .opening b:nth-child(10){--i:9} .opening b:nth-child(11){--i:10}
+.opening__line { top: calc(50% + var(--x) - 1px); height: 1px; background: #F2F0EB; box-shadow: 0 0 10px #F2F0EB80; opacity: .45; transform: scaleX(0);
+  animation: intro-draw calc(var(--k)*.4s) var(--e) calc(var(--k)*1.45s) forwards, intro-cut calc(var(--k)*.5s) ease-out calc(var(--k)*1.82s) forwards; }
+
+.opening__bloom { position: absolute; left: 50%; top: 50%; perspective: 100vmin; }
+.opening__bloom::before { content: ""; position: absolute; inset: calc(var(--ph)*-1.6); opacity: 0;
+  background: radial-gradient(closest-side, #F2F0EB29, #F2F0EB0D 50%, #F2F0EB00); animation: intro-glow calc(var(--k)*1.2s) ease-out calc(var(--k)*.4s) forwards; }
+.opening i { position: absolute; left: calc(var(--ph)*-.51); top: calc(var(--ph)*-.967); width: calc(var(--ph)*.6726); height: var(--ph);
+  background: url(/assets/img/petal.svg) 0 0 / 100% 100%; transform-origin: 75.8% 96.7%; opacity: 0; }
+.opening__bloom>i { animation: intro-open calc(var(--k)*.6s) var(--e) calc(var(--k)*.46s) both, intro-burst calc(var(--k)*.75s) calc(var(--k)*1.1s) forwards; }
+i.opening__pollen { background-image: url(/assets/img/petal-pollen.svg); transform-origin: 50% 55%;
+  animation: intro-drop calc(var(--k)*.55s) cubic-bezier(.3,.45,.35,1) both, intro-fly calc(var(--k)*.5s) cubic-bezier(.5,0,.7,.4) calc(var(--k)*1.1s) forwards; }
+.opening span i { --ph: min(7vmin, 50px); animation: intro-burst calc(var(--k)*.7s) calc(var(--k)*1.12s) forwards; }
+.opening__bloom>i:nth-child(1){--a:72deg;--s:160deg;--z:1.35} .opening__bloom>i:nth-child(2){--a:-72deg;--s:130deg;--z:.55}
+.opening__bloom>i:nth-child(3){--a:144deg;--s:230deg;--z:.7} .opening__bloom>i:nth-child(4){--a:-144deg;--s:-190deg;--z:1.2}
+.opening span i:nth-child(1){--a:20deg;--s:300deg} .opening span i:nth-child(2){--a:110deg;--s:-240deg}
+.opening span i:nth-child(3){--a:200deg;--s:260deg} .opening span i:nth-child(4){--a:290deg;--s:-320deg}
+
+@keyframes intro-drop { from { opacity: 0; transform: translate(-4vmin, -50vh) rotate(-80deg) rotateX(60deg); } 30% { opacity: 1; }
+  60% { transform: translate(1.5vmin, -9vh) rotate(-16deg) rotateX(-24deg); } to { opacity: 1; transform: translate(0) rotate(0deg) rotateX(0deg); } }
+@keyframes intro-fly { 0%, 75% { opacity: 1; } to { opacity: 0; transform: translate(62vmin, -70vmin) rotate(220deg) rotateX(50deg) scale(.55); } }
+@keyframes intro-glow { from { transform: scale(.6); } 58% { opacity: 1; transform: scale(1.1); } to { opacity: 0; transform: scale(1.7); } }
+@keyframes intro-open { from { opacity: 0; transform: rotate(0deg) scale(.6); } 1% { opacity: 1; } to { opacity: 1; transform: rotate(var(--a)) scale(1); } }
+@keyframes intro-burst {
+  from { opacity: 1; transform: translate(0) rotate(var(--a)) translateY(0) rotate(0deg) rotateX(0deg) scale(1); animation-timing-function: cubic-bezier(.2,.7,.4,1); }
+  25% { transform: translate(0) rotate(var(--a)) translateY(-14vmin) rotate(calc(var(--s)/4)) rotateX(25deg) scale(1); animation-timing-function: cubic-bezier(.35,0,.75,.7); }
+  75% { opacity: 1; }
+  to { opacity: 0; filter: blur(calc(var(--ph)/20)); transform: translate(78vmin, -56vmin) rotate(var(--a)) translateY(-30vmin) rotate(var(--s)) rotateX(75deg) scale(var(--z, 1)); } }
+@keyframes intro-focus { from { opacity: 0; filter: blur(10px); } }
+@keyframes intro-track { from { transform: translateX(calc((var(--i) - 5)*var(--wm)*.055)); } }
+@keyframes intro-draw { to { transform: scaleX(1); } }
+@keyframes intro-cut { 20% { opacity: .9; transform: scaleX(10); } to { opacity: 0; transform: scaleX(10); } }
+@keyframes intro-part { to { transform: translateY(var(--y)); } }
+@keyframes intro-out { to { opacity: 0; } }
+@keyframes intro-end { to { opacity: 0; visibility: hidden; pointer-events: none; } }
